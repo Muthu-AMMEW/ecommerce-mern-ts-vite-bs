@@ -1,12 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
+import { thunk } from 'redux-thunk';
 import productsReducer from "./slices/productsSlice";
 import productReducer from './slices/productSlice';
 import authReducer from './slices/authSlice';
 import cartReducer from './slices/cartSlice';
 import orderReducer from './slices/orderSlice';
 import userReducer from './slices/userSlice'
-
 
 const reducer = combineReducers({
     productsState: productsReducer,
@@ -20,7 +19,7 @@ const reducer = combineReducers({
 
 const store = configureStore({
     reducer,
-    middleware: [thunk]
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 })
 
 export default store;
