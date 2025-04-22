@@ -9,7 +9,7 @@ import userReducer from './slices/userSlice'
 
 const reducer = combineReducers({
     productsState: productsReducer,
-    productState: productReducer ,
+    productState: productReducer,
     authState: authReducer,
     cartState: cartReducer,
     orderState: orderReducer,
