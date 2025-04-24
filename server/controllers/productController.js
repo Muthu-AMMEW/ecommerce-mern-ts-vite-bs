@@ -32,7 +32,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
 //Create Product - /api/v1/product/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
     let images = []
-    let BASE_URL = process.env.BACKEND_URL;
+    let BASE_URL = process.env.SERVER_URL;
     if (process.env.NODE_ENV === "production") {
         BASE_URL = `${req.protocol}://${req.get('host')}`
     }
@@ -79,7 +79,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     if (req.body.imagesCleared === 'false') {
         images = product.images;
     }
-    let BASE_URL = process.env.BACKEND_URL;
+    let BASE_URL = process.env.SERVER_URL;
     if (process.env.NODE_ENV === "production") {
         BASE_URL = `${req.protocol}://${req.get('host')}`
     }

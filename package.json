@@ -1,17 +1,17 @@
 {
-  "name": "ecommerce-backend",
+  "name": "ecommerce-mern-jsvite-cjs-bs",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/server.js",
-    "dev": "set NODE_ENV=development&&nodemon backend/server.js",
-    "prod": "set NODE_ENV=production&&nodemon backend/server.js",
-    "seeder": "node backend/utils/seeder.js"
+    "start": "nodemon server/server.js",
+    "dev": "set NODE_ENV=development&&nodemon server/server.js",
+    "prod": "set NODE_ENV=production&&nodemon server/server.js",
+    "seeder": "node server/utils/seeder.js"
   },
   "author": "Muthu Arivazhagan",
   "license": "ISC",
-  "description": "ecommerce-backend using MERN stack",
+  "description": "ecommerce-mern-jsvite-cjs-bs using MERN stack",
   "devDependencies": {
     "nodemon": "^3.1.9"
   },

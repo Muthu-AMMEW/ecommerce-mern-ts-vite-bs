@@ -38,7 +38,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: env.VITE_API_URL, // your backend
+        target: env.VITE_API_URL, // your server
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ''),
       },
