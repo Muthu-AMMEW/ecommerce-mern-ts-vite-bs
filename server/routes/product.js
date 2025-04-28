@@ -18,10 +18,7 @@ const upload = multer({
 
 
 router.route('/products').get(getProducts);
-router.route('/product/:id')
-    .get(getSingleProduct);
-
-
+router.route('/product/:id').get(getSingleProduct);
 router.route('/review').put(isAuthenticatedUser, createReview)
 
 

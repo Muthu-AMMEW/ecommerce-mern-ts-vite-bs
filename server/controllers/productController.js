@@ -29,7 +29,23 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     })
 })
 
-//Create Product - /api/v1/product/new
+
+
+//Get Single Product - api/v1/product/:id
+exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
+    const product = await Product.findById(req.params.id).populate('reviews.user', 'name email');
+
+    if (!product) {
+        return next(new ErrorHandler('Product not found', 400));
+    }
+
+    res.status(201).json({
+        success: true,
+        product
+    })
+})
+
+//Admin: New Product - /api/v1/admin/product/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
     let images = []
     let BASE_URL = process.env.SERVER_URL;
@@ -54,21 +70,16 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     })
 });
 
-//Get Single Product - api/v1/product/:id
-exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.params.id).populate('reviews.user', 'name email');
-
-    if (!product) {
-        return next(new ErrorHandler('Product not found', 400));
-    }
-
-    res.status(201).json({
+//Admin: Get Admin Products  - api/v1/admin/products
+exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
+    const products = await Product.find();
+    res.status(200).send({
         success: true,
-        product
+        products
     })
-})
+});
 
-//Update Product - api/v1/product/:id
+//Admin: Update Product - api/v1/admin/product/:id
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
@@ -113,7 +124,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 
 })
 
-//Delete Product - api/v1/product/:id
+//Admin: Delete Product - api/v1/admin/product/:id
 exports.deleteProduct = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
 
@@ -179,7 +190,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
 
 })
 
-//Get Reviews - api/v1/reviews?id={productId}
+//Admin: Get Reviews - api/v1/admin/reviews?id={productId}
 exports.getReviews = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.query.id).populate('reviews.user', 'name email');
 
@@ -189,7 +200,7 @@ exports.getReviews = catchAsyncError(async (req, res, next) => {
     })
 })
 
-//Delete Review - api/v1/review
+//Admin: Delete Review - api/v1/admin/review
 exports.deleteReview = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.query.productId);
 
@@ -217,13 +228,4 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
     })
 
 
-});
-
-// get admin products  - api/v1/admin/products
-exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
-    const products = await Product.find();
-    res.status(200).send({
-        success: true,
-        products
-    })
 });
