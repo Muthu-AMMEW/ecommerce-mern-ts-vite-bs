@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
         select: false
     },
     avatar: {
-        type: String
+        type: Object
     },
     role: {
         type: String,
