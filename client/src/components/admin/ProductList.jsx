@@ -5,18 +5,18 @@ import { Link } from "react-router-dom"
 import { deleteProduct, getAdminProducts } from "../../actions/productActions"
 import { clearError, clearProductDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
-import { MDBDataTable} from 'mdbreact';
-import {toast } from 'react-toastify'
+import { MDBDataTable } from 'mdbreact';
+import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
 
 export default function ProductList() {
-    const { products = [], loading = true, error }  = useSelector(state => state.productsState)
-    const { isProductDeleted, error:productError }  = useSelector(state => state.productState)
+    const { products = [], loading = true, error } = useSelector(state => state.productsState)
+    const { isProductDeleted, error: productError } = useSelector(state => state.productState)
     const dispatch = useDispatch();
 
     const setProducts = () => {
         const data = {
-            columns : [
+            columns: [
                 {
                     label: 'ID',
                     field: 'id',
@@ -43,14 +43,14 @@ export default function ProductList() {
                     sort: 'asc'
                 }
             ],
-            rows : []
+            rows: []
         }
 
-        products.forEach( product => {
+        products.forEach(product => {
             data.rows.push({
                 id: product._id,
                 name: product.name,
-                price : `$${product.price}`,
+                price: `$${product.price}`,
                 stock: product.stock,
                 actions: (
                     <>
@@ -72,16 +72,16 @@ export default function ProductList() {
     }
 
     useEffect(() => {
-        if(error || productError) {
+        if (error || productError) {
             toast(error || productError, {
                 position: toast.POSITION.BOTTOM_CENTER,
                 type: 'error',
-                onOpen: ()=> { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearError()) }
             })
             return
         }
-        if(isProductDeleted) {
-            toast('Product Deleted Succesfully!',{
+        if (isProductDeleted) {
+            toast('Product Deleted Succesfully!', {
                 type: 'success',
                 position: toast.POSITION.BOTTOM_CENTER,
                 onOpen: () => dispatch(clearProductDeleted())
@@ -90,28 +90,28 @@ export default function ProductList() {
         }
 
         dispatch(getAdminProducts)
-    },[dispatch, error, isProductDeleted])
+    }, [dispatch, error, isProductDeleted])
 
 
     return (
         <div className="row">
-        <div className="col-12 col-md-2">
-                <Sidebar/>
+            <div className="col-12 col-md-2">
+                <Sidebar />
+            </div>
+            <div className="col-12 col-md-10">
+                <h1 className="my-4">Product List</h1>
+                <>
+                    {loading ? <Loader /> :
+                        <MDBDataTable
+                            data={setProducts()}
+                            bordered
+                            striped
+                            hover
+                            className="px-3"
+                        />
+                    }
+                </>
+            </div>
         </div>
-        <div className="col-12 col-md-10">
-            <h1 className="my-4">Product List</h1>
-            <>
-                {loading ? <Loader/> : 
-                    <MDBDataTable
-                        data={setProducts()}
-                        bordered
-                        striped
-                        hover
-                        className="px-3"
-                    />
-                }
-            </>
-        </div>
-    </div>
     )
 }

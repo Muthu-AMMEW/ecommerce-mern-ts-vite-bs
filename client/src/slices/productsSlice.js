@@ -7,46 +7,46 @@ const productsSlice = createSlice({
         loading: false
     },
     reducers: {
-        productsRequest(state, action){
+        productsRequest(state, action) {
             return {
                 loading: true
             }
         },
-        productsSuccess(state, action){
+        productsSuccess(state, action) {
             return {
                 loading: false,
                 products: action.payload.products,
                 productsCount: action.payload.count,
-                resPerPage : action.payload.resPerPage
+                resPerPage: action.payload.resPerPage
             }
         },
-        productsFail(state, action){
+        productsFail(state, action) {
             return {
                 loading: false,
-                error:  action.payload
+                error: action.payload
             }
         },
-        adminProductsRequest(state, action){
+        adminProductsRequest(state, action) {
             return {
                 loading: true
             }
         },
-        adminProductsSuccess(state, action){
+        adminProductsSuccess(state, action) {
             return {
                 loading: false,
                 products: action.payload.products,
             }
         },
-        adminProductsFail(state, action){
+        adminProductsFail(state, action) {
             return {
                 loading: false,
-                error:  action.payload
+                error: action.payload
             }
         },
-        clearError(state, action){
+        clearError(state, action) {
             return {
                 ...state,
-                error:  null
+                error: null
             }
         }
     }
@@ -54,9 +54,9 @@ const productsSlice = createSlice({
 
 const { actions, reducer } = productsSlice;
 
-export const { 
-    productsRequest, 
-    productsSuccess, 
+export const {
+    productsRequest,
+    productsSuccess,
     productsFail,
     adminProductsFail,
     adminProductsRequest,
