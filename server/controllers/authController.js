@@ -2,6 +2,7 @@ const catchAsyncError = require('../middlewares/catchAsyncError');
 const User = require('../models/userModel');
 const sendEmail = require('../utils/email');
 const ErrorHandler = require('../utils/errorHandler');
+const { fileDeleter } = require('../utils/gridfs/fileDeleter');
 const sendToken = require('../utils/jwt');
 const crypto = require('crypto');
 
@@ -176,13 +177,16 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
         email: req.body.email
     }
 
-    let avatar= {};
+    let avatar = {};
     // let BASE_URL = process.env.SERVER_URL;
     // if (process.env.NODE_ENV === "production") {
     //     BASE_URL = `${req.protocol}://${req.get('host')}`
     // }
 
     if (req.file) {
+        if (req.user.avatar) {
+            fileDeleter(req.user.avatar.id, 'userImages')
+        }
         avatar = req.file;
         avatar.image = `/image/user/${req.file.id}`;
         newUserData = { ...newUserData, avatar };
