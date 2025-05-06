@@ -176,15 +176,16 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
         email: req.body.email
     }
 
-    let avatar;
-    let BASE_URL = process.env.SERVER_URL;
-    if (process.env.NODE_ENV === "production") {
-        BASE_URL = `${req.protocol}://${req.get('host')}`
-    }
+    let avatar= {};
+    // let BASE_URL = process.env.SERVER_URL;
+    // if (process.env.NODE_ENV === "production") {
+    //     BASE_URL = `${req.protocol}://${req.get('host')}`
+    // }
 
     if (req.file) {
-        avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
-        newUserData = { ...newUserData, avatar }
+        avatar = req.file;
+        avatar.image = `/image/user/${req.file.id}`;
+        newUserData = { ...newUserData, avatar };
     }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
