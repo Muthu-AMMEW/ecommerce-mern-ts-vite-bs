@@ -5,9 +5,9 @@ const storage = new GridFsStorage({
     file: (req, file) => {
         return {
             filename: file.originalname,
-            bucketName: 'userUploads', // collection name
+            bucketName: 'productImages', // collection name
         };
     },
 });
 
-exports.userUpload = multer({ storage });
+exports.productUpload = multer({ storage });

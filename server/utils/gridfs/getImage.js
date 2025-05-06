@@ -7,10 +7,10 @@ let gfs, gridfsBucket;
 
 conn.once('open', () => {
     gridfsBucket = new GridFSBucket(conn.db, {
-        bucketName: 'uploads' // Collection name for files
+        bucketName: 'images' // Collection name for files
     });
     gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    gfs.collection('images');
 });
 
 module.exports = {
