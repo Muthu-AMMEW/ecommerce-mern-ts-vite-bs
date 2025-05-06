@@ -11,5 +11,6 @@ exports.fileDeleter = catchAsyncError(async (fileId, collectionName) => {
     const bucket = new GridFSBucket(conn.db, { bucketName: collectionName });
 
     await bucket.delete(new ObjectId(fileId));
+    console.log(`File with ID ${fileId} deleted from ${collectionName} collection.`);
     await conn.close(); // cleanup the connection
 });
