@@ -8,6 +8,6 @@ const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/authenti
 
 router.route('/image/:id').get(getImages);
 router.route('/image/user/:id').get(getUserImages);
-router.route('/image').post(isAuthenticatedUser, authorizeRoles('admin'),upload.single('file'), postImages);
+router.route('/image').post(isAuthenticatedUser, authorizeRoles('admin'), upload.single('file'), postImages);
 router.route('/image/:id').delete(deleteFile);
 module.exports = router;

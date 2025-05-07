@@ -76,6 +76,6 @@ exports.deleteFile = catchAsyncError(async (req, res, next) => {
 
 
 //Post Images - /image/:id
-exports.postImages = catchAsyncError(async(req, res, next) => {
+exports.postImages = catchAsyncError(async (req, res, next) => {
     res.send(req.file);
 })

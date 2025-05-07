@@ -44,8 +44,7 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
     //finding the user database
     const user = await User.findOne({ email }).select('+password');
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;;
-
+    
     if (!user) {
         return next(new ErrorHandler('Invalid email or password', 401))
     }
@@ -53,7 +52,7 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     if (!await user.isValidPassword(password)) {
         return next(new ErrorHandler('Invalid email or password', 401))
     }
-
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
     sendToken(user, 201, res)
 
 })
@@ -218,10 +217,10 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
 //Admin: Get Specific User - api/v1/admin/user/:id
 exports.getUser = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.params.id);
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
     if (!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
     res.status(200).json({
         success: true,
         user

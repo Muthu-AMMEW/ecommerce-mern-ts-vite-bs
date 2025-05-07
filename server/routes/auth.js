@@ -15,7 +15,7 @@ const {
     deleteUser
 } = require('../controllers/authController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/authenticate');
-const {userUpload} = require('../utils/gridfs/storeUserImage');
+const { userUpload } = require('../utils/gridfs/storeUserImage');
 
 router.route('/register').post(userUpload.single('avatar'), registerUser);
 router.route('/login').post(loginUser);
