@@ -60,7 +60,7 @@ export default function Dashboard() {
                             <div className="card-body">
                                 <div className="text-center card-font-size">Products<br /> <b>{products.length}</b></div>
                             </div>
-                            <Link className="card-footer text-white clearfix small z-1" to="/admin/products">
+                            <Link className="card-foot text-white clearfix small z-1" to="/admin/products">
                                 <span className="float-left">View Details</span>
                                 <span className="float-right">
                                     <i className="fa fa-angle-right"></i>
@@ -75,7 +75,7 @@ export default function Dashboard() {
                             <div className="card-body">
                                 <div className="text-center card-font-size">Orders<br /> <b>{adminOrders.length}</b></div>
                             </div>
-                            <Link className="card-footer text-white clearfix small z-1" to="/admin/orders">
+                            <Link className="card-foot text-white clearfix small z-1" to="/admin/orders">
                                 <span className="float-left">View Details</span>
                                 <span className="float-right">
                                     <i className="fa fa-angle-right"></i>
@@ -90,7 +90,7 @@ export default function Dashboard() {
                             <div className="card-body">
                                 <div className="text-center card-font-size">Users<br /> <b>{users.length}</b></div>
                             </div>
-                            <Link className="card-footer text-white clearfix small z-1" to="/admin/users">
+                            <Link className="card-foot text-white clearfix small z-1" to="/admin/users">
                                 <span className="float-left">View Details</span>
                                 <span className="float-right">
                                     <i className="fa fa-angle-right"></i>

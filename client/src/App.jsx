@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './components/Home';
-import Footer from './components/layouts/Footer';
-import Header from './components/layouts/Header';
+import Foot from './components/layouts/Foot';
+import Head from './components/layouts/Head';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { ToastContainer } from 'react-toastify';
@@ -54,7 +54,7 @@ function App() {
     <Router>
       <div className="App">
         <HelmetProvider>
-          <Header />
+          <Head />
           <div className='container container-fluid'>
             <ToastContainer theme='dark' />
             <Routes>
@@ -91,7 +91,7 @@ function App() {
               <Route path='/admin/reviews' element={<ProtectedRoute isAdmin={true}><ReviewList /></ProtectedRoute>} />
             </Routes>
           </div>
-          <Footer />
+          <Foot />
         </HelmetProvider>
       </div>
     </Router>

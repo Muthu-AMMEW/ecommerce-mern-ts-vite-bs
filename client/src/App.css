@@ -113,8 +113,8 @@ nav {
   margin-left: 0.5rem;
 }
 
-/* Footer */
-footer {
+/* Foot */
+foot {
   margin-top: 8rem;
   color: grey;
   bottom: 0;
@@ -348,7 +348,7 @@ footer {
   box-shadow: none;
 }
 
-/* Header User Profile */
+/* Head User Profile */
 
 .avatar-nav {
   margin-right: 0.6rem;
@@ -511,7 +511,7 @@ footer {
   margin-left: -250px;
 }
 
-#sidebar .sidebar-header {
+#sidebar .sidebar-head {
   padding: 20px;
   background: #232f3e;
 }

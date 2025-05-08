@@ -6,7 +6,7 @@ import { DropdownButton, Dropdown, Image } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
 
 
-export default function Header() {
+export default function Head() {
   const { isAuthenticated, user } = useSelector(state => state.authState);
   const { items: cartItems } = useSelector(state => state.cartState)
   const dispatch = useDispatch();
