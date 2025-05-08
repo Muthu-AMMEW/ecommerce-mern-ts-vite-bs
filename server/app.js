@@ -11,10 +11,10 @@ app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 const imageRoutes = require('./routes/imageRoutes')
-const products = require('./routes/product')
-const auth = require('./routes/auth')
-const order = require('./routes/order')
-const payment = require('./routes/payment')
+const products = require('./routes/productRoutes')
+const auth = require('./routes/authRoutes')
+const order = require('./routes/orderRoutes')
+const payment = require('./routes/paymentRoutes')
 
 app.use(imageRoutes);
 app.use('/api/v1/', products);
