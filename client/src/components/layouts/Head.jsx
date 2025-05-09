@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { DropdownButton, Dropdown, Image } from 'react-bootstrap';
 import { logout } from '../../actions/userActions';
 import UserDropDown from './UserDropDown';
 import { useEffect } from "react";
@@ -25,16 +24,16 @@ export default function Head() {
     QuickStartApi();   //only for server delay start
 
     return (
-        <nav className="navbar navbar-expand-lg">
+        <nav className="navbar navbar-expand-lg mm-navbg">
             <div className="container-fluid d-flex">
                 <div className="d-flex">
                     <Link className="navbar-brand d-flex" to={"/"}>
-                        <img src="./images/logo.png" alt="logo" width="60" height="60" />
-                        <h5 className="mt-3">APL Foods</h5>
+                        <img className="rounded-5" src="./images/logo.png" alt="logo" width="60" height="60" />
+                        <h5 className="mt-3 ms-2 text-white">Ecommerce</h5>
                     </Link>
                     <div className="m-2 d-md-none"></div>
-                    <Link to={"/home"} className="btn btn-outline-danger d-none d-sm-block my-3 mx-1">Home</Link>
-                    {!isAuthenticated && <Link to={"/login"} className="btn btn-outline-success d-lg-none my-3 mx-1">Login</Link>}
+                    <Link to={"/home"} className="btn btn-danger d-none d-sm-block my-3 mx-1">Home</Link>
+                    {!isAuthenticated && <Link to={"/login"} className="btn btn-success d-lg-none my-3 mx-1">Login</Link>}
 
                 </div>
 
@@ -46,7 +45,7 @@ export default function Head() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle ms-lg-2 me-2" href="www.google.com" role="button"
+                            <a className="nav-link dropdown-toggle ms-lg-2 me-2 fw-bold" href="www.google.com" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false"><i
                                     className="fa-brands fa-slack fa-spin fa-lg me-2"></i>
                                 Social Networks
@@ -65,7 +64,6 @@ export default function Head() {
                                 <li>
                                     <hr className="dropdown-divider" />
                                 </li>
-
                                 <li><a className="dropdown-item me-2" href="https://m.me/Muthu.AMMEW"><i
                                     className="fa-brands fa-facebook-messenger fa-shake fa-lg me-2" style={{ color: "#0080f7" }}></i>Chat(Via FB)</a></li>
                             </ul>
@@ -73,9 +71,9 @@ export default function Head() {
                     </ul>
                     <Search />
 
-                    {!isAuthenticated && <Link to={"/login"} className="btn btn-outline-success my-3 mx-1 d-none d-lg-block">Login</Link>}
+                    {!isAuthenticated && <Link to={"/login"} className="btn btn-success my-3 mx-1">Login</Link>}
 
-                    {!isAuthenticated && <Link to={"/signup"} className="btn btn-outline-warning my-3 mx-1">Sign Up</Link>}
+                    {!isAuthenticated && <Link to={"/signup"} className="btn btn-warning my-3 mx-1">Sign Up</Link>}
                     {isAuthenticated && <UserDropDown />}
                     {/*eslint-disable-next-line*/}
                     {isAuthenticated && <Link to={"/login"} className="nav-link d-flex flex-column m-3 align-items-start" onClick={logoutHandler}>
@@ -88,7 +86,7 @@ export default function Head() {
                     </Link>}
                     {/* <Link to="/cart"><span id="cart" className="ml-3">Cart</span></Link>
                     <span className="ml-1" id="cart_count">{cartItems.length}</span> */}
-                    <Link to={"/home"} className="btn btn-outline-danger d-block d-sm-none my-3 mx-1">Home</Link>
+                    <Link to={"/home"} className="btn btn-danger d-block d-sm-none my-3 mx-1">Home</Link>
                 </div>
             </div >
         </nav >

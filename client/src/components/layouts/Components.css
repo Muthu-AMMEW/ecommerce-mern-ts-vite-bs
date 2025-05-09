@@ -3,6 +3,12 @@ footer a {
     color: rgba(5, 5, 5, 0.678);
 }
 
+.mm-navbg {
+    background-image: url("/public/images/bg-pic-02.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /* Loader */
 .loader {
     display: block;

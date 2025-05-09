@@ -2,16 +2,16 @@ import './Components.css';
 export default function Foot() {
     return (
         <>
-            <footer className="container-fluid bg-body-tertiary p-2 p-sm-5 pb-1">
+            <footer className="container-fluid bg-body-tertiary p-2 p-sm-5 pb-1 mm-navbg">
                 <div className="row">
 
                     <div className="col-6 col-md d-flex flex-column mb-2 justify-content-around">
                         <h5>Social Networks</h5>
                         <div>
-                            <i className="fa-brands fa-facebook fa-beat fa-2xl me-2" style={{ color: "#2568ef" }}></i>
-                            <i className="fa-brands fa-twitter fa-shake fa-2xl me-2" style={{ color: "#1da1f2" }}></i>
-                            <i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl me-2" style={{ color: "#ff7b00" }}></i>
-                            <i className="fa-brands fa-linkedin fa-bounce fa-2xl me-2" style={{ color: "#0075d5" }}></i>
+                            <i className="fa-brands fa-facebook fa-beat fa-2xl me-2 bg-white rounded-5" style={{color: "#2568ef"}}></i>
+                            <i className="fa-brands fa-twitter fa-shake fa-2xl me-2 bg-white rounded-5" style={{color: "#1da1f2"}}></i>
+                            <i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl me-2 bg-white rounded-5" style={{color: "#ff7b00"}}></i>
+                            <i className="fa-brands fa-linkedin fa-bounce fa-2xl me-2 bg-white rounded-5" style={{color: "#0075d5"}}></i>
                         </div>
                         <img src="./images/play-store.webp" alt="" width="160" height="50" />
                         <img src="./images/app-store.webp" alt="" width="160" height="50" />
@@ -19,28 +19,28 @@ export default function Foot() {
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>About Ecommerce</h5>
                         <div>
-                            <a href="www.#.com">Who We Are</a><br />
-                            <a href="www.#.com">Blog</a><br />
-                            <a href="www.#.com">Work With Us</a><br />
-                            <a href="www.#.com">Investor Relations</a><br />
-                            <a href="www.#.com">Report Fraud</a><br />
-                            <a href="www.#.com">Press Kit</a><br />
-                            <a href="www.#.com">Contact Us</a><br />
+                            <a href="javascript;">Who We Are</a><br />
+                            <a href="javascript;">Blog</a><br />
+                            <a href="javascript;">Work With Us</a><br />
+                            <a href="javascript;">Investor Relations</a><br />
+                            <a href="javascript;">Report Fraud</a><br />
+                            <a href="javascript;">Press Kit</a><br />
+                            <a href="https://wa.me/919022690226?text=Hi" target="_blank" rel="noreferrer">Contact Us</a><br />
                         </div>
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>For Ecommerce</h5>
                         <div>
-                            <a href="www.#.com">Partner With Us</a><br />
-                            <a href="www.#.com">Apps For You</a><br />
+                            <a href="javascript;">Partner With Us</a><br />
+                            <a href="javascript;">Apps For You</a><br />
                         </div>
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>Learn More</h5>
                         <div>
-                            <a href="www.#.com">Privacy</a><br />
-                            <a href="www.#.com">Security</a><br />
-                            <a href="www.#.com">Terms</a><br />
+                            <a href="javascript;">Privacy</a><br />
+                            <a href="javascript;">Security</a><br />
+                            <a href="javascript;">Terms</a><br />
                         </div>
                     </div>
 
