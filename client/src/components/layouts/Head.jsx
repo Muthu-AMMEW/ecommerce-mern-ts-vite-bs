@@ -83,8 +83,8 @@ export default function Head() {
                     {isAuthenticated && <Link className="d-flex flex-column mx-3 mt-0 align-items-start" to={"/cart"}>
 
                         <div className=" d-flex flex-column align-items-center">
-                            <h5 className="badge text-black mx-2 mb-2">{cartItems.length}</h5>
-                            <i className="fa-solid fa-cart-shopping fa-beat fa-xl" style={{ color: "#FFD43B" }}></i></div>
+                            <h5 className="badge text-black mx-2 p-0">{cartItems.length}</h5>
+                            <i className="fa-solid fa-cart-shopping fa-beat fa-xl mt-1" style={{ color: "#FFD43B" }}></i></div>
                     </Link>}
                     {/* <Link to="/cart"><span id="cart" className="ml-3">Cart</span></Link>
                     <span className="ml-1" id="cart_count">{cartItems.length}</span> */}
