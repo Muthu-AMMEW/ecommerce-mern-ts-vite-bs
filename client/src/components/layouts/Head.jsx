@@ -24,8 +24,8 @@ export default function Head() {
     QuickStartApi();   //only for server delay start
 
     return (
-        <nav className="navbar navbar-expand-lg mm-navbg">
-            <div className="container-fluid d-flex">
+        <nav className="navbar navbar-expand-lg mm-navbg p-0">
+            <div className="container-fluid d-flex p-1">
                 <div className="d-flex">
                     <Link className="navbar-brand d-flex" to={"/"}>
                         <img className="rounded-5" src="./images/logo.png" alt="logo" width="60" height="60" />
@@ -45,7 +45,7 @@ export default function Head() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle ms-lg-2 me-2 fw-bold" href="www.google.com" role="button"
+                            <a className="nav-link dropdown-toggle ms-lg-2 me-4 fw-bold" href="www.google.com" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false"><i
                                     className="fa-brands fa-slack fa-spin fa-lg me-2"></i>
                                 Social Networks
@@ -76,13 +76,15 @@ export default function Head() {
                     {!isAuthenticated && <Link to={"/signup"} className="btn btn-warning my-3 mx-1">Sign Up</Link>}
                     {isAuthenticated && <UserDropDown />}
                     {/*eslint-disable-next-line*/}
-                    {isAuthenticated && <Link to={"/login"} className="nav-link d-flex flex-column m-3 align-items-start" onClick={logoutHandler}>
-                        <div className=" d-flex flex-column justify-content-center"><i className="fa-solid fa-arrow-right-from-bracket fa-xl" style={{ color: "#63E6BE" }}>
-                        </i><h6>Logout</h6></div></Link>}
+                    {isAuthenticated && <Link to={"/login"} className="nav-link d-flex flex-column mt-3 mx-3 align-items-start" onClick={logoutHandler}>
+                        <div className=" d-flex flex-column align-items-center"><i className="fa-solid fa-arrow-right-from-bracket fa-xl mb-3" style={{ color: "#63E6BE" }}></i>
+                            <h6>Logout</h6></div></Link>}
 
-                    {isAuthenticated && <Link className="d-flex flex-column justify-content-center mx-3 align-items-start" to={"/cart"}>
-                        <h5 className="badge text-black m-1 mt-0">{cartItems.length}</h5>
-                        <i className="fa-solid fa-cart-shopping fa-beat fa-xl mt-0 pt-0" style={{ color: "#FFD43B" }}></i>
+                    {isAuthenticated && <Link className="d-flex flex-column mx-3 mt-0 align-items-start" to={"/cart"}>
+
+                        <div className=" d-flex flex-column align-items-center">
+                            <h5 className="badge text-black mx-2 mb-2">{cartItems.length}</h5>
+                            <i className="fa-solid fa-cart-shopping fa-beat fa-xl" style={{ color: "#FFD43B" }}></i></div>
                     </Link>}
                     {/* <Link to="/cart"><span id="cart" className="ml-3">Cart</span></Link>
                     <span className="ml-1" id="cart_count">{cartItems.length}</span> */}

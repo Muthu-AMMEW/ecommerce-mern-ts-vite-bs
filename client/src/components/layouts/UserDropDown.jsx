@@ -19,12 +19,12 @@ export default function UserDropDown() {
         <>
             <div className="dropdown m-3">
 
-                <a className="nav-link dropdown-toggle" href="javascript;" role="button"
+                <a className="nav-link dropdown-toggle me-4" href="javascript;" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <figure className='avatar avatar-nav'>
-                        <img width="50px" src={user.avatar.image ?? './images/default_avatar.png'} />
+                        <img width="50px" src={user.avatar?.image ?? './images/default_avatar.png'} />
                     </figure>
-                    <i className="fa-solid fa-user fa-lg"></i><span className="h6 m-1">{user.name}</span>
+                    {/* <span className="h6 m-1">{user.fullName}</span> */}
 
                 </a>
                 <ul className="dropdown-menu">

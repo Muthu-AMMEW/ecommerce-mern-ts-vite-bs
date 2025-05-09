@@ -3,6 +3,14 @@ const ErrorHandler = require('../utils/errorHandler')
 const catchAsyncError = require('../middlewares/catchAsyncError')
 const APIFeatures = require('../utils/apiFeatures');
 
+//Server quick Start -/api/v1/quickstart
+exports.quickStart = catchAsyncError(async (req, res, next) => {
+    res.status(200).json({
+        success: true,
+        message: "Server is up and running!"
+    })
+})
+
 //Get Products - /api/v1/products
 exports.getProducts = catchAsyncError(async (req, res, next) => {
     const resPerPage = 3;
