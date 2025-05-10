@@ -73,7 +73,7 @@ export default function Head() {
 
                     {!isAuthenticated && <Link to={"/login"} className="btn btn-success my-3 mx-1">Login</Link>}
 
-                    {!isAuthenticated && <Link to={"/signup"} className="btn btn-warning my-3 mx-1">Sign Up</Link>}
+                    {!isAuthenticated && <Link to={"/register"} className="btn btn-warning my-3 mx-1">Sign Up</Link>}
                     {isAuthenticated && <UserDropDown />}
                     {/*eslint-disable-next-line*/}
                     {isAuthenticated && <Link to={"/login"} className="nav-link d-flex flex-column mt-3 mx-3 align-items-start" onClick={logoutHandler}>

@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 //Register User - /api/v1/register
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-    const { fullName, email, password, pno, address } = req.body
+    const { fullName, email, password, pno } = req.body
 
     let avatar = {};
 
@@ -27,7 +27,6 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
         email,
         password,
         pno,
-        address,
         avatar
     });
 
