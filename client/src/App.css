@@ -8,6 +8,11 @@ body {
   overflow-x: hidden;
 }
 
+
+.mm-bgpic {
+  background-image: url(/public/images/slide-01.jpg);
+}
+
 /* Scroll Bar */
 
 ::-webkit-scrollbar-track {

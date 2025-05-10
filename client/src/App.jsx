@@ -55,7 +55,7 @@ function App() {
       <div className="App">
         <HelmetProvider>
           <Head />
-          <div className='container container-fluid'>
+          <div className='container container-fluid m-0'>
             <ToastContainer theme='dark' />
             <Routes>
               <Route path='/' element={<Home />} />
