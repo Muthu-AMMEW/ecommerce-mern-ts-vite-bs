@@ -4,35 +4,41 @@ import { Link } from 'react-router-dom';
 export default function Profile() {
     const { user } = useSelector(state => state.authState);
 
-    return (
-        <div className="row justify-content-around mt-5 user-info">
-            <div className="col-12 col-md-3">
-                <figure className='avatar avatar-profile'>
-                    <img className="rounded-circle img-fluid" src={user.avatar ?? './images/default_avatar.png'} alt='' />
-                </figure>
-                <Link to="/myprofile/update" id="edit_profile" className="btn btn-primary btn-block my-5">
-                    Edit Profile
-                </Link>
-            </div>
+    return ( 
+        <div className='row p-5 bg-body-secondary'>
+            <div className=' col-12 col-md-6'>
+                <div className='row'>
+                    <div className='col-12 text-center mt-1 mb-4 mt-md-5'>
 
-            <div className="col-12 col-md-5">
+                        <img className="rounded-circle"  src={user.avatar.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
+
+                    </div>
+                    <div className='col-12 text-center'>
+                        <Link to={"/myprofile/update"} className='btn btn-success me-3'>Update Profile</Link>
+                        <Link to={"/myprofile/update/password"} className='btn btn-danger mt-1 mt-sm-0'>Change Password</Link>
+                    </div>
+
+                </div>
+            </div>
+            <div className='col-12 col-md-6 ps-5 pt-5'>
                 <h4>Full Name</h4>
-                <p>{user.name}</p>
+                <p>{user.fullName}</p>
 
                 <h4>Email Address</h4>
                 <p>{user.email}</p>
 
                 <h4>Joined</h4>
-                <p>{String(user.createdAt).substring(0, 10)}</p>
+                <p className='pb-3'>{String(user.createdAt).substring(0, 10)}</p>
 
-                <Link to="/orders" className="btn btn-danger btn-block mt-5">
-                    My Orders
-                </Link>
+                <h4>Address</h4>
+                <p className='w-50'>{user.address}</p>
 
-                <Link to="/myprofile/update/password" className="btn btn-primary btn-block mt-3">
-                    Change Password
-                </Link>
+                <h4>Phone Number</h4>
+                <p>{user.pno}</p>
+
+
             </div>
+
         </div>
     )
 }
