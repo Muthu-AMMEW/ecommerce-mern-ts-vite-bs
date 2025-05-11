@@ -18,11 +18,6 @@ export default function Head() {
         dispatch(logout);
     }
 
-    const QuickStartApi = () => {
-        return axios.get('/api/v1/quickstart');
-    }
-    QuickStartApi();   //only for server delay start
-
     return (
         <nav className="navbar navbar-expand-lg mm-navbg p-0">
             <div className="container-fluid d-flex p-1">

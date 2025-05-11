@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts } = require('../controllers/productController');
+const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts, quickStart } = require('../controllers/productController');
 const router = express.Router();
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/authenticate');
 const multer = require('multer');
@@ -16,10 +16,11 @@ const upload = multer({
     })
 })
 
-
+router.route('/quickstart').get(quickStart);
 router.route('/products').get(getProducts);
 router.route('/product/:id').get(getSingleProduct);
-router.route('/review').put(isAuthenticatedUser, createReview)
+router.route('/review').put(isAuthenticatedUser, createReview);
+
 
 
 

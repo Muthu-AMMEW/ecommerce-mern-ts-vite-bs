@@ -41,6 +41,12 @@ import ReviewList from './components/admin/ReviewList';
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
+  
+  const QuickStartApi = () => {
+    return axios.get('/api/v1/quickstart');
+  }
+  QuickStartApi();   //only for server delay start
+
   useEffect(() => {
     store.dispatch(loadUser)
     async function getStripeApiKey() {
