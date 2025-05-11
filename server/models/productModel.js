@@ -20,14 +20,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         default: 0
     },
-    images: [
-        {
-            image: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+    images: {
+        type: Array,
+        required: [true, "Please upload product images"]
+    },
     category: {
         type: String,
         required: [true, "Please enter product category"],

@@ -55,22 +55,28 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
 
 //Admin: New Product - /api/v1/admin/product/new
 exports.newProduct = catchAsyncError(async (req, res, next) => {
-    let images = []
-    let BASE_URL = process.env.SERVER_URL;
-    if (process.env.NODE_ENV === "production") {
-        BASE_URL = `${req.protocol}://${req.get('host')}`
-    }
+    let images = [];
+    // let BASE_URL = process.env.SERVER_URL;
+    // if (process.env.NODE_ENV === "production") {
+    //     BASE_URL = `${req.protocol}://${req.get('host')}`
+    // }
 
+    // if (req.files.length > 0) {
+    //     req.files.forEach(file => {
+    //         let url = `${BASE_URL}/uploads/product/${file.originalname}`;
+    //         images.push({ image: url })
+    //     })
+    // }
     if (req.files.length > 0) {
         req.files.forEach(file => {
-            let url = `${BASE_URL}/uploads/product/${file.originalname}`;
-            images.push({ image: url })
+            file.image= `/image/product/${file.id}`
+            images.push(file)
         })
     }
 
     req.body.images = images;
-
     req.body.user = req.user.id;
+
     const product = await Product.create(req.body);
     res.status(201).json({
         success: true,

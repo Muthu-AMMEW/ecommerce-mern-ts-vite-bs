@@ -13,9 +13,7 @@ export default function Home() {
     const [currentPage, setCurrentPage] = useState(1);
 
     const setCurrentPageNo = (pageNo) => {
-
         setCurrentPage(pageNo)
-
     }
 
     useEffect(() => {
