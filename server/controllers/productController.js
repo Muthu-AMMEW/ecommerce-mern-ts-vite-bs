@@ -2,6 +2,7 @@ const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorHandler')
 const catchAsyncError = require('../middlewares/catchAsyncError')
 const APIFeatures = require('../utils/apiFeatures');
+const { fileDeleter } = require('../utils/gridfs/fileDeleter');
 
 //Server quick Start -/api/v1/quickstart
 exports.quickStart = catchAsyncError(async (req, res, next) => {
@@ -97,28 +98,6 @@ exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
 exports.updateProduct = catchAsyncError(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
-    //uploading images
-    let images = []
-
-    //if images not cleared we keep existing images
-    if (req.body.imagesCleared === 'false') {
-        images = product.images;
-    }
-    let BASE_URL = process.env.SERVER_URL;
-    if (process.env.NODE_ENV === "production") {
-        BASE_URL = `${req.protocol}://${req.get('host')}`
-    }
-
-    if (req.files.length > 0) {
-        req.files.forEach(file => {
-            let url = `${BASE_URL}/uploads/product/${file.originalname}`;
-            images.push({ image: url })
-        })
-    }
-
-
-    req.body.images = images;
-
     if (!product) {
         return res.status(404).json({
             success: false,
@@ -126,6 +105,43 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
         });
     }
 
+
+    //uploading images
+    let images = []
+
+    //if images not cleared we keep existing images
+    if (req.body.imagesCleared === 'false') {
+        images = product.images;
+    }
+
+    if (req.body.imagesCleared === 'true') {
+        product.images.forEach(image => {
+            fileDeleter(image.id, 'productImages')
+        })
+        images = [];    
+    }
+
+    // let BASE_URL = process.env.SERVER_URL;
+    // if (process.env.NODE_ENV === "production") {
+    //     BASE_URL = `${req.protocol}://${req.get('host')}`
+    // }
+
+    // if (req.files.length > 0) {
+    //     req.files.forEach(file => {
+    //         let url = `${BASE_URL}/uploads/product/${file.originalname}`;
+    //         images.push({ image: url })
+    //     })
+    // }
+    if (req.files.length > 0) {
+        req.files.forEach(file => {
+            file.image= `/image/product/${file.id}`
+            images.push(file)
+        })
+    }
+
+    req.body.images = images;
+    req.body.user = req.user.id;
+    
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
