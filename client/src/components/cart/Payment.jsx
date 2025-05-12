@@ -23,7 +23,7 @@ export default function Payment() {
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100),
         shipping: {
-            name: user.name,
+            name: user.fullName,
             address: {
                 city: shippingInfo.city,
                 postal_code: shippingInfo.postalCode,
