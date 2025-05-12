@@ -29,6 +29,8 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     }
 
     const products = await buildQuery().paginate(resPerPage).query;
+    
+    products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined);
 
     res.status(200).json({
         success: true,
@@ -47,7 +49,8 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('Product not found', 400));
     }
-
+    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    
     res.status(201).json({
         success: true,
         product
@@ -70,7 +73,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     // }
     if (req.files.length > 0) {
         req.files.forEach(file => {
-            file.image= `/image/product/${file.id}`
+            file.image = `/image/product/${file.id}`
             images.push(file)
         })
     }
@@ -79,6 +82,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
+    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
     res.status(201).json({
         success: true,
         product
@@ -88,6 +92,8 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 //Admin: Get Admin Products  - api/v1/admin/products
 exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
     const products = await Product.find();
+
+    products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined);
     res.status(200).send({
         success: true,
         products
@@ -118,7 +124,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
         product.images.forEach(image => {
             fileDeleter(image.id, 'productImages')
         })
-        images = [];    
+        images = [];
     }
 
     // let BASE_URL = process.env.SERVER_URL;
@@ -134,18 +140,20 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     // }
     if (req.files.length > 0) {
         req.files.forEach(file => {
-            file.image= `/image/product/${file.id}`
+            file.image = `/image/product/${file.id}`
             images.push(file)
         })
     }
 
     req.body.images = images;
     req.body.user = req.user.id;
-    
+
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     })
+
+    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
 
     res.status(200).json({
         success: true,
@@ -163,6 +171,12 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
             success: false,
             message: "Product not found"
         });
+    }
+
+    if (product.images.length > 0) {
+        product.images.forEach(image => {
+            fileDeleter(image.id, 'productImages')
+        })
     }
 
     await product.remove();
