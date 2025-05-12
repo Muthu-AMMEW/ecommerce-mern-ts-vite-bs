@@ -15,21 +15,30 @@ import ProductReview from "./ProductReview";
 export default function ProductDetail() {
     const { loading, product = {}, isReviewSubmitted, error } = useSelector((state) => state.productState);
     const { user } = useSelector(state => state.authState);
+    const { cartItems } = useSelector(state => state.cartState);
     const dispatch = useDispatch();
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
 
-    const increaseQty = () => {
-        const count = document.querySelector('.count')
-        if (product.stock == 0 || count.valueAsNumber >= product.stock) return;
-        const qty = count.valueAsNumber + 1;
-        setQuantity(qty);
+    function increaseQty() {
+        if (product.stock <= quantity) {
+            return;
+        }
+        setQuantity((state) => state + 1);
     }
-    const decreaseQty = () => {
-        const count = document.querySelector('.count')
-        if (count.valueAsNumber == 1) return;
-        const qty = count.valueAsNumber - 1;
-        setQuantity(qty);
+
+    function decreaseQty() {
+        if (quantity > 1) {
+            setQuantity((state) => state - 1);
+        }
+    }
+
+    function addToCart() {
+        dispatch(addCartItem(product._id, quantity))
+        toast('Cart Item Added!', {
+            type: 'success',
+            position: toast.POSITION.BOTTOM_CENTER
+        })
     }
 
     const [show, setShow] = useState(false);
@@ -108,26 +117,15 @@ export default function ProductDetail() {
 
                             <hr />
 
-                            <p id="product_price">${product.price}</p>
+                            <p id="product_price">Rs. {product.price}</p>
                             <div className="stockCounter d-inline">
                                 <span className="btn btn-danger minus" onClick={decreaseQty} >-</span>
 
-                                <input type="number" className="form-control count d-inline" value={quantity} readOnly />
+                                <input type="number" className="form-control d-inline" value={quantity} min={1} max={product.stock} />
 
                                 <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                             </div>
-                            <button type="button" id="cart_btn"
-                                disabled={product.stock == 0 ? true : false}
-                                onClick={() => {
-                                    dispatch(addCartItem(product._id, quantity))
-                                    toast('Cart Item Added!', {
-                                        type: 'success',
-                                        position: toast.POSITION.BOTTOM_CENTER
-                                    })
-                                }}
-                                className="btn btn-primary d-inline ml-4"
-                            >Add to Cart</button>
-
+                            <button type="button" className="btn btn-primary d-inline ml-4" id="cart_btn" disabled={product.stock <= 0} onClick={addToCart}>Add to Cart</button>
                             <hr />
 
                             <p>Status: <span className={product.stock > 0 ? 'greenColor' : 'redColor'} id="stock_status">{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>

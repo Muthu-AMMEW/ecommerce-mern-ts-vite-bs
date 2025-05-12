@@ -7,7 +7,7 @@ import { logout } from '../../actions/userActions';
 
 export default function UserDropDown() {
     const { isAuthenticated, user } = useSelector(state => state.authState);
-    const { items: cartItems } = useSelector(state => state.cartState)
+    const { cartItems } = useSelector(state => state.cartState)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = () => {
