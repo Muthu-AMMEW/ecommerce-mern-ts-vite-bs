@@ -17,7 +17,7 @@ const cartSlice = createSlice({
         addCartItemSuccess(state, action) {
             const item = action.payload
 
-            const isItemExist = state.cartItems.find(i => i.product == item.product);
+            const isItemExist = state.cartItems.find(i => i._id == item._id);
 
             if (isItemExist) {
                 state = {
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
         },
         increaseCartItemQty(state, action) {
             state.cartItems = state.cartItems.map(item => {
-                if (item.product == action.payload) {
+                if (item._id == action.payload) {
                     item.quantity = item.quantity + 1
                 }
                 return item;
@@ -47,7 +47,7 @@ const cartSlice = createSlice({
         },
         decreaseCartItemQty(state, action) {
             state.cartItems = state.cartItems.map(item => {
-                if (item.product == action.payload) {
+                if (item._id == action.payload) {
                     item.quantity = item.quantity - 1
                 }
                 return item;
@@ -57,7 +57,7 @@ const cartSlice = createSlice({
         },
         removeItemFromCart(state, action) {
             const filterItems = state.cartItems.filter(item => {
-                return item.product !== action.payload
+                return item._id !== action.payload
             })
             localStorage.setItem('cartItems', JSON.stringify(filterItems));
             return {
@@ -99,4 +99,3 @@ export const {
 } = actions;
 
 export default reducer;
-

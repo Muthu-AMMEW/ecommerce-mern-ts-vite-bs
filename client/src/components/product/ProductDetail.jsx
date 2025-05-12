@@ -34,11 +34,19 @@ export default function ProductDetail() {
     }
 
     function addToCart() {
-        dispatch(addCartItem(product._id, quantity))
-        toast('Cart Item Added!', {
-            type: 'success',
-            position: toast.POSITION.BOTTOM_CENTER
-        })
+        const itemExist = cartItems.find((item) => item._id === product._id)
+        if (!itemExist) {
+            dispatch(addCartItem(product._id, quantity))
+            toast('Cart Item added succesfully!', {
+                type: 'success',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+        } else {
+            toast('Already this product added. Please check or customise on Cart', {
+                type: 'info',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+        }
     }
 
     const [show, setShow] = useState(false);
@@ -121,7 +129,7 @@ export default function ProductDetail() {
                             <div className="stockCounter d-inline">
                                 <span className="btn btn-danger minus" onClick={decreaseQty} >-</span>
 
-                                <input type="number" className="form-control d-inline" value={quantity} min={1} max={product.stock} />
+                                <input type="number" className="form-control d-inline" value={quantity} readOnly min={1} max={product.stock} />
 
                                 <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                             </div>

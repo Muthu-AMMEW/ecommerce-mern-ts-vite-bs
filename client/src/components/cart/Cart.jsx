@@ -4,19 +4,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
 
 export default function Cart() {
-    const { items } = useSelector(state => state.cartState)
+    const { cartItems } = useSelector(state => state.cartState)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const increaseQty = (item) => {
-        const count = item.quantity;
-        if (item.stock == 0 || count >= item.stock) return;
-        dispatch(increaseCartItemQty(item.product))
+        if (item.quantity >= item.stock) {
+            return;
+        }
+        dispatch(increaseCartItemQty(item._id))
     }
     const decreaseQty = (item) => {
         const count = item.quantity;
-        if (count == 1) return;
-        dispatch(decreaseCartItemQty(item.product))
+        if (count > 1) {
+            dispatch(decreaseCartItemQty(item._id))
+        }
+
     }
 
     const checkoutHandler = () => {
@@ -26,14 +29,14 @@ export default function Cart() {
 
     return (
         <>
-            {items.length == 0 ?
+            {cartItems.length == 0 ?
                 <h2 className="mt-5">Your Cart is Empty</h2> :
                 <>
-                    <h2 className="mt-5">Your Cart: <b>{items.length} items</b></h2>
+                    <h2 className="mt-5">Your Cart: <b>{cartItems.length} items</b></h2>
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-lg-8">
-                            {items.map(item => (
-                                <Fragment key={item.product}>
+                            {cartItems.map(item => (
+                                <Fragment key={item._id}>
                                     <hr />
                                     <div className="cart-item">
                                         <div className="row">
@@ -42,7 +45,7 @@ export default function Cart() {
                                             </div>
 
                                             <div className="col-5 col-lg-3">
-                                                <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                                <Link to={`/product/${item._id}`}>{item.name}</Link>
                                             </div>
 
 
@@ -60,7 +63,7 @@ export default function Cart() {
                                             </div>
 
                                             <div className="col-4 col-lg-1 mt-4 mt-lg-0">
-                                                <i id="delete_cart_item" onClick={() => dispatch(removeItemFromCart(item.product))} className="fa fa-trash btn btn-danger"></i>
+                                                <i id="delete_cart_item" onClick={() => dispatch(removeItemFromCart(item._id))} className="fa fa-trash btn btn-danger"></i>
                                             </div>
 
                                         </div>
@@ -78,8 +81,8 @@ export default function Cart() {
                             <div id="order_summary">
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <p>Subtotal:  <span className="order-summary-values">{items.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></p>
-                                <p>Est. total: <span className="order-summary-values">${items.reduce((acc, item) => (acc + item.quantity * item.price), 0)}</span></p>
+                                <p>Subtotal:  <span className="order-summary-values">{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></p>
+                                <p>Est. total: <span className="order-summary-values">${cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0)}</span></p>
 
                                 <hr />
                                 <button id="checkout_btn" onClick={checkoutHandler} className="btn btn-primary btn-block">Check out</button>

@@ -1,5 +1,5 @@
 import MetaData from '../layouts/MetaData';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { validateShipping } from './Shipping';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -39,15 +39,15 @@ export default function ConfirmOrder() {
                 <div className="col-12 col-lg-8 mt-5 order-confirm">
 
                     <h4 className="mb-3">Shipping Info</h4>
-                    <p><b>Name:</b> {user.name}</p>
+                    <p><b>Name:</b> {user.fullName}</p>
                     <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
                     <p className="mb-4"><b>Address:</b> {shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country} </p>
 
                     <hr />
                     <h4 className="mt-4">Your Cart Items:</h4>
 
-                    {cartItems.map(item => (
-                        <>
+                    {cartItems.map((item, index) => (
+                        <Fragment key={index}>
                             <div className="cart-item my-1">
                                 <div className="row">
                                     <div className="col-4 col-lg-2">
@@ -66,16 +66,9 @@ export default function ConfirmOrder() {
                                 </div>
                             </div>
                             <hr />
-                        </>
+                        </Fragment>)
                     )
-
-                    )
-
                     }
-
-
-
-
                 </div>
 
                 <div className="col-12 col-lg-3 my-4">
