@@ -1,15 +1,15 @@
 const ErrorHandler = require('../utils/errorHandler')
 const catchAsyncError = require('../middlewares/catchAsyncError')
-const { getGFS, getGridFSBucket } = require('../utils/gridfs/getImage')
-const { userGetGFS, userGetGridFSBucket } = require('../utils/gridfs/getUserImage')
-const { productGetGFS, productGetGridFSBucket } = require('../utils/gridfs/getProductImage');
+const { getGFS, getGridFSBucket } = require('../utils/gridfs/getStoredImage')
+const { userGetGFS, userGetGridFSBucket } = require('../utils/gridfs/getStoredUserImage')
+const { productGetGFS, productGetGridFSBucket } = require('../utils/gridfs/getStoredProductImage');
 const { ObjectId } = require('mongodb');
 const { fileDeleter } = require('../utils/gridfs/fileDeleter');
 
 
 
 //Get images - /image/:id
-exports.getImages = catchAsyncError(async (req, res, next) => {
+exports.getImage = catchAsyncError(async (req, res, next) => {
     const gfs = getGFS();
     const gridfsBucket = getGridFSBucket();
     const file = await gfs.files.findOne({ _id: new ObjectId(req.params.id) });
@@ -28,7 +28,7 @@ exports.getImages = catchAsyncError(async (req, res, next) => {
 
 
 //Get user images - /image/user/:id
-exports.getUserImages = catchAsyncError(async (req, res, next) => {
+exports.getUserImage = catchAsyncError(async (req, res, next) => {
     const userGfs = userGetGFS();
     const userGridfsBucket = userGetGridFSBucket();
     const file = await userGfs.files.findOne({ _id: new ObjectId(req.params.id) });
@@ -47,7 +47,7 @@ exports.getUserImages = catchAsyncError(async (req, res, next) => {
 
 
 //Get Pouduct images - /image/product/:id
-exports.getProductImages = catchAsyncError(async (req, res, next) => {
+exports.getProductImage = catchAsyncError(async (req, res, next) => {
     const productGfs = productGetGFS();
     const productGridfsBucket = productGetGridFSBucket();
     const file = await productGfs.files.findOne({ _id: new ObjectId(req.params.id) });
@@ -76,6 +76,6 @@ exports.deleteFile = catchAsyncError(async (req, res, next) => {
 
 
 //Post Images - /image/:id
-exports.postImages = catchAsyncError(async (req, res, next) => {
+exports.postImage = catchAsyncError(async (req, res, next) => {
     res.send(req.file);
 })
