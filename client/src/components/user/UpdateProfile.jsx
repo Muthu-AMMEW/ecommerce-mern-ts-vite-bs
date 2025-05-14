@@ -3,16 +3,31 @@ import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify";
 import { updateProfile, clearAuthError } from "../../actions/userActions";
 import { clearUpdateProfile } from "../../slices/authSlice";
+import { countries } from 'countries-list';
 
 export default function UpdateProfile() {
     const { loading, error, user, isUpdated } = useSelector(state => state.authState);
     const dispatch = useDispatch();
-    const [inputs, setInputs] = useState({ fullName: "", email: "", pno: ""});
+    const countryList = Object.values(countries);
+    const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "" });
+    const [addressInputs, setAddressInputs] = useState({
+        addressLine1: "",
+        addressLine2: "",
+        city: "",
+        state: "",
+        country: "",
+        postalCode: ""
+    })
     const initialStateErrors = {
         fullName: false,
         email: false,
-        pno: false,
-        // address: false,
+        phoneNumber: false,
+        addressLine1: false,
+        addressLine2: false,
+        city: false,
+        state: false,
+        country: false,
+        postalCode: false,
         custom_error: null
     };
     const [errors, setErrors] = useState(initialStateErrors);
@@ -36,11 +51,17 @@ export default function UpdateProfile() {
         }
     }
 
+    const handleAddressChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setAddressInputs(values => ({ ...values, [name]: value }))
+    }
+
     function handleReset() {
         setInputs({
             fullName: false,
             email: false,
-            pno: false
+            phoneNumber: false
         })
         toast.info("Reset Successfully");
 
@@ -58,21 +79,47 @@ export default function UpdateProfile() {
             errors.email = true;
             hasError = true;
         }
-        if (inputs.pno === "") {
-            errors.pno = true;
+        if (inputs.phoneNumber === "") {
+            errors.phoneNumber = true;
             hasError = true;
         }
-        // if (inputs.address === "") {
-        //     errors.address = true;
-        //     hasError = true;
-        // }
+        if (addressInputs.addressLine1 === "") {
+            errors.address = true;
+            hasError = true;
+        }
+        if (addressInputs.addressLine2 === "") {
+            errors.address = true;
+            hasError = true;
+        }
+        if (addressInputs.city === "") {
+            errors.city = true;
+            hasError = true;
+        }
+        if (addressInputs.state === "") {
+            errors.state = true;
+            hasError = true;
+        }
+        if (addressInputs.country === "") {
+            errors.country = true;
+            hasError = true;
+        }
+        if (addressInputs.postalCode === "") {
+            errors.postalCode = true;
+            hasError = true;
+        }
 
         if (!hasError) {
             const formData = new FormData();
             formData.append('fullName', inputs.fullName)
             formData.append('email', inputs.email)
-            formData.append('pno', inputs.pno)
+            formData.append('phoneNumber', inputs.phoneNumber)
             formData.append('avatar', avatar);
+            formData.append('address[addressLine1]', addressInputs.addressLine1);
+            formData.append('address[addressLine2]', addressInputs.addressLine2);
+            formData.append('address[city]', addressInputs.city);
+            formData.append('address[state]', addressInputs.state);
+            formData.append('address[country]', addressInputs.country);
+            formData.append('address[postalCode]', addressInputs.postalCode);
             dispatch(updateProfile(formData))
         }
         setErrors(errors);
@@ -84,7 +131,17 @@ export default function UpdateProfile() {
                 ...values,
                 fullName: user.fullName,
                 email: user.email,
-                pno: user.pno
+                phoneNumber: user.phoneNumber
+            }));
+
+            setAddressInputs(values => ({
+                ...values,
+                addressLine1: user.address.addressLine1,
+                addressLine2: user.address.addressLine2,
+                city: user.address.city,
+                state: user.address.state,
+                country: user.address.country,
+                postalCode: user.address.postalCode
             }));
 
             if (user.avatar.image) {
@@ -139,43 +196,101 @@ export default function UpdateProfile() {
                         </div>
 
                         <div className="w-100 mt-3">
-                            <label htmlFor="pno" className="form-label">Phone Number</label>
-                            <input type="number" className="form-control" id="pno" onChange={handleChange} placeholder="Enter phone number" name="pno" value={inputs.pno} />
-                            {errors.pno ?
+                            <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                            <input type="number" className="form-control" id="phoneNumber" onChange={handleChange} placeholder="Enter phone number" name="phoneNumber" value={inputs.phoneNumber} />
+                            {errors.phoneNumber ?
                                 (<span className="text-danger bg-warning-subtle" >
                                     Phone Number is required.
                                 </span>) : null
                             }
                         </div>
-                        {/* <div className="w-100 mt-3">
-                            <label htmlFor="address" className="form-label">Address</label>
-                            <textarea name="address" value={inputs.address} className="form-control" id="address" onChange={handleChange} placeholder="Enter your address"></textarea>
-                            {errors.address ?
+
+                        <div className="w-100 mt-3 form-group">
+                            <label htmlFor="address_field1">Address Line 1</label>
+                            <input type="text" id="address_field1" className="form-control" name="addressLine1" placeholder="House No, Building" value={addressInputs.addressLine1} onChange={handleAddressChange} required />
+                            {errors.addressLine1 ?
                                 (<span className="text-danger bg-warning-subtle" >
-                                    Address is required.
+                                    Address Line 1 is required.
                                 </span>) : null
                             }
-                        </div> */}
+                        </div>
+
+                        <div className="w-100 mt-3 form-group">
+                            <label htmlFor="address_field2">Address Line 2</label>
+                            <input type="text" id="address_field2" name="addressLine2" placeholder="Street, Area" className="form-control" value={addressInputs.addressLine2} onChange={handleAddressChange} required />
+                            {errors.addressLine2 ?
+                                (<span className="text-danger bg-warning-subtle" >
+                                    Address Line 2 is required.
+                                </span>) : null
+                            }
+                        </div>
+
+                        <div className="row w-100 mt-3">
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="city_field">City</label>
+                                    <input type="text" id="city_field" name="city" placeholder="City" className="form-control" value={addressInputs.city} onChange={handleAddressChange} required />
+                                    {errors.city ?
+                                        (<span className="text-danger bg-warning-subtle" >
+                                            city is required.
+                                        </span>) : null
+                                    }
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="state_field">State</label>
+                                    <input type="text" id="state_field" name="state" placeholder="State" className="form-control" value={addressInputs.state} onChange={handleAddressChange} required />
+                                    {errors.state ?
+                                        (<span className="text-danger bg-warning-subtle" >
+                                            State is required.
+                                        </span>) : null
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="row w-100 mt-3">
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="country_field">Country</label>
+                                    <select id="country_field" className="form-control" name="country" value={addressInputs.country} onChange={handleAddressChange} required>
+                                        {countryList.map((country, i) => (
+                                            <option key={i} value={country.name}>
+                                                {country.name}
+                                            </option>
+                                        ))
+                                        }
+                                    </select>
+                                    {errors.country ?
+                                        (<span className="text-danger bg-warning-subtle" >
+                                            Country is required.
+                                        </span>) : null
+                                    }
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="postal_code_field">Postal Code</label>
+                                    <input type="number" id="postal_code_field" className="form-control" name="postalCode" placeholder="Postal Code" value={addressInputs.postalCode} onChange={handleAddressChange} required />
+                                    {errors.postalCode ?
+                                        (<span className="text-danger bg-warning-subtle" >
+                                            Postal Code is required.
+                                        </span>) : null
+                                    }
+                                </div>
+                            </div>
+                        </div>
                         <div className="w-100 mt-3">
                             <label htmlFor='avatar_upload'>Avatar</label>
                             <div className='d-flex align-items-center'>
                                 <div>
                                     <figure className='avatar mr-3 item-rtl'>
-                                        <img
-                                            src={avatarPreview}
-                                            className='rounded-circle'
-                                            alt='Avatar Preview'
-                                        />
+                                        <img src={avatarPreview} className='rounded-circle' alt='Avatar Preview' />
                                     </figure>
                                 </div>
                                 <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='avatar'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        onChange={handleChange}
-                                    />
+                                    <input type='file' name='avatar' className='custom-file-input' id='customFile' onChange={handleChange} />
                                     <label className='custom-file-label' htmlFor='customFile'>
                                         Choose Avatar
                                     </label>

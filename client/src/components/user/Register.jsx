@@ -8,7 +8,7 @@ export default function Register() {
     const [inputs, setInputs] = useState({
         fullName: "",
         email: "",
-        pno: "",
+        phoneNumber: "",
         password: "",
         confirmPassword: "",
         terms: true
@@ -17,7 +17,7 @@ export default function Register() {
     const initialStateErrors = {
         fullName: false,
         email: false,
-        pno: false,
+        phoneNumber: false,
         password: false,
         confirmPassword: false,
         terms: false,
@@ -53,7 +53,7 @@ export default function Register() {
         setInputs({
             fullName: "",
             email: "",
-            pno: "",
+            phoneNumber: "",
             password: "",
             confirmPassword: "",
         })
@@ -73,8 +73,8 @@ export default function Register() {
             errors.email = true;
             hasError = true;
         }
-        if (inputs.pno === "") {
-            errors.pno = true;
+        if (inputs.phoneNumber === "") {
+            errors.phoneNumber = true;
             hasError = true;
         }
         if (inputs.password === "") {
@@ -95,7 +95,7 @@ export default function Register() {
             formData.append('fullName', inputs.fullName)
             formData.append('email', inputs.email)
             formData.append('password', inputs.password)
-            formData.append('pno', inputs.pno)
+            formData.append('phoneNumber', inputs.phoneNumber)
             // formData.append('avatar', avatar);
             dispatch(register(formData))
         }
@@ -144,9 +144,9 @@ export default function Register() {
                                 }
                             </div>
                             <div className="w-100 mt-3">
-                                <label htmlFor="pno" className="form-label">Phone Number</label>
-                                <input type="number" className="form-control" id="pno" onChange={handleChange} placeholder="Enter your phone number" name="pno" value={inputs.pno} />
-                                {errors.pno ?
+                                <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                <input type="number" className="form-control" id="phoneNumber" onChange={handleChange} placeholder="Enter your phone number" name="phoneNumber" value={inputs.phoneNumber} />
+                                {errors.phoneNumber ?
                                     (<span className="text-danger bg-warning-subtle" >
                                         Phone Number is required.
                                     </span>) : null

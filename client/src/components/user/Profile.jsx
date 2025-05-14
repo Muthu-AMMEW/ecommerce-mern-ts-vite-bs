@@ -31,10 +31,13 @@ export default function Profile() {
                 <p className='pb-3'>{String(user.createdAt).substring(0, 10)}</p>
 
                 <h4>Address</h4>
-                <p className='w-50'>{user.address}</p>
+                <p className='w-50'>{`${user.address.addressLine1},
+                                    \n${user.address.addressLine2},
+                                    \n${user.address.city}, ${user.address.state},
+                                    \n${user.address.country}, Postal Code: ${user.address.postalCode}.`}</p>
 
                 <h4>Phone Number</h4>
-                <p>{user.pno}</p>
+                <p>{user.phoneNumber}</p>
 
 
             </div>

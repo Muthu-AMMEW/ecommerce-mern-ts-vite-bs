@@ -21,8 +21,8 @@ const userSchema = new mongoose.Schema({
         minlength: [6, 'password must enter atleast 6 characters'],
         select: false
     },
-    pno: {
-        type: Number,
+    phoneNumber: {
+        type: String,
         required: [true, 'Please enter phone number']
     },
     address: {
