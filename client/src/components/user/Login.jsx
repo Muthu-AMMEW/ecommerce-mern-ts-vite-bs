@@ -17,14 +17,6 @@ export default function Login() {
         password: ""
     })
 
-    const initialStateErrors = {
-        email: false,
-        password: false,
-        remember: false,
-        custom_error: null
-    };
-    const [errors, setErrors] = useState(initialStateErrors);
-
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -42,23 +34,7 @@ export default function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        let errors = initialStateErrors;
-        let hasError = false;
-
-        if (inputs.email === "") {
-            errors.email = true;
-            hasError = true;
-        }
-        if (inputs.password === "") {
-            errors.password = true;
-            hasError = true;
-        }
-
-        if (!hasError) {
-            dispatch(login(inputs.email, inputs.password))
-        }
-        setErrors({ ...errors });
+        dispatch(login(inputs.email, inputs.password))
     }
 
     useEffect(() => {
@@ -89,21 +65,11 @@ export default function Login() {
                         <form className="w-100" onSubmit={handleSubmit}>
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" placeholder="Enter email" name="email" value={inputs.email} onChange={handleChange} />
-                                {errors.email ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Email is required.
-                                    </span>) : null
-                                }
+                                <input type="email" className="form-control" id="email" placeholder="Enter email" name="email" value={inputs.email} onChange={handleChange} required />
                             </div>
                             <div className="w-100 mt-3">
                                 <label htmlFor="password" className="form-label">Password</label>
-                                <input type="password" className="form-control" id="password" placeholder="Enter password" name="password" value={inputs.password} onChange={handleChange} />
-                                {errors.password ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Password is required.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="password" placeholder="Enter password" name="password" value={inputs.password} onChange={handleChange} required />
                             </div>
                             <div className="d-flex justify-content-between w-100 mt-3">
                                 <div className="form-check">
@@ -122,12 +88,6 @@ export default function Login() {
                                         </div>
                                     </div>) : null
                                 }
-                                <span className="text-danger bg-warning-subtle" >
-                                    {errors.custom_error ?
-                                        (<p>{errors.custom_error}</p>)
-                                        : null
-                                    }
-                                </span>
                                 <button className="btn btn-primary me-5" type="submit">Submit</button>
                                 <button className="btn btn-danger" type="reset" onClick={handleReset}>Reset</button>
                             </div>

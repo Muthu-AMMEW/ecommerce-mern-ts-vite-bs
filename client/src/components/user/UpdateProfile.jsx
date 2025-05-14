@@ -18,19 +18,7 @@ export default function UpdateProfile() {
         country: "",
         postalCode: ""
     })
-    const initialStateErrors = {
-        fullName: false,
-        email: false,
-        phoneNumber: false,
-        addressLine1: false,
-        addressLine2: false,
-        city: false,
-        state: false,
-        country: false,
-        postalCode: false,
-        custom_error: null
-    };
-    const [errors, setErrors] = useState(initialStateErrors);
+
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
 
@@ -59,9 +47,14 @@ export default function UpdateProfile() {
 
     function handleReset() {
         setInputs({
-            fullName: false,
-            email: false,
-            phoneNumber: false
+            fullName: "",
+            phoneNumber: "",
+            addressLine1: "",
+            addressLine2: "",
+            city: "",
+            state: "",
+            country: "",
+            postalCode: ""
         })
         toast.info("Reset Successfully");
 
@@ -69,60 +62,18 @@ export default function UpdateProfile() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let errors = initialStateErrors;
-        let hasError = false;
-        if (inputs.fullName === "") {
-            errors.fullName = true;
-            hasError = true;
-        }
-        if (inputs.email === "") {
-            errors.email = true;
-            hasError = true;
-        }
-        if (inputs.phoneNumber === "") {
-            errors.phoneNumber = true;
-            hasError = true;
-        }
-        if (addressInputs.addressLine1 === "") {
-            errors.address = true;
-            hasError = true;
-        }
-        if (addressInputs.addressLine2 === "") {
-            errors.address = true;
-            hasError = true;
-        }
-        if (addressInputs.city === "") {
-            errors.city = true;
-            hasError = true;
-        }
-        if (addressInputs.state === "") {
-            errors.state = true;
-            hasError = true;
-        }
-        if (addressInputs.country === "") {
-            errors.country = true;
-            hasError = true;
-        }
-        if (addressInputs.postalCode === "") {
-            errors.postalCode = true;
-            hasError = true;
-        }
-
-        if (!hasError) {
-            const formData = new FormData();
-            formData.append('fullName', inputs.fullName)
-            formData.append('email', inputs.email)
-            formData.append('phoneNumber', inputs.phoneNumber)
-            formData.append('avatar', avatar);
-            formData.append('address[addressLine1]', addressInputs.addressLine1);
-            formData.append('address[addressLine2]', addressInputs.addressLine2);
-            formData.append('address[city]', addressInputs.city);
-            formData.append('address[state]', addressInputs.state);
-            formData.append('address[country]', addressInputs.country);
-            formData.append('address[postalCode]', addressInputs.postalCode);
-            dispatch(updateProfile(formData))
-        }
-        setErrors(errors);
+        const formData = new FormData();
+        formData.append('fullName', inputs.fullName)
+        formData.append('email', inputs.email)
+        formData.append('phoneNumber', inputs.phoneNumber)
+        formData.append('avatar', avatar);
+        formData.append('address[addressLine1]', addressInputs.addressLine1);
+        formData.append('address[addressLine2]', addressInputs.addressLine2);
+        formData.append('address[city]', addressInputs.city);
+        formData.append('address[state]', addressInputs.state);
+        formData.append('address[country]', addressInputs.country);
+        formData.append('address[postalCode]', addressInputs.postalCode);
+        dispatch(updateProfile(formData))
     }
 
     useEffect(() => {
@@ -178,74 +129,42 @@ export default function UpdateProfile() {
                     <form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
                         <div className="w-100 mt-3">
                             <label htmlFor="fullName" className="form-label">Full Name</label>
-                            <input type="text" className="form-control" name="fullName" value={inputs.fullName} id="fullName" onChange={handleChange} placeholder="Enter Full Name" />
-                            {errors.fullName ?
-                                (<span className="text-danger bg-warning-subtle" >
-                                    Full Name is required.
-                                </span>) : null
-                            }
+                            <input type="text" className="form-control" id="fullName" name="fullName" value={inputs.fullName} onChange={handleChange} placeholder="Enter Full Name" required />
                         </div>
+
                         <div className="w-100 mt-3">
                             <label htmlFor="email" className="form-label">Email</label>
-                            <input type="email" className="form-control" id="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" name="email" />
-                            {errors.email ?
-                                (<span className="text-danger bg-warning-subtle" >
-                                    Email Address is required.
-                                </span>) : null
-                            }
+                            <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
                         </div>
 
                         <div className="w-100 mt-3">
                             <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
-                            <input type="number" className="form-control" id="phoneNumber" onChange={handleChange} placeholder="Enter phone number" name="phoneNumber" value={inputs.phoneNumber} />
-                            {errors.phoneNumber ?
-                                (<span className="text-danger bg-warning-subtle" >
-                                    Phone Number is required.
-                                </span>) : null
-                            }
+                            <input type="number" className="form-control" id="phoneNumber" name="phoneNumber" value={inputs.phoneNumber} placeholder="Enter phone number" onChange={handleChange} required />
                         </div>
 
                         <div className="w-100 mt-3 form-group">
                             <label htmlFor="address_field1">Address Line 1</label>
-                            <input type="text" id="address_field1" className="form-control" name="addressLine1" placeholder="House No, Building" value={addressInputs.addressLine1} onChange={handleAddressChange} required />
-                            {errors.addressLine1 ?
-                                (<span className="text-danger bg-warning-subtle" >
-                                    Address Line 1 is required.
-                                </span>) : null
-                            }
+                            <input type="text" className="form-control" id="address_field1" name="addressLine1" value={addressInputs.addressLine1} placeholder="House No, Building" onChange={handleAddressChange} required />
+
                         </div>
 
                         <div className="w-100 mt-3 form-group">
                             <label htmlFor="address_field2">Address Line 2</label>
-                            <input type="text" id="address_field2" name="addressLine2" placeholder="Street, Area" className="form-control" value={addressInputs.addressLine2} onChange={handleAddressChange} required />
-                            {errors.addressLine2 ?
-                                (<span className="text-danger bg-warning-subtle" >
-                                    Address Line 2 is required.
-                                </span>) : null
-                            }
+                            <input type="text" className="form-control" id="address_field2" name="addressLine2" value={addressInputs.addressLine2} placeholder="Street, Area" onChange={handleAddressChange} required />
+
                         </div>
 
                         <div className="row w-100 mt-3">
                             <div className="col-6">
                                 <div className="form-group">
                                     <label htmlFor="city_field">City</label>
-                                    <input type="text" id="city_field" name="city" placeholder="City" className="form-control" value={addressInputs.city} onChange={handleAddressChange} required />
-                                    {errors.city ?
-                                        (<span className="text-danger bg-warning-subtle" >
-                                            city is required.
-                                        </span>) : null
-                                    }
+                                    <input type="text" className="form-control" id="city_field" name="city" value={addressInputs.city} placeholder="City" onChange={handleAddressChange} required />
                                 </div>
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
                                     <label htmlFor="state_field">State</label>
-                                    <input type="text" id="state_field" name="state" placeholder="State" className="form-control" value={addressInputs.state} onChange={handleAddressChange} required />
-                                    {errors.state ?
-                                        (<span className="text-danger bg-warning-subtle" >
-                                            State is required.
-                                        </span>) : null
-                                    }
+                                    <input type="text" className="form-control" id="state_field" name="state" value={addressInputs.state} placeholder="State" onChange={handleAddressChange} required />
                                 </div>
                             </div>
                         </div>
@@ -253,8 +172,8 @@ export default function UpdateProfile() {
                         <div className="row w-100 mt-3">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="country_field">Country</label>
-                                    <select id="country_field" className="form-control" name="country" value={addressInputs.country} onChange={handleAddressChange} required>
+                                    <label htmlFor="country">Country</label>
+                                    <select className="form-control" id="country" name="country" value={addressInputs.country} onChange={handleAddressChange} required>
                                         {countryList.map((country, i) => (
                                             <option key={i} value={country.name}>
                                                 {country.name}
@@ -262,22 +181,12 @@ export default function UpdateProfile() {
                                         ))
                                         }
                                     </select>
-                                    {errors.country ?
-                                        (<span className="text-danger bg-warning-subtle" >
-                                            Country is required.
-                                        </span>) : null
-                                    }
                                 </div>
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="postal_code_field">Postal Code</label>
-                                    <input type="number" id="postal_code_field" className="form-control" name="postalCode" placeholder="Postal Code" value={addressInputs.postalCode} onChange={handleAddressChange} required />
-                                    {errors.postalCode ?
-                                        (<span className="text-danger bg-warning-subtle" >
-                                            Postal Code is required.
-                                        </span>) : null
-                                    }
+                                    <label htmlFor="postal">Postal Code</label>
+                                    <input type="number" id="postal" className="form-control" name="postalCode" placeholder="Postal Code" value={addressInputs.postalCode} onChange={handleAddressChange} required />
                                 </div>
                             </div>
                         </div>
@@ -290,7 +199,7 @@ export default function UpdateProfile() {
                                     </figure>
                                 </div>
                                 <div className='custom-file'>
-                                    <input type='file' name='avatar' className='custom-file-input' id='customFile' onChange={handleChange} />
+                                    <input type='file' className='custom-file-input' id='customFile' name='avatar' onChange={handleChange} />
                                     <label className='custom-file-label' htmlFor='customFile'>
                                         Choose Avatar
                                     </label>
@@ -298,12 +207,7 @@ export default function UpdateProfile() {
                             </div>
                         </div>
                         <div className="mt-3 text-center">
-                            <span>
-                                {errors.custom_error ?
-                                    (<p className="text-danger bg-warning-subtle rounded-5">{errors.custom_error}</p>)
-                                    : null
-                                }
-                            </span>
+
                             {loading ?
                                 (<div className="text-center">
                                     <div className="spinner-border text-primary " role="status">
@@ -311,8 +215,8 @@ export default function UpdateProfile() {
                                 </div>) : null
                             }
 
-                            <button className="btn btn-primary me-5" type="submit">Submit</button>
-                            <button className="btn btn-danger" type="reset" onClick={handleReset}>Reset</button>
+                            <button type="submit" className="btn btn-primary me-5">Submit</button>
+                            <button type="reset" className="btn btn-danger" onClick={handleReset}>Reset</button>
                         </div>
                     </form>
                 </div>

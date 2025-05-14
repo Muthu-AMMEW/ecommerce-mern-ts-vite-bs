@@ -10,14 +10,6 @@ export default function ResetPassword() {
         confirmPassword: ""
     })
 
-    const initialStateErrors = {
-        password: false,
-        confirmPassword: false,
-        custom_error: null
-    };
-
-    const [errors, setErrors] = useState(initialStateErrors);
-
     const dispatch = useDispatch();
     const { isAuthenticated, error, loading } = useSelector(state => state.authState)
     const navigate = useNavigate();
@@ -58,26 +50,28 @@ export default function ResetPassword() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let errors = initialStateErrors;
-        let hasError = false;
-
-        if (inputs.password === "") {
-            errors.password = true;
-            hasError = true;
-        }
-        if (inputs.confirmPassword !== inputs.password) {
-            errors.confirmPassword = true;
-            hasError = true;
+        if (inputs.password !== inputs.confirmPassword) {
+            toast.error("Password Mismatch", {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error'
+            })
+            return
         }
 
-        if (!hasError) {
-            const formData = new FormData();
-            formData.append('password', inputs.password);
-            formData.append('confirmPassword', inputs.confirmPassword);
-
-            dispatch(resetPassword(formData, token))
+        if (inputs.password.length < 6) {
+            toast.error("Password must be at least 6 characters", {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error'
+            })
+            return
         }
-        setErrors(errors);
+
+        const formData = new FormData();
+        formData.append('password', inputs.password);
+        formData.append('confirmPassword', inputs.confirmPassword);
+
+        dispatch(resetPassword(formData, token))
+
     }
 
     return (
@@ -91,31 +85,14 @@ export default function ResetPassword() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="password" className="form-label">Create a password</label>
-                                <input type="password" className="form-control" id="password" onChange={handleChange} placeholder="Enter password" name="password" value={inputs.password} />
-                                {errors.password ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Password is required.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="password" name="password" value={inputs.password} onChange={handleChange} placeholder="Enter password" required />
                             </div>
                             <div className="w-100 mt-3">
                                 <label htmlFor="confirmPassword" className="form-label">Confirm your password</label>
-                                <input type="password" className="form-control" id="confirmPassword" onChange={handleChange} placeholder="Enter Confirm password" name="confirmPassword" value={inputs.confirmPassword} />
-                                {errors.confirmPassword ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Password Mismatch.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" value={inputs.confirmPassword} onChange={handleChange} placeholder="Enter Confirm password" required />
                             </div>
 
-
                             <div className="mt-3 text-center">
-                                <span>
-                                    {errors.custom_error ?
-                                        (<p className="text-danger bg-warning-subtle rounded-5">{errors.custom_error}</p>)
-                                        : null
-                                    }
-                                </span>
                                 {loading ?
                                     (<div className="text-center">
                                         <div className="spinner-border text-primary " role="status">

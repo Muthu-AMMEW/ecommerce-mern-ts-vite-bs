@@ -12,14 +12,6 @@ export default function UpdatePassword() {
         password: "",
         confirmPassword: ""
     })
-    const initialStateErrors = {
-        oldPassword: false,
-        password: false,
-        confirmPassword: false,
-        custom_error: null
-    };
-
-    const [errors, setErrors] = useState(initialStateErrors);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -62,29 +54,29 @@ export default function UpdatePassword() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let errors = initialStateErrors;
-        let hasError = false;
-        if (inputs.oldPassword === "") {
-            errors.oldPassword = true;
-            hasError = true;
-        }
-        if (inputs.password === "") {
-            errors.password = true;
-            hasError = true;
-        }
-        if (inputs.confirmPassword !== inputs.password) {
-            errors.confirmPassword = true;
-            hasError = true;
+        if (inputs.password !== inputs.confirmPassword) {
+            toast.error("Password Mismatch", {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error'
+            })
+            return
         }
 
-        if (!hasError && isAuthenticated) {
+        if (inputs.password.length < 6) {
+            toast.error("Password must be at least 6 characters", {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error'
+            })
+            return
+        }    
+
+        if (isAuthenticated) {
             const formData = new FormData();
             formData.append('oldPassword', inputs.oldPassword);
             formData.append('password', inputs.password);
             dispatch(updatePasswordAction(formData))
         }
 
-        setErrors(errors);
     }
 
     return (
@@ -98,41 +90,20 @@ export default function UpdatePassword() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="oldPassword" className="form-label">Enter old password</label>
-                                <input type="password" className="form-control" id="oldPassword" onChange={handleChange} placeholder="Enter old password" name="oldPassword" value={inputs.oldPassword} />
-                                {errors.oldPassword ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Old password is required.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="oldPassword" name="oldPassword" value={inputs.oldPassword} onChange={handleChange} placeholder="Enter old password" required />
                             </div>
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="password" className="form-label">Create a password</label>
-                                <input type="password" className="form-control" id="password" onChange={handleChange} placeholder="Enter password" name="password" value={inputs.password} />
-                                {errors.password ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Password is required.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="password" name="password" value={inputs.password} onChange={handleChange} placeholder="Enter password" required />
                             </div>
                             <div className="w-100 mt-3">
                                 <label htmlFor="confirmPassword" className="form-label">Confirm your password</label>
-                                <input type="password" className="form-control" id="confirmPassword" onChange={handleChange} placeholder="Enter Confirm password" name="confirmPassword" value={inputs.confirmPassword} />
-                                {errors.confirmPassword ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Password Mismatch.
-                                    </span>) : null
-                                }
+                                <input type="password" className="form-control" id="confirmPassword" name="confirmPassword" value={inputs.confirmPassword} onChange={handleChange} placeholder="Enter Confirm password" required />
                             </div>
 
 
                             <div className="mt-3 text-center">
-                                <span>
-                                    {errors.custom_error ?
-                                        (<p className="text-danger bg-warning-subtle rounded-5">{errors.custom_error}</p>)
-                                        : null
-                                    }
-                                </span>
                                 {loading ?
                                     (<div className="text-center">
                                         <div className="spinner-border text-primary " role="status">
