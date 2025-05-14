@@ -10,7 +10,7 @@ export default function Profile() {
                 <div className='row'>
                     <div className='col-12 text-center mt-1 mb-4 mt-md-5'>
 
-                        <img className="rounded-circle"  src={user.avatar.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
+                        <img className="rounded-circle"  src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
 
                     </div>
                     <div className='col-12 text-center'>
@@ -31,10 +31,11 @@ export default function Profile() {
                 <p className='pb-3'>{String(user.createdAt).substring(0, 10)}</p>
 
                 <h4>Address</h4>
-                <p className='w-50'>{`${user.address.addressLine1},
-                                    \n${user.address.addressLine2},
-                                    \n${user.address.city}, ${user.address.state},
-                                    \n${user.address.country}, Postal Code: ${user.address.postalCode}.`}</p>
+                { user.address ?
+                <p className='w-50'>{`${user.address?.addressLine1},
+                                    \n${user.address?.addressLine2},
+                                    \n${user.address?.city}, ${user.address?.state},
+                                    \n${user.address?.country}, Postal Code: ${user.address?.postalCode}.`}</p> : <br />}
 
                 <h4>Phone Number</h4>
                 <p>{user.phoneNumber}</p>

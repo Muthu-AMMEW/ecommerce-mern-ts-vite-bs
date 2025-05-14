@@ -7,11 +7,6 @@ export default function ForgotPassword() {
     const [inputs, setInputs] = useState({
         email: ""
     })
-    const initialStateErrors = {
-        email: false,
-        custom_error: null
-    };
-    const [errors, setErrors] = useState(initialStateErrors);
     const dispatch = useDispatch();
     const { error, message, loading } = useSelector(state => state.authState);
 
@@ -31,19 +26,11 @@ export default function ForgotPassword() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        let errors = initialStateErrors;
-        let hasError = false;
-        if (inputs.email === "") {
-            errors.email = true;
-            hasError = true;
-        }
 
-        if (!hasError) {
-            const formData = new FormData();
-            formData.append('email', inputs.email);
-            dispatch(forgotPassword(formData))
-        }
-        setErrors(errors);
+        const formData = new FormData();
+        formData.append('email', inputs.email);
+        dispatch(forgotPassword(formData))
+
     }
 
 
@@ -81,22 +68,11 @@ export default function ForgotPassword() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" value={inputs.email} onChange={handleChange} placeholder="Enter email" name="email" />
-                                {errors.email ?
-                                    (<span className="text-danger bg-warning-subtle" >
-                                        Email Address is required.
-                                    </span>) : null
-                                }
+                                <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter email" required />
                             </div>
 
 
                             <div className="mt-3 text-center">
-                                <span>
-                                    {errors.custom_error ?
-                                        (<p className="text-danger bg-warning-subtle rounded-5">{errors.custom_error}</p>)
-                                        : null
-                                    }
-                                </span>
                                 {loading ?
                                     (<div className="text-center">
                                         <div className="spinner-border text-primary " role="status">

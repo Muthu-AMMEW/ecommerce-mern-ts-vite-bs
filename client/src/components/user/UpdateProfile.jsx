@@ -84,18 +84,19 @@ export default function UpdateProfile() {
                 email: user.email,
                 phoneNumber: user.phoneNumber
             }));
+            if (user.address) {
+                setAddressInputs(values => ({
+                    ...values,
+                    addressLine1: user.address.addressLine1,
+                    addressLine2: user.address.addressLine2,
+                    city: user.address.city,
+                    state: user.address.state,
+                    country: user.address.country,
+                    postalCode: user.address.postalCode
+                }))
+            }
 
-            setAddressInputs(values => ({
-                ...values,
-                addressLine1: user.address.addressLine1,
-                addressLine2: user.address.addressLine2,
-                city: user.address.city,
-                state: user.address.state,
-                country: user.address.country,
-                postalCode: user.address.postalCode
-            }));
-
-            if (user.avatar.image) {
+            if (user.avatar) {
                 setAvatar(user.avatar.image)
                 setAvatarPreview(user.avatar.image)
             }
@@ -194,7 +195,7 @@ export default function UpdateProfile() {
                             <label htmlFor='avatar_upload'>Avatar</label>
                             <div className='d-flex align-items-center'>
                                 <div>
-                                    <figure className='avatar mr-3 item-rtl'>
+                                    <figure className='avatar me-2 item-rtl'>
                                         <img src={avatarPreview} className='rounded-circle' alt='Avatar Preview' />
                                     </figure>
                                 </div>
