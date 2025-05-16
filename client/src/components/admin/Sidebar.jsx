@@ -8,18 +8,22 @@ export default function Sidebar() {
     return (
         <div className="sidebar-wrapper">
             <nav id="sidebar">
-                <ul className="list-unstyled components">
+                <ul className="list-unstyled components ps-3 pt-4">
                     <li>
                         <Link to="/admin/dashboard"><i className="fas fa-tachometer-alt"></i> Dashboard</Link>
                     </li>
-
                     <li>
-                        <NavDropdown title={
-                            <i className='fa fa-product-hunt'> Product</i>
-                        }>
-                            <NavDropdown.Item onClick={() => navigate('/admin/products')} > <i className='fa fa-shopping-basket'> All</i></NavDropdown.Item>
-                            <NavDropdown.Item onClick={() => navigate('/admin/products/create')} > <i className='fa fa-plus'> Create </i></NavDropdown.Item>
-                        </NavDropdown>
+                        <div className="dropdown">
+                            <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-brands fa-product-hunt"></i> Product
+                            </a>
+
+                            <ul className="dropdown-menu">
+                                <li><Link className="dropdown-item text-black" to={'/admin/products'}><i className='fa fa-shopping-basket'> </i> All</Link></li>
+                                <li><Link className="dropdown-item text-black" to={'/admin/products/create'}><i className='fa fa-plus'>  </i>Create</Link></li>
+
+                            </ul>
+                        </div>
                     </li>
 
                     <li>

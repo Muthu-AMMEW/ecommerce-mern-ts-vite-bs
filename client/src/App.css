@@ -320,6 +320,11 @@ body {
   color: grey;
 }
 
+.wrapper form input, .wrapper form select, .wrapper form textarea {
+ background-color: rgba(241, 236, 236, 0.4)
+}
+
+
 /* Avatar */
 .avatar {
   display: inline-block;
@@ -501,7 +506,8 @@ body {
 #sidebar {
   min-width: 100%;
   max-width: 100%;
-  background: #232f3e;
+  /* background: #C5AA6A; */
+  background: #5F4C4C;
   color: #fff;
   transition: all 0.3s;
 }

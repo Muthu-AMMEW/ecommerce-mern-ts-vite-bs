@@ -15,7 +15,7 @@ export default function Dashboard() {
 
     if (products.length > 0) {
         products.forEach(product => {
-            if (product.stock === 0) {
+            if (product.stock <= 0) {
                 outOfStock = outOfStock + 1;
             }
         })
@@ -38,6 +38,7 @@ export default function Dashboard() {
 
 
     return (
+        <>
         <div className="row">
             <div className="col-12 col-md-2">
                 <Sidebar />
@@ -110,5 +111,6 @@ export default function Dashboard() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

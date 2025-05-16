@@ -126,13 +126,13 @@ export default function UpdateProduct() {
 
     return (
         <div className="row">
-            <div className="col-12 col-md-2">
+            <div className="col-12 col-md-2 p-0">
                 <Sidebar />
             </div>
-            <div className="col-12 col-md-10">
+            <div className="col-12 col-md-10 mm-bgpic">
                 <>
                     <div className="wrapper my-5">
-                        <form onSubmit={submitHandler} className="shadow-lg" encType='multipart/form-data'>
+                        <form onSubmit={submitHandler} className="shadow-lg rounded-5 bg-body-tertiary bg-opacity-50" encType='multipart/form-data'>
                             <h1 className="mb-4">Update Product</h1>
 
                             <div className="form-group">

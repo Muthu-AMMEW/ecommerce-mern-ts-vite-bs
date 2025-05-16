@@ -16,6 +16,7 @@ export default function NewProduct() {
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
 
+
     const { loading, isProductCreated, error } = useSelector(state => state.productState)
 
     const categories = [
@@ -57,6 +58,18 @@ export default function NewProduct() {
 
     }
 
+    function handleReset() {
+        setInputs({
+            name: "",
+            price: "",
+            description: "",
+            category: "select",
+            stock: "",
+            seller: ""
+        })
+        toast.info("Reset Successfully");
+    }
+
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -96,45 +109,30 @@ export default function NewProduct() {
 
     return (
         <div className="row">
-            <div className="col-12 col-md-2">
+            <div className="col-12 col-md-2 p-0">
                 <Sidebar />
             </div>
-            <div className="col-12 col-md-10">
+            <div className="col-12 col-md-10 mm-bgpic">
                 <>
                     <div className="wrapper my-5">
-                        <form onSubmit={submitHandler} className="shadow-lg" encType='multipart/form-data'>
+                        <form onSubmit={submitHandler} className="shadow-lg rounded-5 bg-body-tertiary bg-opacity-50" encType='multipart/form-data'>
                             <h1 className="mb-4">New Product</h1>
 
                             <div className="form-group">
                                 <label htmlFor="name_field">Name</label>
-                                <input
-                                    type="text"
-                                    id="name_field"
-                                    className="form-control"
-                                    onChange={e => setName(e.target.value)}
-                                    value={name}
+                                <input type="text" id="name_field" className="form-control" onChange={e => setName(e.target.value)} value={name}
                                 />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="price_field">Price</label>
-                                <input
-                                    type="text"
-                                    id="price_field"
-                                    className="form-control"
-                                    onChange={e => setPrice(e.target.value)}
-                                    value={price}
+                                <input type="text" id="price_field" className="form-control" onChange={e => setPrice(e.target.value)} value={price}
                                 />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="description_field">Description</label>
-                                <textarea
-                                    className="form-control"
-                                    id="description_field"
-                                    rows="8"
-                                    onChange={e => setDescription(e.target.value)}
-                                    value={description}
+                                <textarea className="form-control" id="description_field" rows="8" onChange={e => setDescription(e.target.value)} value={description}
                                 ></textarea>
                             </div>
 
@@ -149,23 +147,13 @@ export default function NewProduct() {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="stock_field">Stock</label>
-                                <input
-                                    type="number"
-                                    id="stock_field"
-                                    className="form-control"
-                                    onChange={e => setStock(e.target.value)}
-                                    value={stock}
+                                <input type="number" id="stock_field" className="form-control" onChange={e => setStock(e.target.value)} value={stock}
                                 />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="seller_field">Seller Name</label>
-                                <input
-                                    type="text"
-                                    id="seller_field"
-                                    className="form-control"
-                                    onChange={e => setSeller(e.target.value)}
-                                    value={seller}
+                                <input type="text" id="seller_field" className="form-control" onChange={e => setSeller(e.target.value)} value={seller}
                                 />
                             </div>
 
@@ -173,13 +161,7 @@ export default function NewProduct() {
                                 <label>Images</label>
 
                                 <div className='custom-file'>
-                                    <input
-                                        type='file'
-                                        name='product_images'
-                                        className='custom-file-input'
-                                        id='customFile'
-                                        multiple
-                                        onChange={onImagesChange}
+                                    <input type='file' name='product_images' className='custom-file-input' id='customFile' multiple onChange={onImagesChange}
 
                                     />
 
@@ -188,26 +170,23 @@ export default function NewProduct() {
                                     </label>
                                 </div>
                                 {imagesPreview.map(image => (
-                                    <img
-                                        className="mt-3 mr-2"
-                                        key={image}
-                                        src={image}
-                                        alt={`Image Preview`}
-                                        width="55"
-                                        height="52"
+                                    <img className="mt-3 mr-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
                                     />
                                 ))}
                             </div>
 
+                            <div className="mt-3 text-center">
 
-                            <button
-                                id="login_button"
-                                type="submit"
-                                disabled={loading}
-                                className="btn btn-block py-3"
-                            >
-                                CREATE
-                            </button>
+                                {loading ?
+                                    (<div className="text-center">
+                                        <div className="spinner-border text-primary " role="status">
+                                        </div>
+                                    </div>) : null
+                                }
+
+                                <button className="btn btn-primary me-5" type="submit" disabled={loading}>Submit</button>
+                                <button className="btn btn-danger" type="reset" onClick={handleReset}>Reset</button>
+                            </div>
 
                         </form>
                     </div>
