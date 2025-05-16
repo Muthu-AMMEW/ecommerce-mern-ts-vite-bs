@@ -74,7 +74,7 @@ export default function UpdateOrder() {
                             <p><b>Name:</b> {user.name}</p>
                             <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
                             <p className="mb-4"><b>Address:</b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country}</p>
-                            <p><b>Amount:</b> ${totalPrice}</p>
+                            <p><b>Amount:</b> Rs. {totalPrice}</p>
 
                             <hr />
 
@@ -97,12 +97,12 @@ export default function UpdateOrder() {
                                         </div>
 
                                         <div className="col-5 col-lg-5">
-                                            <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                            <Link to={`/product/Rs. {item.product}`}>{item.name}</Link>
                                         </div>
 
 
                                         <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                            <p>${item.price}</p>
+                                            <p>Rs. {item.price}</p>
                                         </div>
 
                                         <div className="col-4 col-lg-3 mt-4 mt-lg-0">

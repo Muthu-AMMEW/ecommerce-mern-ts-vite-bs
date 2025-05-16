@@ -155,7 +155,7 @@ export default function Payment() {
                         type="submit"
                         className="btn btn-block py-3"
                     >
-                        Pay - {` $${orderInfo && orderInfo.totalPrice}`}
+                        Pay - {` Rs. Rs. {orderInfo && orderInfo.totalPrice}`}
                     </button>
 
                 </form>

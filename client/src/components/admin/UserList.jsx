@@ -49,7 +49,7 @@ export default function UserList() {
         users.forEach(user => {
             data.rows.push({
                 id: user._id,
-                name: user.name,
+                name: user.fullName,
                 email: user.email,
                 role: user.role,
                 actions: (
