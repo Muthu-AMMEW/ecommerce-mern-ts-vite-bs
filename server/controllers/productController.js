@@ -29,7 +29,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
     }
 
     const products = await buildQuery().paginate(resPerPage).query;
-    
+
     products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined);
 
     res.status(200).json({
@@ -49,8 +49,9 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('Product not found', 400));
     }
-    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
-    
+
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+
     res.status(201).json({
         success: true,
         product
@@ -82,7 +83,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
-    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
     res.status(201).json({
         success: true,
         product
@@ -153,7 +154,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
         runValidators: true
     })
 
-    product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
 
     res.status(200).json({
         success: true,
