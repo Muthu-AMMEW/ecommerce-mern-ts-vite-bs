@@ -7,10 +7,7 @@ import { clearError, clearUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 
 export default function UpdateUser() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [role, setRole] = useState("");
-
+    const [inputs, setInputs] = useState({ fullName: "", email: "", role: "" });
     const { id: userId } = useParams();
 
     const { loading, isUserUpdated, error, user } = useSelector(state => state.userState)
@@ -18,12 +15,18 @@ export default function UpdateUser() {
 
     const dispatch = useDispatch();
 
+    const handleChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('role', role);
+        formData.append('name', inputs.fullName);
+        formData.append('email', inputs.email);
+        formData.append('role', inputs.role);
         dispatch(updateUser(userId, formData))
     }
 
@@ -52,66 +55,63 @@ export default function UpdateUser() {
 
     useEffect(() => {
         if (user._id) {
-            setName(user.name);
-            setEmail(user.email);
-            setRole(user.role);
+            setInputs(values => ({
+                ...values,
+                fullName: user.fullName,
+                email: user.email,
+                role: user.role
+            }));
         }
     }, [user])
 
 
-    return (
+    return (<>
         <div className="row">
-            <div className="col-12 col-md-2">
+            <div className="col-12 col-md-2 p-0">
                 <Sidebar />
             </div>
-            <div className="col-12 col-md-10">
+            <div className="col-12 col-md-10 mm-bgpic">
                 <>
                     <div className="wrapper my-5">
-                        <form onSubmit={submitHandler} className="shadow-lg" encType='multipart/form-data'>
+                        <form onSubmit={submitHandler} className="shadow-lg rounded-5 bg-body-tertiary bg-opacity-50" encType='multipart/form-data'>
                             <h1 className="mb-4">Update User</h1>
 
                             <div className="form-group">
-                                <label htmlFor="name_field">Name</label>
-                                <input
-                                    type="text"
-                                    id="name_field"
-                                    className="form-control"
-                                    onChange={e => setName(e.target.value)}
-                                    value={name}
-                                />
+                                <label htmlFor="fullName">Name</label>
+                                <input type="text" className="form-control" id="fullName" name="fullName" value={inputs.fullName} onChange={handleChange} required />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="price_field">Email</label>
-                                <input
-                                    type="text"
-                                    id="price_field"
-                                    className="form-control"
-                                    onChange={e => setEmail(e.target.value)}
-                                    value={email}
-                                />
+                                <label htmlFor="email">Email</label>
+                                <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} required />
                             </div>
+
                             <div className="form-group">
-                                <label htmlFor="category_field">Role</label>
-                                <select disabled={user._id === authUser._id} value={role} onChange={e => setRole(e.target.value)} className="form-control" id="category_field">
+                                <label htmlFor="role">Role</label>
+                                <select className="form-control" id="role" name="role" value={inputs.role} onChange={handleChange} required disabled={user._id === authUser._id}>
                                     <option value="admin">Admin</option>
                                     <option value="user">User</option>
                                 </select>
                             </div>
-                            <button
-                                id="login_button"
-                                type="submit"
-                                disabled={loading}
-                                className="btn btn-block py-3"
-                            >
-                                UPDATE
-                            </button>
+
+                            <div className="mt-1 text-center">
+
+                                {loading ?
+                                    (<div className="text-center">
+                                        <div className="spinner-border text-primary " role="status">
+                                        </div>
+                                    </div>) : null
+                                }
+
+                                <button className="btn btn-primary me-5" type="submit" disabled={loading}>Submit</button>
+                            </div>
 
                         </form>
                     </div>
                 </>
             </div>
         </div>
+    </>
 
     )
 }
