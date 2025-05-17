@@ -9,13 +9,14 @@ import { toast } from "react-toastify";
 export const validateShipping = (shippingInfo, navigate) => {
 
     if (
+        !shippingInfo.fullName ||
         !shippingInfo.addressLine1 ||
         !shippingInfo.addressLine2 ||
         !shippingInfo.city ||
         !shippingInfo.state ||
         !shippingInfo.country ||
         !shippingInfo.postalCode ||
-        !shippingInfo.phoneNo
+        !shippingInfo.phoneNumber
 
     ) {
         toast.error('Please fill the shipping information', { position: toast.POSITION.BOTTOM_CENTER })
@@ -25,21 +26,38 @@ export const validateShipping = (shippingInfo, navigate) => {
 
 
 export default function Shipping() {
-    const { shippingInfo = {} } = useSelector(state => state.cartState)
+    const { shippingInfo = {}, loading } = useSelector(state => state.cartState)
+    const { user } = useSelector(state => state.authState)
+
 
     const [inputs, setInputs] = useState({
+        fullName: "",
         addressLine1: "",
         addressLine2: "",
         city: "",
         state: "",
         country: "",
         postalCode: "",
-        phoneNo: ""
+        phoneNumber: ""
     })
 
     useEffect(() => {
         setInputs(shippingInfo);
     }, [shippingInfo]);
+
+    function fillMyDetails() {
+        setInputs(values => ({
+            ...values,
+            fullName: user.fullName,
+            addressLine1: user.address.addressLine1,
+            addressLine2: user.address.addressLine2,
+            city: user.address.city,
+            state: user.address.state,
+            country: user.address.country,
+            postalCode: user.address.postalCode,
+            phoneNumber: user.phoneNumber
+        }));
+    }
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -51,10 +69,12 @@ export default function Shipping() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const submitHandler = (e) => {
+
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        const { addressLine1, addressLine2, city, state, country, postalCode, phoneNo } = inputs;
-        dispatch(saveShippingInfo({ addressLine1, addressLine2, city, state, country, postalCode, phoneNo }))
+        const { fullName, addressLine1, addressLine2, city, state, country, postalCode, phoneNumber } = inputs;
+        dispatch(saveShippingInfo({ fullName, addressLine1, addressLine2, city, state, country, postalCode, phoneNumber }))
         navigate('/order/confirm')
     }
 
@@ -64,119 +84,80 @@ export default function Shipping() {
             <CheckoutSteps shipping />
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
-                    <form onSubmit={submitHandler} className="shadow-lg">
+                    <form onSubmit={handleSubmit} className="shadow-lg">
                         <h1 className="mb-4">Shipping Info</h1>
-                        <div className="form-group">
+                        <div className="w-100 mt-1">
+                            <label htmlFor="fullName" className="form-label">Full Name</label>
+                            <input type="text" className="form-control" id="fullName" name="fullName" value={inputs.fullName} onChange={handleChange} placeholder="Enter Full Name" required />
+                        </div>
+
+                        <div className="w-100 mt-3 form-group">
                             <label htmlFor="address_field1">Address Line 1</label>
-                            <input
-                                type="text"
-                                id="address_field1"
-                                className="form-control"
-                                name="addressLine1"
-                                placeholder="House No, Building"
-                                value={inputs.addressLine1}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" className="form-control" id="address_field1" name="addressLine1" value={inputs.addressLine1} placeholder="House No, Building" onChange={handleChange} required />
+
                         </div>
 
-                        <div className="form-group">
+                        <div className="w-100 mt-3 form-group">
                             <label htmlFor="address_field2">Address Line 2</label>
-                            <input
-                                type="text"
-                                id="address_field2"
-                                name="addressLine2"
-                                placeholder="Street, Area"
-                                className="form-control"
-                                value={inputs.addressLine2}
-                                onChange={handleChange}
-                                required
-                            />
+                            <input type="text" className="form-control" id="address_field2" name="addressLine2" value={inputs.addressLine2} placeholder="Street, Area" onChange={handleChange} required />
+
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="city_field">City</label>
-                            <input
-                                type="text"
-                                id="city_field"
-                                name="city"
-                                placeholder="City"
-                                className="form-control"
-                                value={inputs.city}
-                                onChange={handleChange}
-                                required
-                            />
+                        <div className="row w-100 mt-3">
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="city_field">City</label>
+                                    <input type="text" className="form-control" id="city_field" name="city" value={inputs.city} placeholder="City" onChange={handleChange} required />
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="state_field">State</label>
+                                    <input type="text" className="form-control" id="state_field" name="state" value={inputs.state} placeholder="State" onChange={handleChange} required />
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="state_field">State</label>
-                            <input
-                                type="text"
-                                id="state_field"
-                                name="state"
-                                placeholder="State"
-                                className="form-control"
-                                value={inputs.state}
-                                onChange={handleChange}
-                                required
-                            />
+                        <div className="row w-100 mt-3">
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="country">Country</label>
+                                    <select className="form-control" id="country" name="country" value={inputs.country} onChange={handleChange} required>
+                                        {countryList.map((country, i) => (
+                                            <option key={i} value={country.name}>
+                                                {country.name}
+                                            </option>
+                                        ))
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-6">
+                                <div className="form-group">
+                                    <label htmlFor="postal">Postal Code</label>
+                                    <input type="number" id="postal" className="form-control" name="postalCode" placeholder="Postal Code" value={inputs.postalCode} onChange={handleChange} required />
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="country_field">Country</label>
-                            <select
-                                id="country_field"
-                                className="form-control"
-                                name="country"
-                                value={inputs.country}
-                                onChange={handleChange}
-                                required
-
-                            >{countryList.map((country, i) => (
-
-                                <option key={i} value={country.name}>
-                                    {country.name}
-                                </option>
-                            ))
-                                }
-                            </select>
+                        <div className="w-100 mt-3">
+                            <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                            <input type="number" className="form-control" id="phoneNumber" name="phoneNumber" value={inputs.phoneNumber} placeholder="Enter phone number" onChange={handleChange} required />
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="postal_code_field">Postal Code</label>
-                            <input
-                                type="number"
-                                id="postal_code_field"
-                                className="form-control"
-                                name="postalCode"
-                                placeholder="Postal Code"
-                                value={inputs.postalCode}
-                                onChange={handleChange}
-                                required
-                            />
+                        <div className="mt-3 text-center">
+
+                            {loading ?
+                                (<div className="text-center">
+                                    <div className="spinner-border text-primary " role="status">
+                                    </div>
+                                </div>) : null
+                            }
+
+                            <button type="submit" className="btn btn-primary me-5">Submit</button>
+                            <button type="button" className="btn btn-danger" onClick={fillMyDetails}>Fill My Address</button>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="phone_field">Phone No</label>
-                            <input
-                                type="phone"
-                                id="phone_field"
-                                className="form-control"
-                                name="phoneNo"
-                                placeholder="Phone No"
-                                value={inputs.phoneNo}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-
-                        <button
-                            id="shipping_btn"
-                            type="submit"
-                            className="btn btn-block py-3"
-                        >
-                            CONTINUE
-                        </button>
                     </form>
                 </div>
             </div>

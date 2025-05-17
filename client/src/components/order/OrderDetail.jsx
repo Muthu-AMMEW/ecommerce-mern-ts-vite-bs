@@ -25,7 +25,7 @@ export default function OrderDetail() {
 
                             <h4 className="mb-4">Shipping Info</h4>
                             <p><b>Name:</b> {user.fullName}</p>
-                            <p><b>Phone:</b> {shippingInfo.phoneNo}</p>
+                            <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
                             <p className="mb-4"><b>Address:</b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country}</p>
                             <p><b>Amount:</b> Rs. {totalPrice}</p>
 

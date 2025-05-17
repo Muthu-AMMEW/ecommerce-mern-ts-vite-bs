@@ -31,7 +31,7 @@ export default function Payment() {
                 state: shippingInfo.state,
                 line1: shippingInfo.address
             },
-            phone: shippingInfo.phoneNo
+            phone: shippingInfo.phoneNumber
         }
     }
 
