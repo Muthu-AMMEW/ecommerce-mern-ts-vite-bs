@@ -94,24 +94,20 @@ export default function UserList() {
 
 
     return (
-        <div className="row">
-            <div className="col-12 col-md-2">
-                <Sidebar />
+        <>
+            <Sidebar />
+            <div className="p-4">
+                <h1 className="my-1 ps-2">User List</h1>
+                {loading ? <Loader /> :
+                    <MDBDataTable
+                        data={setUsers()}
+                        bordered
+                        striped
+                        hover
+                        className="px-3"
+                    />
+                }
             </div>
-            <div className="col-12 col-md-10">
-                <h1 className="my-4">User List</h1>
-                <>
-                    {loading ? <Loader /> :
-                        <MDBDataTable
-                            data={setUsers()}
-                            bordered
-                            striped
-                            hover
-                            className="px-3"
-                        />
-                    }
-                </>
-            </div>
-        </div>
+        </>
     )
 }

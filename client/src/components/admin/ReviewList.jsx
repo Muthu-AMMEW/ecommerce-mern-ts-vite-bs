@@ -98,12 +98,10 @@ export default function ReviewList() {
 
 
     return (
-        <div className="row">
-            <div className="col-12 col-md-2">
-                <Sidebar />
-            </div>
-            <div className="col-12 col-md-10">
-                <h1 className="my-4">Review List</h1>
+        <>
+            <Sidebar />
+            <div className="p-4">
+                <h1 className="my-1 ps-2">Review List</h1>
                 <div className="row justify-content-center mt-5">
                     <div className="col-5">
                         <form onSubmit={submitHandler}>
@@ -114,26 +112,25 @@ export default function ReviewList() {
                                     onChange={e => setProductId(e.target.value)}
                                     value={productId}
                                     className="form-control"
+                                    required
                                 />
                             </div>
-                            <button type="submit" disabled={loading} className="btn btn-primary btn-block py-2">
+                            <div className="text-center"><button type="submit" disabled={loading} className="btn btn-primary btn-block my-2">
                                 Search
-                            </button>
+                            </button></div>
                         </form>
                     </div>
                 </div>
-                <>
-                    {loading ? <Loader /> :
-                        <MDBDataTable
-                            data={setReviews()}
-                            bordered
-                            striped
-                            hover
-                            className="px-3"
-                        />
-                    }
-                </>
+                {loading ? <Loader /> :
+                    <MDBDataTable
+                        data={setReviews()}
+                        bordered
+                        striped
+                        hover
+                        className="px-3"
+                    />
+                }
             </div>
-        </div>
+        </>
     )
 }

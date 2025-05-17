@@ -94,13 +94,10 @@ export default function ProductList() {
 
 
     return (
-        <div className="row">
-            <div className="col-12 col-md-2">
-                <Sidebar />
-            </div>
-            <div className="col-12 col-md-10">
-                <h1 className="my-4">Product List</h1>
-                <>
+        <>
+            <Sidebar />
+            <div className="p-4">
+                <h1 className="my-1 ps-2">Product List</h1>
                     {loading ? <Loader /> :
                         <MDBDataTable
                             data={setProducts()}
@@ -110,8 +107,7 @@ export default function ProductList() {
                             className="px-3"
                         />
                     }
-                </>
             </div>
-        </div>
+        </>
     )
 }

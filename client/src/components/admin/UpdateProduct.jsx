@@ -67,8 +67,15 @@ export default function UpdateProduct() {
         toast.info("Reset Successfully");
     }
 
-    const submitHandler = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
+        if (images.length === 0 && imagesCleared) {
+            toast.error("Please select at least one image", {
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            return;
+        }
+
         const formData = new FormData();
         formData.append('name', inputs.name);
         formData.append('price', inputs.price);
@@ -139,19 +146,18 @@ export default function UpdateProduct() {
 
 
     return (
-        <div className="row">
-            <div className="col-12 col-md-2 p-0">
-                <Sidebar />
-            </div>
-            <div className="col-12 col-md-10 mm-bgpic">
-                <>
-                    <div className="wrapper my-5">
-                        <form onSubmit={submitHandler} className="shadow-lg rounded-5 bg-body-tertiary bg-opacity-50" encType='multipart/form-data'>
-                            <h1 className="mb-4">Update Product</h1>
+        <>
+            <Sidebar />
+            <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
+                <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
+                    <div className="d-flex flex-column justify-content-center align-items-center w-100 my-5 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
+                        <div className='text-center h2'>Update Product</div>
+
+                        <form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
-                                <input type="text" className="form-control" id="name" name="name" value={inputs.name} onChange={handleChange} required/>
+                                <input type="text" className="form-control" id="name" name="name" value={inputs.name} onChange={handleChange} required />
                             </div>
 
                             <div className="form-group">
@@ -166,7 +172,7 @@ export default function UpdateProduct() {
 
                             <div className="form-group">
                                 <label htmlFor="category">Category</label>
-                                <select className="form-control" id="category" name="category" value={inputs.category} onChange={handleChange} required>
+                                <select className="form-control" id="category" name="category" value={inputs.category} onChange={handleChange} required >
                                     <option value="">Select</option>
                                     {categories.map(category => (
                                         <option key={category} value={category}>{category}</option>
@@ -187,13 +193,13 @@ export default function UpdateProduct() {
                                 <label>Images</label>
 
                                 <div className='custom-file'>
-                                    <input type='file' name='images' className='custom-file-input' id='images' multiple onChange={handleChange} required />
+                                    <input type='file' name='images' className='custom-file-input' id='images' multiple onChange={handleChange} />
 
                                     <label className='custom-file-label' htmlFor='images'>
                                         Choose Images
                                     </label>
                                 </div>
-                                {imagesPreview.length > 0 && <span className="mr-2" onClick={clearImagesHandler} style={{ cursor: "pointer" }}><i className="fa fa-trash"></i></span>}
+                                {imagesPreview.length > 0 && <span className="me-2" onClick={clearImagesHandler} style={{ cursor: "pointer" }}><i className="fa fa-trash"></i></span>}
                                 {imagesPreview.map(image => (
                                     <img className="mt-3 mr-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
                                     />
@@ -215,8 +221,8 @@ export default function UpdateProduct() {
 
                         </form>
                     </div>
-                </>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
