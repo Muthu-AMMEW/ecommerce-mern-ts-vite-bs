@@ -29,7 +29,6 @@ export default function Shipping() {
     const { shippingInfo = {}, loading } = useSelector(state => state.cartState)
     const { user } = useSelector(state => state.authState)
 
-
     const [inputs, setInputs] = useState({
         fullName: "",
         addressLine1: "",
@@ -43,21 +42,21 @@ export default function Shipping() {
 
     useEffect(() => {
         setInputs(shippingInfo);
-    }, [shippingInfo]);
+        if (!shippingInfo.fullName) {
+            setInputs(values => ({
+                ...values,
+                fullName: user.fullName,
+                addressLine1: user.address.addressLine1,
+                addressLine2: user.address.addressLine2,
+                city: user.address.city,
+                state: user.address.state,
+                country: user.address.country,
+                postalCode: user.address.postalCode,
+                phoneNumber: user.phoneNumber
+            }));
 
-    function fillMyDetails() {
-        setInputs(values => ({
-            ...values,
-            fullName: user.fullName,
-            addressLine1: user.address.addressLine1,
-            addressLine2: user.address.addressLine2,
-            city: user.address.city,
-            state: user.address.state,
-            country: user.address.country,
-            postalCode: user.address.postalCode,
-            phoneNumber: user.phoneNumber
-        }));
-    }
+        }
+    }, [shippingInfo]);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -69,6 +68,21 @@ export default function Shipping() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
+    function handleReset() {
+        setInputs({
+            fullName: "",
+            addressLine1: "",
+            addressLine2: "",
+            city: "",
+            state: "",
+            country: "India",
+            postalCode: "",
+            phoneNumber: ""
+        })
+        toast.info("Reset Successfully");
+
+    }
 
 
     const handleSubmit = (e) => {
@@ -155,7 +169,7 @@ export default function Shipping() {
                             }
 
                             <button type="submit" className="btn btn-primary me-5">Submit</button>
-                            <button type="button" className="btn btn-danger" onClick={fillMyDetails}>Fill My Address</button>
+                            <button type="reset" className="btn btn-danger" onClick={handleReset}>Reset</button>
                         </div>
 
                     </form>
