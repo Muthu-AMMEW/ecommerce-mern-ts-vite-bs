@@ -58,3 +58,13 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
         dispatch(updateOrderFail(error.response.data.message))
     }
 }
+
+export const cancelOrder = (id, orderData) => async (dispatch) => {
+    try {
+        dispatch(updateOrderRequest())
+        const { data } = await axios.put(`/api/v1/order/${id}`, orderData)
+        dispatch(updateOrderSuccess(data))
+    } catch (error) {
+        dispatch(updateOrderFail(error.response.data.message))
+    }
+}

@@ -51,7 +51,11 @@ export default function OrderList() {
                 id: order._id,
                 noOfItems: order.orderItems.length,
                 amount: `Rs. ${order.totalPrice}`,
-                status: <p style={{ color: order.orderStatus.includes('Processing') ? 'red' : 'green' }}>{order.orderStatus}</p>,
+                status: <p style={{
+                    color: order.orderStatus.includes('Processing') ? 'orange' :
+                        order.orderStatus.includes('Shipped') ? 'blue' :
+                            order.orderStatus.includes('Delivered') ? 'green' : 'red'
+                }}>{order.orderStatus}</p>,
                 actions: (
                     <>
                         <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>

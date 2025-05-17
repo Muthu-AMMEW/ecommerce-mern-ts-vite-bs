@@ -237,7 +237,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
 
 //Admin: Get Reviews - api/v1/admin/reviews?id={productId}
 exports.getReviews = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.query.id).populate('reviews.user', 'name email');
+    const product = await Product.findById(req.query.id).populate('reviews.user', 'fullName email');
 
     res.status(200).json({
         success: true,

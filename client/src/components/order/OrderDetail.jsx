@@ -1,73 +1,139 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Loader from '../layouts/Loader';
-import { orderDetail as orderDetailAction } from '../../actions/orderActions';
+import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';
+import { toast } from "react-toastify";
+import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
+
 export default function OrderDetail() {
-    const { orderDetail, loading } = useSelector(state => state.orderState)
-    const { shippingInfo = {}, user = {}, orderStatus = "Processing", orderItems = [], totalPrice = 0, paymentInfo = {} } = orderDetail;
+    const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
+    const { user = {}, orderItems = [], shippingInfo = {}, totalPrice = 0, paymentInfo = {} } = orderDetail;
     const isPaid = paymentInfo && paymentInfo.status === "succeeded" ? true : false;
+    const [orderStatus, setOrderStatus] = useState("Processing");
+    const { id: orderId } = useParams();
+
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useParams();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const orderData = {};
+        orderData.orderStatus = orderStatus;
+        dispatch(cancelOrder(orderId, orderData))
+    }
 
     useEffect(() => {
-        dispatch(orderDetailAction(id))
-    }, [id])
+        if (isOrderUpdated) {
+            toast('Order Updated Succesfully!', {
+                type: 'success',
+                position: toast.POSITION.BOTTOM_CENTER,
+                onOpen: () => dispatch(clearOrderUpdated())
+            })
+
+            return;
+        }
+
+        if (error) {
+            toast(error, {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error',
+                onOpen: () => { dispatch(clearError()) }
+            })
+            return
+        }
+
+        dispatch(orderDetailAction(orderId))
+    }, [isOrderUpdated, error, dispatch])
+
+    useEffect(() => {
+        if (orderDetail._id) {
+            setOrderStatus(orderDetail.orderStatus);
+        }
+    }, [orderDetail])
 
     return (
         <>
             {loading ? <Loader /> :
                 <>
-                    <div className="row d-flex justify-content-between">
-                        <div className="col-12 col-lg-8 mt-5 order-details">
+                    <div className="container-fluid p-2">
+                        <div className='m-lg-5'>
+                            <div className='m-lg-5'>
+                                <div className='m-sm-5 border border-5 p-3'>
+                                    <h4 className='text-center text-decoration-underline m-1'>Order ID #{orderDetail._id}</h4>
+                                    <div className="row">
+                                        <div className="col-12 col-lg-6">
+                                            <div className="my-1"><span className='fw-bold'>Order Status : </span ><b className={orderStatus && orderStatus.includes('Delivered') ? 'greenColor' : 'redColor'}>{orderStatus}</b></div>
+                                            <div className="my-1"><span className='fw-bold'>Name : </span>{user.fullName}</div>
+                                            <div className="my-1"><span className='fw-bold'>ShippingInfo : </span><div className='ps-5'>
+                                                {shippingInfo.fullName},<br />
+                                                {shippingInfo.addressLine1},<br />
+                                                {shippingInfo.addressLine2},<br />
+                                                {shippingInfo.city}, {shippingInfo.state},<br />
+                                                {shippingInfo.country}, Postal Code: {shippingInfo.postalCode}.
+                                            </div></div>
+                                            <div className="my-1"><span className='fw-bold'>Phone Number : </span>{shippingInfo.phoneNumber}</div>
+                                            <div className="my-1"><span className='fw-bold'>Email Address : </span>{user.email}</div>
+                                            <div className="my-1"><span className='fw-bold'>Date : </span>{orderDetail.createdAt}</div>
+                                            <div className="my-1"><span className='fw-bold'>Total Amount : </span>Rs. {totalPrice}</div>
+                                            <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.id}</div>
+                                            <div className="my-1"><span className='fw-bold'>Payment Status : </span>{isPaid ? 'PAID' : 'NOT PAID'}</div>
 
-                            <h1 className="my-5">Order # {orderDetail._id}</h1>
-
-                            <h4 className="mb-4">Shipping Info</h4>
-                            <p><b>Name:</b> {user.fullName}</p>
-                            <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
-                            <p className="mb-4"><b>Address:</b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country}</p>
-                            <p><b>Amount:</b> Rs. {totalPrice}</p>
-
-                            <hr />
-
-                            <h4 className="my-4">Payment</h4>
-                            <p className={isPaid ? 'greenColor' : 'redColor'} ><b>{isPaid ? 'PAID' : 'NOT PAID'}</b></p>
-
-
-                            <h4 className="my-4">Order Status:</h4>
-                            <p className={orderStatus && orderStatus.includes('Delivered') ? 'greenColor' : 'redColor'} ><b>{orderStatus}</b></p>
-
-
-                            <h4 className="my-4">Order Items:</h4>
-
-                            <hr />
-                            <div className="cart-item my-1">
-                                {orderItems && orderItems.map(item => (
-                                    <div className="row my-5">
-                                        <div className="col-4 col-lg-2">
-                                            <img src={item.image} alt={item.name} height="45" width="65" />
+                                        </div>
+                                        <div className="col-12 col-lg-6">
+                                            <form onSubmit={handleSubmit} className='d-flex flex-column'>
+                                                <label htmlFor="orderStatus" className='fw-bold'>Update Order Status</label>
+                                                <select name="orderStatus" id="orderStatus" value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)} className='form-select my-2'>
+                                                    <option value="Processing">Processing</option>
+                                                    <option value="Cancelled">Cancelled</option>
+                                                </select>
+                                                <button type='submit' className='btn btn-primary my-2' disabled={loading}>Update Order</button>
+                                            </form>
                                         </div>
 
-                                        <div className="col-5 col-lg-5">
-                                            <Link to={`/product/Rs. {item.product}`}>{item.name}</Link>
-                                        </div>
-
-
-                                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                            <p>Rs. {item.price}</p>
-                                        </div>
-
-                                        <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                                            <p>{item.quantity} Piece(s)</p>
-                                        </div>
                                     </div>
-                                ))}
 
+                                    <h5 className='text-center text-decoration-underline m-1'>Order Items</h5>
+                                    <div className="cart-item my-1">
+                                        {orderItems && orderItems.map(item => (
+                                            <>
+                                                <hr />
+                                                <div className="cart-item">
+                                                    <div className="row">
+                                                        <div className="col-6 col-lg-3 text-center">
+                                                            <Link className='text-black' to={"/product/" + item._id} >
+                                                                <img src={item.image} alt={item.name} height="130" width="130" />
+                                                            </Link>
+                                                        </div>
+
+                                                        <div className='col-6 col-lg-9'>
+                                                            <div className="row d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                                                                <h6 className="col text-center m-2">
+                                                                    <Link className='text-black' to={"/product/" + item._id} >{item.name}</Link>
+                                                                </h6>
+
+                                                                <div className="col text-center m-2">
+                                                                    <h5>Rs. {item.price}</h5>
+                                                                </div>
+
+                                                                <div className="col text-center m-2">
+                                                                    <h6>{item.quantity} Piece(s)</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ))}
+
+                                    </div>
+                                    <hr />
+                                </div>
                             </div>
-                            <hr />
                         </div>
                     </div>
+
                 </>
             }
         </>

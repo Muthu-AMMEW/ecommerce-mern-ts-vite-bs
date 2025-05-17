@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, updateOrder } from "../../actions/orderActions";
 import { toast } from "react-toastify";
 import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
-import { Link } from "react-router-dom";
 
 export default function UpdateOrder() {
 
@@ -20,7 +20,7 @@ export default function UpdateOrder() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const submitHandler = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const orderData = {};
         orderData.orderStatus = orderStatus;
@@ -58,90 +58,94 @@ export default function UpdateOrder() {
     }, [orderDetail])
 
 
-    return (
-        <div className="row">
-            <div className="col-12 col-md-2">
-                <Sidebar />
-            </div>
-            <div className="col-12 col-md-10">
-                <>
-                    <div className="row d-flex justify-content-around">
-                        <div className="col-12 col-lg-8 mt-5 order-details">
+    return (<>
 
-                            <h1 className="my-5">Order # {orderDetail._id}</h1>
+        <Sidebar />
+        {loading ? <Loader /> :
+        <>
+            <div className="container-fluid p-2">
+                <div className='m-lg-5'>
+                    <div className='m-lg-5'>
+                        <div className='m-sm-5 border border-5 p-3'>
+                            <h4 className='text-center text-decoration-underline m-1'>Order ID #{orderDetail._id}</h4>
+                            <div className="row">
+                                <div className="col-12 col-lg-6">
+                                    <div className="my-1"><span className='fw-bold'>Order Status : </span ><b className={orderStatus && orderStatus.includes('Delivered') ? 'greenColor' : 'redColor'}>{orderStatus}</b></div>
+                                    <div className="my-1"><span className='fw-bold'>Name : </span>{user.fullName}</div>
+                                    <div className="my-1"><span className='fw-bold'>ShippingInfo : </span><div className='ps-5'> 
+                                        {shippingInfo.fullName},<br />
+                                        {shippingInfo.addressLine1},<br />
+                                        {shippingInfo.addressLine2},<br />
+                                        {shippingInfo.city}, {shippingInfo.state},<br />
+                                        {shippingInfo.country}, Postal Code: {shippingInfo.postalCode}.
+                                    </div></div>
+                                    <div className="my-1"><span className='fw-bold'>Phone Number : </span>{shippingInfo.phoneNumber}</div>
+                                    <div className="my-1"><span className='fw-bold'>Email Address : </span>{user.email}</div>
+                                    <div className="my-1"><span className='fw-bold'>Date : </span>{orderDetail.createdAt}</div>
+                                    <div className="my-1"><span className='fw-bold'>Total Amount : </span>Rs. {totalPrice}</div>
+                                    <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.id}</div>
+                                    <div className="my-1"><span className='fw-bold'>Payment Status : </span>{isPaid ? 'PAID' : 'NOT PAID'}</div>
 
-                            <h4 className="mb-4">Shipping Info</h4>
-                            <p><b>Name:</b> {user.fullName}</p>
-                            <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
-                            <p className="mb-4"><b>Address:</b>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country}</p>
-                            <p><b>Amount:</b> Rs. {totalPrice}</p>
+                                </div>
+                                <div className="col-12 col-lg-6">
+                                    <form onSubmit={handleSubmit} className='d-flex flex-column'>
+                                        <label htmlFor="orderStatus" className='fw-bold'>Update Order Status</label>
+                                        <select name="orderStatus" id="orderStatus" value={orderStatus} onChange={(e) => setOrderStatus(e.target.value)} className='form-select my-2'>
+                                            <option value="Processing">Processing</option>
+                                            <option value="Shipped">Shipped</option>
+                                            <option value="Delivered">Delivered</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                        <button type='submit' className='btn btn-primary my-2' disabled={loading}>Update Order</button>
+                                    </form>
+                                </div>
 
-                            <hr />
+                            </div>
 
-                            <h4 className="my-4">Payment</h4>
-                            <p className={isPaid ? 'greenColor' : 'redColor'} ><b>{isPaid ? 'PAID' : 'NOT PAID'}</b></p>
-
-
-                            <h4 className="my-4">Order Status:</h4>
-                            <p className={orderStatus && orderStatus.includes('Delivered') ? 'greenColor' : 'redColor'} ><b>{orderStatus}</b></p>
-
-
-                            <h4 className="my-4">Order Items:</h4>
-
-                            <hr />
+                            <h5 className='text-center text-decoration-underline m-1'>Order Items</h5>
                             <div className="cart-item my-1">
                                 {orderItems && orderItems.map(item => (
-                                    <div className="row my-5">
-                                        <div className="col-4 col-lg-2">
-                                            <img src={item.image} alt={item.name} height="45" width="65" />
-                                        </div>
+                                    <>
+                                        <hr />
+                                        <div className="cart-item">
+                                            <div className="row">
+                                                <div className="col-6 col-lg-3 text-center">
+                                                    <Link className='text-black' to={"/product/" + item._id} >
+                                                    <img src={item.image} alt={item.name} height="130" width="130" />
+                                                    </Link>
+                                                </div>
 
-                                        <div className="col-5 col-lg-5">
-                                            <Link to={`/product/Rs. {item.product}`}>{item.name}</Link>
-                                        </div>
+                                                <div className='col-6 col-lg-9'>
+                                                    <div className="row d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                                                        <h6 className="col text-center m-2">
+                                                            <Link className='text-black' to={"/product/" + item._id} >{item.name}</Link>
+                                                        </h6>
 
+                                                        <div className="col text-center m-2">
+                                                            <h5>Rs. {item.price}</h5>
+                                                        </div>
 
-                                        <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                            <p>Rs. {item.price}</p>
-                                        </div>
+                                                        <div className="col text-center m-2">
+                                                            <h6>{item.quantity} Piece(s)</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                        <div className="col-4 col-lg-3 mt-4 mt-lg-0">
-                                            <p>{item.quantity} Piece(s)</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </>
                                 ))}
 
                             </div>
                             <hr />
                         </div>
-                        <div className="col-12 col-lg-3 mt-5">
-                            <h4 className="my-4">Order Status</h4>
-                            <div className="form-group">
-                                <select
-                                    className="form-control"
-                                    onChange={e => setOrderStatus(e.target.value)}
-                                    value={orderStatus}
-                                    name="status"
-                                >
-                                    <option value="Processing">Processing</option>
-                                    <option value="Shipped">Shipped</option>
-                                    <option value="Delivered">Delivered</option>
-                                </select>
-
-                            </div>
-                            <button
-                                disabled={loading}
-                                onClick={submitHandler}
-                                className="btn btn-primary btn-block"
-                            >
-                                Update Status
-                            </button>
-
-                        </div>
                     </div>
-                </>
+                </div>
             </div>
-        </div>
+
+
+        </>}
+    </>
 
     )
 }
