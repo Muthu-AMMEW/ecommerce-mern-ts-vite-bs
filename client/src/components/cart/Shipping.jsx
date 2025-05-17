@@ -43,18 +43,20 @@ export default function Shipping() {
     useEffect(() => {
         setInputs(shippingInfo);
         if (!shippingInfo.fullName) {
-            setInputs(values => ({
-                ...values,
-                fullName: user.fullName,
-                addressLine1: user.address.addressLine1,
-                addressLine2: user.address.addressLine2,
-                city: user.address.city,
-                state: user.address.state,
-                country: user.address.country,
-                postalCode: user.address.postalCode,
-                phoneNumber: user.phoneNumber
-            }));
+            if (user.address) {
+                setInputs(values => ({
+                    ...values,
+                    fullName: user.fullName,
+                    addressLine1: user.address.addressLine1,
+                    addressLine2: user.address.addressLine2,
+                    city: user.address.city,
+                    state: user.address.state,
+                    country: user.address.country,
+                    postalCode: user.address.postalCode,
+                    phoneNumber: user.phoneNumber
+                }));
 
+            }
         }
     }, [shippingInfo]);
 

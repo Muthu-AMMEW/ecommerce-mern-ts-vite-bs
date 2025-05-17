@@ -11,6 +11,7 @@ import Sidebar from "./Sidebar"
 
 export default function UserList() {
     const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState)
+    const { user: authUser } = useSelector(state => state.authState)
 
     const dispatch = useDispatch();
 
@@ -55,7 +56,7 @@ export default function UserList() {
                 actions: (
                     <>
                         <Link to={`/admin/user/${user._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger py-1 px-2 ml-2">
+                        <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger py-1 px-2 ml-2" disabled={user._id === authUser._id}>
                             <i className="fa fa-trash"></i>
                         </Button>
                     </>

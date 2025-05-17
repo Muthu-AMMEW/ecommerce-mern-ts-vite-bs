@@ -7,7 +7,6 @@ const { ObjectId } = require('mongodb');
 const { fileDeleter } = require('../utils/gridfs/fileDeleter');
 
 
-
 //Get images - /image/:id
 exports.getImage = catchAsyncError(async (req, res, next) => {
     const gfs = getGFS();
