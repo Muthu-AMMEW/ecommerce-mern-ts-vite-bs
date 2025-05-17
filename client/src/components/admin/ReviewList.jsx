@@ -49,7 +49,7 @@ export default function ReviewList() {
             data.rows.push({
                 id: review._id,
                 rating: review.rating,
-                user: review.user.name,
+                user: review.user.fullName,
                 comment: review.comment,
                 actions: (
                     <>

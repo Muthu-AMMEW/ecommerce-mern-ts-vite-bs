@@ -8,7 +8,7 @@ export default function ProductReview({ reviews }) {
                     <div class="rating-outer">
                         <div class="rating-inner" style={{ width: `${review.rating / 5 * 100}%` }}></div>
                     </div>
-                    <p class="review_user">by {review.user.name}</p>
+                    <p class="review_user">by {review.user.fullName}</p>
                     <p class="review_comment">{review.comment}</p>
 
                     <hr />

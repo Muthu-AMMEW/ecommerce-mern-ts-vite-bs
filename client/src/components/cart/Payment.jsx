@@ -71,7 +71,7 @@ export default function Payment() {
                 payment_method: {
                     card: elements.getElement(CardNumberElement),
                     billing_details: {
-                        name: user.name,
+                        name: user.fullName,
                         email: user.email
                     }
                 }
@@ -155,7 +155,7 @@ export default function Payment() {
                         type="submit"
                         className="btn btn-block py-3"
                     >
-                        Pay - {` Rs. Rs. {orderInfo && orderInfo.totalPrice}`}
+                        Pay - {` Rs. ${orderInfo && orderInfo.totalPrice}`}
                     </button>
 
                 </form>
