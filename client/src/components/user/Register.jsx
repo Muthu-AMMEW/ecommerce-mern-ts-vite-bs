@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { register, clearAuthError } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+import { countries } from 'countries-list';
+
 
 export default function Register() {
 	const [inputs, setInputs] = useState({
@@ -17,8 +19,17 @@ export default function Register() {
 	const [avatar, setAvatar] = useState("");
 	const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
 	const dispatch = useDispatch();
+	const countryList = Object.values(countries);
 	const navigate = useNavigate();
-	const { loading, error, isAuthenticated } = useSelector(state => state.authState)
+	const { loading, error, isAuthenticated } = useSelector(state => state.authState);
+	const [addressInputs, setAddressInputs] = useState({
+		addressLine1: "",
+		addressLine2: "",
+		city: "",
+		state: "",
+		country: "India",
+		postalCode: ""
+	})
 
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -52,6 +63,12 @@ export default function Register() {
 		}
 	}
 
+	const handleAddressChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setAddressInputs(values => ({ ...values, [name]: value }))
+	}
+
 
 	function handleReset() {
 		setInputs({
@@ -60,6 +77,12 @@ export default function Register() {
 			phoneNumber: "",
 			password: "",
 			confirmPassword: "",
+			addressLine1: "",
+			addressLine2: "",
+			city: "",
+			state: "",
+			country: "India",
+			postalCode: ""
 		})
 		toast.info("Reset Successfully");
 
@@ -89,6 +112,12 @@ export default function Register() {
 		formData.append('password', inputs.password)
 		formData.append('phoneNumber', inputs.phoneNumber)
 		// formData.append('avatar', avatar);
+		formData.append('address[addressLine1]', addressInputs.addressLine1);
+		formData.append('address[addressLine2]', addressInputs.addressLine2);
+		formData.append('address[city]', addressInputs.city);
+		formData.append('address[state]', addressInputs.state);
+		formData.append('address[country]', addressInputs.country);
+		formData.append('address[postalCode]', addressInputs.postalCode);
 		dispatch(register(formData))
 
 	}
@@ -98,7 +127,7 @@ export default function Register() {
 			<div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
 				<div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
-					<div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
+					<div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 my-4 rounded-5 bg-body-tertiary bg-opacity-50">
 						<div className='text-center h2'>Register Now</div>
 						<form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
 							<div className="w-100 mt-3">
@@ -113,6 +142,56 @@ export default function Register() {
 								<label htmlFor="phoneNumber" className="form-label">Phone Number</label>
 								<input type="number" className="form-control" id="phoneNumber" name="phoneNumber" value={inputs.phoneNumber} onChange={handleChange} placeholder="Enter your phone number" required />
 							</div>
+
+							<div className="w-100 mt-3 form-group">
+								<label htmlFor="address_field1">Address Line 1</label>
+								<input type="text" className="form-control" id="address_field1" name="addressLine1" value={addressInputs.addressLine1} placeholder="House No, Building" onChange={handleAddressChange} required />
+
+							</div>
+
+							<div className="w-100 mt-3 form-group">
+								<label htmlFor="address_field2">Address Line 2</label>
+								<input type="text" className="form-control" id="address_field2" name="addressLine2" value={addressInputs.addressLine2} placeholder="Street, Area" onChange={handleAddressChange} required />
+
+							</div>
+
+							<div className="row w-100 mt-3">
+								<div className="col-6">
+									<div className="form-group">
+										<label htmlFor="city_field">City</label>
+										<input type="text" className="form-control" id="city_field" name="city" value={addressInputs.city} placeholder="City" onChange={handleAddressChange} required />
+									</div>
+								</div>
+								<div className="col-6">
+									<div className="form-group">
+										<label htmlFor="state_field">State</label>
+										<input type="text" className="form-control" id="state_field" name="state" value={addressInputs.state} placeholder="State" onChange={handleAddressChange} required />
+									</div>
+								</div>
+							</div>
+
+							<div className="row w-100 mt-3">
+								<div className="col-6">
+									<div className="form-group">
+										<label htmlFor="country">Country</label>
+										<select className="form-control" id="country" name="country" value={addressInputs.country} onChange={handleAddressChange} required>
+											{countryList.map((country, i) => (
+												<option key={i} value={country.name}>
+													{country.name}
+												</option>
+											))
+											}
+										</select>
+									</div>
+								</div>
+								<div className="col-6">
+									<div className="form-group">
+										<label htmlFor="postal">Postal Code</label>
+										<input type="number" id="postal" className="form-control" name="postalCode" placeholder="Postal Code" value={addressInputs.postalCode} onChange={handleAddressChange} required />
+									</div>
+								</div>
+							</div>
+
 							<div className="w-100 mt-3">
 								<label htmlFor="password" className="form-label">Create a password</label>
 								<input type="password" className="form-control" id="password" name="password" value={inputs.password} onChange={handleChange} placeholder="Enter password" required />

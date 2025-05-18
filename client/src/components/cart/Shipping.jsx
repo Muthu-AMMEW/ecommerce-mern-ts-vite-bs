@@ -58,7 +58,7 @@ export default function Shipping() {
 
             }
         }
-    }, [shippingInfo]);
+    }, []);
 
     const handleChange = (event) => {
         const name = event.target.name;
