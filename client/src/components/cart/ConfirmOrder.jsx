@@ -1,9 +1,9 @@
 import MetaData from '../layouts/MetaData';
 import { useEffect } from 'react';
-import { validateShipping } from './Shipping';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckoutSteps from './CheckoutStep';
+import { toast } from 'react-toastify';
 
 export default function ConfirmOrder() {
     const { shippingInfo, cartItems } = useSelector(state => state.cartState);
@@ -28,7 +28,21 @@ export default function ConfirmOrder() {
 
 
     useEffect(() => {
-        validateShipping(shippingInfo, navigate)
+        if (!shippingInfo.fullName ||
+            !shippingInfo.addressLine1 ||
+            !shippingInfo.addressLine2 ||
+            !shippingInfo.city ||
+            !shippingInfo.state ||
+            !shippingInfo.country ||
+            !shippingInfo.postalCode ||
+            !shippingInfo.phoneNumber) {
+
+            toast('Please fill all the fields in shipping info', {
+                type: 'error',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            navigate('/shipping');
+        }
     }, [])
 
     return (

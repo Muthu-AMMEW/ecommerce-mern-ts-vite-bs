@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
-import { validateShipping } from './Shipping';
+// import { validateShipping } from './Shipping';
 import { createOrder } from '../../actions/orderActions'
 import { clearError as clearOrderError } from "../../slices/orderSlice";
 
@@ -19,6 +19,40 @@ export default function Payment() {
     const { user } = useSelector(state => state.authState)
     const { cartItems, shippingInfo } = useSelector(state => state.cartState)
     const { error: orderError } = useSelector(state => state.orderState)
+    useEffect(() => {
+        if (!orderInfo) {
+            toast('Please Conform Order Price', {
+                type: 'error',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            navigate('/order/confirm');
+            return;
+        }
+        
+        if (!shippingInfo.fullName ||
+            !shippingInfo.addressLine1 ||
+            !shippingInfo.addressLine2 ||
+            !shippingInfo.city ||
+            !shippingInfo.state ||
+            !shippingInfo.country ||
+            !shippingInfo.postalCode ||
+            !shippingInfo.phoneNumber) {
+
+            toast('Please fill all the fields in shipping info', {
+                type: 'error',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            navigate('/shipping');
+        }
+        if (orderError) {
+            toast(orderError, {
+                position: toast.POSITION.BOTTOM_CENTER,
+                type: 'error',
+                onOpen: () => { dispatch(clearOrderError()) }
+            })
+        }
+
+    }, [])
 
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100),
@@ -48,18 +82,7 @@ export default function Payment() {
 
     }
 
-    useEffect(() => {
-        validateShipping(shippingInfo, navigate)
-        if (orderError) {
-            toast(orderError, {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error',
-                onOpen: () => { dispatch(clearOrderError()) }
-            })
-            return
-        }
 
-    }, [])
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -125,7 +148,7 @@ export default function Payment() {
                             className="form-control"
 
                         />
-                        <div className="form-text">4242 4242 4242 4242</div> //only for testing 
+                        <div className="form-text">4242 4242 4242 4242</div> //only for testing
                     </div>
 
                     <div className="form-group">
@@ -135,7 +158,7 @@ export default function Payment() {
                             id="card_exp_field"
                             className="form-control"
                         />
-                        <div className="form-text">12/34</div> //only for testing 
+                        <div className="form-text">12/34</div> //only for testing
                     </div>
 
                     <div className="form-group">
@@ -146,7 +169,7 @@ export default function Payment() {
                             className="form-control"
                             value=""
                         />
-                        <div className="form-text">143</div> //only for testing 
+                        <div className="form-text">143</div> //only for testing
                     </div>
 
 

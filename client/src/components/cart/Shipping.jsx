@@ -6,27 +6,10 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutStep";
 import { toast } from "react-toastify";
 
-export const validateShipping = (shippingInfo, navigate) => {
-
-    if (
-        !shippingInfo.fullName ||
-        !shippingInfo.addressLine1 ||
-        !shippingInfo.addressLine2 ||
-        !shippingInfo.city ||
-        !shippingInfo.state ||
-        !shippingInfo.country ||
-        !shippingInfo.postalCode ||
-        !shippingInfo.phoneNumber
-
-    ) {
-        toast.error('Please fill the shipping information', { position: toast.POSITION.BOTTOM_CENTER })
-        navigate('/shipping')
-    }
-}
 
 
 export default function Shipping() {
-    const { shippingInfo = {}, loading } = useSelector(state => state.cartState)
+    const { shippingInfo = {}, cartItems, loading } = useSelector(state => state.cartState)
     const { user } = useSelector(state => state.authState)
 
     const [inputs, setInputs] = useState({
@@ -41,6 +24,14 @@ export default function Shipping() {
     })
 
     useEffect(() => {
+        if(!cartItems.length > 0){
+             toast('Please add items in the cart', {
+                type: 'error',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            navigate('/cart');
+        }
+        
         setInputs(shippingInfo);
         if (!shippingInfo.fullName) {
             if (user.address) {
