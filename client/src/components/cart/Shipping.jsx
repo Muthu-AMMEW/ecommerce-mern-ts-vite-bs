@@ -171,7 +171,7 @@ export default function Shipping() {
                             }
 
                             <button type="reset" className="btn btn-danger me-5" onClick={handleReset}>Reset</button>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary">Continue</button>
                         </div>
 
                     </form>

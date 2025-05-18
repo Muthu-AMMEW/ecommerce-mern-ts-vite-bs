@@ -1,5 +1,5 @@
 import MetaData from '../layouts/MetaData';
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { validateShipping } from './Shipping';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -35,60 +35,76 @@ export default function ConfirmOrder() {
         <>
             <MetaData title={'Confirm Order'} />
             <CheckoutSteps shipping confirmOrder />
-            <div className="row d-flex justify-content-between">
-                <div className="col-12 col-lg-8 mt-5 order-confirm">
+            {cartItems.length > 0 && <>
+                <div className="container-fluid p-3">
+                    <div className="row">
 
-                    <h4 className="mb-3">Shipping Info</h4>
-                    <p><b>Name:</b> {user.fullName}</p>
-                    <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
-                    <p className="mb-4"><b>Address:</b> {shippingInfo.address}, {shippingInfo.city}, {shippingInfo.postalCode}, {shippingInfo.state}, {shippingInfo.country} </p>
-
-                    <hr />
-                    <h4 className="mt-4">Your Cart Items:</h4>
-
-                    {cartItems.map((item, index) => (
-                        <Fragment key={index}>
-                            <div className="cart-item my-1">
+                        <div className="col-12 col-lg-8">
+                            <div className='ms-5'>
+                                <h4 className="mb-3">Shipping Info</h4>
                                 <div className="row">
-                                    <div className="col-4 col-lg-2">
-                                        <img src={item.image} alt={item.name} height="45" width="65" />
+                                    <div className="col-12 col-sm-5 col-md-4">
+                                        <p><b>Name:</b> {user.fullName}</p>
+                                        <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
                                     </div>
-
-                                    <div className="col-5 col-lg-6">
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                    <div className="col-12 col-sm text-start">
+                                        <p className="mb-4"><b>Address:</b> {shippingInfo.fullName},<br />
+                                            {shippingInfo.addressLine1},<br />
+                                            {shippingInfo.addressLine2},<br />
+                                            {shippingInfo.city}, {shippingInfo.state},<br />
+                                            {shippingInfo.country},Pin Code: {shippingInfo.postalCode}.<br />
+                                            Phone No.: {shippingInfo.phoneNumber} </p>
                                     </div>
-
-
-                                    <div className="col-4 col-lg-4 mt-4 mt-lg-0">
-                                        <p>{item.quantity} x Rs. {item.price} = <b>Rs. {item.quantity * item.price}</b></p>
-                                    </div>
-
                                 </div>
                             </div>
                             <hr />
-                        </Fragment>)
-                    )
-                    }
-                </div>
 
-                <div className="col-12 col-lg-3 my-4">
-                    <div id="order_summary">
-                        <h4>Order Summary</h4>
-                        <hr />
-                        <p>Subtotal:  <span className="order-summary-values">Rs. {itemsPrice}</span></p>
-                        <p>Shipping: <span className="order-summary-values">Rs. {shippingPrice}</span></p>
-                        <p>Tax:  <span className="order-summary-values">Rs. {taxPrice}</span></p>
+                            <h3 className="mt-5 text-center">Your Cart <b>{cartItems.length} items</b></h3>
+                            {cartItems.map((item) =>
+                            (<div key={item._id}>
+                                <hr />
+                                <div className="cart-item">
+                                    <div className="row">
+                                        <div className="col-6 col-lg-3 text-center">
+                                            <Link className='text-black' to={"/product/" + item._id} ><img src={item.image} alt={item.name} height="90" width="115" /></Link>
+                                        </div>
 
-                        <hr />
+                                        <div className='col-6 col-lg-9'>
+                                            <div className="row d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                                                <h6 className="col text-center m-2">
+                                                    <Link className='text-black' to={"/product/" + item._id} >{item.name}</Link>
+                                                </h6>
 
-                        <p>Total: <span className="order-summary-values">Rs. {totalPrice}</span></p>
+                                                <div className="col text-center m-3">
+                                                    <p>{item.quantity} x Rs. {item.price} = <b>Rs. {item.quantity * item.price}</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                        <hr />
-                        <button id="checkout_btn" onClick={processPayment} className="btn btn-primary btn-block">Proceed to Payment</button>
+                                    </div>
+                                </div>
+                            </div>)
+                            )}
+
+                        </div>
+
+                        <div className="col-12 col-lg-4 my-5 text-center">
+                            <div className='border rounded-5 p-5'>
+                                <h4>Order Summary</h4>
+                                <hr />
+                                <h6 className='m-4'>Subtotal:  <span className='text-danger'>Rs. {itemsPrice}</span></h6>
+                                <h6 className='m-4'>Shipping: <span className='text-danger'>Rs. {shippingPrice}</span></h6>
+                                <h6 className='m-4'>Tax: <span className='text-danger'>Rs. {taxPrice}</span></h6>
+
+                                <hr />
+                                <h6 className='m-4'>Total: <span className='text-danger'>Rs. {totalPrice}</span></h6>
+
+                                <hr />
+                                <button className="btn btn-primary btn-block" onClick={processPayment}>Proceed to Payment</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
-
-    )
+            </>}
+        </>)
 }

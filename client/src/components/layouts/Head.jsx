@@ -1,11 +1,8 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../actions/userActions';
 import UserDropDown from './UserDropDown';
-import { useEffect } from "react";
-import axios from 'axios';
 
 
 export default function Head() {

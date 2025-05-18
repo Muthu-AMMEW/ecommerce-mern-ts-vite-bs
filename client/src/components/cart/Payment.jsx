@@ -125,7 +125,7 @@ export default function Payment() {
                             className="form-control"
 
                         />
-                        <div className="form-text">4242 4242 4242 4242 //only for testing</div>
+                        <div className="form-text">4242 4242 4242 4242</div> //only for testing 
                     </div>
 
                     <div className="form-group">
@@ -135,7 +135,7 @@ export default function Payment() {
                             id="card_exp_field"
                             className="form-control"
                         />
-                        <div className="form-text">12/34 //only for testing </div>
+                        <div className="form-text">12/34</div> //only for testing 
                     </div>
 
                     <div className="form-group">
@@ -146,7 +146,7 @@ export default function Payment() {
                             className="form-control"
                             value=""
                         />
-                        <div className="form-text">143 //only for testing </div>
+                        <div className="form-text">143</div> //only for testing 
                     </div>
 
 

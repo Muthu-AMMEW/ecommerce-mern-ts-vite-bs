@@ -1,19 +1,9 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Search from './Search';
-import { useDispatch, useSelector } from 'react-redux';
-import { DropdownButton, Dropdown, Image } from 'react-bootstrap';
-import { logout } from '../../actions/userActions';
+import { useSelector } from 'react-redux';
 
 export default function UserDropDown() {
-    const { isAuthenticated, user } = useSelector(state => state.authState);
-    const { cartItems } = useSelector(state => state.cartState)
-    const dispatch = useDispatch();
+    const { user } = useSelector(state => state.authState);
     const navigate = useNavigate();
-    const logoutHandler = () => {
-        dispatch(logout);
-    }
-
 
     return (
         <>
