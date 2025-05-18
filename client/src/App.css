@@ -9,6 +9,11 @@ body {
 }
 
 
+/* .table-responsive {
+  overflow-x: auto;
+  width: 100%;
+} */
+
 .mm-bgpic {
   background-image: url(/images/slide-01.jpg);
 }

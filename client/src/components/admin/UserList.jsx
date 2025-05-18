@@ -8,38 +8,54 @@ import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
+import js from "@eslint/js"
 
 export default function UserList() {
-    const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState)
-    const { user: authUser } = useSelector(state => state.authState)
-
+    const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState);
+    const { user: authUser } = useSelector(state => state.authState);
     const dispatch = useDispatch();
+    let sno = 0;
 
     const setUsers = () => {
         const data = {
             columns: [
                 {
-                    label: 'ID',
+                    label: 'S.No ↕',
+                    field: 'sno',
+                    sort: 'asc'
+                },
+                {
+                    label: 'ID ↕',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'Name',
+                    label: 'Name ↕',
                     field: 'name',
                     sort: 'asc'
                 },
                 {
-                    label: 'Email',
+                    label: 'Email ↕',
                     field: 'email',
                     sort: 'asc'
                 },
                 {
-                    label: 'Role',
+                    label: 'Phone Number ↕',
+                    field: 'phoneNumber',
+                    sort: 'asc'
+                },
+                // {
+                //     label: 'Address ↕',
+                //     field: 'address',
+                //     sort: 'asc'
+                // },
+                {
+                    label: 'Role ↕',
                     field: 'role',
                     sort: 'asc'
                 },
                 {
-                    label: 'Actions',
+                    label: 'Actions ↕',
                     field: 'actions',
                     sort: 'asc'
                 }
@@ -49,9 +65,12 @@ export default function UserList() {
 
         users.forEach(user => {
             data.rows.push({
+                sno: ++sno,
                 id: user._id,
                 name: user.fullName,
                 email: user.email,
+                phoneNumber: user.phoneNumber,
+                // address: JSON.stringify(Object.values(user.address)),
                 role: user.role,
                 actions: (
                     <>
@@ -100,13 +119,15 @@ export default function UserList() {
             <div className="p-4">
                 <h1 className="my-1 ps-2">User List</h1>
                 {loading ? <Loader /> :
-                    <MDBDataTable
-                        data={setUsers()}
-                        bordered
-                        striped
-                        hover
-                        className="px-3"
-                    />
+                    <div className="table-responsive">
+                        <MDBDataTable
+                            data={setUsers()}
+                            bordered
+                            striped
+                            hover
+                            className="px-3"
+                        />
+                    </div>
                 }
             </div>
         </>

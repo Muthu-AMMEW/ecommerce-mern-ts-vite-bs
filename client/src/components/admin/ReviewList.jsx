@@ -122,13 +122,15 @@ export default function ReviewList() {
                     </div>
                 </div>
                 {loading ? <Loader /> :
-                    <MDBDataTable
-                        data={setReviews()}
-                        bordered
-                        striped
-                        hover
-                        className="px-3"
-                    />
+                    <div className="table-responsive">
+                        <MDBDataTable
+                            data={setReviews()}
+                            bordered
+                            striped
+                            hover
+                            className="px-3"
+                        />
+                    </div>
                 }
             </div>
         </>

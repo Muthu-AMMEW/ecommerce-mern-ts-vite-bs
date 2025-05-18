@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
 import { useEffect } from 'react'
 import MetaData from '../layouts/MetaData';
+import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact'
 import { useDispatch, useSelector } from 'react-redux';
 import { userOrders as userOrdersAction } from '../../actions/orderActions';
-import { Link } from 'react-router-dom';
 
 export default function UserOrders() {
-    const { userOrders = [] } = useSelector(state => state.orderState)
+    const { userOrders = [], loading = true } = useSelector(state => state.orderState)
     const dispatch = useDispatch();
+    let sno = 0;
 
     useEffect(() => {
         dispatch(userOrdersAction)
@@ -17,43 +19,74 @@ export default function UserOrders() {
         const data = {
             columns: [
                 {
-                    label: "Order ID",
+                    label: 'S.No ↕',
+                    field: 'sno',
+                    sort: 'asc'
+
+                },
+                {
+                    label: 'Date ↕',
+                    field: 'date',
+                    sort: 'desc'
+                },
+                {
+                    label: 'Order ID ↕',
                     field: 'id',
-                    sort: "asc"
+                    sort: 'asc'
                 },
                 {
-                    label: "Number of Items",
+                    label: 'Items ↕',
                     field: 'numOfItems',
-                    sort: "asc"
+                    sort: 'asc'
                 },
+
                 {
-                    label: "Amount",
+                    label: 'Amount ↕',
                     field: 'amount',
-                    sort: "asc"
+                    sort: 'asc'
                 },
+                // {
+                //     label: 'Address ↕',
+                //     field: 'address',
+                //     sort: 'asc'
+                // },
                 {
-                    label: "Status",
+                    label: 'Status ↕',
                     field: 'status',
-                    sort: "asc"
+                    sort: 'asc'
                 },
                 {
-                    label: "Actions",
+                    label: 'Actions ↕',
                     field: 'actions',
-                    sort: "asc"
+                    sort: 'asc'
                 }
             ],
             rows: []
         }
 
-        userOrders.forEach(userOrder => {
+        userOrders.forEach(order => {
             data.rows.push({
-                id: userOrder._id,
-                numOfItems: userOrder.orderItems.length,
-                amount: `Rs. ${userOrder.totalPrice}`,
-                status: userOrder.orderStatus && userOrder.orderStatus.includes('Delivered') ?
-                    (<p style={{ color: 'green' }}> {userOrder.orderStatus} </p>) :
-                    (<p style={{ color: 'red' }}> {userOrder.orderStatus} </p>),
-                actions: <Link to={`/order/${userOrder._id}`} className="btn btn-primary" >
+                sno: ++sno,
+                date: new Date(order.createdAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }),
+                id: <Link to={`/order/${order._id}`} className="text-primary">{order._id}</Link>,
+                numOfItems: order.orderItems.length,
+                amount: `Rs. ${order.totalPrice}`,
+                status: order.orderStatus,
+                // address: <p>{order.shippingInfo.fullName},<br />
+                //     {order.shippingInfo.addressLine1},<br />
+                //     {order.shippingInfo.addressLine2},<br />
+                //     {order.shippingInfo.city}, {order.shippingInfo.state},<br />
+                //     {order.shippingInfo.country},Pin Code: {order.shippingInfo.postalCode}.<br />
+                //     Phone No.: {order.shippingInfo.phoneNumber}</p>,
+                status: order.orderStatus,
+                actions: <Link to={`/order/${order._id}`} className="btn btn-primary" >
                     <i className='fa fa-eye'></i>
                 </Link>
             })
@@ -67,14 +100,17 @@ export default function UserOrders() {
     return (
         <>
             <MetaData title="My Orders" />
-            <h1 className='mt-5'>My Orders</h1>
-            <MDBDataTable
-                className='px-3'
-                bordered
-                striped
-                hover
-                data={setOrders()}
-            />
+            <h1 className='m-3'>My Orders</h1>
+            {loading ? <Loader /> :
+            <div className="table-responsive">
+                <MDBDataTable
+                    className='px-3'
+                    bordered
+                    striped
+                    hover
+                    data={setOrders()}
+                />
+            </div>}
         </>
     )
 }

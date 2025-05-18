@@ -13,32 +13,48 @@ export default function ProductList() {
     const { products = [], loading = true, error } = useSelector(state => state.productsState)
     const { isProductDeleted, error: productError } = useSelector(state => state.productState)
     const dispatch = useDispatch();
+    let sno = 0;
 
     const setProducts = () => {
         const data = {
             columns: [
                 {
-                    label: 'ID',
+                    label: 'S.No ↕',
+                    field: 'sno',
+                    sort: 'asc'
+                },
+                {
+                    label: 'ID ↕',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'Name',
+                    label: 'Name ↕',
                     field: 'name',
                     sort: 'asc'
                 },
                 {
-                    label: 'Price',
+                    label: 'Price ↕',
                     field: 'price',
                     sort: 'asc'
                 },
                 {
-                    label: 'Stock',
+                    label: 'Category ↕',
+                    field: 'category',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Seller ↕',
+                    field: 'seller',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Stock ↕',
                     field: 'stock',
                     sort: 'asc'
                 },
                 {
-                    label: 'Actions',
+                    label: 'Actions ↕',
                     field: 'actions',
                     sort: 'asc'
                 }
@@ -48,9 +64,12 @@ export default function ProductList() {
 
         products.forEach(product => {
             data.rows.push({
+                sno: ++sno,
                 id: product._id,
                 name: product.name,
                 price: `Rs. ${product.price}`,
+                category: product.category,
+                seller: product.seller,
                 stock: product.stock,
                 actions: (
                     <>
@@ -98,7 +117,8 @@ export default function ProductList() {
             <Sidebar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Product List</h1>
-                    {loading ? <Loader /> :
+                {loading ? <Loader /> :
+                    <div className="table-responsive">
                         <MDBDataTable
                             data={setProducts()}
                             bordered
@@ -106,7 +126,8 @@ export default function ProductList() {
                             hover
                             className="px-3"
                         />
-                    }
+                    </div>
+                }
             </div>
         </>
     )

@@ -13,67 +13,7 @@ export default function OrderList() {
     const { adminOrders = [], loading = true, error, isOrderDeleted } = useSelector(state => state.orderState)
 
     const dispatch = useDispatch();
-
-    const setOrders = () => {
-        const data = {
-            columns: [
-                {
-                    label: 'ID',
-                    field: 'id',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Number of Items',
-                    field: 'noOfItems',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Amount',
-                    field: 'amount',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Status',
-                    field: 'status',
-                    sort: 'asc'
-                },
-                {
-                    label: 'Actions',
-                    field: 'actions',
-                    sort: 'asc'
-                }
-            ],
-            rows: []
-        }
-
-        adminOrders.forEach(order => {
-            data.rows.push({
-                id: order._id,
-                noOfItems: order.orderItems.length,
-                amount: `Rs. ${order.totalPrice}`,
-                status: <p style={{
-                    color: order.orderStatus.includes('Processing') ? 'orange' :
-                        order.orderStatus.includes('Shipped') ? 'blue' :
-                            order.orderStatus.includes('Delivered') ? 'green' : 'red'
-                }}>{order.orderStatus}</p>,
-                actions: (
-                    <>
-                        <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger py-1 px-2 ml-2">
-                            <i className="fa fa-trash"></i>
-                        </Button>
-                    </>
-                )
-            })
-        })
-
-        return data;
-    }
-
-    const deleteHandler = (e, id) => {
-        e.target.disabled = true;
-        dispatch(deleteOrder(id))
-    }
+    let sno = 0;
 
     useEffect(() => {
         if (error) {
@@ -96,6 +36,94 @@ export default function OrderList() {
         dispatch(adminOrdersAction)
     }, [dispatch, error, isOrderDeleted])
 
+    const setOrders = () => {
+        const data = {
+            columns: [
+                {
+                    label: 'S.No ↕',
+                    field: 'sno',
+                    sort: 'asc'
+
+                },
+                {
+                    label: 'Date ↕',
+                    field: 'date',
+                    sort: 'desc'
+                },
+                {
+                    label: 'Order ID ↕',
+                    field: 'id',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Name ↕',
+                    field: 'fullName',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Email ↕',
+                    field: 'email',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Amount ↕',
+                    field: 'amount',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Status ↕',
+                    field: 'status',
+                    sort: 'asc'
+                },
+                {
+                    label: 'Actions ↕',
+                    field: 'actions',
+                    sort: 'asc'
+                }
+            ],
+            rows: []
+        }
+
+        adminOrders.forEach(order => {
+            data.rows.push({
+                sno: ++sno,
+                date: new Date(order.createdAt).toLocaleDateString('en-IN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }),
+                id: <Link to={`/admin/order/${order._id}`} className="text-primary">{order._id}</Link>,
+                fullName: order.user.fullName,
+                email: order.user.email,
+                amount: `Rs. ${order.totalPrice}`,
+                status: order.orderStatus,
+                // status: <p style={{
+                //     color: order.orderStatus.includes('Processing') ? 'orange' :
+                //         order.orderStatus.includes('Shipped') ? 'blue' :
+                //             order.orderStatus.includes('Delivered') ? 'green' : 'red'
+                // }}>{order.orderStatus}</p>,
+                actions: (
+                    <>
+                        <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
+                        <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger py-1 px-2 ml-2">
+                            <i className="fa fa-trash"></i>
+                        </Button>
+                    </>
+                )
+            })
+        })
+
+        return data;
+    }
+
+    const deleteHandler = (e, id) => {
+        e.target.disabled = true;
+        dispatch(deleteOrder(id))
+    }
+
 
     return (
         <>
@@ -103,13 +131,15 @@ export default function OrderList() {
             <div className="p-4">
                 <h1 className="my-1 ps-2">Order List</h1>
                 {loading ? <Loader /> :
-                    <MDBDataTable
-                        data={setOrders()}
-                        bordered
-                        striped
-                        hover
-                        className="px-3"
-                    />
+                    <div className="table-responsive">
+                        <MDBDataTable
+                            data={setOrders()}
+                            bordered
+                            striped
+                            hover
+                            className="px-3"
+                        />
+                    </div>
                 }
             </div>
         </>

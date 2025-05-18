@@ -97,7 +97,7 @@ exports.cancelOrder = catchAsyncError(async (req, res, next) => {
 
 //My Orders(Get Loggedin User Orders) - /api/v1/myorders
 exports.myOrders = catchAsyncError(async (req, res, next) => {
-    const orders = await Order.find({ user: req.user.id });
+    const orders = await Order.find({ user: req.user.id }).sort({ createdAt: -1 });
 
     res.status(200).json({
         success: true,
@@ -107,7 +107,7 @@ exports.myOrders = catchAsyncError(async (req, res, next) => {
 
 //Admin: Get All Orders - api/v1/admin/orders
 exports.orders = catchAsyncError(async (req, res, next) => {
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ createdAt: -1 }).populate('user', 'fullName email');
 
     let totalAmount = 0;
 
