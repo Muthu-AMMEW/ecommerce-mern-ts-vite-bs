@@ -53,41 +53,39 @@ export default function Payment() {
             })
         }
 
-    }, [])
+    }, [orderError])
 
-
-
-    const order = {
-        orderItems: cartItems,
-        shippingInfo
-    }
-
-    if (orderInfo) {
-        order.itemsPrice = orderInfo.itemsPrice
-        order.shippingPrice = orderInfo.shippingPrice
-        order.taxPrice = orderInfo.taxPrice
-        order.totalPrice = orderInfo.totalPrice
-
-    }
-    let paymentData;
+    let order, paymentData;
     useEffect(() => {
         if (orderInfo) {
+            order = {
+                orderItems: cartItems,
+                shippingInfo,
+                itemsPrice: orderInfo.itemsPrice,
+                shippingPrice: orderInfo.shippingPrice,
+                taxPrice: orderInfo.taxPrice,
+                totalPrice: orderInfo.totalPrice
+            }
             paymentData = {
                 amount: Math.round(orderInfo.totalPrice * 100),
                 shipping: {
-                    name: user.fullName,
+                    name: shippingInfo.fullName,
                     address: {
+                        addressLine1: shippingInfo.addressLine1,
+                        addressLine2: shippingInfo.addressLine2,
                         city: shippingInfo.city,
-                        postal_code: shippingInfo.postalCode,
-                        country: shippingInfo.country,
                         state: shippingInfo.state,
-                        line1: shippingInfo.address
+                        country: shippingInfo.country,
+                        postalCode: shippingInfo.postalCode
                     },
                     phone: shippingInfo.phoneNumber
                 }
             }
         }
-    }, [orderInfo, shippingInfo, user])
+
+    }, [orderInfo])
+
+
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -123,7 +121,6 @@ export default function Payment() {
                     }
                     dispatch(orderCompleted())
                     dispatch(createOrder(order))
-
                     navigate('/order/success')
                 } else {
                     toast('Please Try again!', {
