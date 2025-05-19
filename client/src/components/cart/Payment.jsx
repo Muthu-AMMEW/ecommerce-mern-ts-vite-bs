@@ -19,6 +19,7 @@ export default function Payment() {
     const { user } = useSelector(state => state.authState)
     const { cartItems, shippingInfo } = useSelector(state => state.cartState)
     const { error: orderError } = useSelector(state => state.orderState)
+
     useEffect(() => {
         if (!orderInfo) {
             toast('Please Conform Order Price', {
@@ -28,7 +29,7 @@ export default function Payment() {
             navigate('/order/confirm');
             return;
         }
-        
+
         if (!shippingInfo.fullName ||
             !shippingInfo.addressLine1 ||
             !shippingInfo.addressLine2 ||
@@ -54,20 +55,7 @@ export default function Payment() {
 
     }, [])
 
-    const paymentData = {
-        amount: Math.round(orderInfo.totalPrice * 100),
-        shipping: {
-            name: user.fullName,
-            address: {
-                city: shippingInfo.city,
-                postal_code: shippingInfo.postalCode,
-                country: shippingInfo.country,
-                state: shippingInfo.state,
-                line1: shippingInfo.address
-            },
-            phone: shippingInfo.phoneNumber
-        }
-    }
+
 
     const order = {
         orderItems: cartItems,
@@ -81,8 +69,25 @@ export default function Payment() {
         order.totalPrice = orderInfo.totalPrice
 
     }
-
-
+    let paymentData;
+    useEffect(() => {
+        if (orderInfo) {
+            paymentData = {
+                amount: Math.round(orderInfo.totalPrice * 100),
+                shipping: {
+                    name: user.fullName,
+                    address: {
+                        city: shippingInfo.city,
+                        postal_code: shippingInfo.postalCode,
+                        country: shippingInfo.country,
+                        state: shippingInfo.state,
+                        line1: shippingInfo.address
+                    },
+                    phone: shippingInfo.phoneNumber
+                }
+            }
+        }
+    }, [orderInfo, shippingInfo, user])
 
     const submitHandler = async (e) => {
         e.preventDefault();

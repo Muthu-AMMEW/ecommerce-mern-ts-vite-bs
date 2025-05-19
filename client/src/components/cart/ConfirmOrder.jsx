@@ -49,7 +49,7 @@ export default function ConfirmOrder() {
         <>
             <MetaData title={'Confirm Order'} />
             <CheckoutSteps shipping confirmOrder />
-            {cartItems.length > 0 && <>
+            {cartItems.length > 0 && shippingInfo && <>
                 <div className="container-fluid p-3">
                     <div className="row">
 
