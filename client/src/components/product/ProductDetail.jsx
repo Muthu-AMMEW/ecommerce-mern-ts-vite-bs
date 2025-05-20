@@ -99,32 +99,20 @@ export default function ProductDetail() {
     return (
         <>
             {loading ? <Loader /> :
-                <>
+                <div className="m-2 m-sm-5 m-lg-2 m-xl-5">
                     <MetaData title={product.name} />
                     <div className="row">
-                        <div className="col-12 col-lg-7 text-center">
-                            <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-                                <div className="carousel-inner">
-                                    {product.images && product.images.length > 0 && product.images.map(image =>
-                                        <div className={image._id === product.images[0]._id ? "carousel-item active" : "carousel-item"} key={image._id} data-bs-interval="2000">
-                                            <img className="img-fluid w-100" src={image.image} alt={product.name} height="550" width="550" />
-                                        </div>
-                                    )}
-                                </div>
-                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Previous</span>
-                                </button>
-                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                                    data-bs-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="visually-hidden">Next</span>
-                                </button>
-                            </div>
+                        <div className="col-12 col-lg-7 mt-lg-5 text-center">
+                            <Carousel pause="hover">
+                                {product.images && product.images.length > 0 && product.images.map(image =>
+                                    <Carousel.Item key={image._id}>
+                                        <img className="d-block w-100" src={image.image} alt={product.name} height="500" width="500" />
+                                    </Carousel.Item>
+                                )}
+                            </Carousel>
                         </div>
 
-                        <div className="col-12 col-lg-5 mt-5 text-center">
+                        <div className="col-12 col-lg-5 mt-lg-2 text-center">
                             <h3>{product.name}</h3>
                             <p className=' fst-italic'>Product #{product._id}</p>
 
@@ -137,6 +125,7 @@ export default function ProductDetail() {
 
 
                             <hr />
+                            
 
                             <h5 className=' fw-bolder mb-3'>Rs. {product.price}</h5>
                             <div className="d-flex justify-content-evenly">
@@ -169,8 +158,8 @@ export default function ProductDetail() {
 
                         </div>
 
-                        <div className="row mt-2 mb-5">
-                            <div className="rating w-50">
+                        <div className="row">
+                            <div className="rating w-50 my-0">
                                 <Modal show={show} onHide={handleClose}>
                                     <Modal.Header closeButton>
                                         <Modal.Title>Submit Review</Modal.Title>
@@ -207,7 +196,7 @@ export default function ProductDetail() {
                             <ProductReview reviews={product.reviews} /> : null
                     }
 
-                </>}
+                </div>}
         </>
     )
 }
