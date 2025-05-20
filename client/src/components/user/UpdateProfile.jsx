@@ -216,7 +216,7 @@ export default function UpdateProfile() {
                                 </div>) : null
                             }
 
-                            <button type="submit" className="btn btn-primary me-5">Submit</button>
+                            <button type="submit" className="btn btn-primary me-5" disabled={loading}>Submit</button>
                             <button type="reset" className="btn btn-danger" onClick={handleReset}>Reset</button>
                         </div>
                     </form>

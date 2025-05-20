@@ -101,20 +101,32 @@ export default function ProductDetail() {
             {loading ? <Loader /> :
                 <>
                     <MetaData title={product.name} />
-                    <div className="row f-flex justify-content-around">
-                        <div className="col-12 col-lg-5 img-fluid" id="product_image">
-                            <Carousel pause="hover">
-                                {product.images && product.images.length > 0 && product.images.map(image =>
-                                    <Carousel.Item key={image._id}>
-                                        <img className="d-block w-100" src={image.image} alt={product.name} height="500" width="500" />
-                                    </Carousel.Item>
-                                )}
-                            </Carousel>
+                    <div className="row">
+                        <div className="col-12 col-lg-7 text-center">
+                            <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
+                                <div className="carousel-inner">
+                                    {product.images && product.images.length > 0 && product.images.map(image =>
+                                        <div className={image._id === product.images[0]._id ? "carousel-item active" : "carousel-item"} key={image._id} data-bs-interval="2000">
+                                            <img className="img-fluid w-100" src={image.image} alt={product.name} height="550" width="550" />
+                                        </div>
+                                    )}
+                                </div>
+                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                                    data-bs-slide="prev">
+                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Previous</span>
+                                </button>
+                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                                    data-bs-slide="next">
+                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span className="visually-hidden">Next</span>
+                                </button>
+                            </div>
                         </div>
 
-                        <div className="col-12 col-lg-5 mt-5">
+                        <div className="col-12 col-lg-5 mt-5 text-center">
                             <h3>{product.name}</h3>
-                            <p id="product_id">Product # {product._id}</p>
+                            <p className=' fst-italic'>Product #{product._id}</p>
 
                             <hr />
 
@@ -123,27 +135,31 @@ export default function ProductDetail() {
                             </div>
                             <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
 
+
                             <hr />
 
-                            <p id="product_price">Rs. {product.price}</p>
-                            <div className="stockCounter d-inline">
-                                <span className="btn btn-danger minus" onClick={decreaseQty} >-</span>
+                            <h5 className=' fw-bolder mb-3'>Rs. {product.price}</h5>
+                            <div className="d-flex justify-content-evenly">
+                                <span className="btn btn-danger" onClick={decreaseQty}>-</span>
 
-                                <input type="number" className="form-control d-inline" value={quantity} readOnly min={1} max={product.stock} />
+                                <input className='form-control text-center w-25' type="number" name="quantity" value={quantity} readOnly />
 
-                                <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
+                                <span className="btn btn-primary" onClick={increaseQty}>+</span>
+                                <button type="button" onClick={addToCart} disabled={product.stock <= 0} className="btn btn-primary">Add to Cart</button>
                             </div>
-                            <button type="button" className="btn btn-primary d-inline ml-4" id="cart_btn" disabled={product.stock <= 0} onClick={addToCart}>Add to Cart</button>
-                            <hr />
 
-                            <p>Status: <span className={product.stock > 0 ? 'greenColor' : 'redColor'} id="stock_status">{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
 
                             <hr />
 
-                            <h4 className="mt-2">Description:</h4>
+                            <p className='fw-bold'>Status <h5 className={product.stock > 0 ? 'text-success' : 'text-danger'}>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</h5></p>
+
+                            <hr />
+
+                            <h4 className="mt-2">Description</h4>
                             <p>{product.description}</p>
+                            <h6 className="card-text text-danger">{product.category}</h6>
                             <hr />
-                            <p id="product_seller mb-3">Sold by: <strong>{product.seller}</strong></p>
+                            <h6>Sold by: <strong>{product.seller}</strong></h6>
                             {user ?
                                 <button onClick={handleShow} id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
                                     Submit Your Review
@@ -151,48 +167,46 @@ export default function ProductDetail() {
                                 <div className="alert alert-danger mt-5"> Login to Post Review</div>
                             }
 
-                            <div className="row mt-2 mb-5">
-                                <div className="rating w-50">
-                                    <Modal show={show} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Submit Review</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <ul className="stars" >
-                                                {
-                                                    [1, 2, 3, 4, 5].map(star => (
-                                                        <li
-                                                            value={star}
-                                                            onClick={() => setRating(star)}
-                                                            className={`star ${star <= rating ? 'orange' : ''}`}
-                                                            onMouseOver={(e) => e.target.classList.add('yellow')}
-                                                            onMouseOut={(e) => e.target.classList.remove('yellow')}
+                        </div>
 
-                                                        ><i className="fa fa-star"></i></li>
-                                                    ))
-                                                }
+                        <div className="row mt-2 mb-5">
+                            <div className="rating w-50">
+                                <Modal show={show} onHide={handleClose}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Submit Review</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <ul className="stars" >
+                                            {
+                                                [1, 2, 3, 4, 5].map(star => (
+                                                    <li
+                                                        value={star}
+                                                        onClick={() => setRating(star)}
+                                                        className={`star ${star <= rating ? 'orange' : ''}`}
+                                                        onMouseOver={(e) => e.target.classList.add('yellow')}
+                                                        onMouseOut={(e) => e.target.classList.remove('yellow')}
 
+                                                    ><i className="fa fa-star"></i></li>
+                                                ))
+                                            }
+                                        </ul>
 
-                                            </ul>
+                                        <textarea onChange={(e) => setComment(e.target.value)} name="review" id="review" className="form-control mt-3">
 
-                                            <textarea onChange={(e) => setComment(e.target.value)} name="review" id="review" className="form-control mt-3">
+                                        </textarea>
+                                        <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn my-3 float-right review-btn px-4 text-white">Submit</button>
+                                    </Modal.Body>
 
-                                            </textarea>
-                                            <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn my-3 float-right review-btn px-4 text-white">Submit</button>
-                                        </Modal.Body>
-
-                                    </Modal>
-                                </div>
+                                </Modal>
                             </div>
-
                         </div>
 
                     </div>
-
                     {
                         product.reviews && product.reviews.length > 0 ?
                             <ProductReview reviews={product.reviews} /> : null
                     }
+
                 </>}
         </>
     )

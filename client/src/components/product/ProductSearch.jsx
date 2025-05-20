@@ -91,14 +91,14 @@ export default function ProductSearch() {
 								<div className="row">
 									<div className="col-6 text-center my-4">
 										{/* Category Filter */}
-										<div class="btn-group dropdown">
-											<button class="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<div className="btn-group dropdown">
+											<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												Categories
 											</button>
-											<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												<span class="visually-hidden">Toggle Dropdown</span>
+											<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+												<span className="visually-hidden">Toggle Dropdown</span>
 											</button>
-											<ul class="dropdown-menu">
+											<ul className="dropdown-menu">
 												{categories.map(category =>
 													<li className="dropdown-item " key={category} onClick={() => {
 														setCategory(category)
@@ -110,14 +110,14 @@ export default function ProductSearch() {
 									</div>
 									<div className="col-6 text-center my-4">
 										{/* Ratings Filter */}
-										<div class="btn-group dropdown">
-											<button class="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<div className="btn-group dropdown">
+											<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												Ratings
 											</button>
-											<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												<span class="visually-hidden">Toggle Dropdown</span>
+											<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+												<span className="visually-hidden">Toggle Dropdown</span>
 											</button>
-											<ul class="dropdown-menu">
+											<ul className="dropdown-menu">
 												{[5, 4, 3, 2, 1].map(star =>
 													<li className="dropdown-item " key={star} onClick={() => {
 														setRating(star)

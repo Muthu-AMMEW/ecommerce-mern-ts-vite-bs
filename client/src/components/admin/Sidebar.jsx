@@ -17,7 +17,7 @@ export default function Sidebar() {
                 <li>
                     <div className="dropdown">
                         <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-brands fa-product-hunt"></i> Product
+                            <i className="fa-brands fa-product-hunt"></i> Product
                         </a>
 
                         <ul className="dropdown-menu">

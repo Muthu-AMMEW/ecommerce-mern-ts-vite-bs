@@ -88,7 +88,7 @@ export default function Login() {
                                         </div>
                                     </div>) : null
                                 }
-                                <button className="btn btn-primary me-5" type="submit">Submit</button>
+                                <button className="btn btn-primary me-5" type="submit" disabled={loading}>Submit</button>
                                 <button className="btn btn-danger" type="reset" onClick={handleReset}>Reset</button>
                             </div>
                             <div className="text-center mt-4">Do not have an account? <Link className="fw-bold" to="/register">Sign up</Link></div>
