@@ -69,7 +69,7 @@ export default function ReviewList() {
         dispatch(deleteReview(productId, id))
     }
 
-    const submitHandler = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(getReviews(productId))
     }
@@ -104,16 +104,10 @@ export default function ReviewList() {
                 <h1 className="my-1 ps-2">Review List</h1>
                 <div className="row justify-content-center mt-5">
                     <div className="col-5">
-                        <form onSubmit={submitHandler}>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label >Product ID</label>
-                                <input
-                                    type="text"
-                                    onChange={e => setProductId(e.target.value)}
-                                    value={productId}
-                                    className="form-control"
-                                    required
-                                />
+                                <label htmlFor="productId" >Product ID</label>
+                                <input type="text" className="form-control" id="productId" name="productId" value={productId} onChange={e => setProductId(e.target.value)} required />
                             </div>
                             <div className="text-center"><button type="submit" disabled={loading} className="btn btn-primary btn-block my-2">
                                 Search
