@@ -9,8 +9,7 @@ export default function ProductReview({ reviews }) {
                         <div className="rating-inner" style={{ width: `${review.rating / 5 * 100}%` }}></div>
                     </div>
                     <p className="review_user">by {review.user.fullName}</p>
-                    <p className="review_comment">{review.comment}</p>
-
+                    <div><p>{review.comment}</p></div>
                     <hr />
                 </div>
             ))

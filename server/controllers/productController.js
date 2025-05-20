@@ -44,7 +44,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
 
 //Get Single Product - api/v1/product/:id
 exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.params.id).populate('reviews.user', 'name email');
+    const product = await Product.findById(req.params.id).populate('reviews.user', 'fullName email');
 
     if (!product) {
         return next(new ErrorHandler('Product not found', 400));
@@ -222,7 +222,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
     }
     //find the average of the product reviews
     product.ratings = product.reviews.reduce((acc, review) => {
-        return review.rating + acc;
+        return Number(review.rating) + acc;
     }, 0) / product.reviews.length;
     product.ratings = isNaN(product.ratings) ? 0 : product.ratings;
 
@@ -258,7 +258,7 @@ exports.deleteReview = catchAsyncError(async (req, res, next) => {
 
     //finding the average with the filtered reviews
     let ratings = reviews.reduce((acc, review) => {
-        return review.rating + acc;
+        return Number(review.rating) + acc;
     }, 0) / reviews.length;
     ratings = isNaN(ratings) ? 0 : ratings;
 

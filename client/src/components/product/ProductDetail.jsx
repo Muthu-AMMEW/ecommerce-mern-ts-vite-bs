@@ -112,7 +112,7 @@ export default function ProductDetail() {
                             </Carousel>
                         </div>
 
-                        <div className="col-12 col-lg-5 mt-lg-2 text-center">
+                        <div className="col-12 col-lg-5 mt-2 text-center">
                             <h3>{product.name}</h3>
                             <p className=' fst-italic'>Product #{product._id}</p>
 
@@ -121,11 +121,10 @@ export default function ProductDetail() {
                             <div className="rating-outer">
                                 <div className="rating-inner" style={{ width: `${product.ratings / 5 * 100}%` }}></div>
                             </div>
-                            <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
-
+                            <span id="no_of_reviews">({Number(product.ratings).toFixed(1)} from {product.numOfReviews} Reviews)</span>
 
                             <hr />
-                            
+
 
                             <h5 className=' fw-bolder mb-3'>Rs. {product.price}</h5>
                             <div className="d-flex justify-content-evenly">
