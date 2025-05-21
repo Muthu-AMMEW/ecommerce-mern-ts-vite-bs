@@ -37,6 +37,20 @@ export default function ProductSearch() {
 		'Home'
 	];
 
+	const handleChange = async (event) => {
+
+		if (event.target.name === 'min') {
+			const min = [...priceChanged];
+			min[0] = event.target.value;
+			setPrice(min)
+		}
+		if (event.target.name === 'max') {
+			const max = [...priceChanged];
+			max[1] = event.target.value;
+			setPrice(max)
+		}
+	};
+
 	const setCurrentPageNo = (pageNo) => {
 
 		setCurrentPage(pageNo)
@@ -58,18 +72,19 @@ export default function ProductSearch() {
 			{loading ? <Loader /> :
 				<>
 					<MetaData title={'Buy Best Products'} />
+
 					<section id="products" className="container mt-3">
 						<div className="border border-black rounded-5 border-5 border-opacity-25">
 							{/* <div className="h3 text-center text-decoration-underline">Filters</div> */}
 							{/* Price Filter */}
-
+							
 							<div className="px-5 m-3" onMouseUp={() => setPriceChanged(price)}>
 								<Slider
 									range={true}
 									marks={
 										{
-											1: "Rs.1",
-											100000: "Rs.100000"
+											1: <span>Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e)=> e.target.value = ""} onBlur={()=>setPriceChanged(price)} placeholder="Min" /></span>,
+											100000: <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e)=> e.target.value = ""} onBlur={()=>setPriceChanged(price)} placeholder="Max" />
 										}
 									}
 									min={1}
@@ -88,44 +103,44 @@ export default function ProductSearch() {
 										}
 									}
 								/>
-								<div className="row">
-									<div className="col-6 text-center my-4">
-										{/* Category Filter */}
-										<div className="btn-group dropdown">
-											<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-												Categories
-											</button>
-											<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												<span className="visually-hidden">Toggle Dropdown</span>
-											</button>
-											<ul className="dropdown-menu">
-												{categories.map(category =>
-													<li className="dropdown-item " key={category} onClick={() => {
-														setCategory(category)
-													}}>{category}</li>
-												)}
+							</div>
+							<div className="row">
+								<div className="col-6 text-center my-4">
+									{/* Category Filter */}
+									<div className="btn-group dropdown">
+										<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											Categories
+										</button>
+										<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+											<span className="visually-hidden">Toggle Dropdown</span>
+										</button>
+										<ul className="dropdown-menu">
+											{categories.map(category =>
+												<li className="dropdown-item " key={category} onClick={() => {
+													setCategory(category)
+												}}>{category}</li>
+											)}
 
-											</ul>
-										</div>
+										</ul>
 									</div>
-									<div className="col-6 text-center my-4">
-										{/* Ratings Filter */}
-										<div className="btn-group dropdown">
-											<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-												Ratings
-											</button>
-											<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-												<span className="visually-hidden">Toggle Dropdown</span>
-											</button>
-											<ul className="dropdown-menu">
-												{[5, 4, 3, 2, 1].map(star =>
-													<li className="dropdown-item " key={star} onClick={() => {
-														setRating(star)
-													}}>{star}</li>
-												)}
+								</div>
+								<div className="col-6 text-center my-4">
+									{/* Ratings Filter */}
+									<div className="btn-group dropdown">
+										<button className="btn btn-lg btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+											Ratings
+										</button>
+										<button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+											<span className="visually-hidden">Toggle Dropdown</span>
+										</button>
+										<ul className="dropdown-menu">
+											{[5, 4, 3, 2, 1].map(star =>
+												<li className="dropdown-item " key={star} onClick={() => {
+													setRating(star)
+												}}>{star}</li>
+											)}
 
-											</ul>
-										</div>
+										</ul>
 									</div>
 								</div>
 							</div>

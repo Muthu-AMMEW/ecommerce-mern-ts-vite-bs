@@ -55,7 +55,7 @@ export default function Register() {
 					setAvatar(event.target.files[0])
 				}
 			}
-			reader.readAsDataURL(e.target.files[0])
+			reader.readAsDataURL(event.target.files[0])
 		} else {
 			const name = event.target.name;
 			const value = event.target.value;
