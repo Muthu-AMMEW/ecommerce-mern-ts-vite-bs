@@ -25,20 +25,12 @@ export default function Search() {
 
     return (
         <form onSubmit={searchHandler}>
-            <div className="input-group">
-                <input
-                    type="text"
-                    id="search_field"
-                    className="form-control"
-                    placeholder="Enter Product Name ..."
-                    onChange={(e) => { setKeyword(e.target.value) }}
-                    value={keyword}
-                />
-                <div className="input-group-append">
-                    <button id="search_btn" className="btn">
-                        <i className="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
+            <div className="input-group px-5 px-lg-0">
+                <input type="search" className="form-control" id='search' name='search' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} placeholder="Enter Product Name ..." required />
+                <button id="search_btn" className="btn btn-warning">
+                    <i className="fa fa-search" aria-hidden="true"></i>
+                </button>
+
             </div>
         </form>
     )

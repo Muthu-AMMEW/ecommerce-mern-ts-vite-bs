@@ -20,9 +20,9 @@ const sendEmail = catchAsyncError(async options => {
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
-    
+
     if (error) {
-        return next(new ErrorHandler(error, 404));
+      return next(new ErrorHandler(error, 404));
     }
     console.log('Message sent:', info.response);
   });

@@ -27,7 +27,7 @@ export default function Product({ product, col }) {
                     </div>
                     <p className="card-text mt-1">Rs. {product.price}</p>
                     <p className="card-text text-danger">{product.category}</p>
-                    <Link to={`/product/${product._id}`} id="view_btn" className="btn btn-block">View Details</Link>
+                    <Link to={`/product/${product._id}`} className="btn btn-block btn-warning">View Details</Link>
                 </div>
             </div>
         </div>

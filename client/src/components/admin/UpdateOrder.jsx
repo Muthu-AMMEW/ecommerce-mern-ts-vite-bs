@@ -70,7 +70,7 @@ export default function UpdateOrder() {
                             <h4 className='text-center text-decoration-underline m-1'>Order ID #{orderDetail._id}</h4>
                             <div className="row">
                                 <div className="col-12 col-lg-6">
-                                    <div className="my-1"><span className='fw-bold'>Order Status : </span ><b className={orderStatus && orderStatus.includes('Delivered') ? 'greenColor' : 'redColor'}>{orderStatus}</b></div>
+                                    <div className="my-1"><span className='fw-bold'>Order Status : </span ><b className={orderStatus && orderStatus.includes('Delivered') ? 'success' : 'danger'}>{orderStatus}</b></div>
                                     <div className="my-1"><span className='fw-bold'>Name : </span>{user.fullName}</div>
                                     <div className="my-1"><span className='fw-bold'>ShippingInfo : </span><div className='ps-5'> 
                                         {shippingInfo.fullName},<br />

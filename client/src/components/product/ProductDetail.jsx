@@ -149,7 +149,7 @@ export default function ProductDetail() {
                             <hr />
                             <h6>Sold by: <strong>{product.seller}</strong></h6>
                             {user ?
-                                <button onClick={handleShow} id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
+                                <button onClick={handleShow} type="button" className="btn btn-warning mt-4" data-toggle="modal" data-target="#ratingModal">
                                     Submit Your Review
                                 </button> :
                                 <div className="alert alert-danger mt-5"> Login to Post Review</div>
@@ -182,7 +182,7 @@ export default function ProductDetail() {
                                         <textarea onChange={(e) => setComment(e.target.value)} name="review" id="review" className="form-control mt-3">
 
                                         </textarea>
-                                        <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn my-3 float-right review-btn px-4 text-white">Submit</button>
+                                        <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn my-3 float-right px-4 text-white">Submit</button>
                                     </Modal.Body>
 
                                 </Modal>
