@@ -24,7 +24,7 @@ export default function Search() {
     }, [location])
 
     return (
-        <form onSubmit={searchHandler}>
+        <form className="mx-auto w-100 ms-xl-5 ps-xl-5" style={{ maxWidth: "500px" }} onSubmit={searchHandler}>
             <div className="input-group px-5 px-lg-0">
                 <input type="search" className="form-control" id='search' name='search' value={keyword} onChange={(e) => { setKeyword(e.target.value) }} placeholder="Enter Product Name ..." required />
                 <button id="search_btn" className="btn btn-warning">

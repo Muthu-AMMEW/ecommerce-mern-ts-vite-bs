@@ -182,7 +182,7 @@ export default function ProductDetail() {
                                         <textarea onChange={(e) => setComment(e.target.value)} name="review" id="review" className="form-control mt-3">
 
                                         </textarea>
-                                        <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn my-3 float-right px-4 text-white">Submit</button>
+                                        <button disabled={loading} onClick={reviewHandler} aria-label="Close" className="btn btn-warning my-3 float-right px-4 text-white">Submit</button>
                                     </Modal.Body>
 
                                 </Modal>
