@@ -3,6 +3,7 @@ import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../actions/userActions';
 import UserDropDown from './UserDropDown';
+import SocialNetworks from './SocialNetworks';
 
 
 export default function Head() {
@@ -19,11 +20,10 @@ export default function Head() {
         <nav className="navbar navbar-expand-lg mm-navbg p-0">
             <div className="container-fluid d-flex p-1">
                 <div className="d-flex">
-                    <Link className="navbar-brand d-flex" to={"/"}>
+                    <Link className="navbar-brand d-flex me-2" to={"/"}>
                         <img className="rounded-5" src="./images/logo.png" alt="logo" width="60" height="60" />
                         <h5 className="mt-3 ms-2 text-white">Ecommerce</h5>
                     </Link>
-                    <div className="m-2 d-md-none"></div>
                     <Link to={"/home"} className="btn btn-danger d-none d-sm-block my-3 mx-1">Home</Link>
                     {!isAuthenticated && <Link to={"/login"} className="btn btn-success d-lg-none my-3 mx-1">Login</Link>}
 
@@ -36,34 +36,11 @@ export default function Head() {
                 </button>
                 <div className="collapse navbar-collapse ms-3 ms-lg-0" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle ms-lg-2 me-4 fw-bold" href="www.google.com" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false"><i
-                                    className="fa-brands fa-slack fa-spin fa-lg me-2"></i>
-                                Social Networks
-                            </a>
-                            <ul className="dropdown-menu">
-                                <li><a className="dropdown-item" href="https://www.facebook.com">
-                                    <i className="fa-brands fa-facebook fa-beat me-2" style={{ color: "#2568ef" }}></i>Facebook</a>
-                                </li>
-                                <li><a className="dropdown-item" href="https://www.x.com">
-                                    <i className="fa-brands fa-twitter fa-shake me-2" style={{ color: "#1da1f2" }}></i>Twitter</a></li>
-                                <li><a className="dropdown-item" href="https://www.youtube.com">
-                                    <i className="fa-brands fa-youtube fa-beat-fade me-2" style={{ color: "#ff0000" }}></i>Youtube</a></li>
-                                <li><a className="dropdown-item" href="https://www.instagram.com">
-                                    <i className="fa-brands fa-square-instagram fa-beat-fade me-2" style={{ color: "#ff7b00" }}></i>Instagram</a></li>
-
-                                <li>
-                                    <hr className="dropdown-divider" />
-                                </li>
-                                <li><a className="dropdown-item me-2" href="https://m.me/Muthu.AMMEW"><i
-                                    className="fa-brands fa-facebook-messenger fa-shake fa-lg me-2" style={{ color: "#0080f7" }}></i>Chat(Via FB)</a></li>
-                            </ul>
-                        </li>
+                        <SocialNetworks />
                     </ul>
                     <Search />
 
-                   
+
                     {!isAuthenticated && <div className='d-flex justify-content-start m-3'>
                         <Link to={"/login"} className="btn btn-success me-3 d-none d-lg-block">Login</Link>
                         <Link to={"/register"} className="btn btn-warning text-nowrap">Sign Up</Link>

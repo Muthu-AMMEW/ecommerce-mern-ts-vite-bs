@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Components.css';
 export default function Foot() {
     return (
@@ -8,10 +9,10 @@ export default function Foot() {
                     <div className="col-6 col-md d-flex flex-column mb-2 justify-content-around">
                         <h5>Social Networks</h5>
                         <div>
-                            <i className="fa-brands fa-facebook fa-beat fa-2xl me-2 bg-white rounded-5" style={{color: "#2568ef"}}></i>
-                            <i className="fa-brands fa-twitter fa-shake fa-2xl me-2 bg-white rounded-5" style={{color: "#1da1f2"}}></i>
-                            <i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl me-2 bg-white rounded-5" style={{color: "#ff7b00"}}></i>
-                            <i className="fa-brands fa-linkedin fa-bounce fa-2xl me-2 bg-white rounded-5" style={{color: "#0075d5"}}></i>
+                            <Link to={"https://www.facebook.com/Muthu.AMMEW"}><i className="fa-brands fa-facebook fa-beat fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#2568ef"}}></i></Link>
+                            <Link to={"https://x.com/Muthu_AMMEW"}><i className="fa-brands fa-square-x-twitter fa-shake fa-2xl py-3 me-2 bg-white rounded-5"></i></Link>
+                            <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#ff7b00"}}></i></Link>
+                            <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#0075d5"}}></i></Link>
                         </div>
                         <img src="./images/play-store.webp" alt="" width="160" height="50" />
                         <img src="./images/app-store.webp" alt="" width="160" height="50" />

@@ -38,8 +38,17 @@ export default function UserDropDown() {
                     <li>
                         <hr className="dropdown-divider" />
                     </li>
-                    <li><a className="dropdown-item me-2" href="https://wa.me/919022690226?text=Hi" target="_blank" rel="noreferrer"><i
-                        className="fa-brands fa-square-whatsapp fa-shake fa-2xl me-2" style={{ color: "#25d366" }}></i><span className="h6 ms-1">Chat</span></a></li>
+                    <li><h5 className='ms-3'>Supports</h5>
+                    </li>
+                    <li><a className="dropdown-item me-2" href="https://m.me/Muthu.AMMEW?text=Please%20helps%20to%20me"><i
+                        className="fa-brands fa-facebook-messenger fa-shake fa-xl me-2" style={{ color: "#0080f7" }}></i>Messenger</a>
+                    </li>
+                    <li><a className="dropdown-item me-2" href="https://wa.me/918072499102?text=Hi" target="_blank" rel="noreferrer"><i
+                        className="fa-brands fa-square-whatsapp fa-shake fa-xl me-2" style={{ color: "#25d366" }}></i><span className="h6 ms-1">Whatsapp</span></a>
+                    </li>
+                    <li><a className="dropdown-item me-2" href="mailto:muthu.ammew333@gmail.com" target="_blank" rel="noreferrer"><i
+                        className="fa-solid fa-envelope fa-bounce fa-xl me-2" style={{ color: "#ea4335" }}></i><span className="h6 ms-1">Email</span></a>
+                    </li>
                 </ul>
             </div>
         </>
