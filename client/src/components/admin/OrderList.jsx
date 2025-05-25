@@ -8,6 +8,7 @@ import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
+import MetaData from "../layouts/MetaData"
 
 export default function OrderList() {
     const { adminOrders = [], loading = true, error, isOrderDeleted } = useSelector(state => state.orderState)
@@ -126,7 +127,8 @@ export default function OrderList() {
 
 
     return (
-        <>
+        <>  
+            <MetaData title={'Order List'} />
             <Sidebar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Order List</h1>

@@ -71,7 +71,7 @@ export default function ProductSearch() {
 		<>
 			{loading ? <Loader /> :
 				<>
-					<MetaData title={'Buy Best Products'} />
+					<MetaData title={keyword} />
 
 					<section id="products" className="container mt-3">
 						<div className="border border-black rounded-5 border-5 border-opacity-25">

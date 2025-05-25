@@ -7,6 +7,7 @@ import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
+import MetaData from "../layouts/MetaData"
 
 export default function ReviewList() {
     const { reviews = [], loading = true, error, isReviewDeleted } = useSelector(state => state.productState)
@@ -99,6 +100,7 @@ export default function ReviewList() {
 
     return (
         <>
+            <MetaData title={'Review List'} />
             <Sidebar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Review List</h1>

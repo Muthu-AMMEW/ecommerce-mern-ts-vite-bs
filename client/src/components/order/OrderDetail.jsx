@@ -5,6 +5,7 @@ import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';
 import { toast } from "react-toastify";
 import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
+import MetaData from '../layouts/MetaData';
 
 export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
@@ -56,6 +57,7 @@ export default function OrderDetail() {
         <>
             {loading ? <Loader /> :
                 <>
+                    <MetaData title={'Order Details'} />
                     <div className="container-fluid p-2">
                         <div className='m-lg-5'>
                             <div className='m-lg-5'>

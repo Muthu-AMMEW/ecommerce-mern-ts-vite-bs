@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
 import { clearError, clearUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
+import MetaData from "../layouts/MetaData";
 
 export default function UpdateUser() {
     const [inputs, setInputs] = useState({ fullName: "", email: "", role: "" });
@@ -64,8 +65,9 @@ export default function UpdateUser() {
     }, [user])
 
 
-    return (<>
-
+    return (
+    <>
+        <MetaData title={'Update User'} />
         <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
             <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 

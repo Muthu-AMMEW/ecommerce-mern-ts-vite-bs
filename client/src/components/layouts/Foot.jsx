@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import './Components.css';
 export default function Foot() {
     return (
         <>

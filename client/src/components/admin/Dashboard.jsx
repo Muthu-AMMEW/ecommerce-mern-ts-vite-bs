@@ -5,6 +5,7 @@ import { getAdminProducts } from "../../actions/productActions";
 import { getUsers } from '../../actions/userActions'
 import { adminOrders as adminOrdersAction } from '../../actions/orderActions'
 import { Link } from "react-router-dom";
+import MetaData from "../layouts/MetaData";
 
 export default function Dashboard() {
     const { products = [] } = useSelector(state => state.productsState);
@@ -39,6 +40,8 @@ export default function Dashboard() {
 
     return (
         <>
+            <MetaData title={'Admin Dashboard'} />
+            
             <Sidebar />
             <div className="p-4">
                 <div className="row">

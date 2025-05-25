@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProduct, updateProduct } from "../../actions/productActions";
 import { clearError, clearProductUpdated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
+import MetaData from "../layouts/MetaData";
 
 export default function UpdateProduct() {
     const [inputs, setInputs] = useState({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
@@ -146,7 +147,8 @@ export default function UpdateProduct() {
 
 
     return (
-        <>
+        <>  
+            <MetaData title={'Update Product'} />
             <Sidebar />
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">

@@ -89,7 +89,8 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20%;
+  margin-top: 150px;
+  margin-bottom: 150px;
   width: 80px;
   height: 80px;
   padding-left: 0;
@@ -102,8 +103,8 @@ body {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fa9c23;
-  border-color: #fa9c23 transparent;
+  border: 6px solid #fa2335;
+  border-color: #fa5523 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -154,9 +155,11 @@ body {
   color: grey;
 }
 
-.mm-input-box input, .mm-input-box select, .mm-input-box textarea {
- background-color: rgba(241, 236, 236, 0.4);
- margin-bottom: 1rem;
+.mm-input-box input,
+.mm-input-box select,
+.mm-input-box textarea {
+  background-color: rgba(241, 236, 236, 0.4);
+  margin-bottom: 1rem;
 }
 
 
@@ -188,6 +191,21 @@ body {
   height: 2.2rem;
   width: 2.2rem;
 }
+
+/* Header */
+.mm-navbg {
+  background-image: url("/images/bg-pic-02.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Footer */
+
+footer a {
+  text-decoration: none;
+  color: rgba(5, 5, 5, 0.678);
+}
+
 
 /* Checkout Steps */
 

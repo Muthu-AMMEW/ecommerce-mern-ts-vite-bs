@@ -5,6 +5,7 @@ import { saveShippingInfo } from "../../slices/cartSlice";
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutStep";
 import { toast } from "react-toastify";
+import MetaData from "../layouts/MetaData";
 
 
 
@@ -88,6 +89,7 @@ export default function Shipping() {
 
     return (
         <>
+            <MetaData title={'Shipping Info'} />
             <CheckoutSteps shipping />
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">

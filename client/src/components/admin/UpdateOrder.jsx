@@ -6,6 +6,7 @@ import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, updateOrder } from "../../actions/orderActions";
 import { toast } from "react-toastify";
 import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
+import MetaData from "../layouts/MetaData";
 
 export default function UpdateOrder() {
 
@@ -63,6 +64,7 @@ export default function UpdateOrder() {
         <Sidebar />
         {loading ? <Loader /> :
         <>
+            <MetaData />
             <div className="container-fluid p-2">
                 <div className='m-lg-5'>
                     <div className='m-lg-5'>

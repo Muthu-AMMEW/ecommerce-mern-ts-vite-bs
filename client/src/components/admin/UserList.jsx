@@ -9,6 +9,7 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
 import js from "@eslint/js"
+import MetaData from "../layouts/MetaData"
 
 export default function UserList() {
     const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState);
@@ -115,6 +116,7 @@ export default function UserList() {
 
     return (
         <>
+            <MetaData title={'User List'} />
             <Sidebar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">User List</h1>
