@@ -140,32 +140,32 @@ export default function UpdateProfile() {
 
                         <div className="w-100 mt-3">
                             <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
-                            <input type="number" className="form-control" id="phoneNumber" name="phoneNumber" value={inputs.phoneNumber} placeholder="Enter phone number" onChange={handleChange} required />
+                            <input type="number" className="form-control" id="phoneNumber" name="phoneNumber" value={inputs.phoneNumber} minLength={10} placeholder="Enter phone number" onChange={handleChange} required />
                         </div>
 
                         <div className="w-100 mt-3 form-group">
-                            <label htmlFor="address_field1">Address Line 1</label>
-                            <input type="text" className="form-control" id="address_field1" name="addressLine1" value={addressInputs.addressLine1} placeholder="House No, Building" onChange={handleAddressChange} required />
+                            <label htmlFor="addressLine1">Address Line 1</label>
+                            <input type="text" className="form-control" id="addressLine1" name="addressLine1" value={addressInputs.addressLine1} placeholder="House No, Building" onChange={handleAddressChange} required />
 
                         </div>
 
                         <div className="w-100 mt-3 form-group">
-                            <label htmlFor="address_field2">Address Line 2</label>
-                            <input type="text" className="form-control" id="address_field2" name="addressLine2" value={addressInputs.addressLine2} placeholder="Street, Area" onChange={handleAddressChange} required />
+                            <label htmlFor="addressLine2">Address Line 2</label>
+                            <input type="text" className="form-control" id="addressLine2" name="addressLine2" value={addressInputs.addressLine2} placeholder="Street, Area" onChange={handleAddressChange} required />
 
                         </div>
 
                         <div className="row w-100 mt-3">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="city_field">City</label>
-                                    <input type="text" className="form-control" id="city_field" name="city" value={addressInputs.city} placeholder="City" onChange={handleAddressChange} required />
+                                    <label htmlFor="city">City</label>
+                                    <input type="text" className="form-control" id="city" name="city" value={addressInputs.city} placeholder="City" onChange={handleAddressChange} required />
                                 </div>
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="state_field">State</label>
-                                    <input type="text" className="form-control" id="state_field" name="state" value={addressInputs.state} placeholder="State" onChange={handleAddressChange} required />
+                                    <label htmlFor="state">State</label>
+                                    <input type="text" className="form-control" id="state" name="state" value={addressInputs.state} placeholder="State" onChange={handleAddressChange} required />
                                 </div>
                             </div>
                         </div>
