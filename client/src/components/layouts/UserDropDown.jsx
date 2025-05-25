@@ -31,7 +31,7 @@ export default function UserDropDown() {
                         </Link>
                     </li>
 
-                    {user.role === 'admin' ? <li><Link className="dropdown-item" to={'/admin/dashboard'}><i className="fa-solid fa-bars-progress fa-fade"></i><span className="h6 m-2">Dashboard</span></Link></li> : null}
+                    {user?.role === 'admin' ? <li><Link className="dropdown-item" to={'/admin/dashboard'}><i className="fa-solid fa-bars-progress fa-fade"></i><span className="h6 m-2">Dashboard</span></Link></li> : null}
 
                     <li><Link className="dropdown-item fw-medium" to={'/orders'}><i className="fa-solid fa-truck-fast fa-beat-fade me-2" style={{ color: "#63E6BE" }}></i>Orders</Link>
                     </li>
