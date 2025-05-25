@@ -32,27 +32,27 @@ const userSchema = new mongoose.Schema({
     address: {
         addressLine1: {
             type: String,
-            // required: true
+            required: true
         },
         addressLine2: {
             type: String,
-            // required: true
+            required: true
         },
         city: {
             type: String,
-            // required: true
+            required: true
         },
         state: {
             type: String,
-            // required: true
+            required: true
         },
         country: {
             type: String,
-            // required: true
+            required: true
         },
         postalCode: {
             type: String,
-            // required: true
+            required: true
         }
         
     },
