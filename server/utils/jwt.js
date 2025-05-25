@@ -9,6 +9,8 @@ const sendToken = (user, statusCode, res) => {
             Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
+        sameSite: 'none',  // Needed for cross-origin cookie sharing
+        secure: true       // Required by browser when using sameSite: 'none'
     }
 
     res.status(statusCode)

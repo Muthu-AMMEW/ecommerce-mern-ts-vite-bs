@@ -39,11 +39,16 @@ import UserList from './components/admin/UserList';
 import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 
+
+
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
-  
+
+  axios.defaults.baseURL = `${import.meta.env.VITE_SERVER_URL}`;
+  axios.defaults.withCredentials = true;
+
   const QuickStartApi = () => {
-    return axios.get(`${import.meta.env.VITE_SERVER_URL}/quickstart`);
+    return axios.get(`/quickstart`);
   }
   QuickStartApi();   //only for server delay start
 

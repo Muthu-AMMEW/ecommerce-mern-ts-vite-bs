@@ -8,7 +8,10 @@ const dotenv = require('dotenv');
 dotenv.config({ path: path.join(__dirname, "config/config.env") });
 
 app.use(express.json());
-app.use(cors()); // Enable CORS for all routes
+app.use(cors({
+    origin: [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL, process.env.CLIENT_URL_2],
+    credentials: true   // required for cookies
+}));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
