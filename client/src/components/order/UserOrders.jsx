@@ -85,7 +85,6 @@ export default function UserOrders() {
                 //     {order.shippingInfo.city}, {order.shippingInfo.state},<br />
                 //     {order.shippingInfo.country},Pin Code: {order.shippingInfo.postalCode}.<br />
                 //     Phone No.: {order.shippingInfo.phoneNumber}</p>,
-                status: order.orderStatus,
                 actions: <Link to={`/order/${order._id}`} className="btn btn-primary" >
                     <i className='fa fa-eye'></i>
                 </Link>
