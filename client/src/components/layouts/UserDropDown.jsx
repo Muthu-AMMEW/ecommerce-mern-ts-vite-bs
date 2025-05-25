@@ -18,7 +18,7 @@ export default function UserDropDown() {
                 </a>
                 <ul className="dropdown-menu">
 
-                    <li><Link to={"/myprofile"} className="dropdown-item border border-2 fw-medium">{user.fullName}</Link>
+                    <li><Link to={"/myprofile"} className="dropdown-item border border-2 fw-medium">{user?.fullName}</Link>
                     </li>
 
                     <li><Link className="dropdown-item" to={"/myprofile"}>
