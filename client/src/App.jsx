@@ -43,14 +43,14 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState("")
   
   const QuickStartApi = () => {
-    return axios.get('/api/v1/quickstart');
+    return axios.get(`${import.meta.env.VITE_SERVER_URL}/quickstart`);
   }
   QuickStartApi();   //only for server delay start
 
   useEffect(() => {
     store.dispatch(loadUser)
     async function getStripeApiKey() {
-      const { data } = await axios.get('/api/v1/stripeapi')
+      const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/stripeapi`)
       setStripeApiKey(data.stripeApiKey)
     }
     getStripeApiKey()

@@ -31,17 +31,17 @@ export default defineConfig({
       }
     })
   ],
-  define: {
-    // Access your env variables directly
-    __API_URL__: JSON.stringify(env.VITE_API_URL),
-  },
-  server: {
-    proxy: {
-      '/api': {
-        target: env.VITE_API_URL, // your server
-        changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
+  // define: {
+  //   // Access your env variables directly
+  //   __API_URL__: JSON.stringify(env.VITE_API_URL),
+  // },
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: env.VITE_API_URL, // your server
+  //       changeOrigin: true,
+  //       // rewrite: (path) => path.replace(/^\/api/, ''),
+  //     },
+  //   },
+  // },
 })
