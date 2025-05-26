@@ -21,7 +21,7 @@ export default function Head() {
             <div className="container-fluid d-flex p-1">
                 <div className="d-flex">
                     <Link className="navbar-brand d-flex me-2" to={"/"}>
-                        <img className="rounded-5" src="./images/logo.png" alt="logo" width="60" height="60" />
+                        <img className="rounded-5" src="/images/logo.png" alt="logo" width="60" height="60" />
                         <h5 className="mt-3 ms-2 text-white">Ecommerce</h5>
                     </Link>
                     <Link to={"/home"} className="btn btn-danger d-none d-sm-block my-3 mx-1">Home</Link>

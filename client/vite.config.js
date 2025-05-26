@@ -12,9 +12,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'My App',
-        short_name: 'App',
-        description: 'My Vite React App',
+        name: 'Ecommerce App',
+        short_name: 'Ecommerce',
+        description: 'Ecommerce is best website for online purchases',
         theme_color: '#ffffff',
         icons: [
           {

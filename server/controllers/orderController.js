@@ -27,6 +27,8 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
         paymentInfo
     } = req.body;
 
+    orderItems.map(product => product.image.length > 0 ? product.image = new URL(product.image).pathname + new URL(product.image).search + new URL(product.image).hash : undefined);
+
     const order = await Order.create({
         orderItems,
         shippingInfo,
@@ -44,6 +46,8 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
         await subStock(orderItem._id, orderItem.quantity)
     })
 
+    order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined);
+
     res.status(200).json({
         success: true,
         order
@@ -56,6 +60,8 @@ exports.getSingleOrder = catchAsyncError(async (req, res, next) => {
     if (!order) {
         return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
     }
+
+    order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined);
 
     res.status(200).json({
         success: true,
@@ -99,10 +105,12 @@ exports.cancelOrder = catchAsyncError(async (req, res, next) => {
 exports.myOrders = catchAsyncError(async (req, res, next) => {
     const orders = await Order.find({ user: req.user.id }).sort({ createdAt: -1 });
 
-    res.status(200).json({
-        success: true,
-        orders
-    })
+    orders.map(order => order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined));
+
+res.status(200).json({
+    success: true,
+    orders
+})
 })
 
 //Admin: Get All Orders - api/v1/admin/orders
@@ -114,6 +122,8 @@ exports.orders = catchAsyncError(async (req, res, next) => {
     orders.forEach(order => {
         totalAmount += order.totalPrice
     })
+
+    orders.map(order => order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined));
 
     res.status(200).json({
         success: true,

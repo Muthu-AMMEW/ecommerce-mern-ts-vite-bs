@@ -13,8 +13,8 @@ export default function Foot() {
                             <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#ff7b00"}}></i></Link>
                             <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#0075d5"}}></i></Link>
                         </div>
-                        <img src="./images/play-store.webp" alt="" width="160" height="50" />
-                        <img src="./images/app-store.webp" alt="" width="160" height="50" />
+                        <img src="/images/play-store.webp" alt="" width="160" height="50" />
+                        <img src="/images/app-store.webp" alt="" width="160" height="50" />
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>About Ecommerce</h5>
