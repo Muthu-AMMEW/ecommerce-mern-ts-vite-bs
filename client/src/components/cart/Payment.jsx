@@ -94,7 +94,7 @@ export default function Payment() {
         e.preventDefault();
         setloading(true);
         try {
-            const { data } = await axios.post(`${import.meta.env.VITE_SERVER_URL}/payment/process`, paymentData)
+            const { data } = await axios.post(`/payment/process`, paymentData)
             const clientSecret = data.client_secret
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {

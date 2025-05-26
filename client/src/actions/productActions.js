@@ -6,7 +6,7 @@ export const getProducts = (keyword, price, category, rating, currentPage) => as
 
     try {
         dispatch(productsRequest())
-        let link = `${import.meta.env.VITE_SERVER_URL}/products?page=${currentPage}`;
+        let link = `/products?page=${currentPage}`;
 
         if (keyword) {
             link += `&keyword=${keyword}`
@@ -35,7 +35,7 @@ export const getProduct = id => async (dispatch) => {
 
     try {
         dispatch(productRequest())
-        const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/product/${id}`);
+        const { data } = await axios.get(`/product/${id}`);
         dispatch(productSuccess(data))
     } catch (error) {
         //handle error
@@ -53,7 +53,7 @@ export const createReview = reviewData => async (dispatch) => {
                 'Content-type': 'application/json'
             }
         }
-        const { data } = await axios.put(`${import.meta.env.VITE_SERVER_URL}/review`, reviewData, config);
+        const { data } = await axios.put(`/review`, reviewData, config);
         dispatch(createReviewSuccess(data))
     } catch (error) {
         //handle error
@@ -66,7 +66,7 @@ export const getAdminProducts = async (dispatch) => {
 
     try {
         dispatch(adminProductsRequest())
-        const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/admin/products`);
+        const { data } = await axios.get(`/admin/products`);
         dispatch(adminProductsSuccess(data))
     } catch (error) {
         //handle error
@@ -79,7 +79,7 @@ export const createNewProduct = productData => async (dispatch) => {
 
     try {
         dispatch(newProductRequest())
-        const { data } = await axios.post(`${import.meta.env.VITE_SERVER_URL}/admin/product/new`, productData);
+        const { data } = await axios.post(`/admin/product/new`, productData);
         dispatch(newProductSuccess(data))
     } catch (error) {
         //handle error
@@ -92,7 +92,7 @@ export const deleteProduct = id => async (dispatch) => {
 
     try {
         dispatch(deleteProductRequest())
-        await axios.delete(`${import.meta.env.VITE_SERVER_URL}/admin/product/${id}`);
+        await axios.delete(`/admin/product/${id}`);
         dispatch(deleteProductSuccess())
     } catch (error) {
         //handle error
@@ -105,7 +105,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
 
     try {
         dispatch(updateProductRequest())
-        const { data } = await axios.put(`${import.meta.env.VITE_SERVER_URL}/admin/product/${id}`, productData);
+        const { data } = await axios.put(`/admin/product/${id}`, productData);
         dispatch(updateProductSuccess(data))
     } catch (error) {
         //handle error
@@ -119,7 +119,7 @@ export const getReviews = id => async (dispatch) => {
 
     try {
         dispatch(reviewsRequest())
-        const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/admin/reviews`, { params: { id } });
+        const { data } = await axios.get(`/admin/reviews`, { params: { id } });
         dispatch(reviewsSuccess(data))
     } catch (error) {
         //handle error
@@ -132,7 +132,7 @@ export const deleteReview = (productId, id) => async (dispatch) => {
 
     try {
         dispatch(deleteReviewRequest())
-        await axios.delete(`${import.meta.env.VITE_SERVER_URL}/admin/review`, { params: { productId, id } });
+        await axios.delete(`/admin/review`, { params: { productId, id } });
         dispatch(deleteReviewSuccess())
     } catch (error) {
         //handle error

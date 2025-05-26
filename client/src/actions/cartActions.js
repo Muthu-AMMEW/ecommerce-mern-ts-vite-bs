@@ -4,7 +4,7 @@ import axios from 'axios'
 export const addCartItem = (id, quantity) => async (dispatch) => {
     try {
         dispatch(addCartItemRequest())
-        const { data } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/product/${id}`)
+        const { data } = await axios.get(`/product/${id}`)
         dispatch(addCartItemSuccess({
             _id: data.product._id,
             name: data.product.name,
