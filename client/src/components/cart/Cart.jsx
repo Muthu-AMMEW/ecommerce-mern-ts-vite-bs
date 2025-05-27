@@ -73,7 +73,7 @@ export default function Cart() {
 
                     </div>
 
-                    <div className="col-12 col-lg-3 my-5 text-center">
+                    <div className="col-12 col-lg-3 my-lg-5 text-center">
                         <div className='border rounded-5 p-5'>
                             <h4>Order Summary</h4>
                             <hr />

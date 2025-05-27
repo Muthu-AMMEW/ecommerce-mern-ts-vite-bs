@@ -263,6 +263,15 @@ footer a {
   margin-right: -1px;
 }
 
+@media (max-width: 576px) {
+  .triangle2-incomplete {
+    display: none;
+  }
+  .triangle2-active{
+    display: none;
+  }
+}
+
 .triangle-incomplete {
   float: left;
   width: 0;
