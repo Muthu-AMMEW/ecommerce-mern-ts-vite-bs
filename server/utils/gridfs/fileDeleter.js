@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const { GridFSBucket, ObjectId } = require('mongodb');
-const catchAsyncError = require('../../middlewares/catchAsyncError');
+import mongoose from 'mongoose';
+import { GridFSBucket, ObjectId } from 'mongodb';
+import catchAsyncError from '../../middlewares/catchAsyncError.js';
 
-exports.fileDeleter = catchAsyncError(async (fileId, collectionName) => {
+export const fileDeleter = catchAsyncError(async (fileId, collectionName) => {
   const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true

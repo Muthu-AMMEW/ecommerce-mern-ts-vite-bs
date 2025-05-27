@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { GridFSBucket } = require('mongodb');
-const Grid = require('gridfs-stream');
+import mongoose from 'mongoose';
+import { GridFSBucket } from 'mongodb';
+import Grid from 'gridfs-stream';
 
 const conn = mongoose.createConnection(process.env.DB_STORAGE_URI);
 let gfs, gridfsBucket;
@@ -13,7 +13,5 @@ conn.once('open', () => {
     gfs.collection('images');
 });
 
-module.exports = {
-    getGFS: () => gfs,
-    getGridFSBucket: () => gridfsBucket,
-};
+export const getGFS = () => gfs;
+export const getGridFSBucket = () => gridfsBucket;

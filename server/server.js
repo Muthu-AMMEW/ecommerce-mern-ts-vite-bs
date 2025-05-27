@@ -1,6 +1,6 @@
-const app = require('./app');
-const path = require('path');
-const connectDatabase = require('./config/database');
+import app from './app.js';
+import path from 'path';
+import connectDatabase from './config/database.js';
 
 
 connectDatabase();

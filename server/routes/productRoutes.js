@@ -1,10 +1,12 @@
-const express = require('express');
-const { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts, quickStart } = require('../controllers/productController');
+import express from 'express';
+import { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts, quickStart } from '../controllers/productController.js';
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
+// import multer from 'multer';
+// import path from 'path';
+import { productUpload } from '../utils/gridfs/storeProuductImage.js';
+
 const router = express.Router();
-const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/authenticate');
-// const multer = require('multer');
-// const path = require('path')
-const {productUpload} = require('../utils/gridfs/storeProuductImage');
+
 
 // const upload = multer({
 //     storage: multer.diskStorage({
@@ -32,4 +34,4 @@ router.route('/admin/product/:id').delete(isAuthenticatedUser, authorizeRoles('a
 router.route('/admin/product/:id').put(isAuthenticatedUser, authorizeRoles('admin'), productUpload.array('images'), updateProduct);
 router.route('/admin/reviews').get(isAuthenticatedUser, authorizeRoles('admin'), getReviews)
 router.route('/admin/review').delete(isAuthenticatedUser, authorizeRoles('admin'), deleteReview)
-module.exports = router;
+export default router;

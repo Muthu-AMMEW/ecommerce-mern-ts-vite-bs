@@ -1,6 +1,6 @@
-const nodemailer = require("nodemailer");
-const catchAsyncError = require("../middlewares/catchAsyncError");
-const ErrorHandler = require("./errorHandler");
+import nodemailer from 'nodemailer';
+import catchAsyncError from '../middlewares/catchAsyncError.js';
+import ErrorHandler from './errorHandler.js';
 
 const sendEmail = catchAsyncError(async options => {
 
@@ -28,4 +28,4 @@ const sendEmail = catchAsyncError(async options => {
   });
 })
 
-module.exports = sendEmail
+export default sendEmail;

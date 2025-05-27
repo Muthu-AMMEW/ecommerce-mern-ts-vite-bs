@@ -1,9 +1,9 @@
-const ErrorHandler = require("../utils/errorHandler");
-const User = require('../models/userModel')
-const catchAsyncError = require("./catchAsyncError");
-const jwt = require('jsonwebtoken');
+import ErrorHandler from '../utils/errorHandler.js';
+import User from '../models/userModel.js';
+import catchAsyncError from './catchAsyncError.js';
+import jwt from 'jsonwebtoken';
 
-exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
+export const isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
 
     if (!token) {
@@ -15,7 +15,7 @@ exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     next();
 })
 
-exports.authorizeRoles = (...roles) => {
+export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
             return next(new ErrorHandler(`Role ${req.user.role} is not allowed`, 401))

@@ -1,11 +1,17 @@
-const express = require('express');
-const app = express();
-const errorMiddleware = require('./middlewares/error');
-const cors = require('cors');
-const cookieParser = require('cookie-parser')
-const path = require('path')
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import express from 'express';
+import errorMiddleware from './middlewares/error.js';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+
+// __dirname workaround for ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 dotenv.config({ path: path.join(__dirname, "config/config.env") });
+const app = express();
 
 app.use(express.json());
 app.use(cors({
@@ -15,11 +21,11 @@ app.use(cors({
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-const imageRoutes = require('./routes/imageRoutes')
-const products = require('./routes/productRoutes')
-const auth = require('./routes/authRoutes')
-const order = require('./routes/orderRoutes')
-const payment = require('./routes/paymentRoutes')
+import imageRoutes from './routes/imageRoutes.js';
+import products from './routes/productRoutes.js';
+import auth from './routes/authRoutes.js';
+import order from './routes/orderRoutes.js';
+import payment from './routes/paymentRoutes.js';
 
 app.use(imageRoutes);
 app.use('/api/v1/', products);
@@ -37,4 +43,4 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(errorMiddleware)
 
-module.exports = app;
+export default app;

@@ -1,11 +1,11 @@
-const Product = require('../models/productModel');
-const ErrorHandler = require('../utils/errorHandler')
-const catchAsyncError = require('../middlewares/catchAsyncError')
-const APIFeatures = require('../utils/apiFeatures');
-const { fileDeleter } = require('../utils/gridfs/fileDeleter');
+import Product from '../models/productModel.js';
+import ErrorHandler from '../utils/errorHandler.js';
+import catchAsyncError from '../middlewares/catchAsyncError.js';
+import APIFeatures from '../utils/apiFeatures.js';
+import { fileDeleter } from '../utils/gridfs/fileDeleter.js';
 
 //Server quick Start -/api/v1/quickstart
-exports.quickStart = catchAsyncError(async (req, res, next) => {
+export const quickStart = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Server is up and running!"
@@ -13,7 +13,7 @@ exports.quickStart = catchAsyncError(async (req, res, next) => {
 })
 
 //Get Products - /api/v1/products
-exports.getProducts = catchAsyncError(async (req, res, next) => {
+export const getProducts = catchAsyncError(async (req, res, next) => {
     const resPerPage = 6;
 
     let buildQuery = () => {
@@ -43,7 +43,7 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
 
 
 //Get Single Product - api/v1/product/:id
-exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
+export const getSingleProduct = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.params.id).populate('reviews.user', 'fullName email');
 
     if (!product) {
@@ -59,7 +59,7 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
 })
 
 //Admin: New Product - /api/v1/admin/product/new
-exports.newProduct = catchAsyncError(async (req, res, next) => {
+export const newProduct = catchAsyncError(async (req, res, next) => {
     let images = [];
     // let BASE_URL = process.env.SERVER_URL;
     // if (process.env.NODE_ENV === "production") {
@@ -91,7 +91,7 @@ exports.newProduct = catchAsyncError(async (req, res, next) => {
 });
 
 //Admin: Get Admin Products  - api/v1/admin/products
-exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
+export const getAdminProducts = catchAsyncError(async (req, res, next) => {
     const products = await Product.find();
 
     products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined);
@@ -102,7 +102,7 @@ exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
 });
 
 //Admin: Update Product - api/v1/admin/product/:id
-exports.updateProduct = catchAsyncError(async (req, res, next) => {
+export const updateProduct = catchAsyncError(async (req, res, next) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -164,7 +164,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 })
 
 //Admin: Delete Product - api/v1/admin/product/:id
-exports.deleteProduct = catchAsyncError(async (req, res, next) => {
+export const deleteProduct = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -190,7 +190,7 @@ exports.deleteProduct = catchAsyncError(async (req, res, next) => {
 })
 
 //Create Review - api/v1/review
-exports.createReview = catchAsyncError(async (req, res, next) => {
+export const createReview = catchAsyncError(async (req, res, next) => {
     const { productId, rating, comment } = req.body;
 
     const review = {
@@ -236,7 +236,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
 })
 
 //Admin: Get Reviews - api/v1/admin/reviews?id={productId}
-exports.getReviews = catchAsyncError(async (req, res, next) => {
+export const getReviews = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.query.id).populate('reviews.user', 'fullName email');
 
     res.status(200).json({
@@ -246,7 +246,7 @@ exports.getReviews = catchAsyncError(async (req, res, next) => {
 })
 
 //Admin: Delete Review - api/v1/admin/review
-exports.deleteReview = catchAsyncError(async (req, res, next) => {
+export const deleteReview = catchAsyncError(async (req, res, next) => {
     const product = await Product.findById(req.query.productId);
 
     //filtering the reviews which does match the deleting review id

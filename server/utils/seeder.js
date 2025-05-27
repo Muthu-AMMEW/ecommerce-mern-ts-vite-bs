@@ -1,7 +1,7 @@
-const products = require('../data/products.json');
-const Product = require('../models/productModel');
-const dotenv = require('dotenv');
-const connectDatabase = require('../config/database')
+import products from '../data/products.json' assert { type: 'json' };
+import Product from '../models/productModel.js';
+import dotenv from 'dotenv';
+import connectDatabase from '../config/database.js';
 
 dotenv.config({ path: 'server/config/config.env' });
 connectDatabase();

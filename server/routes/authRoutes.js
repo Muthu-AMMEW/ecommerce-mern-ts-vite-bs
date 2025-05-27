@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const {
+
+import {
     registerUser,
     loginUser,
     logoutUser,
@@ -13,9 +14,12 @@ const {
     getUser,
     updateUser,
     deleteUser
-} = require('../controllers/authController');
-const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/authenticate');
-const { userUpload } = require('../utils/gridfs/storeUserImage');
+} from '../controllers/authController.js';
+
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
+
+import { userUpload } from '../utils/gridfs/storeUserImage.js';
+
 
 router.route('/register').post(userUpload.single('avatar'), registerUser);
 router.route('/login').post(loginUser);
@@ -33,4 +37,4 @@ router.route('/admin/user/:id').get(isAuthenticatedUser, authorizeRoles('admin')
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteUser);
 
 
-module.exports = router;
+export default router;
