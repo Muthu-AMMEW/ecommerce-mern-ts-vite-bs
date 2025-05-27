@@ -1,9 +1,17 @@
 import app from './app.js';
 import path from 'path';
 import connectDatabase from './config/database.js';
+import { initializeGridFS } from './utils/gridfs/getStoredImage.js';
+import { initializeProductGridFS } from './utils/gridfs/getStoredProductImage.js';
+import { initializeUserGridFS } from './utils/gridfs/getStoredUserImage.js';
 
-
-connectDatabase();
+async function databaseConnections() {
+    await connectDatabase();
+    await initializeGridFS();
+    await initializeUserGridFS();
+    await initializeProductGridFS();
+}
+databaseConnections();
 
 const server = app.listen(process.env.PORT, () => {
     console.log(`My Server listening to the port: ${process.env.PORT} in ${process.env.NODE_ENV}`);
