@@ -38,6 +38,7 @@ import UpdateOrder from './components/admin/UpdateOrder';
 import UserList from './components/admin/UserList';
 import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
+import LandingPage from './components/LandingPage';
 
 
 
@@ -69,7 +70,8 @@ function App() {
           <div>
             <ToastContainer theme='dark' />
             <Routes>
-              <Route path='/' element={<Home />} />
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/home' element={<Home />} />
               <Route path='/search/:keyword' element={<ProductSearch />} />
               <Route path='/product/:id' element={<ProductDetail />} />
               <Route path='/login' element={<Login />} />

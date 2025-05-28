@@ -267,7 +267,8 @@ footer a {
   .triangle2-incomplete {
     display: none;
   }
-  .triangle2-active{
+
+  .triangle2-active {
     display: none;
   }
 }
@@ -380,4 +381,36 @@ footer a {
 .review_user {
   font-size: 0.8rem;
   color: grey;
+}
+
+/* Landing Page */
+
+
+.welcome-message h2 {
+  font-family: 'Times New Roman', Times, serif;
+  text-shadow: 2px 2px black;
+}
+
+.welcome-message {
+  background-image: url("/images/house-tree.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+@media(max-width: 776px) {
+  .welcome-message {
+    background-size: 100% auto;
+    height: 400px;
+  }
+}
+
+.green {
+  background-color: rgb(145, 255, 0);
+  color: black;
+}
+
+.green:hover {
+  transform: scale(1.11);
+  background-color: rgb(145, 255, 0);
 }
