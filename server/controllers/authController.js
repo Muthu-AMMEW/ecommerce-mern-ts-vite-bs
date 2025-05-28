@@ -45,7 +45,7 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
     //finding the user database
     const user = await User.findOne({ email }).select('+password');
-    
+
     if (!user) {
         return next(new ErrorHandler('Invalid email or password', 401))
     }
@@ -60,16 +60,18 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
 //Logout User - /api/v1/logout
 export const logoutUser = (req, res, next) => {
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    })
-        .status(200)
-        .json({
-            success: true,
-            message: "Loggedout"
-        })
+    res.clearCookie('token', {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+        path: '/',
+        domain: process.env.CLIENT_URL_DEV // Add if using cross-domain cookies
+    });
 
+    res.status(200).json({
+        success: true,
+        message: "Logged out",
+    })
 }
 
 //Forgot Password - /api/v1/password/forgot
