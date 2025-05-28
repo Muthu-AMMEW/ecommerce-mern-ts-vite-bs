@@ -65,10 +65,7 @@ export const logoutUser = (req, res, next) => {
         sameSite: 'none',
         secure: true,
         path: '/',
-        domain: process.env.CLIENT_URL_DEV // Add if using cross-domain cookies
-    });
-
-    res.status(200).json({
+    }).status(200).json({
         success: true,
         message: "Logged out",
     })
