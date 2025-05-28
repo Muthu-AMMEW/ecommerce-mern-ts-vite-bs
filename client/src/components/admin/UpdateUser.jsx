@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
 import { clearError, clearUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
@@ -49,7 +49,7 @@ export default function UpdateUser() {
         }
 
         dispatch(getUser(userId))
-    }, [isUserUpdated, error, dispatch])
+    }, [isUserUpdated, userId, error, dispatch])
 
 
     useEffect(() => {

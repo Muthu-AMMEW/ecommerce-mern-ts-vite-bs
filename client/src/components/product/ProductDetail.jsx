@@ -92,7 +92,7 @@ export default function ProductDetail() {
         }
 
 
-    }, [dispatch, id, isReviewSubmitted, error])
+    }, [dispatch, id, product._id, isReviewSubmitted, error])
 
 
 

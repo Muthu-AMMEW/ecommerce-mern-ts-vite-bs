@@ -13,7 +13,7 @@ export default function UserOrders() {
 
     useEffect(() => {
         dispatch(userOrdersAction)
-    }, [])
+    }, [dispatch])
 
     const setOrders = () => {
         const data = {

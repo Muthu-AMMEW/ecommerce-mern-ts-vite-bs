@@ -35,7 +35,7 @@ export default function Dashboard() {
         dispatch(getAdminProducts);
         dispatch(getUsers);
         dispatch(adminOrdersAction)
-    }, [])
+    }, [dispatch])
 
 
     return (

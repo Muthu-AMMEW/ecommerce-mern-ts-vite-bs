@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { addCartItemRequest, addCartItemSuccess } from '../slices/cartSlice';
 import axios from 'axios'
 
@@ -14,6 +15,9 @@ export const addCartItem = (id, quantity) => async (dispatch) => {
             quantity
         }))
     } catch (error) {
-
+        toast(error, {
+            type: 'error',
+            position: toast.POSITION.BOTTOM_CENTER
+        })
     }
 }

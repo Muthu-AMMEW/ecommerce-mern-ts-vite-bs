@@ -8,7 +8,6 @@ import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import Sidebar from "./Sidebar"
-import js from "@eslint/js"
 import MetaData from "../layouts/MetaData"
 
 export default function UserList() {

@@ -95,7 +95,7 @@ export default function ReviewList() {
         }
 
 
-    }, [dispatch, error, isReviewDeleted])
+    }, [dispatch, error, productId, isReviewDeleted])
 
 
     return (

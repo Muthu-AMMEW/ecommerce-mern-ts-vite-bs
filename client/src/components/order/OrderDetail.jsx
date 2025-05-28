@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';
 import { toast } from "react-toastify";
@@ -14,7 +14,6 @@ export default function OrderDetail() {
     const [orderStatus, setOrderStatus] = useState("Processing");
     const { id: orderId } = useParams();
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -45,7 +44,7 @@ export default function OrderDetail() {
         }
 
         dispatch(orderDetailAction(orderId))
-    }, [isOrderUpdated, error, dispatch])
+    }, [isOrderUpdated, orderId, error, dispatch])
 
     useEffect(() => {
         if (orderDetail._id) {

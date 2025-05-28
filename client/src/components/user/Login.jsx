@@ -50,7 +50,7 @@ export default function Login() {
             })
             return
         }
-    }, [error, isAuthenticated, dispatch, navigate])
+    }, [error, isAuthenticated, redirect, dispatch, navigate])
 
     return (
         <>

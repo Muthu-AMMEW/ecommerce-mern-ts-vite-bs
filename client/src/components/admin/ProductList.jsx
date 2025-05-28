@@ -110,7 +110,7 @@ export default function ProductList() {
         }
 
         dispatch(getAdminProducts)
-    }, [dispatch, error, isProductDeleted])
+    }, [dispatch, error, productError, isProductDeleted])
 
 
     return (

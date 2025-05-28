@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import {
     loginFail,
     loginRequest,
@@ -97,6 +98,10 @@ export const logout = async (dispatch) => {
         dispatch(logoutSuccess())
     } catch (error) {
         dispatch(logoutFail)
+        toast(error, {
+            type: 'error',
+            position: toast.POSITION.BOTTOM_CENTER
+        })
     }
 
 }

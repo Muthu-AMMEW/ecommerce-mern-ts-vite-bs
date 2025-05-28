@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
 import { createNewProduct } from "../../actions/productActions";
 import { clearError, clearProductCreated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
@@ -31,7 +30,6 @@ export default function NewProduct() {
         'Home'
     ];
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
