@@ -8,7 +8,7 @@ import crypto from 'crypto';
 
 //Register User - /api/v1/register
 export const registerUser = catchAsyncError(async (req, res, next) => {
-    const { fullName, email, password, phoneNumber } = req.body
+    const { fullName, email, password, phoneNumber, address } = req.body
 
     let avatar = {};
 
@@ -27,6 +27,7 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
         email,
         password,
         phoneNumber,
+        address,
         avatar
     });
 
