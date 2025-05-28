@@ -27,7 +27,17 @@ export default function Head() {
                     <Link to={"/home"} className="btn btn-danger d-none d-sm-block my-3 mx-1">Home</Link>
                     {!isAuthenticated && <Link to={"/login"} className="btn btn-success d-lg-none my-3 mx-1">Login</Link>}
 
+                    <Link className="align-self-start justify-content-end d-lg-none ms-4" to={"/cart"}>
+
+                        <div className=" d-flex flex-column mt-3">
+                            <h5 className="badge text-black mx-2 my-0 p-0">{cartItems.length}</h5>
+                            <i className="fa-solid fa-cart-shopping fa-beat fa-xl mt-3" style={{ color: "#FFD43B" }}></i>
+                        </div>
+                    </Link>
+
                 </div>
+
+
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -52,11 +62,12 @@ export default function Head() {
 
                         <Link to={"/login"} className="nav-link d-flex flex-column align-items-start mt-2 mx-5" onClick={logoutHandler}>
                             <div className=" d-flex flex-column align-items-center"><i className="fa-solid fa-arrow-right-from-bracket fa-xl mb-3" style={{ color: "#63E6BE" }}></i>
-                                <h6>Logout</h6></div></Link>
+                                <h6>Logout</h6></div>
+                        </Link>
 
-                        <Link className="d-flex flex-column align-items-start" to={"/cart"}>
+                        <Link className="d-none d-lg-flex flex-column align-items-start" to={"/cart"}>
 
-                            <div className=" d-flex flex-column align-items-center">
+                            <div className="d-flex flex-column align-items-center">
                                 <h5 className="badge text-black mx-2 p-0">{cartItems.length}</h5>
                                 <i className="fa-solid fa-cart-shopping fa-beat fa-xl mt-1" style={{ color: "#FFD43B" }}></i>
                             </div>
