@@ -26,7 +26,7 @@ export default function Head() {
                     <Link to={"/home"} className="btn btn-danger d-none d-sm-block my-3 mx-1">Home</Link>
                     {!isAuthenticated && <Link to={"/login"} className="btn btn-success d-lg-none my-3 mx-1">Login</Link>}
 
-                    {!isAuthenticated && <Link className="align-self-start justify-content-end d-lg-none ms-4" to={"/cart"}>
+                    {isAuthenticated && <Link className="align-self-start justify-content-end d-lg-none ms-4" to={"/cart"}>
 
                         <div className=" d-flex flex-column mt-3">
                             <h5 className="badge text-black mx-2 my-0 p-0">{cartItems.length}</h5>

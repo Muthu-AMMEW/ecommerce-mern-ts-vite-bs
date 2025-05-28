@@ -92,7 +92,7 @@ export default function ProductDetail() {
         }
 
 
-    }, [dispatch, id, product._id, isReviewSubmitted, error])
+    }, [dispatch, id, isReviewSubmitted, error])
 
 
 
@@ -105,7 +105,7 @@ export default function ProductDetail() {
                         <div className="col-12 col-lg-7 mt-lg-5 text-center">
                             <Carousel pause="hover">
                                 {product.images && product.images.length > 0 && product.images.map(image =>
-                                    <Carousel.Item key={image._id}>
+                                    <Carousel.Item key={image.filename}>
                                         <img className="d-block w-100" src={image.image} alt={product.name} height="500" width="500" />
                                     </Carousel.Item>
                                 )}
@@ -166,8 +166,8 @@ export default function ProductDetail() {
                                     <Modal.Body>
                                         <ul className="stars" >
                                             {
-                                                [1, 2, 3, 4, 5].map(star => (
-                                                    <li
+                                                [1, 2, 3, 4, 5].map((star,i) => (
+                                                    <li key={i}
                                                         value={star}
                                                         onClick={() => setRating(star)}
                                                         className={`star ${star <= rating ? 'orange' : ''}`}

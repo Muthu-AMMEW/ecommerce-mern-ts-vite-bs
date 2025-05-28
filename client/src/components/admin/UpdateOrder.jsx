@@ -104,8 +104,8 @@ export default function UpdateOrder() {
 
                                 <h5 className='text-center text-decoration-underline m-1'>Order Items</h5>
                                 <div className="cart-item my-1">
-                                    {orderItems && orderItems.map(item => (
-                                        <>
+                                    {orderItems && orderItems.map((item, i) => (
+                                        <div key={i}>
                                             <hr />
                                             <div className="cart-item">
                                                 <div className="row">
@@ -133,7 +133,7 @@ export default function UpdateOrder() {
 
                                                 </div>
                                             </div>
-                                        </>
+                                        </div>
                                     ))}
 
                                 </div>
