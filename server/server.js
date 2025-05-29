@@ -1,5 +1,4 @@
 import app from './app.js';
-import path from 'path';
 import connectDatabase from './config/database.js';
 import { initializeGridFS } from './utils/gridfs/getStoredImage.js';
 import { initializeProductGridFS } from './utils/gridfs/getStoredProductImage.js';

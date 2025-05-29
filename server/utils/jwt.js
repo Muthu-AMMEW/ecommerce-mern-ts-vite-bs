@@ -20,8 +20,6 @@ const sendToken = (user, statusCode, res) => {
             token,
             user
         })
-
-
 }
 
 export default sendToken;

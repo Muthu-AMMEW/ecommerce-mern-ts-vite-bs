@@ -1,12 +1,11 @@
 import express from 'express';
-import errorMiddleware from './middlewares/error.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import errorMiddleware from './middlewares/error.js';
+
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
-// __dirname workaround for ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
