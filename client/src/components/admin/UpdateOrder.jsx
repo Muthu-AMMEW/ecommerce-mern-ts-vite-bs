@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
 import Loader from '../layouts/Loader';
@@ -59,7 +59,7 @@ export default function UpdateOrder() {
 
     return (<>
 
-        <Sidebar />
+        <AdminBar />
         {loading ? <Loader /> :
             <>
                 <MetaData />

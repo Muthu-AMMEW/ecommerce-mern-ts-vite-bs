@@ -61,17 +61,7 @@ export const getSingleProduct = catchAsyncError(async (req, res, next) => {
 //Admin: New Product - /api/v1/admin/product/new
 export const newProduct = catchAsyncError(async (req, res, next) => {
     let images = [];
-    // let BASE_URL = process.env.SERVER_URL;
-    // if (process.env.NODE_ENV === "production") {
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
-
-    // if (req.files.length > 0) {
-    //     req.files.forEach(file => {
-    //         let url = `${BASE_URL}/uploads/product/${file.originalname}`;
-    //         images.push({ image: url })
-    //     })
-    // }
+    
     if (req.files.length > 0) {
         req.files.forEach(file => {
             file.image = `/image/product/${file.id}`
@@ -128,17 +118,6 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
         images = [];
     }
 
-    // let BASE_URL = process.env.SERVER_URL;
-    // if (process.env.NODE_ENV === "production") {
-    //     BASE_URL = `${req.protocol}://${req.get('host')}`
-    // }
-
-    // if (req.files.length > 0) {
-    //     req.files.forEach(file => {
-    //         let url = `${BASE_URL}/uploads/product/${file.originalname}`;
-    //         images.push({ image: url })
-    //     })
-    // }
     if (req.files.length > 0) {
         req.files.forEach(file => {
             file.image = `/image/product/${file.id}`

@@ -3,7 +3,7 @@ export default function SocialNetworks() {
     return (
         <>
             <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle ms-lg-2 me-4 fw-bold" href="javascript;" role="button"
+                <a className="nav-link dropdown-toggle ms-lg-2 me-4 fw-bold" href="javascript:void(0)" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false"><i
                         className="fa-brands fa-slack fa-spin fa-lg me-2"></i>
                     Social Networks

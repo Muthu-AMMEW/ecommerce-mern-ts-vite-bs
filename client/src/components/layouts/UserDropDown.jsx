@@ -8,7 +8,7 @@ export default function UserDropDown() {
         <>
             <div className="dropdown">
 
-                <a className="nav-link dropdown-toggle" href="javascript;" role="button"
+                <a className="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <figure className='avatar avatar-nav'>
                         <img width="50px" src={user?.avatar?.image ?? './images/default_avatar.png'} />

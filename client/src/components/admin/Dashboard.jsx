@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { getAdminProducts } from "../../actions/productActions";
@@ -28,9 +28,7 @@ export default function Dashboard() {
             totalAmount += order.totalPrice
         })
     }
-
-
-
+    
     useEffect(() => {
         dispatch(getAdminProducts);
         dispatch(getUsers);
@@ -42,7 +40,7 @@ export default function Dashboard() {
         <>
             <MetaData title={'Admin Dashboard'} />
             
-            <Sidebar />
+            <AdminBar />
             <div className="p-4">
                 <div className="row">
                     <h1>Dashboard</h1>

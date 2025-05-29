@@ -7,7 +7,7 @@ import { clearError, clearProductDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
-import Sidebar from "./Sidebar"
+import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 
 export default function ProductList() {
@@ -66,7 +66,7 @@ export default function ProductList() {
         products.forEach(product => {
             data.rows.push({
                 sno: ++sno,
-                id: product._id,
+                id: <Link to={`/product/${product._id}`} className="text-primary">{product._id}</Link>,
                 name: product.name,
                 price: `Rs. ${product.price}`,
                 category: product.category,
@@ -116,7 +116,7 @@ export default function ProductList() {
     return (
         <>
             <MetaData title={'Product List'} />
-            <Sidebar />
+            <AdminBar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Product List</h1>
                 {loading ? <Loader /> :

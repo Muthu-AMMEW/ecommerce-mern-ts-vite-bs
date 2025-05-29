@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from "../../actions/productActions";
 import { clearError, clearProductCreated } from "../../slices/productSlice";
@@ -106,7 +106,7 @@ export default function NewProduct() {
     return (
         <>
             <MetaData title={'New Product'} />
-            <Sidebar />
+            <AdminBar />
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 

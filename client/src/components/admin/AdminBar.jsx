@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function AdminBar() {
 
     return (
 
-        <nav id="sidebar">
+        <nav id="adminBar">
             <ul className="list-unstyled components d-flex justify-content-around p-3 m-0 px-lg-5">
 
                 <li>
@@ -13,8 +13,8 @@ export default function Sidebar() {
 
                 <li>
                     <div className="dropdown">
-                        <a className="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i className="fa-brands fa-product-hunt"></i> Product
+                        <a className="dropdown-toggle p-0 me-3 m-sm-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className='blocker'><i className="fa-brands fa-product-hunt"></i></span> Product
                         </a>
 
                         <ul className="dropdown-menu">

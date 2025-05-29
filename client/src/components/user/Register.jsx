@@ -33,7 +33,7 @@ export default function Register() {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-			navigate('/');
+			navigate('/home');
 			return
 		}
 		if (error) {

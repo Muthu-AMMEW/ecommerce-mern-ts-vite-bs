@@ -101,7 +101,7 @@ userSchema.methods.getResetToken = function () {
 
     return token
 }
-let model = mongoose.model('User', userSchema);
+let userModel = mongoose.model('User', userSchema);
 
 
-export default model;
+export default userModel;

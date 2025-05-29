@@ -8,10 +8,10 @@ export default function Foot() {
                     <div className="col-6 col-md d-flex flex-column mb-2 justify-content-around">
                         <h5>Social Networks</h5>
                         <div>
-                            <Link to={"https://www.facebook.com/Muthu.AMMEW"}><i className="fa-brands fa-facebook fa-beat fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#2568ef"}}></i></Link>
+                            <Link to={"https://www.facebook.com/Muthu.AMMEW"}><i className="fa-brands fa-facebook fa-beat fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#2568ef" }}></i></Link>
                             <Link to={"https://x.com/Muthu_AMMEW"}><i className="fa-brands fa-square-x-twitter fa-shake fa-2xl py-3 me-2 bg-white rounded-5"></i></Link>
-                            <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#ff7b00"}}></i></Link>
-                            <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{color: "#0075d5"}}></i></Link>
+                            <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#ff7b00" }}></i></Link>
+                            <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#0075d5" }}></i></Link>
                         </div>
                         <img src="/images/play-store.webp" alt="" width="160" height="50" />
                         <img src="/images/app-store.webp" alt="" width="160" height="50" />
@@ -19,28 +19,28 @@ export default function Foot() {
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>About Ecommerce</h5>
                         <div>
-                            <a href="javascript;">Who We Are</a><br />
-                            <a href="javascript;">Blog</a><br />
-                            <a href="javascript;">Work With Us</a><br />
-                            <a href="javascript;">Investor Relations</a><br />
-                            <a href="javascript;">Report Fraud</a><br />
-                            <a href="javascript;">Press Kit</a><br />
-                            <a href="https://wa.me/919022690226?text=Hi" target="_blank" rel="noreferrer">Contact Us</a><br />
+                            <a href="javascript:void(0)">Who We Are</a><br />
+                            <a href="javascript:void(0)">Blog</a><br />
+                            <a href="javascript:void(0)">Work With Us</a><br />
+                            <a href="javascript:void(0)">Investor Relations</a><br />
+                            <a href="javascript:void(0)">Report Fraud</a><br />
+                            <a href="javascript:void(0)">Press Kit</a><br />
+                            <a href="https://wa.me/918072499102?text=Hi" target="_blank" rel="noreferrer">Contact Us</a><br />
                         </div>
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>For Ecommerce</h5>
                         <div>
-                            <a href="javascript;">Partner With Us</a><br />
-                            <a href="javascript;">Apps For You</a><br />
+                            <a href="javascript:void(0)">Partner With Us</a><br />
+                            <a href="javascript:void(0)">Apps For You</a><br />
                         </div>
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>Learn More</h5>
                         <div>
-                            <a href="javascript;">Privacy</a><br />
-                            <a href="javascript;">Security</a><br />
-                            <a href="javascript;">Terms</a><br />
+                            <a href="javascript:void(0)">Privacy</a><br />
+                            <a href="javascript:void(0)">Security</a><br />
+                            <a href="javascript:void(0)">Terms</a><br />
                         </div>
                     </div>
 

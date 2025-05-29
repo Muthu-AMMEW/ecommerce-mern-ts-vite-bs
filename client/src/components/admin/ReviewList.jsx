@@ -6,7 +6,7 @@ import { clearError, clearReviewDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
-import Sidebar from "./Sidebar"
+import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 
 export default function ReviewList() {
@@ -101,7 +101,7 @@ export default function ReviewList() {
     return (
         <>
             <MetaData title={'Review List'} />
-            <Sidebar />
+            <AdminBar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Review List</h1>
                 <div className="row justify-content-center mt-5">

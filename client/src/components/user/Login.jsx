@@ -10,7 +10,7 @@ export default function Login() {
     const location = useLocation();
 
     const { loading, error, isAuthenticated } = useSelector(state => state.authState)
-    const redirect = location.search ? '/' + location.search.split('=')[1] : '/';
+    const redirect = location.search ? '/' + location.search.split('=')[1] : '/home';
 
     const [inputs, setInputs] = useState({
         email: "",

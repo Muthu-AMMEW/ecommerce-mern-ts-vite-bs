@@ -7,7 +7,7 @@ import { clearError, clearUserDeleted } from "../../slices/userSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
-import Sidebar from "./Sidebar"
+import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 
 export default function UserList() {
@@ -66,15 +66,14 @@ export default function UserList() {
         users.forEach(user => {
             data.rows.push({
                 sno: ++sno,
-                id: user._id,
+                id: <Link to={`/admin/user/${user._id}`} className="text-primary">{user._id}</Link>,
                 name: user.fullName,
                 email: user.email,
                 phoneNumber: user.phoneNumber,
-                // address: JSON.stringify(Object.values(user.address)),
                 role: user.role,
                 actions: (
                     <>
-                        <Link to={`/admin/user/${user._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
+                        <Link to={`/admin/user/update/${user._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
                         <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger py-1 px-2 ml-2" disabled={user._id === authUser._id}>
                             <i className="fa fa-trash"></i>
                         </Button>
@@ -116,7 +115,7 @@ export default function UserList() {
     return (
         <>
             <MetaData title={'User List'} />
-            <Sidebar />
+            <AdminBar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">User List</h1>
                 {loading ? <Loader /> :

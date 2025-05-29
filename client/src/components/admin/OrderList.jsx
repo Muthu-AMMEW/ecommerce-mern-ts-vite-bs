@@ -7,7 +7,7 @@ import { clearError, clearOrderDeleted } from "../../slices/orderSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
-import Sidebar from "./Sidebar"
+import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 
 export default function OrderList() {
@@ -101,11 +101,6 @@ export default function OrderList() {
                 email: order.user.email,
                 amount: `Rs. ${order.totalPrice}`,
                 status: order.orderStatus,
-                // status: <p style={{
-                //     color: order.orderStatus.includes('Processing') ? 'orange' :
-                //         order.orderStatus.includes('Shipped') ? 'blue' :
-                //             order.orderStatus.includes('Delivered') ? 'green' : 'red'
-                // }}>{order.orderStatus}</p>,
                 actions: (
                     <>
                         <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
@@ -129,7 +124,7 @@ export default function OrderList() {
     return (
         <>  
             <MetaData title={'Order List'} />
-            <Sidebar />
+            <AdminBar />
             <div className="p-4">
                 <h1 className="my-1 ps-2">Order List</h1>
                 {loading ? <Loader /> :

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
+import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getProduct, updateProduct } from "../../actions/productActions";
@@ -148,7 +148,7 @@ export default function UpdateProduct() {
     return (
         <>  
             <MetaData title={'Update Product'} />
-            <Sidebar />
+            <AdminBar />
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
