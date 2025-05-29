@@ -3,37 +3,42 @@ import { useEffect, useState } from 'react';
 
 export default function usePWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [isInstallable, setIsInstallable] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
     const handler = (e) => {
-      // Do not call e.preventDefault() — allow Chrome to auto-show the prompt
-      console.log('[PWA] beforeinstallprompt fired');
-
-      // Chrome may or may not show it — but we still store it
       setDeferredPrompt(e);
-      setIsInstallable(true);
     };
 
     window.addEventListener('beforeinstallprompt', handler);
 
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    const checkStandalone = () => {
+      const isIos = window.navigator.standalone === true;
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+      setIsStandalone(isIos || isStandalone);
+    };
+
+    checkStandalone();
+    window
+      .matchMedia('(display-mode: standalone)')
+      .addEventListener('change', checkStandalone);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
   }, []);
 
   const promptInstall = async () => {
     if (!deferredPrompt) return;
-
     deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-
+    const result = await deferredPrompt.userChoice;
     setDeferredPrompt(null);
-    setIsInstallable(false);
-
-    return choice;
+    return result;
   };
 
   return {
-    isInstallable,
+    isStandalone,
     promptInstall,
+    canInstall: !!deferredPrompt,
   };
 }

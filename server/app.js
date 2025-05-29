@@ -14,7 +14,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL, process.env.CLIENT_URL_2],
+    origin: [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PRE, process.env.CLIENT_URL, process.env.CLIENT_URL_2],
     credentials: true   // required for cookies
 }));
 app.use(cookieParser());
