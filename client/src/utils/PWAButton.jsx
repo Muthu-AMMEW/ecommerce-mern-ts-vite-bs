@@ -1,3 +1,5 @@
+// src/utils/PWAButton.jsx
+
 import usePWAInstallPrompt from './usePWAInstallPrompt';
 
 function PWAButton() {
@@ -16,9 +18,12 @@ function PWAButton() {
       // Can show install prompt
       await promptInstall();
     } else {
+      alert(
+        'This app is already installed.'
+      );
       // Installed, but user is in browser → redirect to origin
       // May trigger standalone app on Android/Chrome, fallback to browser otherwise
-      window.location.href = window.location.origin;
+      // window.location.href = window.location.origin;
     }
   };
 

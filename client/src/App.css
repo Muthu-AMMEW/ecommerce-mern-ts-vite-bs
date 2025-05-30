@@ -339,12 +339,13 @@ footer a {
 }
 
 @media(max-width: 582px) {
-  .blocker{
+  .blocker {
     display: block;
   }
 }
-@media (min-width: 560px) and (max-width: 582px){
-  .blocker{
+
+@media (min-width: 560px) and (max-width: 582px) {
+  .blocker {
     display: block;
     margin-right: 90px;
   }
@@ -426,4 +427,9 @@ footer a {
 .green:hover {
   transform: scale(1.11);
   background-color: rgb(145, 255, 0);
+}
+
+.install-button:hover {
+  cursor: pointer;
+  transform: scale(1.11);
 }

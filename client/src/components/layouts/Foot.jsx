@@ -16,9 +16,12 @@ export default function Foot() {
             // Can show install prompt
             await promptInstall();
         } else {
+            alert(
+                'This app is already installed.'
+            );
             // Installed, but user is in browser → redirect to origin
             // May trigger standalone app on Android/Chrome, fallback to browser otherwise
-            window.location.href = window.location.origin;
+            // window.location.href = window.location.origin;
         }
     };
 
@@ -35,8 +38,8 @@ export default function Foot() {
                             <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#ff7b00" }}></i></Link>
                             <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#0075d5" }}></i></Link>
                         </div>
-                        <img src="/images/play-store.webp" onClick={handleClick} alt="" width="160" height="50" />
-                        <img src="/images/app-store.webp" onClick={handleClick} alt="" width="160" height="50" />
+                        <img src="/images/play-store.webp" className='install-button' onClick={handleClick} alt="Play Store App" title='Install as App' width="160" height="50" />
+                        <img src="/images/app-store.webp" className='install-button' onClick={handleClick} alt="App Store App" title='Install as App' width="160" height="50" />
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>About Ecommerce</h5>

@@ -1,4 +1,4 @@
-// src/hooks/usePWAInstallPrompt.js
+// src/utils/usePWAInstallPrompt.js
 import { useEffect, useState } from 'react';
 
 export default function usePWAInstallPrompt() {
