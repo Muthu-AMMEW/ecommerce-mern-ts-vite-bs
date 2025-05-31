@@ -182,8 +182,6 @@ const authSlice = createSlice({
     }
 });
 
-const { actions, reducer } = authSlice;
-
 export const {
     loginRequest,
     loginSuccess,
@@ -211,7 +209,7 @@ export const {
     resetPasswordRequest,
     resetPasswordSuccess,
 
-} = actions;
+} = authSlice.actions;
 
-export default reducer;
+export default authSlice.reducer;
 

@@ -114,7 +114,6 @@ const userSlice = createSlice({
     }
 });
 
-const { actions, reducer } = userSlice;
 
 export const {
     usersRequest,
@@ -133,7 +132,7 @@ export const {
     clearUserUpdated,
     clearError
 
-} = actions;
+} = userSlice.actions;
 
-export default reducer;
+export default userSlice.reducer;
 

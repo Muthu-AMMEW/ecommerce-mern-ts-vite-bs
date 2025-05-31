@@ -205,8 +205,6 @@ const productSlice = createSlice({
     }
 });
 
-const { actions, reducer } = productSlice;
-
 export const {
     productRequest,
     productSuccess,
@@ -236,7 +234,7 @@ export const {
     deleteReviewRequest,
     deleteReviewSuccess,
     clearReviewDeleted
-} = actions;
+} = productSlice.actions;
 
-export default reducer;
+export default productSlice.reducer;
 

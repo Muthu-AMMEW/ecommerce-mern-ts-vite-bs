@@ -158,8 +158,6 @@ const orderSlice = createSlice({
     }
 });
 
-const { actions, reducer } = orderSlice;
-
 export const {
     createOrderFail,
     createOrderSuccess,
@@ -182,7 +180,7 @@ export const {
     updateOrderSuccess,
     clearOrderDeleted,
     clearOrderUpdated
-} = actions;
+} = orderSlice.actions;
 
-export default reducer;
+export default orderSlice.reducer;
 

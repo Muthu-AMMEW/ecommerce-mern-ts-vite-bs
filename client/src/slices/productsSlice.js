@@ -52,8 +52,6 @@ const productsSlice = createSlice({
     }
 });
 
-const { actions, reducer } = productsSlice;
-
 export const {
     productsRequest,
     productsSuccess,
@@ -62,7 +60,7 @@ export const {
     adminProductsRequest,
     adminProductsSuccess
 
-} = actions;
+} = productsSlice.actions;
 
-export default reducer;
+export default productsSlice.reducer;
 
