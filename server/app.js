@@ -12,11 +12,35 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, "config/config.env") });
 const app = express();
 
+// List of allowed origins
+const allowedOrigins = [
+    process.env.CLIENT_URL_DEV,
+    process.env.CLIENT_URL_PRE,
+    process.env.CLIENT_URL,
+    process.env.CLIENT_URL_2
+];
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin like mobile apps or curl
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,  // required for cookies
+};
+
+app.use(cors(corsOptions));
+
+// app.use(cors({
+//     origin: [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PRE, process.env.CLIENT_URL, process.env.CLIENT_URL_2],
+//     credentials: true   // required for cookies
+// }));
+
 app.use(express.json());
-app.use(cors({
-    origin: [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PRE, process.env.CLIENT_URL, process.env.CLIENT_URL_2],
-    credentials: true   // required for cookies
-}));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
