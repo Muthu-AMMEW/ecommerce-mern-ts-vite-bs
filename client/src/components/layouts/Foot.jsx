@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import usePWAInstallPrompt from '../../utils/usePWAInstallPrompt';
 export default function Foot() {
-    const { isStandalone, canInstall, promptInstall } = usePWAInstallPrompt();
+    const { isStandalone, canInstall, cannotInstall, promptInstall } = usePWAInstallPrompt();
 
     const handleClick = async () => {
         if (isStandalone) {
-            // User is inside the PWA
             const goToBrowser = window.confirm(
                 'You are already using the installed app. Open in browser?'
             );
@@ -13,17 +12,23 @@ export default function Foot() {
                 window.open(window.location.origin, '_blank');
             }
         } else if (canInstall) {
-            // Can show install prompt
             await promptInstall();
-        } else {
+        } else if (cannotInstall) {
             alert(
-                'This app is already installed.'
+                'This app could not install on your device.'
             );
-            // Installed, but user is in browser → redirect to origin
-            // May trigger standalone app on Android/Chrome, fallback to browser otherwise
-            // window.location.href = window.location.origin;
+        } else {
+            alert('This app is already installed.');
         }
     };
+
+    const titleName = isStandalone
+        ? 'Already Installed'
+        : canInstall
+            ? 'Install App'
+            : cannotInstall
+                ? 'Cannot as Install'
+                : 'Open App';
 
     return (
         <>
@@ -38,8 +43,8 @@ export default function Foot() {
                             <Link to={"https://www.instagram.com/muthu.ammew"}><i className="fa-brands fa-square-instagram fa-beat-fade fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#ff7b00" }}></i></Link>
                             <Link to={"https://www.linkedin.com/in/muthu-ammew"}><i className="fa-brands fa-linkedin fa-bounce fa-2xl py-3 me-2 bg-white rounded-5" style={{ color: "#0075d5" }}></i></Link>
                         </div>
-                        <img src="/images/play-store.webp" className='install-button' onClick={handleClick} alt="Play Store App" title='Install as App' width="160" height="50" />
-                        <img src="/images/app-store.webp" className='install-button' onClick={handleClick} alt="App Store App" title='Install as App' width="160" height="50" />
+                        <img src="/images/play-store.webp" className='install-button' onClick={handleClick} alt="Play Store App" title={titleName} width="160" height="50" />
+                        <img src="/images/app-store.webp" className='install-button' onClick={handleClick} alt="App Store App" title={titleName} width="160" height="50" />
                     </div>
                     <div className="col-6 col-md d-flex flex-column mb-2">
                         <h5>About Ecommerce</h5>

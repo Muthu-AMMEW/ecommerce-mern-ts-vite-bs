@@ -1,13 +1,11 @@
 // src/utils/PWAButton.jsx
-
 import usePWAInstallPrompt from './usePWAInstallPrompt';
 
 function PWAButton() {
-  const { isStandalone, canInstall, promptInstall } = usePWAInstallPrompt();
+  const { isStandalone, canInstall, cannotInstall, promptInstall } = usePWAInstallPrompt();
 
   const handleClick = async () => {
     if (isStandalone) {
-      // User is inside the PWA
       const goToBrowser = window.confirm(
         'You are already using the installed app. Open in browser?'
       );
@@ -15,15 +13,13 @@ function PWAButton() {
         window.open(window.location.origin, '_blank');
       }
     } else if (canInstall) {
-      // Can show install prompt
       await promptInstall();
-    } else {
+    } else if (cannotInstall) {
       alert(
-        'This app is already installed.'
+        'This app could not install on your device.'
       );
-      // Installed, but user is in browser → redirect to origin
-      // May trigger standalone app on Android/Chrome, fallback to browser otherwise
-      // window.location.href = window.location.origin;
+    } else {
+      alert('This app is already installed.');
     }
   };
 
@@ -31,7 +27,9 @@ function PWAButton() {
     ? 'Already Installed'
     : canInstall
       ? 'Install App'
-      : 'Open App';
+      : cannotInstall
+        ? 'Cannot Install'
+        : 'Open App';
 
   return (
     <button onClick={handleClick}>
