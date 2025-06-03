@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "set VITE_SERVER_URL=http://localhost:8000/api/v1&&vite",
-    "prod": "vite",
-    "build": "vite build",
+    "dev": "vite --mode development",
+    "prod": "vite --mode production",
+    "build": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview"
   },

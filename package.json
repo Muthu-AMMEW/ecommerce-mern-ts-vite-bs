@@ -5,15 +5,16 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
-    "dev": "set NODE_ENV=development&&set SERVER_URL=http://localhost:8000&&nodemon server/server.js",
-    "prod": "set NODE_ENV=production&&nodemon server/server.js",
+    "start": "node server/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/server.js",
+    "prod": "cross-env NODE_ENV=production nodemon server/server.js",
     "seeder": "node server/utils/seeder.js"
   },
   "author": "Muthu Arivazhagan",
   "license": "ISC",
   "description": "ecommerce-mern-jsvite-cjs-bs using MERN stack",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^3.1.9"
   },
   "dependencies": {
@@ -22,7 +23,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.5.0",
     "express": "^4.18.2",
     "gridfs-stream": "^1.1.1",
     "jsonwebtoken": "^9.0.2",
