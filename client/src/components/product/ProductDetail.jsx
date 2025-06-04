@@ -10,6 +10,7 @@ import { clearReviewSubmitted, clearError, clearProduct } from '../../slices/pro
 import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
+import ScrollToTop from "../ScrollToTop";
 
 
 export default function ProductDetail() {
@@ -102,6 +103,7 @@ export default function ProductDetail() {
             {loading ? <Loader /> :
                 <div className="m-2 m-sm-5 m-lg-2 m-xl-5">
                     <MetaData title={product.name} />
+                    <ScrollToTop />
                     <div className="row">
                         <div className="col-12 col-lg-7 mt-lg-5 text-center">
                             <Carousel pause="hover">
