@@ -73,12 +73,12 @@ export default function ProductList() {
                 seller: product.seller,
                 stock: product.stock,
                 actions: (
-                    <>
+                    <div className="text-nowrap">
                         <Link to={`/admin/product/${product._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, product._id)} className="btn btn-danger py-1 px-2 ml-2">
+                        <Button onClick={e => deleteHandler(e, product._id)} className="btn btn-danger ms-1">
                             <i className="fa fa-trash"></i>
                         </Button>
-                    </>
+                    </div>
                 )
             })
         })

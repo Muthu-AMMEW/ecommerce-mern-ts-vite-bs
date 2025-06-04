@@ -109,7 +109,7 @@ export default function ProductDetail() {
                             <Carousel pause="hover">
                                 {product.images && product.images.length > 0 && product.images.map(image =>
                                     <Carousel.Item key={image.filename}>
-                                        <img className="d-block w-100 h-auto object-fit-cover" style={{ maxHeight: '600px' }}
+                                        <img className="d-block w-100 h-auto object-fit-contain" style={{ maxHeight: '600px' }}
                                             src={image.image} alt={product.name}/>
                                     </Carousel.Item>
                                 )}
@@ -148,8 +148,8 @@ export default function ProductDetail() {
                             <hr />
 
                             <h4 className="mt-2">Description</h4>
-                            <p>{product.description}</p>
-                            <h6 className="card-text text-danger">{product.category}</h6>
+                            <p className="text-start">{product.description}</p>
+                            <h6 className="card-text text-danger">Category: {product.category}</h6>
                             <hr />
                             <h6>Sold by: <strong>{product.seller}</strong></h6>
                             {user ?

@@ -102,12 +102,12 @@ export default function OrderList() {
                 amount: `Rs. ${order.totalPrice}`,
                 status: order.orderStatus,
                 actions: (
-                    <>
+                    <div className="text-nowrap">
                         <Link to={`/admin/order/${order._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger py-1 px-2 ml-2">
+                        <Button onClick={e => deleteHandler(e, order._id)} className="btn btn-danger ms-1">
                             <i className="fa fa-trash"></i>
                         </Button>
-                    </>
+                    </div>
                 )
             })
         })

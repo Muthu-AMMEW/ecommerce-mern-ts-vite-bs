@@ -72,12 +72,12 @@ export default function UserList() {
                 phoneNumber: user.phoneNumber,
                 role: user.role,
                 actions: (
-                    <>
+                    <div className="text-nowrap">
                         <Link to={`/admin/user/update/${user._id}`} className="btn btn-primary"> <i className="fa fa-pencil"></i></Link>
-                        <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger py-1 px-2 ml-2" disabled={user._id === authUser._id}>
+                        <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger ms-1" disabled={user._id === authUser._id}>
                             <i className="fa fa-trash"></i>
                         </Button>
-                    </>
+                   </div>
                 )
             })
         })

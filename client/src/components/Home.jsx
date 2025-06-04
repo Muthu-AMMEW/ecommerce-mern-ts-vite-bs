@@ -31,11 +31,11 @@ export default function Home() {
             {loading ? <Loader /> :
                 <>
                     <MetaData title={'Buy Best Products'} />
-                    <h1 className="ps-3 pt-3">Latest Products</h1>
-                    <section id="products" className="container mt-2">
+                    {/* <h3 className="ps-5 pt-3 text-decoration-underline">Latest Products</h3> */}
+                    <section id="products" className="container mt-3">
                         <div className="row">
                             {products && products.map(product => (
-                                <Product col={3} key={product._id} product={product} />
+                                <Product key={product._id} product={product} />
                             ))}
 
                         </div>

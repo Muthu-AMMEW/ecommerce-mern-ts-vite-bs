@@ -14,7 +14,7 @@ export const quickStart = catchAsyncError(async (req, res, next) => {
 
 //Get Products - /api/v1/products
 export const getProducts = catchAsyncError(async (req, res, next) => {
-    const resPerPage = 6;
+    const resPerPage = 8;
 
     let buildQuery = () => {
         return new APIFeatures(Product.find(), req.query).search().filter()
