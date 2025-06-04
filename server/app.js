@@ -56,6 +56,7 @@ app.use('/api/v1/', auth);
 app.use('/api/v1/', order);
 app.use('/api/v1/', payment);
 
+app.use(errorMiddleware)
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -63,7 +64,5 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.resolve(__dirname, '../client/dist/index.html'))
     })
 }
-
-app.use(errorMiddleware)
 
 export default app;

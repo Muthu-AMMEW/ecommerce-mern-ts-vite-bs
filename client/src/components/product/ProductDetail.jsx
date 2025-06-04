@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { createReview, getProduct } from "../../actions/productActions"
 import Loader from '../layouts/Loader';
 import { Carousel } from 'react-bootstrap';
@@ -19,6 +19,7 @@ export default function ProductDetail() {
     const dispatch = useDispatch();
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
     function increaseQty() {
         if (product.stock <= quantity) {
@@ -81,7 +82,7 @@ export default function ProductDetail() {
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })
-            return
+            navigate('/home');
         }
         if (!product._id || isReviewSubmitted) {
             dispatch(getProduct(id))
@@ -166,7 +167,7 @@ export default function ProductDetail() {
                                     <Modal.Body>
                                         <ul className="stars" >
                                             {
-                                                [1, 2, 3, 4, 5].map((star,i) => (
+                                                [1, 2, 3, 4, 5].map((star, i) => (
                                                     <li key={i}
                                                         value={star}
                                                         onClick={() => setRating(star)}
