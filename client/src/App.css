@@ -37,11 +37,17 @@ body {
   font-size: 1.4rem;
 }
 
+.mm-card-img-size {
+  width: 250px;
+  height: 200px;
+}
 
-
-.card-img-top {
-  width: 200px;
-  height: 150px;
+@media(max-width: 768px) {
+  .mm-card-img-size {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+  }
 }
 
 .ratings {

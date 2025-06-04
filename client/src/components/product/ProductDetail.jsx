@@ -109,7 +109,8 @@ export default function ProductDetail() {
                             <Carousel pause="hover">
                                 {product.images && product.images.length > 0 && product.images.map(image =>
                                     <Carousel.Item key={image.filename}>
-                                        <img className="d-block w-100" src={image.image} alt={product.name} height="500" width="500" />
+                                        <img className="d-block w-100 h-auto object-fit-cover" style={{ maxHeight: '600px' }}
+                                            src={image.image} alt={product.name}/>
                                     </Carousel.Item>
                                 )}
                             </Carousel>

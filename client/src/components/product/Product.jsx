@@ -6,7 +6,7 @@ export default function Product({ product, col }) {
             <div className="card p-3 rounded  bg-body-tertiary">
                 {product.images.length > 0 &&
                     <img
-                        className="card-img-top mx-auto"
+                        className="card-img-top mx-auto mm-card-img-size"
                         src={product.images[0].image}
                         alt={product.name}
                     />}
