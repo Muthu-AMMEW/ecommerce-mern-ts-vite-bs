@@ -10,8 +10,6 @@ import { clearReviewSubmitted, clearError, clearProduct } from '../../slices/pro
 import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
-import ScrollToTop from "../ScrollToTop";
-
 
 export default function ProductDetail() {
     const { loading, product = {}, isReviewSubmitted, error } = useSelector((state) => state.productState);
@@ -103,14 +101,13 @@ export default function ProductDetail() {
             {loading ? <Loader /> :
                 <div className="m-2 m-sm-5 m-lg-2 m-xl-5">
                     <MetaData title={product.name} />
-                    <ScrollToTop />
                     <div className="row">
                         <div className="col-12 col-lg-7 mt-lg-5 text-center">
                             <Carousel pause="hover">
                                 {product.images && product.images.length > 0 && product.images.map(image =>
                                     <Carousel.Item key={image.filename}>
                                         <img className="d-block w-100 h-auto object-fit-contain" style={{ maxHeight: '600px' }}
-                                            src={image.image} alt={product.name}/>
+                                            src={image.image} alt={product.name} />
                                     </Carousel.Item>
                                 )}
                             </Carousel>
@@ -148,14 +145,15 @@ export default function ProductDetail() {
                             <hr />
 
                             <h4 className="mt-2">Description</h4>
-                            <p className="text-start">{product.description}</p>
+                            <p className="text-start" style={{ textIndent: '3em' }}>{product.description}</p>
                             <h6 className="card-text text-danger">Category: {product.category}</h6>
                             <hr />
                             <h6>Sold by: <strong>{product.seller}</strong></h6>
                             {user ?
+                                <div className="text-center">
                                 <button onClick={handleShow} type="button" className="btn btn-warning mt-4" data-toggle="modal" data-target="#ratingModal">
                                     Submit Your Review
-                                </button> :
+                                </button></div> :
                                 <div className="alert alert-danger mt-5"> Login to Post Review</div>
                             }
 

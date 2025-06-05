@@ -86,8 +86,9 @@ export default function ProductList() {
         return data;
     }
 
-    const deleteHandler = (e, id) => {
+    const deleteHandler = async (e, id) => {
         e.target.disabled = true;
+        // await new Promise(resolve => setTimeout(resolve, 5000));
         dispatch(deleteProduct(id))
     }
 

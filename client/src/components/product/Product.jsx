@@ -5,10 +5,10 @@ export default function Product({ product }) {
         <div className={`col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3`}>
             <div className="card p-3 rounded bg-body-tertiary">
                 {product.images.length > 0 &&
-                    <img
+                    <Link to={`/product/${product._id}`}><img
                         className="card-img-top mx-auto mm-card-img-size"
                         src={product.images[0].image}
-                        alt={product.name} />}
+                        alt={product.name} /></Link>}
                 <div className="card-body d-flex flex-column">
                     <h6 className="card-title fw-bolder">
                         <Link className='text-decoration-none' to={`/product/${product._id}`}>{product.name}</Link>

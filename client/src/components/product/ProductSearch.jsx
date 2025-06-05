@@ -77,14 +77,14 @@ export default function ProductSearch() {
 						<div className="border border-black rounded-5 border-5 border-opacity-25">
 							{/* <div className="h3 text-center text-decoration-underline">Filters</div> */}
 							{/* Price Filter */}
-							
+
 							<div className="px-5 m-3" onMouseUp={() => setPriceChanged(price)}>
 								<Slider
 									range={true}
 									marks={
 										{
-											1: <span>Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e)=> e.target.value = ""} onBlur={()=>setPriceChanged(price)} placeholder="Min" /></span>,
-											100000: <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e)=> e.target.value = ""} onBlur={()=>setPriceChanged(price)} placeholder="Max" />
+											1: <span>Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onBlur={() => setPriceChanged(price)} placeholder="Min" /></span>,
+											100000: <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onBlur={() => setPriceChanged(price)} placeholder="Max" />
 										}
 									}
 									min={1}
@@ -146,14 +146,14 @@ export default function ProductSearch() {
 							</div>
 						</div>
 
-
-
-						<div className="row">
-							{products && products.map(product => (
-								<Product key={product._id} product={product} />
-							))}
-						</div>
-
+						{
+							products.length === 0 ? <div className="text-center h2" style={{ paddingTop: '100px', paddingBottom: "100px" }}>Not Found</div> :
+								<div className="row">
+									{products && products.map(product => (
+										<Product key={product._id} product={product} />
+									))}
+								</div>
+						}
 					</section>
 					{productsCount > 0 && productsCount > resPerPage ?
 						<div className="d-flex justify-content-center mt-5">

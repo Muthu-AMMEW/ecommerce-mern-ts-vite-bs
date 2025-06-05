@@ -202,7 +202,7 @@ export default function UpdateProduct() {
                                 </div>
                                 {imagesPreview.length > 0 && <span className="me-2" onClick={clearImagesHandler} style={{ cursor: "pointer" }}><i className="fa fa-trash"></i></span>}
                                 {imagesPreview.map(image => (
-                                    <img className="mt-3 mr-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
+                                    <img className="mt-3 me-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
                                     />
                                 ))}
                             </div>

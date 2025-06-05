@@ -54,7 +54,7 @@ export default function ReviewList() {
                 comment: review.comment,
                 actions: (
                     <>
-                        <Button onClick={e => deleteHandler(e, review._id)} className="btn btn-danger py-1 px-2 ml-2">
+                        <Button onClick={e => deleteHandler(e, review._id)} className="btn btn-danger py-1 px-2">
                             <i className="fa fa-trash"></i>
                         </Button>
                     </>

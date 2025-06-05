@@ -40,6 +40,7 @@ import UpdateUser from './components/admin/UpdateUser';
 import ReviewList from './components/admin/ReviewList';
 import LandingPage from './components/LandingPage';
 import UserDetails from './components/admin/UserDetails';
+import ScrollToTop from './utils/ScrollToTop';
 
 
 
@@ -70,6 +71,7 @@ function App() {
           <Head />
           <div>
             <ToastContainer theme='dark' />
+            <ScrollToTop />
             <Routes>
               <Route path='/' element={<LandingPage />} />
               <Route path='/home' element={<Home />} />

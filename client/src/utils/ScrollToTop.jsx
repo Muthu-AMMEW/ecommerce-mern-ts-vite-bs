@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     // Try scrolling the document itself
@@ -17,8 +17,8 @@ const ScrollToTop = () => {
     }
 
     // Optional: Debug scroll positions
-    console.log("ScrollTop triggered for", pathname);
-  }, [pathname]);
+    console.log("ScrollTop triggered for", pathname + search);
+  }, [pathname, search]);
 
   return null;
 };
