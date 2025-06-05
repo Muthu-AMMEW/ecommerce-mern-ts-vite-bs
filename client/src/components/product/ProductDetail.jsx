@@ -113,8 +113,8 @@ export default function ProductDetail() {
                             </Carousel>
                         </div>
 
-                        <div className="col-12 col-lg-5 mt-2 text-center">
-                            <h3>{product.name}</h3>
+                        <div className="col-12 col-lg-5 mt-3 text-center">
+                            <h5>{product.name}</h5>
                             <p className=' fst-italic'>Product #{product._id}</p>
 
                             <hr />
@@ -122,7 +122,7 @@ export default function ProductDetail() {
                             <div className="rating-outer">
                                 <div className="rating-inner" style={{ width: `${product.ratings / 5 * 100}%` }}></div>
                             </div>
-                            <span id="no_of_reviews">({Number(product.ratings).toFixed(1)} from {product.numOfReviews} Reviews)</span>
+                            <span className="fw-bold fs-6"> ({Number(product.ratings).toFixed(1)} from {product.numOfReviews} Reviews)</span>
 
                             <hr />
 
@@ -151,9 +151,9 @@ export default function ProductDetail() {
                             <h6>Sold by: <strong>{product.seller}</strong></h6>
                             {user ?
                                 <div className="text-center">
-                                <button onClick={handleShow} type="button" className="btn btn-warning mt-4" data-toggle="modal" data-target="#ratingModal">
-                                    Submit Your Review
-                                </button></div> :
+                                    <button onClick={handleShow} type="button" className="btn btn-warning mt-4" data-toggle="modal" data-target="#ratingModal">
+                                        Submit Your Review
+                                    </button></div> :
                                 <div className="alert alert-danger mt-5"> Login to Post Review</div>
                             }
 

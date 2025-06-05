@@ -23,7 +23,7 @@ export default function SocialNetworks() {
                         <hr className="dropdown-divider" />
                     </li>
                     <li><a className="dropdown-item me-2" href="https://m.me/Muthu.AMMEW"><i
-                        className="fa-brands fa-facebook-messenger fa-shake fa-lg me-2" style={{ color: "#0080f7" }}></i>Chat(Via FB)</a>
+                        className="fa-brands fa-facebook-messenger fa-shake fa-lg me-2" style={{ color: "#0080f7" }}></i>Chat (Messenger)</a>
                     </li>
                 </ul>
             </li>

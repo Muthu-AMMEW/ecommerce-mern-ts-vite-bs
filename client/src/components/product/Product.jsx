@@ -22,9 +22,9 @@ export default function Product({ product }) {
                         <div className="rating-outer">
                             <div className="rating-inner" style={{ width: `${product.ratings / 5 * 100}%` }}></div>
                         </div>
-                        <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
+                        <span className='text-success fw-bold fs-6'> ({product.numOfReviews} Reviews)</span>
                     </div>
-                    <p className="card-text mt-1">Rs. {product.price}</p>
+                    <p className="card-text mt-1 fs-5">Rs. {product.price}</p>
                     <p className="card-text text-danger">{product.category}</p>
                     <Link to={`/product/${product._id}`} className="btn btn-block btn-warning">View Details</Link>
                 </div>
