@@ -79,14 +79,14 @@ export default function ConfirmOrder() {
                                 <hr />
                                 <div className="cart-item">
                                     <div className="row">
-                                        <div className="col-6 col-lg-3 text-center">
-                                            <Link className='text-black' to={"/product/" + item._id} ><img src={item.image} alt={item.name} height="90" width="115" /></Link>
+                                        <div className="col-6 col-md-3 text-center">
+                                            <Link to={"/product/" + item._id} ><img src={item.image} alt={item.name} height="90" width="115" /></Link>
                                         </div>
 
-                                        <div className='col-6 col-lg-9'>
+                                        <div className='col-6 col-md-9'>
                                             <div className="row d-flex flex-column flex-lg-row justify-content-center align-items-center">
                                                 <h6 className="col text-center m-2">
-                                                    <Link className='text-black' to={"/product/" + item._id} >{item.name}</Link>
+                                                    <Link className='text-black text-decoration-none' to={"/product/" + item._id} >{item.name}</Link>
                                                 </h6>
 
                                                 <div className="col text-center m-3">
@@ -106,12 +106,12 @@ export default function ConfirmOrder() {
                             <div className='border rounded-5 p-5'>
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <h6 className='m-4'>Subtotal:  <span className='text-danger'>Rs. {itemsPrice}</span></h6>
-                                <h6 className='m-4'>Shipping: <span className='text-danger'>Rs. {shippingPrice}</span></h6>
-                                <h6 className='m-4'>Tax: <span className='text-danger'>Rs. {taxPrice}</span></h6>
+                                <h6 className='m-4'>Subtotal:  <span className='text-success'>Rs. {itemsPrice}</span></h6>
+                                <h6 className='m-4'>Shipping: <span className='text-success'>Rs. {shippingPrice}</span></h6>
+                                <h6 className='m-4'>Tax: <span className='text-success'>Rs. {taxPrice}</span></h6>
 
                                 <hr />
-                                <h6 className='m-4'>Total: <span className='text-danger'>Rs. {totalPrice}</span></h6>
+                                <h6 className='m-4'>Total: <span className='text-success'>Rs. {totalPrice}</span></h6>
 
                                 <hr />
                                 <button className="btn btn-primary btn-block" onClick={processPayment}>Proceed to Payment</button>

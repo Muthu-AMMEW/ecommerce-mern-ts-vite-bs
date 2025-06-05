@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function Product({ product }) {
     return (
         <div className={`col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3`}>
-            <div className="card p-3 rounded bg-body-tertiary">
+            <div className="card p-3 rounded bg-body-secondary">
                 {product.images.length > 0 &&
                     <Link to={`/product/${product._id}`}><img
                         className="card-img-top mx-auto mm-card-img-size"

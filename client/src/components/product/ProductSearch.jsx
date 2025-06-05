@@ -147,7 +147,7 @@ export default function ProductSearch() {
 						</div>
 
 						{
-							products.length === 0 ? <div className="text-center h2" style={{ paddingTop: '100px', paddingBottom: "100px" }}>Not Found</div> :
+							products?.length === 0 ? <div className="text-center h2" style={{ paddingTop: '100px', paddingBottom: "100px" }}>Not Found</div> :
 								<div className="row">
 									{products && products.map(product => (
 										<Product key={product._id} product={product} />

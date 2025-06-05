@@ -33,7 +33,7 @@ export default function Home() {
 
     return (
         <>
-            {loading ? <Loader /> : products.length === 0 ? <div className="text-center h2" style={{paddingTop: '200px', paddingBottom:"200px"}}>Not Found</div> :
+            {loading ? <Loader /> : products?.length === 0 ? <div className="text-center h2" style={{paddingTop: '200px', paddingBottom:"200px"}}>Not Found</div> :
                 <>
                     <MetaData title={'Buy Best Products'} />
                     {/* <h3 className="ps-5 pt-3 text-decoration-underline">Latest Products</h3> */}

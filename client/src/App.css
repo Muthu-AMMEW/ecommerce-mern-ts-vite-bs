@@ -6,6 +6,13 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
+  background: #ff6e7f;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #bfe9ff, #ff6e7f);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #bfe9ff, #ff6e7f);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 
@@ -200,9 +207,16 @@ body {
 
 /* Header */
 .mm-navbg {
-  background-image: url("/images/bg-pic-02.jpg");
+  /* background-image: url("/images/bg-pic-02.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  background: #1a2a6c;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #fdbb2d, #eb2a2a, #fdbb2d);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #fdbb2d, #eb2a2a, #fdbb2d);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 /* Footer */
@@ -212,6 +226,9 @@ footer a {
   color: rgba(5, 5, 5, 0.678);
 }
 
+.author:hover {
+  transform: scale(1.6);
+}
 
 /* Checkout Steps */
 

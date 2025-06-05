@@ -80,7 +80,7 @@ export default function Foot() {
                 <div>
                     <p className="mb-0">By continuing past this page, you agree to our Terms of Service, Cookie Policy,
                         Privacy Policy and Content Policies. All trademarks are properties of their respective owners.
-                        2008-2025 © Ecommerce™ Ltd. All rights reserved.<a href="https://www.linkedin.com/in/muthu-ammew" className="text-black text-decoration-none">Designed by <span className="text-success text-decoration-underline fw-bolder">Muthu</span></a>
+                        2008-2025 © Ecommerce™ Ltd. All rights reserved.<a href="https://www.linkedin.com/in/muthu-ammew" className="text-black text-decoration-none">Designed by <span className="badge text-bg-success author">Muthu</span></a>
                     </p>
                 </div>
 
