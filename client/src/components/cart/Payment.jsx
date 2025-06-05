@@ -147,40 +147,50 @@ export default function Payment() {
         <>
             <MetaData title={'Payment Gateway'} />
             <CheckoutSteps shipping confirmOrder payment />
-            <div className="row wrapper">
-                <div className="col-10 col-lg-5">
-                    <form onSubmit={handleSubmit} className="shadow-lg">
-                        <h1 className="mb-4">Card Info</h1>
-                        <div className="form-group">
-                            <label htmlFor="card_num_field">Card Number</label>
-                            <CardNumberElement type="text" id="card_num_field" className="form-control" />
-                            <div className="form-text">4242 4242 4242 4242</div> //only for testing
-                        </div>
+            <div className="row align-items-center justify-content-center mb-3">
+                <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
-                        <div className="form-group">
-                            <label htmlFor="card_exp_field">Card Expiry</label>
-                            <CardExpiryElement type="text" id="card_exp_field" className="form-control" />
-                            <div className="form-text">12/34</div> //only for testing
-                        </div>
+                    <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-25">
+                        <form className="w-100" onSubmit={handleSubmit}>
+                            <h1 className="mb-4">Card Info</h1>
+                            <div className="form-group">
+                                <label htmlFor="cardNumber" className="form-label">Card Number</label>
+                                <CardNumberElement type="text" id="cardNumber" className="form-control mm-box-color" />
+                                <div className="form-text">4242 4242 4242 4242 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
+                            </div>
 
-                        <div className="form-group">
-                            <label htmlFor="card_cvc_field">Card CVC</label>
-                            <CardCvcElement type="text" id="card_cvc_field" className="form-control" />
-                            <div className="form-text">143</div> //only for testing
-                        </div>
-
-                        <div className="mt-3 text-center">
-                            {loading ?
-                                (<div className="text-center">
-                                    <div className="spinner-border text-primary " role="status">
+                            <div className="row mt-3">
+                                <div className="col-6">
+                                    <div className="form-group">
+                                        <label htmlFor="cardExpire" className="form-label">Card Expiry</label>
+                                        <CardExpiryElement type="text" id="cardExpire" className="form-control mm-box-color" />
+                                        <div className="form-text">12/34 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
                                     </div>
-                                </div>) : null
-                            }
+                                </div>
 
-                            <button className="btn btn-primary me-5" type="submit" disabled={loading}>Pay - {` Rs. ${orderInfo && orderInfo.totalPrice}`}</button>
-                        </div>
+                                <div className="col-6">
+                                    <div className="form-group">
+                                        <label htmlFor="cvv" className="form-label">Card CVC</label>
+                                        <CardCvcElement type="text" id="cvv" className="form-control mm-box-color" />
+                                        <div className="form-text">143 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    </form>
+
+                            <div className="mt-3 text-center">
+                                {loading ?
+                                    (<div className="text-center">
+                                        <div className="spinner-border text-primary" role="status">
+                                        </div>
+                                    </div>) : null
+                                }
+
+                                <button className="btn btn-success me-5" type="submit" disabled={loading}>Pay - {` Rs. ${orderInfo && orderInfo.totalPrice}`}</button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </>

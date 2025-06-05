@@ -106,15 +106,15 @@ export default function ConfirmOrder() {
                             <div className='border rounded-5 p-5'>
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <h6 className='m-4'>Subtotal:  <span className='text-success'>Rs. {itemsPrice}</span></h6>
-                                <h6 className='m-4'>Shipping: <span className='text-success'>Rs. {shippingPrice}</span></h6>
-                                <h6 className='m-4'>Tax: <span className='text-success'>Rs. {taxPrice}</span></h6>
+                                <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>Rs. {itemsPrice}</span></h6>
+                                <h6 className='m-4'>Shipping: <span className='badge text-bg-warning'>Rs. {shippingPrice}</span></h6>
+                                <h6 className='m-4'>Tax: <span className='badge text-bg-warning'>Rs. {taxPrice}</span></h6>
 
                                 <hr />
-                                <h6 className='m-4'>Total: <span className='text-success'>Rs. {totalPrice}</span></h6>
+                                <h6 className='m-4'>Total: <span className='badge text-bg-warning'>Rs. {totalPrice}</span></h6>
 
                                 <hr />
-                                <button className="btn btn-primary btn-block" onClick={processPayment}>Proceed to Payment</button>
+                                <button className="btn btn-success btn-block" onClick={processPayment}>Proceed to Payment</button>
                             </div>
                         </div>
                     </div>

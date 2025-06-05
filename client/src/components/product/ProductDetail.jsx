@@ -131,7 +131,7 @@ export default function ProductDetail() {
                             <div className="d-flex justify-content-evenly">
                                 <span className="btn btn-danger" onClick={decreaseQty}>-</span>
 
-                                <input className='form-control text-center w-25' type="number" name="quantity" value={quantity} readOnly />
+                                <input className='form-control mm-box-color text-center w-25' type="number" name="quantity" value={quantity} readOnly />
 
                                 <span className="btn btn-primary" onClick={increaseQty}>+</span>
                                 <button type="button" onClick={addToCart} disabled={product.stock <= 0} className="btn btn-primary">Add to Cart</button>

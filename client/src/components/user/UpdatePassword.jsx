@@ -86,7 +86,7 @@ export default function UpdatePassword() {
 
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Change Password</div>
-                        <form className="w-100" onSubmit={handleSubmit}>
+                        <form className="w-100 mm-input-box-color" onSubmit={handleSubmit}>
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="oldPassword" className="form-label">Enter old password</label>

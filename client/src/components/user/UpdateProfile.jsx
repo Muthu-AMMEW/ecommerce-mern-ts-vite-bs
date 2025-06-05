@@ -125,9 +125,9 @@ export default function UpdateProfile() {
         <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
             <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
-                <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
+                <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 my-4 rounded-5 bg-body-tertiary bg-opacity-50">
                     <div className='text-center h2'>Update Profile</div>
-                    <form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
+                    <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
                         <div className="w-100 mt-3">
                             <label htmlFor="fullName" className="form-label">Full Name</label>
                             <input type="text" className="form-control" id="fullName" name="fullName" value={inputs.fullName} onChange={handleChange} placeholder="Enter Full Name" required />
@@ -144,13 +144,13 @@ export default function UpdateProfile() {
                         </div>
 
                         <div className="w-100 mt-3 form-group">
-                            <label htmlFor="addressLine1">Address Line 1</label>
+                            <label htmlFor="addressLine1" className="form-label">Address Line 1</label>
                             <input type="text" className="form-control" id="addressLine1" name="addressLine1" value={addressInputs.addressLine1} placeholder="House No, Building" onChange={handleAddressChange} required />
 
                         </div>
 
                         <div className="w-100 mt-3 form-group">
-                            <label htmlFor="addressLine2">Address Line 2</label>
+                            <label htmlFor="addressLine2" className="form-label">Address Line 2</label>
                             <input type="text" className="form-control" id="addressLine2" name="addressLine2" value={addressInputs.addressLine2} placeholder="Street, Area" onChange={handleAddressChange} required />
 
                         </div>
@@ -158,13 +158,13 @@ export default function UpdateProfile() {
                         <div className="row w-100 mt-3">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="city">City</label>
+                                    <label htmlFor="city" className="form-label">City</label>
                                     <input type="text" className="form-control" id="city" name="city" value={addressInputs.city} placeholder="City" onChange={handleAddressChange} required />
                                 </div>
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="state">State</label>
+                                    <label htmlFor="state" className="form-label">State</label>
                                     <input type="text" className="form-control" id="state" name="state" value={addressInputs.state} placeholder="State" onChange={handleAddressChange} required />
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ export default function UpdateProfile() {
                         <div className="row w-100 mt-3">
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="country">Country</label>
+                                    <label htmlFor="country" className="form-label">Country</label>
                                     <select className="form-control" id="country" name="country" value={addressInputs.country} onChange={handleAddressChange} required>
                                         {countryList.map((country, i) => (
                                             <option key={i} value={country.name}>
@@ -186,7 +186,7 @@ export default function UpdateProfile() {
                             </div>
                             <div className="col-6">
                                 <div className="form-group">
-                                    <label htmlFor="postal">Postal Code</label>
+                                    <label htmlFor="postal" className="form-label">Postal Code</label>
                                     <input type="number" id="postal" className="form-control" name="postalCode" placeholder="Postal Code" value={addressInputs.postalCode} onChange={handleAddressChange} required />
                                 </div>
                             </div>
@@ -200,8 +200,8 @@ export default function UpdateProfile() {
                                     </figure>
                                 </div>
                                 <div className='custom-file'>
-                                    <input type='file' className='custom-file-input' id='customFile' name='avatar' onChange={handleChange} />
-                                    <label className='custom-file-label' htmlFor='customFile'>
+                                    <input type='file' id='customFile' name='avatar' onChange={handleChange} />
+                                    <label className='form-label' htmlFor='customFile'>
                                         Choose Avatar
                                     </label>
                                 </div>

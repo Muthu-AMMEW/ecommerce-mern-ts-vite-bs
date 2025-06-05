@@ -58,11 +58,10 @@ export default function Login() {
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
-                    <div
-                        className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
+                    <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
 
                         <div className='text-center h2'>Log In</div>
-                        <form className="w-100" onSubmit={handleSubmit}>
+                        <form className="w-100 mm-input-box-color" onSubmit={handleSubmit}>
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <input type="email" className="form-control" id="email" placeholder="Enter email" name="email" value={inputs.email} onChange={handleChange} required />

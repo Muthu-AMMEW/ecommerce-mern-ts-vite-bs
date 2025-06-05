@@ -149,13 +149,13 @@ export default function UpdateProduct() {
         <>  
             <MetaData title={'Update Product'} />
             <AdminBar />
-            <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
+            <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 my-5 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Update Product</div>
 
-                        <form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>
                                 <input type="text" className="form-control" id="name" name="name" value={inputs.name} onChange={handleChange} required />

@@ -107,30 +107,30 @@ export default function NewProduct() {
         <>
             <MetaData title={'New Product'} />
             <AdminBar />
-            <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic mm-input-box">
+            <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 my-5 p-5 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Add New Product</div>
 
-                        <form className="w-100" onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
                             <div className="form-group">
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name" className="form-label">Name</label>
                                 <input type="text" className="form-control" id="name" name="name" value={inputs.name} onChange={handleChange} required />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="price">Price</label>
+                                <label htmlFor="price" className="form-label">Price</label>
                                 <input type="number" className="form-control" id="price" name="price" value={inputs.price} onChange={handleChange} required />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="description">Description</label>
+                                <label htmlFor="description" className="form-label">Description</label>
                                 <textarea className="form-control" id="description" name="description" value={inputs.description} rows="8" onChange={handleChange} required ></textarea>
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="category">Category</label>
+                                <label htmlFor="category" className="form-label">Category</label>
                                 <select className="form-control" id="category" name="category" value={inputs.category} onChange={handleChange} required >
                                     <option value="">Select</option>
                                     {categories.map(category => (
@@ -139,22 +139,22 @@ export default function NewProduct() {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="stock">Stock</label>
+                                <label htmlFor="stock" className="form-label">Stock</label>
                                 <input type="number" className="form-control" id="stock" name="stock" value={inputs.stock} onChange={handleChange} required />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="seller">Seller Name</label>
+                                <label htmlFor="seller" className="form-label">Seller Name</label>
                                 <input type="text" className="form-control" id="seller" name="seller" value={inputs.seller} onChange={handleChange} required />
                             </div>
 
                             <div className='form-group'>
-                                <label>Images</label>
+                                <label className="form-label">Images</label>
 
                                 <div className='custom-file'>
                                     <input type='file' name='images' className='custom-file-input' id='images' multiple onChange={handleChange} required />
 
-                                    <label className='custom-file-label' htmlFor='images'>
+                                    <label className='form-label' htmlFor='images'>
                                         Choose Images
                                     </label>
                                 </div>

@@ -54,7 +54,7 @@ export default function Cart() {
                                             <div className="col-12 col-sm-6 col-md-3 col-lg-3 my-3 my-lg-0 text-center">
                                                 <div className="d-flex justify-content-center">
                                                     <span className="btn btn-danger" onClick={() => decreaseQty(item)}>-</span>
-                                                    <input type="text" className="text-center border border-0 rounded-3 mx-1" style={{ width: "3rem" }} name="quantity" value={item.quantity} readOnly />
+                                                    <input type="text" className="text-center mm-box-color border border-0 rounded-3 mx-1" style={{ width: "3rem" }} name="quantity" value={item.quantity} readOnly />
 
                                                     <span className="btn btn-primary" onClick={() => increaseQty(item)}>+</span>
                                                 </div>
@@ -77,8 +77,8 @@ export default function Cart() {
                         <div className='border rounded-5 p-5'>
                             <h4>Order Summary</h4>
                             <hr />
-                            <h6 className='m-4'>Subtotal:  <span className='text-success'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></h6>
-                            <h6 className='m-4'>Est. total: <span className='text-success'>Rs. {Number(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0)).toFixed(2)}</span></h6>
+                            <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></h6>
+                            <h6 className='m-4'>Est. total: <span className='badge text-bg-warning'>Rs. {Number(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0)).toFixed(2)}</span></h6>
 
                             <hr />
                             <button onClick={checkoutHandler} className="btn btn-success">Check out</button>
