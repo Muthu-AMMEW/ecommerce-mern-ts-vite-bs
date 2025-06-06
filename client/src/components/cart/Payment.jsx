@@ -155,24 +155,24 @@ export default function Payment() {
                             <h1 className="mb-4">Card Info</h1>
                             <div className="form-group">
                                 <label htmlFor="cardNumber" className="form-label">Card Number</label>
-                                <CardNumberElement type="text" id="cardNumber" className="form-control mm-box-color" />
-                                <div className="form-text">4242 4242 4242 4242 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
+                                <CardNumberElement type="text" id="cardNumber" className="form-control mm-box-color" required />
+                                <div className="form-text">4242 4242 4242 4242 <span className="badge text-bg-warning">Card Number for testing</span></div>
                             </div>
 
                             <div className="row mt-3">
-                                <div className="col-6">
+                                <div className="col-7">
                                     <div className="form-group">
                                         <label htmlFor="cardExpire" className="form-label">Card Expiry</label>
-                                        <CardExpiryElement type="text" id="cardExpire" className="form-control mm-box-color" />
-                                        <div className="form-text">12/34 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
+                                        <CardExpiryElement type="text" id="cardExpire" className="form-control mm-box-color" required />
+                                        <div className="form-text">12/34 <span className="badge text-bg-warning">Expire Date for testing</span></div>
                                     </div>
                                 </div>
 
-                                <div className="col-6">
+                                <div className="col-5">
                                     <div className="form-group">
                                         <label htmlFor="cvv" className="form-label">Card CVC</label>
-                                        <CardCvcElement type="text" id="cvv" className="form-control mm-box-color" />
-                                        <div className="form-text">143 <span className="badge text-bg-warning">Fill this demo data for testing</span></div>
+                                        <CardCvcElement type="text" id="cvv" className="form-control mm-box-color" required />
+                                        <div className="form-text">143 <span className="badge text-bg-warning">CVV for testing</span></div>
                                     </div>
                                 </div>
                             </div>
