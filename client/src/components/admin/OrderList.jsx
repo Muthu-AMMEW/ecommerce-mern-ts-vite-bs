@@ -9,6 +9,8 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
+import { formatRupees } from "../../utils/formatRupees"
+import { istDateTime } from "../../utils/istDateTime"
 
 export default function OrderList() {
     const { adminOrders = [], loading = true, error, isOrderDeleted } = useSelector(state => state.orderState)
@@ -88,18 +90,11 @@ export default function OrderList() {
         adminOrders.forEach(order => {
             data.rows.push({
                 sno: ++sno,
-                date: new Date(order.createdAt).toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                }),
+                date: istDateTime(order.createdAt),
                 id: <Link to={`/admin/order/${order._id}`} className="text-primary">{order._id}</Link>,
                 fullName: order.user.fullName,
                 email: order.user.email,
-                amount: `Rs. ${order.totalPrice}`,
+                amount: formatRupees(order.totalPrice),
                 status: order.orderStatus,
                 actions: (
                     <div className="text-nowrap">

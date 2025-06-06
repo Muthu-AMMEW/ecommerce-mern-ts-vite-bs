@@ -11,6 +11,7 @@ import { createOrder } from '../../actions/orderActions'
 import { clearError as clearOrderError } from "../../slices/orderSlice";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
+import { formatRupees } from "../../utils/formatRupees";
 
 export default function Payment() {
     const stripe = useStripe();
@@ -186,7 +187,7 @@ export default function Payment() {
                                     </div>) : null
                                 }
 
-                                <button className="btn btn-success me-5" type="submit" disabled={loading}>Pay - {` Rs. ${orderInfo && orderInfo.totalPrice}`}</button>
+                                <button className="btn btn-success me-5" type="submit" disabled={loading}>Pay - {formatRupees(orderInfo && orderInfo.totalPrice)}</button>
                             </div>
 
                         </form>

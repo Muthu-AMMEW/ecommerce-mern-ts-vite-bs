@@ -5,6 +5,8 @@ import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact'
 import { useDispatch, useSelector } from 'react-redux';
 import { userOrders as userOrdersAction } from '../../actions/orderActions';
+import { formatRupees } from '../../utils/formatRupees';
+import { istDateTime } from '../../utils/istDateTime';
 
 export default function UserOrders() {
     const { userOrders = [], loading = true } = useSelector(state => state.orderState)
@@ -67,17 +69,10 @@ export default function UserOrders() {
         userOrders.forEach(order => {
             data.rows.push({
                 sno: ++sno,
-                date: new Date(order.createdAt).toLocaleDateString('en-IN', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                }),
+                date: istDateTime(order.createdAt),
                 id: <Link to={`/order/${order._id}`} className="text-primary">{order._id}</Link>,
                 numOfItems: order.orderItems.length,
-                amount: `Rs. ${order.totalPrice}`,
+                amount: formatRupees(order.totalPrice),
                 status: order.orderStatus,
                 // address: <p>{order.shippingInfo.fullName},<br />
                 //     {order.shippingInfo.addressLine1},<br />

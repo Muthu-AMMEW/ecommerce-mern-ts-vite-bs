@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { istDateTime } from '../../utils/istDateTime';
 
 export default function Profile() {
     const { user } = useSelector(state => state.authState);
@@ -10,7 +11,7 @@ export default function Profile() {
                 <div className='row'>
                     <div className='col-12 text-center mt-1 mb-4 mt-md-5'>
 
-                        <img className="rounded-circle"  src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
+                        <img className="rounded-circle object-fit-cover"  src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
 
                     </div>
                     <div className='col-12 text-center'>
@@ -28,7 +29,7 @@ export default function Profile() {
                 <p>{user.email}</p>
 
                 <h4>Joined</h4>
-                <p className='pb-3'>{String(user.createdAt).substring(0, 10)}</p>
+                <p className='pb-3'>{istDateTime(user.createdAt)}</p>
 
                 <h4>Address</h4>
                 { user.address ?

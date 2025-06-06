@@ -10,6 +10,7 @@ import { clearReviewSubmitted, clearError, clearProduct } from '../../slices/pro
 import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
+import { formatRupees } from "../../utils/formatRupees";
 
 export default function ProductDetail() {
     const { loading, product = {}, isReviewSubmitted, error } = useSelector((state) => state.productState);
@@ -127,7 +128,7 @@ export default function ProductDetail() {
                             <hr />
 
 
-                            <h5 className=' fw-bolder mb-3'>Rs. {product.price}</h5>
+                            <h5 className=' fw-bolder mb-3'>{formatRupees(product.price)}</h5>
                             <div className="d-flex justify-content-evenly">
                                 <span className="btn btn-danger" onClick={decreaseQty}>-</span>
 

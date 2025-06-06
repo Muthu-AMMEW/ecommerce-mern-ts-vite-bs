@@ -7,6 +7,7 @@ import { clearError } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 import Loader from "../layouts/Loader";
+import { istDateTime } from "../../utils/istDateTime";
 
 export default function UserDetails() {
     const { id } = useParams();
@@ -35,12 +36,12 @@ export default function UserDetails() {
                 <>
                     <MetaData title={'User Details'} />
                     <AdminBar />
-                    <div className='row p-5 bg-body-secondary'>
+                    <div className='row p-5'>
                         <div className=' col-12 col-md-6'>
                             <div className='row'>
                                 <div className='col-12 text-center mt-1 mb-4 mt-md-5'>
 
-                                    <img className="rounded-circle" src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
+                                    <img className="rounded-circle object-fit-cover" src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
 
                                 </div>
                                 {
@@ -60,8 +61,8 @@ export default function UserDetails() {
                             <p>{user.email}</p>
 
                             <h4>Joined</h4>
-                            <p className='pb-3'>{String(user.createdAt).substring(0, 10)}</p>
-
+                            <p className='pb-3'>{istDateTime(user.createdAt)}</p>
+                            
                             <h4>Address</h4>
                             {user.address ?
                                 <p className='w-50'>{`${user.address?.addressLine1},

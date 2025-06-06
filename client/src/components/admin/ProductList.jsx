@@ -9,6 +9,7 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
+import { formatRupees } from "../../utils/formatRupees"
 
 export default function ProductList() {
     const { products = [], loading = true, error } = useSelector(state => state.productsState)
@@ -68,7 +69,7 @@ export default function ProductList() {
                 sno: ++sno,
                 id: <Link to={`/product/${product._id}`} className="text-primary">{product._id}</Link>,
                 name: product.name,
-                price: `Rs. ${product.price}`,
+                price: formatRupees(product.price),
                 category: product.category,
                 seller: product.seller,
                 stock: product.stock,

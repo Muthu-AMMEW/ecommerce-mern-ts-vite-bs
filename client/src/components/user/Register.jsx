@@ -76,14 +76,16 @@ export default function Register() {
 			email: "",
 			phoneNumber: "",
 			password: "",
-			confirmPassword: "",
+			confirmPassword: ""
+		});
+		setAddressInputs({
 			addressLine1: "",
 			addressLine2: "",
 			city: "",
 			state: "",
 			country: "India",
 			postalCode: ""
-		})
+		});
 		toast.info("Reset Successfully");
 
 	}

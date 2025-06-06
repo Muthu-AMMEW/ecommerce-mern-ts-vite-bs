@@ -6,6 +6,7 @@ import { getUsers } from '../../actions/userActions'
 import { adminOrders as adminOrdersAction } from '../../actions/orderActions'
 import { Link } from "react-router-dom";
 import MetaData from "../layouts/MetaData";
+import { formatRupees } from "../../utils/formatRupees";
 
 export default function Dashboard() {
     const { products = [] } = useSelector(state => state.productsState);
@@ -47,7 +48,7 @@ export default function Dashboard() {
                     <div className="col-xl-12 col-sm-12 mb-3">
                         <div className="card text-white bg-primary o-hidden h-100">
                             <div className="card-body">
-                                <div className="text-center card-font-size">Total Amount<br /> <b>Rs. {totalAmount.toFixed(2)}</b>
+                                <div className="text-center card-font-size">Total Amount<br /> <b>{formatRupees(totalAmount)}</b>
                                 </div>
                             </div>
                         </div>

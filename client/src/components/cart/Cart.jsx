@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
+import { formatRupees } from '../../utils/formatRupees';
 
 export default function Cart() {
     const { cartItems } = useSelector(state => state.cartState)
@@ -48,7 +49,7 @@ export default function Cart() {
                                             </h6>
 
                                             <div className="col-12 col-sm-4 col-md-3 col-lg-2 text-center">
-                                                <h5>Rs. {item.price}</h5>
+                                                <h5>{formatRupees(item.price)}</h5>
                                             </div>
 
                                             <div className="col-12 col-sm-6 col-md-3 col-lg-3 my-3 my-lg-0 text-center">
@@ -78,7 +79,7 @@ export default function Cart() {
                             <h4>Order Summary</h4>
                             <hr />
                             <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></h6>
-                            <h6 className='m-4'>Est. total: <span className='badge text-bg-warning'>Rs. {Number(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0)).toFixed(2)}</span></h6>
+                            <h6 className='m-4'>Est. total: <span className='badge text-bg-warning'>{formatRupees(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0))}</span></h6>
 
                             <hr />
                             <button onClick={checkoutHandler} className="btn btn-success">Check out</button>

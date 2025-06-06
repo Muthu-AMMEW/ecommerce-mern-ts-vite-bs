@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { formatRupees } from '../../utils/formatRupees';
 
 export default function Product({ product }) {
     return (
@@ -24,7 +25,7 @@ export default function Product({ product }) {
                         </div>
                         <span className='text-success fw-bold fs-6'> ({product.numOfReviews} Reviews)</span>
                     </div>
-                    <p className="card-text mt-1 fs-5">Rs. {product.price}</p>
+                    <p className="card-text mt-1 fs-5">{formatRupees(product.price)}</p>
                     <p className="card-text text-danger">{product.category}</p>
                     <Link to={`/product/${product._id}`} className="btn btn-block btn-warning">View Details</Link>
                 </div>

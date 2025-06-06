@@ -6,6 +6,8 @@ import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/ord
 import { toast } from "react-toastify";
 import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
 import MetaData from '../layouts/MetaData';
+import { formatRupees } from '../../utils/formatRupees';
+import { istDateTime } from '../../utils/istDateTime';
 
 export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
@@ -75,14 +77,14 @@ export default function OrderDetail() {
                                             </div></div>
                                             <div className="my-1"><span className='fw-bold'>Phone Number : </span>{shippingInfo.phoneNumber}</div>
                                             <div className="my-1"><span className='fw-bold'>Email Address : </span>{user.email}</div>
-                                            <div className="my-1"><span className='fw-bold'>Order Date : </span>{orderDetail.createdAt}</div>
-                                            <div className="my-1"><span className='fw-bold'>Items Price : </span>Rs. {itemsPrice}</div>
-                                            <div className="my-1"><span className='fw-bold'>Tax (GST) : </span>Rs. {taxPrice}</div>
-                                            <div className="my-1"><span className='fw-bold'>Shipping Charges : </span>Rs. {shippingPrice}</div>
-                                            <div className="my-1"><span className='fw-bold'>Total Amount : </span>Rs. {totalPrice}</div>
+                                            <div className="my-1"><span className='fw-bold'>Order Date : </span>{istDateTime(orderDetail.createdAt)}</div>
+                                            <div className="my-1"><span className='fw-bold'>Items Price : </span>{formatRupees(itemsPrice)}</div>
+                                            <div className="my-1"><span className='fw-bold'>Tax (GST) : </span>{formatRupees(taxPrice)}</div>
+                                            <div className="my-1"><span className='fw-bold'>Shipping Charges : </span>{formatRupees(shippingPrice)}</div>
+                                            <div className="my-1"><span className='fw-bold'>Total Amount : </span>{formatRupees(totalPrice)}</div>
                                             <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.id}</div>
                                             <div className="my-1"><span className='fw-bold'>Payment Status : </span>{isPaid ? 'PAID' : 'NOT PAID'}</div>
-                                            {deliveredAt && <div className="my-1"><span className='fw-bold'>Deliverd Date : </span>{deliveredAt}</div>}
+                                            {deliveredAt && <div className="my-1"><span className='fw-bold'>Deliverd Date : </span>{istDateTime(deliveredAt)}</div>}
 
                                         </div>
                                         <div className="col-12 col-lg-6 px-md-5 px-lg-2 mt-md-2">
@@ -118,7 +120,7 @@ export default function OrderDetail() {
                                                                 </h6>
 
                                                                 <div className="col-6 col-lg-3 mt-3 text-center">
-                                                                    <h5>Rs. {item.price}</h5>
+                                                                    <h5>{formatRupees(item.price)}</h5>
                                                                 </div>
 
                                                                 <div className="col-6 col-lg-2 mt-3 text-center">

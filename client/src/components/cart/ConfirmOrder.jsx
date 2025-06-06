@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckoutSteps from './CheckoutStep';
 import { toast } from 'react-toastify';
+import { formatRupees } from '../../utils/formatRupees';
 
 export default function ConfirmOrder() {
     const { shippingInfo, cartItems } = useSelector(state => state.cartState);
@@ -90,7 +91,7 @@ export default function ConfirmOrder() {
                                                 </h6>
 
                                                 <div className="col text-center m-3">
-                                                    <p>{item.quantity} x Rs. {item.price} = <b>Rs. {item.quantity * item.price}</b></p>
+                                                    <p>{item.quantity} x {formatRupees(item.price)} = <b>{formatRupees(item.quantity * item.price)}</b></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -106,12 +107,12 @@ export default function ConfirmOrder() {
                             <div className='border rounded-5 p-5'>
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>Rs. {itemsPrice}</span></h6>
-                                <h6 className='m-4'>Shipping: <span className='badge text-bg-warning'>Rs. {shippingPrice}</span></h6>
-                                <h6 className='m-4'>Tax: <span className='badge text-bg-warning'>Rs. {taxPrice}</span></h6>
+                                <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>{formatRupees(itemsPrice)}</span></h6>
+                                <h6 className='m-4'>Shipping: <span className='badge text-bg-warning'>{formatRupees(shippingPrice)}</span></h6>
+                                <h6 className='m-4'>Tax: <span className='badge text-bg-warning'>{formatRupees(taxPrice)}</span></h6>
 
                                 <hr />
-                                <h6 className='m-4'>Total: <span className='badge text-bg-warning'>Rs. {totalPrice}</span></h6>
+                                <h6 className='m-4'>Total: <span className='badge text-bg-warning'>{formatRupees(totalPrice)}</span></h6>
 
                                 <hr />
                                 <button className="btn btn-success btn-block" onClick={processPayment}>Proceed to Payment</button>

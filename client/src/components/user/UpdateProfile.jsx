@@ -48,14 +48,16 @@ export default function UpdateProfile() {
     function handleReset() {
         setInputs({
             fullName: "",
-            phoneNumber: "",
-            addressLine1: "",
-            addressLine2: "",
-            city: "",
-            state: "",
-            country: "",
-            postalCode: ""
-        })
+            phoneNumber: ""
+        });
+        setAddressInputs({
+			addressLine1: "",
+			addressLine2: "",
+			city: "",
+			state: "",
+			country: "India",
+			postalCode: ""
+		});
         toast.info("Reset Successfully");
 
     }
