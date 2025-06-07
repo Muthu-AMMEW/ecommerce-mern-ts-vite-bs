@@ -99,9 +99,9 @@ export default function ProductDetail() {
 
     return (
         <>
+            <MetaData title={product.name} />
             {loading ? <Loader /> :
                 <div className="m-2 m-sm-5 m-lg-2 m-xl-5">
-                    <MetaData title={product.name} />
                     <div className="row">
                         <div className="col-12 col-lg-7 mt-lg-5 text-center">
                             <Carousel pause="hover">

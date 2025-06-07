@@ -13,7 +13,7 @@ import { formatRupees } from "../../utils/formatRupees"
 import { istDateTime } from "../../utils/istDateTime"
 
 export default function OrderList() {
-    const { adminOrders = [], loading = true, error, isOrderDeleted } = useSelector(state => state.orderState)
+    const { adminOrders = [], loading, error, isOrderDeleted } = useSelector(state => state.orderState)
 
     const dispatch = useDispatch();
     let sno = 0;
@@ -117,23 +117,27 @@ export default function OrderList() {
 
 
     return (
-        <>  
-            <MetaData title={'Order List'} />
-            <AdminBar />
-            <div className="p-4">
-                <h1 className="my-1 ps-2">Order List</h1>
-                {loading ? <Loader /> :
-                    <div className="table-responsive">
-                        <MDBDataTable
-                            data={setOrders()}
-                            bordered
-                            striped
-                            hover
-                            className="px-3"
-                        />
+        <>
+            {loading ? <Loader /> :
+                <>
+                    <MetaData title={'Order List'} />
+                    <AdminBar />
+                    <div className="p-4">
+                        <h1 className="my-1 ps-2">Order List</h1>
+                        {loading ? <Loader /> :
+                            <div className="table-responsive">
+                                <MDBDataTable
+                                    data={setOrders()}
+                                    bordered
+                                    striped
+                                    hover
+                                    className="px-3"
+                                />
+                            </div>
+                        }
                     </div>
-                }
-            </div>
+                </>
+            }
         </>
     )
 }

@@ -61,11 +61,10 @@ export default function UpdateOrder() {
 
 	return (
 		<>
-
+			<MetaData title={'Update Order'} />
 			<AdminBar />
 			{loading ? <Loader /> :
 				<>
-					<MetaData title={'Update Order'} />
 					<div className="container-fluid p-2">
 						<div className='m-lg-5'>
 							<div className='m-lg-5'>

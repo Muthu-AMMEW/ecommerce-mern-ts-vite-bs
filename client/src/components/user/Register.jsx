@@ -4,6 +4,7 @@ import { register, clearAuthError } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
+import MetaData from '../layouts/MetaData';
 
 
 export default function Register() {
@@ -126,6 +127,7 @@ export default function Register() {
 
 	return (
 		<>
+			<MetaData title={'Register'} />
 			<div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
 				<div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 

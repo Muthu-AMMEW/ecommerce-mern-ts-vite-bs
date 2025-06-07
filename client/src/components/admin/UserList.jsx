@@ -77,7 +77,7 @@ export default function UserList() {
                         <Button onClick={e => deleteHandler(e, user._id)} className="btn btn-danger ms-1" disabled={user._id === authUser._id}>
                             <i className="fa fa-trash"></i>
                         </Button>
-                   </div>
+                    </div>
                 )
             })
         })
@@ -114,22 +114,25 @@ export default function UserList() {
 
     return (
         <>
-            <MetaData title={'User List'} />
-            <AdminBar />
-            <div className="p-4">
-                <h1 className="my-1 ps-2">User List</h1>
-                {loading ? <Loader /> :
-                    <div className="table-responsive">
-                        <MDBDataTable
-                            data={setUsers()}
-                            bordered
-                            striped
-                            hover
-                            className="px-3"
-                        />
+            {loading ? <Loader /> :
+                <>
+                    <MetaData title={'User List'} />
+                    <AdminBar />
+                    <div className="p-4">
+                        <h1 className="my-1 ps-2">User List</h1>
+                        {loading ? <Loader /> :
+                            <div className="table-responsive">
+                                <MDBDataTable
+                                    data={setUsers()}
+                                    bordered
+                                    striped
+                                    hover
+                                    className="px-3"
+                                />
+                            </div>
+                        }
                     </div>
-                }
-            </div>
+                </>}
         </>
     )
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { updatePassword as updatePasswordAction, clearAuthError } from '../../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import MetaData from '../layouts/MetaData';
 
 export default function UpdatePassword() {
 
@@ -68,7 +69,7 @@ export default function UpdatePassword() {
                 type: 'error'
             })
             return
-        }    
+        }
 
         if (isAuthenticated) {
             const formData = new FormData();
@@ -81,6 +82,7 @@ export default function UpdatePassword() {
 
     return (
         <>
+            <MetaData title={'Update Password'} />
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 

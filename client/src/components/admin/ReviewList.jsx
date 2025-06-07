@@ -10,7 +10,7 @@ import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 
 export default function ReviewList() {
-    const { reviews = [], loading = true, error, isReviewDeleted } = useSelector(state => state.productState)
+    const { reviews = [], loading, error, isReviewDeleted } = useSelector(state => state.productState)
     const [productId, setProductId] = useState("");
     const dispatch = useDispatch();
 
@@ -100,35 +100,39 @@ export default function ReviewList() {
 
     return (
         <>
-            <MetaData title={'Review List'} />
-            <AdminBar />
-            <div className="p-4">
-                <h1 className="my-1 ps-2">Review List</h1>
-                <div className="row justify-content-center mt-5">
-                    <div className="col-5">
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-group">
-                                <label htmlFor="productId" >Product ID</label>
-                                <input type="text" className="form-control" id="productId" name="productId" value={productId} onChange={e => setProductId(e.target.value)} required />
+            {loading ? <Loader /> :
+                <>
+                    <MetaData title={'Review List'} />
+                    <AdminBar />
+                    <div className="p-4">
+                        <h1 className="my-1 ps-2">Review List</h1>
+                        <div className="row justify-content-center mt-5">
+                            <div className="col-5">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="productId" >Product ID</label>
+                                        <input type="text" className="form-control" id="productId" name="productId" value={productId} onChange={e => setProductId(e.target.value)} required />
+                                    </div>
+                                    <div className="text-center"><button type="submit" disabled={loading} className="btn btn-primary btn-block my-2">
+                                        Search
+                                    </button></div>
+                                </form>
                             </div>
-                            <div className="text-center"><button type="submit" disabled={loading} className="btn btn-primary btn-block my-2">
-                                Search
-                            </button></div>
-                        </form>
+                        </div>
+                        {loading ? <Loader /> :
+                            <div className="table-responsive">
+                                <MDBDataTable
+                                    data={setReviews()}
+                                    bordered
+                                    striped
+                                    hover
+                                    className="px-3"
+                                />
+                            </div>
+                        }
                     </div>
-                </div>
-                {loading ? <Loader /> :
-                    <div className="table-responsive">
-                        <MDBDataTable
-                            data={setReviews()}
-                            bordered
-                            striped
-                            hover
-                            className="px-3"
-                        />
-                    </div>
-                }
-            </div>
+                </>
+            }
         </>
     )
 }
