@@ -111,7 +111,7 @@ export default function ReviewList() {
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
                                         <label htmlFor="productId" >Product ID</label>
-                                        <input type="text" className="form-control" id="productId" name="productId" value={productId} onChange={e => setProductId(e.target.value)} required />
+                                        <input type="text" className="form-control mm-box-color" id="productId" name="productId" value={productId} onChange={e => setProductId(e.target.value)} required />
                                     </div>
                                     <div className="text-center"><button type="submit" disabled={loading} className="btn btn-primary btn-block my-2">
                                         Search
