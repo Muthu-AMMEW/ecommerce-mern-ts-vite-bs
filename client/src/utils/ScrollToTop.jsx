@@ -17,7 +17,7 @@ const ScrollToTop = () => {
     }
 
     // Optional: Debug scroll positions
-    console.log("ScrollTop triggered for", pathname + search);
+    // console.log("ScrollTop triggered for", pathname + search);
   }, [pathname, search]);
 
   return null;

@@ -16,7 +16,7 @@ export default function ProductSearch() {
 	const dispatch = useDispatch();
 	const { products, loading, error, productsCount, resPerPage } = useSelector((state) => state.productsState)
 	const [currentPage, setCurrentPage] = useState(1);
-	const [price, setPrice] = useState([1, 100000]);
+	const [price, setPrice] = useState(sessionStorage.getItem('price') ? JSON.parse(sessionStorage.getItem('price')) : [1, 100000]);
 	const [priceChanged, setPriceChanged] = useState(price);
 	const [category, setCategory] = useState(null);
 	const [rating, setRating] = useState(0);
@@ -36,6 +36,17 @@ export default function ProductSearch() {
 		'Outdoor',
 		'Home'
 	];
+
+	function search() {
+		setPriceChanged(price);
+		sessionStorage.setItem('price', JSON.stringify(price));
+	}
+
+	const handleKeyDown = (e) => {
+		if (e.key === "Enter") {
+			search();
+		}
+	};
 
 	const handleChange = async (event) => {
 
@@ -78,13 +89,13 @@ export default function ProductSearch() {
 							{/* <div className="h3 text-center text-decoration-underline">Filters</div> */}
 							{/* Price Filter */}
 
-							<div className="px-5 m-3" onMouseUp={() => setPriceChanged(price)}>
+							<div className="px-5 m-3" onMouseUp={search}>
 								<Slider
 									range={true}
 									marks={
 										{
-											1: <span>Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onBlur={() => setPriceChanged(price)} placeholder="Min" /></span>,
-											100000: <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onBlur={() => setPriceChanged(price)} placeholder="Max" />
+											1: <span className="text-black">Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
+											100000: <span className="text-black text-nowrap">Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
 										}
 									}
 									min={1}

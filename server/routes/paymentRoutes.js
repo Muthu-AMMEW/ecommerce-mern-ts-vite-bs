@@ -5,6 +5,6 @@ import { isAuthenticatedUser } from '../middlewares/authenticate.js';
 const router = express.Router();
 
 router.route('/payment/process').post(isAuthenticatedUser, processPayment);
-router.route('/stripeapi').get(isAuthenticatedUser, sendStripeApi);
+router.route('/stripeapi').get(sendStripeApi);
 
 export default router;

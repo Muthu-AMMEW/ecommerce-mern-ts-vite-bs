@@ -20,8 +20,17 @@ export default function ProductDetail() {
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
+    const itemExist = cartItems.find((item) => item._id === product._id);
 
     function increaseQty() {
+        if (itemExist) {
+            toast('Already this product added. Please check or customise on Cart', {
+                type: 'info',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            return;
+        }
+
         if (product.stock <= quantity) {
             return;
         }
@@ -29,13 +38,20 @@ export default function ProductDetail() {
     }
 
     function decreaseQty() {
+        if (itemExist) {
+            toast('Already this product added. Please check or customise on Cart', {
+                type: 'info',
+                position: toast.POSITION.BOTTOM_CENTER
+            })
+            return;
+        }
+
         if (quantity > 1) {
             setQuantity((state) => state - 1);
         }
     }
 
     function addToCart() {
-        const itemExist = cartItems.find((item) => item._id === product._id)
         if (!itemExist) {
             dispatch(addCartItem(product._id, quantity))
             toast('Cart Item added succesfully!', {
@@ -135,7 +151,8 @@ export default function ProductDetail() {
                                 <input className='form-control mm-box-color text-center w-25' type="number" name="quantity" value={quantity} readOnly />
 
                                 <span className="btn btn-primary" onClick={increaseQty}>+</span>
-                                <button type="button" onClick={addToCart} disabled={product.stock <= 0} className="btn btn-primary">Add to Cart</button>
+                                {!itemExist ? <button type="button" className="btn btn-primary" onClick={addToCart} disabled={product.stock <= 0}>Add to Cart</button> :
+                                    <button type="button" className="btn btn-success" onClick={() => navigate("/cart")} disabled={product.stock <= 0}>Go to Cart</button>}
                             </div>
 
 
