@@ -94,8 +94,8 @@ export default function ProductSearch() {
 									range={true}
 									marks={
 										{
-											1: <span className="text-black">Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
-											100000: <span className="text-black text-nowrap">Rs. <input type="number" className="border-info" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
+											1: <span className="text-black">Rs. <input type="number" className="border-info mm-box-color" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
+											100000: <span className="text-black text-nowrap">Rs. <input type="number" className="border-info mm-box-color" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
 										}
 									}
 									min={1}
@@ -173,6 +173,7 @@ export default function ProductSearch() {
 								onChange={setCurrentPageNo}
 								totalItemsCount={productsCount}
 								itemsCountPerPage={resPerPage}
+								prevPageText={'Previous'}
 								nextPageText={'Next'}
 								firstPageText={'First'}
 								lastPageText={'Last'}
