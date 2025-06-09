@@ -48,13 +48,11 @@ import imageRoutes from './routes/imageRoutes.js';
 import products from './routes/productRoutes.js';
 import auth from './routes/authRoutes.js';
 import order from './routes/orderRoutes.js';
-import payment from './routes/paymentRoutes.js';
 
 app.use(imageRoutes);
 app.use('/api/v1/', products);
 app.use('/api/v1/', auth);
 app.use('/api/v1/', order);
-app.use('/api/v1/', payment);
 
 app.use(errorMiddleware)
 

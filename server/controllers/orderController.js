@@ -41,15 +41,14 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
         receipt: paymentInfo.payerEmailId,
         notes: paymentInfo,
     };
-    const razorpayInfo = await razorpay.orders.create(options);
+    const pgInfo = await razorpay.orders.create(options);
 
-    paymentInfo.razOrderId = razorpayInfo.id;
+    paymentInfo.pgOrderId = pgInfo.id;
     paymentInfo.paymentStatus = "Not Paid";
 
 
     orderItems.map(product => product.image.length > 0 ? product.image = new URL(product.image).pathname + new URL(product.image).search + new URL(product.image).hash : undefined);
 
-    console.log(paymentInfo)
     const order = await Order.create({
         orderItems,
         shippingInfo,
@@ -58,7 +57,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
         shippingPrice,
         totalPrice,
         paymentInfo,
-        razorpayInfo,
+        pgInfo,
         paidAt: Date.now(),
         user: req.user.id
     })
@@ -81,9 +80,7 @@ export const verifyOrder = catchAsyncError(async (req, res, next) => {
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-    const order = await Order.findOne({ "paymentInfo.razOrderId": razorpay_order_id });
-
-    console.log(order)
+    const order = await Order.findOne({ "paymentInfo.pgOrderId": razorpay_order_id });
 
     if (!order) {
         return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
@@ -100,7 +97,6 @@ export const verifyOrder = catchAsyncError(async (req, res, next) => {
             await order.save();
         }
         res.status(200).json({ status: 'ok' });
-        console.log("Payment verification successful");
     } else {
         res.status(400).json({ status: 'verification_failed' });
         console.log("Payment verification failed");

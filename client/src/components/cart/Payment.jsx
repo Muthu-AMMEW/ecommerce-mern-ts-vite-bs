@@ -79,14 +79,14 @@ export default function Payment() {
     }, [orderInfo])
 
     useEffect(() => {
-        if (newOrderDetail?.paymentInfo?.razOrderId) {
+        if (newOrderDetail?.paymentInfo?.pgOrderId) {
             const options = {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID, // 🔁 Replace with your real key
                 amount: newOrderDetail.totalPrice,
-                currency: "INR",
+                currency: newOrderDetail.paymentInfo.currency,
                 name: 'Easwaran',
                 description: 'Test Transaction',
-                order_id: newOrderDetail.paymentInfo.razOrderId,
+                order_id: newOrderDetail.paymentInfo.pgOrderId,
                 callback_url: '/order/success', // optional
 
                 // Optional: Pre-filled user details

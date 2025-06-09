@@ -102,7 +102,7 @@ const orderSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        razOrderId: {
+        pgOrderId: {
             type: String,
             required: true,
             unique: true
@@ -116,7 +116,7 @@ const orderSchema = new mongoose.Schema({
             required: true
         }
     },
-    razorpay: {
+    pgInfo: {
         type: Array,
         required: [true, "Please give razorpay details"]
     },
