@@ -147,14 +147,11 @@ export default function Payment() {
         }
     }, [newOrderDetail]);
 
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         dispatch(createOrder(order));
     }
-
 
     return (
         <>
@@ -196,7 +193,7 @@ export default function Payment() {
                                 <input type="text" className="form-control" id="otp" name="otp" value={807249} />
                                 <div className="form-text"><span className="badge text-bg-warning">OTP for testing</span></div>
                             </div>
-                            <p className="m-2">Card Number is Main*. Others as you like on format. Copy all details for testing in gateway</p>
+                            <p className="m-2">The Card Number is Main*. You can use others in the format you like. Copy all details for testing in the gateway.</p>
                             <div className="mt-3 text-center">
                                 {loading ?
                                     (<div className="text-center">
