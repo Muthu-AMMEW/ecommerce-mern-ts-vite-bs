@@ -86,14 +86,39 @@ const orderSchema = new mongoose.Schema({
         default: 0.0
     },
     paymentInfo: {
-        id: {
+        paymentId: {
+            type: String,
+            default: "Not Paid"
+        },
+        payerName: {
             type: String,
             required: true
         },
-        status: {
+        payerPhoneNumber: {
+            type: String,
+            required: true
+        },
+        payerEmailId: {
+            type: String,
+            required: true
+        },
+        razOrderId: {
+            type: String,
+            required: true,
+            unique: true
+        },
+        currency: {
+            type: String,
+            required: true
+        },
+        paymentStatus: {
             type: String,
             required: true
         }
+    },
+    razorpay: {
+        type: Array,
+        required: [true, "Please give razorpay details"]
     },
     paidAt: {
         type: Date

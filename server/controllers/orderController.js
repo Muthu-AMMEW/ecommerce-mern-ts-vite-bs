@@ -1,7 +1,15 @@
+import Razorpay from 'razorpay';
+import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils.js';
 import catchAsyncError from '../middlewares/catchAsyncError.js';
 import Order from '../models/orderModel.js';
 import Product from '../models/productModel.js';
 import ErrorHandler from '../utils/errorHandler.js';
+
+
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
 
 //Updating the product stock of each order item
 async function subStock(productId, quantity) {
@@ -27,8 +35,21 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
         paymentInfo
     } = req.body;
 
+    const options = {
+        amount: totalPrice * 100, // Convert amount to paise
+        currency: paymentInfo.currency,
+        receipt: paymentInfo.payerEmailId,
+        notes: paymentInfo,
+    };
+    const razorpayInfo = await razorpay.orders.create(options);
+
+    paymentInfo.razOrderId = razorpayInfo.id;
+    paymentInfo.paymentStatus = "Not Paid";
+
+
     orderItems.map(product => product.image.length > 0 ? product.image = new URL(product.image).pathname + new URL(product.image).search + new URL(product.image).hash : undefined);
 
+    console.log(paymentInfo)
     const order = await Order.create({
         orderItems,
         shippingInfo,
@@ -37,6 +58,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
         shippingPrice,
         totalPrice,
         paymentInfo,
+        razorpayInfo,
         paidAt: Date.now(),
         user: req.user.id
     })
@@ -53,6 +75,39 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
         order
     })
 })
+
+//Verify Payment and payment status - api/v1/verify-payment
+export const verifyOrder = catchAsyncError(async (req, res, next) => {
+
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+    const order = await Order.findOne({ "paymentInfo.razOrderId": razorpay_order_id });
+
+    console.log(order)
+
+    if (!order) {
+        return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
+    }
+
+    const secret = razorpay.key_secret;
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const isValidSignature = validateWebhookSignature(body, razorpay_signature, secret);
+    if (isValidSignature) {
+        if (order) {
+            order.paymentInfo.paymentStatus = 'paid';
+            order.paymentInfo.paymentId = razorpay_payment_id;
+            await order.save();
+        }
+        res.status(200).json({ status: 'ok' });
+        console.log("Payment verification successful");
+    } else {
+        res.status(400).json({ status: 'verification_failed' });
+        console.log("Payment verification failed");
+    }
+
+});
+
 
 //Get Single Order - api/v1/order/:id
 export const getSingleOrder = catchAsyncError(async (req, res, next) => {
@@ -107,10 +162,10 @@ export const myOrders = catchAsyncError(async (req, res, next) => {
 
     orders.map(order => order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined));
 
-res.status(200).json({
-    success: true,
-    orders
-})
+    res.status(200).json({
+        success: true,
+        orders
+    })
 })
 
 //Admin: Get All Orders - api/v1/admin/orders

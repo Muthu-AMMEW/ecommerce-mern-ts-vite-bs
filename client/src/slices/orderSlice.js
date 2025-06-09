@@ -6,6 +6,7 @@ const orderSlice = createSlice({
     name: 'order',
     initialState: {
         orderDetail: {},
+        newOrderDetail: {},
         userOrders: [],
         adminOrders: [],
         loading: false,
@@ -23,7 +24,7 @@ const orderSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                orderDetail: action.payload.order
+                newOrderDetail: action.payload.order
             }
         },
         createOrderFail(state, action) {
@@ -31,6 +32,12 @@ const orderSlice = createSlice({
                 ...state,
                 loading: false,
                 error: action.payload
+            }
+        },
+        clearNewOrder(state, action) {
+            return {
+                ...state,
+                newOrderDetail: {}
             }
         },
         clearError(state, action) {
@@ -162,6 +169,7 @@ export const {
     createOrderFail,
     createOrderSuccess,
     createOrderRequest,
+    clearNewOrder,
     clearError,
     userOrdersFail,
     userOrdersSuccess,

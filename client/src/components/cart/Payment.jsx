@@ -1,11 +1,10 @@
-import { useElements, useStripe } from "@stripe/react-stripe-js"
-import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
+import { clearNewOrder } from "../../slices/orderSlice";
 // import { validateShipping } from './Shipping';
 import { createOrder } from '../../actions/orderActions'
 import { clearError as clearOrderError } from "../../slices/orderSlice";
@@ -14,15 +13,13 @@ import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
 
 export default function Payment() {
-    const stripe = useStripe();
-    const elements = useElements();
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
     const { user } = useSelector(state => state.authState)
     const { cartItems, shippingInfo } = useSelector(state => state.cartState)
-    const { error: orderError } = useSelector(state => state.orderState)
-    const [loading, setloading] = useState(false)
+    const { error: orderError, newOrderDetail } = useSelector(state => state.orderState)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (!orderInfo) {
@@ -59,7 +56,7 @@ export default function Payment() {
 
     }, [orderError])
 
-    let order, paymentData;
+    let order;
     useEffect(() => {
         if (orderInfo) {
             order = {
@@ -68,74 +65,89 @@ export default function Payment() {
                 itemsPrice: orderInfo.itemsPrice,
                 shippingPrice: orderInfo.shippingPrice,
                 taxPrice: orderInfo.taxPrice,
-                totalPrice: orderInfo.totalPrice
+                totalPrice: orderInfo.totalPrice,
+                paymentInfo: {
+                    payerName: user.fullName,
+                    payerEmailId: user.email,
+                    payerPhoneNumber: user.phoneNumber,
+                    currency: "INR"
+                },
             }
-            paymentData = {
-                amount: Math.round(orderInfo.totalPrice * 100),
-                shipping: {
-                    name: shippingInfo.fullName,
-                    address: {
-                        line1: shippingInfo.addressLine1,
-                        line2: shippingInfo.addressLine2,
-                        city: shippingInfo.city,
-                        state: shippingInfo.state,
-                        country: shippingInfo.country,
-                        postal_code: shippingInfo.postalCode
-                    },
-                    phone: shippingInfo.phoneNumber
-                }
-            }
+
         }
 
     }, [orderInfo])
+
+    useEffect(() => {
+        if (newOrderDetail?.paymentInfo?.razOrderId) {
+            const options = {
+                key: import.meta.env.VITE_RAZORPAY_KEY_ID, // 🔁 Replace with your real key
+                amount: newOrderDetail.totalPrice,
+                currency: "INR",
+                name: 'Easwaran',
+                description: 'Test Transaction',
+                order_id: newOrderDetail.paymentInfo.razOrderId,
+                callback_url: '/order/success', // optional
+
+                // Optional: Pre-filled user details
+                prefill: {
+                    name: user.fullName,
+                    email: user.email,
+                    contact: user.phoneNumber
+                },
+                theme: {
+                    color: '#F37254'
+                },
+                handler: async function (response) {
+                    // Step 3: Verify payment signature
+                    try {
+                        const { data } = await axios.post('/verify-payment', {
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature
+                        });
+
+                        if (data.status === 'ok') {
+                            toast('Payment Success!', {
+                                type: 'success',
+                                position: toast.POSITION.BOTTOM_CENTER
+                            });
+
+                            order.paymentInfo = {
+                                id: response.razorpay_payment_id,
+                                status: 'succeeded' // Razorpay does not give a paymentIntent, so adapt as per your backend
+                            };
+
+                            dispatch(orderCompleted());
+                            dispatch(clearNewOrder());
+                            setLoading(false);
+                            navigate('/order/success');
+                        } else {
+                            alert('Payment verification failed');
+                            setLoading(false);
+                        }
+                    } catch (error) {
+                        toast(error.message || 'Error verifying payment', {
+                            type: 'warning',
+                            position: toast.POSITION.BOTTOM_CENTER
+                        });
+                        setLoading(false);
+                    }
+                }
+            };
+            const rzp = new Razorpay(options);
+            rzp.open();
+
+        }
+    }, [newOrderDetail]); // 👈 this is key
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setloading(true);
+        setLoading(true);
         try {
-            const { data } = await axios.post(`/payment/process`, paymentData)
-            const clientSecret = data.client_secret
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: elements.getElement(CardNumberElement),
-                    billing_details: {
-                        name: user.fullName,
-                        email: user.email
-                    }
-                }
-            })
-
-            if (result.error) {
-                toast(result.error.message, {
-                    type: 'error',
-                    position: toast.POSITION.BOTTOM_CENTER
-                })
-                setloading(false);
-            } else {
-                if ((await result).paymentIntent.status === 'succeeded') {
-                    toast('Payment Success!', {
-                        type: 'success',
-                        position: toast.POSITION.BOTTOM_CENTER
-                    })
-                    order.paymentInfo = {
-                        id: result.paymentIntent.id,
-                        status: result.paymentIntent.status
-                    }
-                    dispatch(orderCompleted())
-                    dispatch(createOrder(order))
-                    setloading(false);
-                    navigate('/order/success')
-                } else {
-                    toast('Please Try again!', {
-                        type: 'warning',
-                        position: toast.POSITION.BOTTOM_CENTER
-                    })
-                    setloading(false);
-                }
-            }
-
+            dispatch(createOrder(order));
 
         } catch (error) {
             console.log(error)
@@ -156,15 +168,15 @@ export default function Payment() {
                             <h1 className="mb-4">Card Info</h1>
                             <div className="form-group">
                                 <label htmlFor="cardNumber" className="form-label">Card Number</label>
-                                <CardNumberElement type="text" id="cardNumber" className="form-control mm-box-color" required />
-                                <div className="form-text">4242 4242 4242 4242 <span className="badge text-bg-warning">Card Number for testing</span></div>
+                                <input type="text" id="cardNumber" className="form-control mm-box-color" />
+                                <div className="form-text">4718 6091 0820 4366<span className="badge text-bg-warning">Card Number for testing</span></div>
                             </div>
 
                             <div className="row mt-3">
                                 <div className="col-7">
                                     <div className="form-group">
                                         <label htmlFor="cardExpire" className="form-label">Card Expiry</label>
-                                        <CardExpiryElement type="text" id="cardExpire" className="form-control mm-box-color" required />
+                                        <input type="text" id="cardExpire" className="form-control mm-box-color" />
                                         <div className="form-text">12/34 <span className="badge text-bg-warning">Expire Date for testing</span></div>
                                     </div>
                                 </div>
@@ -172,7 +184,7 @@ export default function Payment() {
                                 <div className="col-5">
                                     <div className="form-group">
                                         <label htmlFor="cvv" className="form-label">Card CVC</label>
-                                        <CardCvcElement type="text" id="cvv" className="form-control mm-box-color" required />
+                                        <input type="text" id="cvv" className="form-control mm-box-color" />
                                         <div className="form-text">143 <span className="badge text-bg-warning">CVV for testing</span></div>
                                     </div>
                                 </div>

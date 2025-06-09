@@ -1,5 +1,5 @@
 import express from 'express';
-import { newOrder, getSingleOrder, myOrders, orders, updateOrder, deleteOrder, cancelOrder } from '../controllers/orderController.js';
+import { newOrder, getSingleOrder, myOrders, orders, updateOrder, deleteOrder, cancelOrder, verifyOrder } from '../controllers/orderController.js';
 
 import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
 
@@ -9,6 +9,7 @@ router.route('/order/new').post(isAuthenticatedUser, newOrder);
 router.route('/order/:id').get(isAuthenticatedUser, getSingleOrder);
 router.route('/myorders').get(isAuthenticatedUser, myOrders);
 router.route('/order/:id').put(isAuthenticatedUser, cancelOrder);
+router.route('/verify-payment').post(isAuthenticatedUser, verifyOrder);
 
 //Admin Routes
 router.route('/admin/orders').get(isAuthenticatedUser, authorizeRoles('admin'), orders);
