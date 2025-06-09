@@ -36,7 +36,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
     } = req.body;
 
     const options = {
-        amount: totalPrice * 100, // Convert amount to paise
+        amount: Math.round(totalPrice * 100), // Convert amount to paise
         currency: paymentInfo.currency,
         receipt: paymentInfo.payerEmailId,
         notes: paymentInfo,

@@ -82,8 +82,9 @@ export default function OrderDetail() {
                                             <div className="my-1"><span className='fw-bold'>Tax (GST) : </span>{formatRupees(taxPrice)}</div>
                                             <div className="my-1"><span className='fw-bold'>Shipping Charges : </span>{formatRupees(shippingPrice)}</div>
                                             <div className="my-1"><span className='fw-bold'>Total Amount : </span>{formatRupees(totalPrice)}</div>
-                                            <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.id}</div>
-                                            <div className="my-1"><span className='fw-bold'>Payment Status : </span>{isPaid ? 'PAID' : 'NOT PAID'}</div>
+                                            <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.paymentId}</div>
+                                            <div className="my-1"><span className='fw-bold'>Payment Status : </span>{paymentInfo.paymentStatus}</div>
+                                            <div className="my-1"><span className='fw-bold'>Gateway Order ID : </span>{paymentInfo.pgOrderId}</div>
                                             {deliveredAt && <div className="my-1"><span className='fw-bold'>Deliverd Date : </span>{istDateTime(deliveredAt)}</div>}
 
                                         </div>
@@ -109,7 +110,7 @@ export default function OrderDetail() {
                                                     <div className="row">
                                                         <div className="col-12 col-sm-4 col-lg-3 p-2 text-center">
                                                             <Link className='text-black' to={"/product/" + item._id} >
-                                                                <img src={item.image} alt={item.name} height="130" width="130" />
+                                                                <img className='rounded-2' src={item.image} alt={item.name} height="130" width="130" />
                                                             </Link>
                                                         </div>
 

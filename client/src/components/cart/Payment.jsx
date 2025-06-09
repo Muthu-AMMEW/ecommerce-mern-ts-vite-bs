@@ -80,79 +80,79 @@ export default function Payment() {
 
     useEffect(() => {
         if (newOrderDetail?.paymentInfo?.pgOrderId) {
-            const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID, // 🔁 Replace with your real key
-                amount: newOrderDetail.totalPrice,
-                currency: newOrderDetail.paymentInfo.currency,
-                name: 'Easwaran',
-                description: 'Test Transaction',
-                order_id: newOrderDetail.paymentInfo.pgOrderId,
-                callback_url: '/order/success', // optional
+            try {
+                const options = {
+                    key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+                    amount: newOrderDetail.totalPrice,
+                    currency: newOrderDetail.paymentInfo.currency,
+                    name: 'Easwaran',
+                    description: 'Test Transaction',
+                    order_id: newOrderDetail.paymentInfo.pgOrderId,
+                    callback_url: '/order/success', // optional
 
-                // Optional: Pre-filled user details
-                prefill: {
-                    name: user.fullName,
-                    email: user.email,
-                    contact: user.phoneNumber
-                },
-                theme: {
-                    color: '#F37254'
-                },
-                handler: async function (response) {
-                    // Step 3: Verify payment signature
-                    try {
-                        const { data } = await axios.post('/verify-payment', {
-                            razorpay_order_id: response.razorpay_order_id,
-                            razorpay_payment_id: response.razorpay_payment_id,
-                            razorpay_signature: response.razorpay_signature
-                        });
-
-                        if (data.status === 'ok') {
-                            toast('Payment Success!', {
-                                type: 'success',
-                                position: toast.POSITION.BOTTOM_CENTER
+                    // Optional: Pre-filled user details
+                    prefill: {
+                        name: user.fullName,
+                        email: user.email,
+                        contact: user.phoneNumber
+                    },
+                    theme: {
+                        color: '#F37254'
+                    },
+                    handler: async function (response) {
+                        // Step 3: Verify payment signature
+                        try {
+                            const { data } = await axios.post('/verify-payment', {
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature
                             });
 
-                            order.paymentInfo = {
-                                id: response.razorpay_payment_id,
-                                status: 'succeeded' // Razorpay does not give a paymentIntent, so adapt as per your backend
-                            };
+                            if (data.status === 'ok') {
+                                toast('Payment Success!', {
+                                    type: 'success',
+                                    position: toast.POSITION.BOTTOM_CENTER
+                                });
 
-                            dispatch(orderCompleted());
-                            dispatch(clearNewOrder());
-                            setLoading(false);
-                            navigate('/order/success');
-                        } else {
-                            alert('Payment verification failed');
+                                dispatch(orderCompleted());
+                                dispatch(clearNewOrder());
+                                setLoading(false);
+                                navigate('/order/success');
+                            } else {
+                                toast('Payment verification failed', {
+                                    type: 'error',
+                                    position: toast.POSITION.BOTTOM_CENTER
+                                });
+                                setLoading(false);
+                            }
+                        } catch (error) {
+                            toast(error.message || 'Error verifying payment', {
+                                type: 'error',
+                                position: toast.POSITION.BOTTOM_CENTER
+                            });
                             setLoading(false);
                         }
-                    } catch (error) {
-                        toast(error.message || 'Error verifying payment', {
-                            type: 'warning',
-                            position: toast.POSITION.BOTTOM_CENTER
-                        });
-                        setLoading(false);
                     }
-                }
-            };
-            const rzp = new Razorpay(options);
-            rzp.open();
+                };
+                const rzp = new Razorpay(options);
+                rzp.open();
 
+            } catch (error) {
+                toast(error.message, {
+                    type: 'error',
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+                setLoading(false);
+            }
         }
-    }, [newOrderDetail]); // 👈 this is key
+    }, [newOrderDetail]);
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        try {
-            dispatch(createOrder(order));
-
-        } catch (error) {
-            console.log(error)
-
-        }
+        dispatch(createOrder(order));
     }
 
 
@@ -164,33 +164,39 @@ export default function Payment() {
                 <div className="col-11 col-sm-8 col-md-7 col-lg-6 col-xl-5">
 
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 rounded-5 bg-body-tertiary bg-opacity-25">
-                        <form className="w-100" onSubmit={handleSubmit}>
-                            <h1 className="mb-4">Card Info</h1>
+                        <form className="w-100 mm-input-box-color" onSubmit={handleSubmit}>
+                            <h1 className="mb-4">Copy Card Info</h1>
+
                             <div className="form-group">
                                 <label htmlFor="cardNumber" className="form-label">Card Number</label>
-                                <input type="text" id="cardNumber" className="form-control mm-box-color" />
-                                <div className="form-text">4718 6091 0820 4366<span className="badge text-bg-warning">Card Number for testing</span></div>
+                                <input type="text" className="form-control" id="cardNumber" name="cardNumber" value={"4718 6091 0820 4366"} />
+                                <div className="form-text"><span className="badge text-bg-warning">Card Number for testing</span></div>
                             </div>
 
                             <div className="row mt-3">
                                 <div className="col-7">
                                     <div className="form-group">
                                         <label htmlFor="cardExpire" className="form-label">Card Expiry</label>
-                                        <input type="text" id="cardExpire" className="form-control mm-box-color" />
-                                        <div className="form-text">12/34 <span className="badge text-bg-warning">Expire Date for testing</span></div>
+                                        <input type="text" className="form-control" id="cardExpire" name="cardExpire" value={"12/34"} />
+                                        <div className="form-text"><span className="badge text-bg-warning">Expire Date for testing</span></div>
                                     </div>
                                 </div>
 
                                 <div className="col-5">
                                     <div className="form-group">
                                         <label htmlFor="cvv" className="form-label">Card CVC</label>
-                                        <input type="text" id="cvv" className="form-control mm-box-color" />
-                                        <div className="form-text">143 <span className="badge text-bg-warning">CVV for testing</span></div>
+                                        <input type="text" className="form-control" id="cvv" name="cvv" value={143} />
+                                        <div className="form-text"><span className="badge text-bg-warning">CVV for testing</span></div>
                                     </div>
                                 </div>
                             </div>
 
-
+                            <div className="form-group w-50 mt-2">
+                                <label htmlFor="otp" className="form-label">OTP</label>
+                                <input type="text" className="form-control" id="otp" name="otp" value={807249} />
+                                <div className="form-text"><span className="badge text-bg-warning">OTP for testing</span></div>
+                            </div>
+                            <p className="m-2">Card Number is Main*. Others as you like on format. Copy all details for testing in gateway</p>
                             <div className="mt-3 text-center">
                                 {loading ?
                                     (<div className="text-center">

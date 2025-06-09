@@ -105,7 +105,8 @@ const orderSchema = new mongoose.Schema({
         pgOrderId: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            sparse: true        // Optional: prevents null duplicates
         },
         currency: {
             type: String,
@@ -117,7 +118,7 @@ const orderSchema = new mongoose.Schema({
         }
     },
     pgInfo: {
-        type: Array,
+        type: Object,
         required: [true, "Please give razorpay details"]
     },
     paidAt: {
