@@ -27,17 +27,17 @@ const orderSchema = new mongoose.Schema({
             required: true
         },
         postalCode: {
-            type: Number,
+            type: String,
             required: true
         },
         phoneNumber: {
-            type: Number,
+            type: String,
             required: true
         }
 
     },
     user: {
-        type: mongoose.SchemaTypes.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
     },
@@ -59,7 +59,7 @@ const orderSchema = new mongoose.Schema({
             required: true
         },
         _id: {
-            type: mongoose.SchemaTypes.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'Product'
         }
@@ -105,8 +105,7 @@ const orderSchema = new mongoose.Schema({
         pgOrderId: {
             type: String,
             required: true,
-            unique: true,
-            sparse: true        // Optional: prevents null duplicates
+            unique: true
         },
         currency: {
             type: String,
@@ -129,6 +128,7 @@ const orderSchema = new mongoose.Schema({
     },
     orderStatus: {
         type: String,
+        enum: ['Processing', 'Shipped', 'Delivered', 'Cancelled'],
         required: true,
         default: 'Processing'
     },

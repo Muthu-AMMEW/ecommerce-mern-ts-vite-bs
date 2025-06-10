@@ -1,16 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
 import { clearNewOrder } from "../../slices/orderSlice";
 // import { validateShipping } from './Shipping';
-import { createOrder } from '../../actions/orderActions'
+import { createOrder, updateOrder } from '../../actions/orderActions'
 import { clearError as clearOrderError } from "../../slices/orderSlice";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
+
 
 export default function Payment() {
     const dispatch = useDispatch()
@@ -20,6 +21,103 @@ export default function Payment() {
     const { cartItems, shippingInfo } = useSelector(state => state.cartState)
     const { error: orderError, newOrderDetail } = useSelector(state => state.orderState)
     const [loading, setLoading] = useState(false)
+
+    function activateGateway() {
+        try {
+            const options = {
+                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+                amount: newOrderDetail.totalPrice,
+                currency: newOrderDetail.paymentInfo.currency,
+                name: 'Easwaran',
+                description: 'Test Transaction',
+                order_id: newOrderDetail.paymentInfo.pgOrderId,
+                // callback_url: '/order/success', // optional
+
+                // Optional: Pre-filled user details
+                prefill: {
+                    name: user.fullName,
+                    email: user.email,
+                    contact: user.phoneNumber
+                },
+                theme: {
+                    color: '#F37254'
+                },
+                handler: async function (response) {
+                    // Step 3: Verify payment signature
+                    try {
+                        const { data } = await axios.post('/verify-payment', {
+                            razorpay_order_id: response.razorpay_order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            razorpay_signature: response.razorpay_signature
+                        });
+
+                        if (data.status === 'ok') {
+                            toast('Payment Success!', {
+                                type: 'success',
+                                position: toast.POSITION.BOTTOM_CENTER
+                            });
+
+                            dispatch(orderCompleted());
+                            dispatch(clearNewOrder());
+                            setLoading(false);
+                            navigate('/order/success');
+                        } else {
+                            toast('Payment verification failed', {
+                                type: 'error',
+                                position: toast.POSITION.BOTTOM_CENTER
+                            });
+                            setLoading(false);
+                        }
+                    } catch (error) {
+                        toast(error.message || 'Error verifying payment', {
+                            type: 'error',
+                            position: toast.POSITION.BOTTOM_CENTER
+                        });
+                        setLoading(false);
+                    }
+                },
+                modal: {
+                    ondismiss: function () {
+                        toast("You cancelled payment. Try again", {
+                            type: "info",
+                            position: toast.POSITION.BOTTOM_CENTER
+                        });
+                        setLoading(false);
+                    }
+                }
+            };
+            const rzp = new Razorpay(options);
+            rzp.on("payment.failed", function (response) {
+                toast(response.error, {
+                    type: 'error',
+                    position: toast.POSITION.BOTTOM_CENTER
+                });
+                setLoading(false);
+            });
+
+            rzp.open();
+
+        } catch (error) {
+            toast(error.message, {
+                type: 'error',
+                position: toast.POSITION.BOTTOM_CENTER
+            });
+            setLoading(false);
+        }
+    }
+
+    function cancelOrder() {
+        if (newOrderDetail?._id) {
+            let orderData = { orderStatus: "Cancelled" };
+            dispatch(updateOrder(newOrderDetail?._id, orderData))
+            toast.success("Order Status Updated")
+        }
+        dispatch(orderCompleted());
+        dispatch(clearNewOrder());
+        setLoading(false);
+        toast.success("Order Cancelled")
+        navigate('/home');
+    }
 
     useEffect(() => {
         if (!orderInfo) {
@@ -80,77 +178,20 @@ export default function Payment() {
 
     useEffect(() => {
         if (newOrderDetail?.paymentInfo?.pgOrderId) {
-            try {
-                const options = {
-                    key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                    amount: newOrderDetail.totalPrice,
-                    currency: newOrderDetail.paymentInfo.currency,
-                    name: 'Easwaran',
-                    description: 'Test Transaction',
-                    order_id: newOrderDetail.paymentInfo.pgOrderId,
-                    callback_url: '/order/success', // optional
-
-                    // Optional: Pre-filled user details
-                    prefill: {
-                        name: user.fullName,
-                        email: user.email,
-                        contact: user.phoneNumber
-                    },
-                    theme: {
-                        color: '#F37254'
-                    },
-                    handler: async function (response) {
-                        // Step 3: Verify payment signature
-                        try {
-                            const { data } = await axios.post('/verify-payment', {
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_signature: response.razorpay_signature
-                            });
-
-                            if (data.status === 'ok') {
-                                toast('Payment Success!', {
-                                    type: 'success',
-                                    position: toast.POSITION.BOTTOM_CENTER
-                                });
-
-                                dispatch(orderCompleted());
-                                dispatch(clearNewOrder());
-                                setLoading(false);
-                                navigate('/order/success');
-                            } else {
-                                toast('Payment verification failed', {
-                                    type: 'error',
-                                    position: toast.POSITION.BOTTOM_CENTER
-                                });
-                                setLoading(false);
-                            }
-                        } catch (error) {
-                            toast(error.message || 'Error verifying payment', {
-                                type: 'error',
-                                position: toast.POSITION.BOTTOM_CENTER
-                            });
-                            setLoading(false);
-                        }
-                    }
-                };
-                const rzp = new Razorpay(options);
-                rzp.open();
-
-            } catch (error) {
-                toast(error.message, {
-                    type: 'error',
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
-                setLoading(false);
-            }
+            activateGateway();
         }
     }, [newOrderDetail]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        dispatch(createOrder(order));
+        if (newOrderDetail?.paymentInfo?.pgOrderId) {
+            activateGateway();
+
+        } else {
+            dispatch(createOrder(order));
+        }
+
     }
 
     return (
@@ -166,7 +207,7 @@ export default function Payment() {
 
                             <div className="form-group">
                                 <label htmlFor="cardNumber" className="form-label">Card Number</label>
-                                <input type="text" className="form-control" id="cardNumber" name="cardNumber" value={"4718 6091 0820 4366"} />
+                                <input type="text" className="form-control" id="cardNumber" name="cardNumber" value={"4718 6091 0820 4366"} readOnly />
                                 <div className="form-text"><span className="badge text-bg-warning">Card Number for testing</span></div>
                             </div>
 
@@ -174,7 +215,7 @@ export default function Payment() {
                                 <div className="col-7">
                                     <div className="form-group">
                                         <label htmlFor="cardExpire" className="form-label">Card Expiry</label>
-                                        <input type="text" className="form-control" id="cardExpire" name="cardExpire" value={"12/34"} />
+                                        <input type="text" className="form-control" id="cardExpire" name="cardExpire" value={"12/34"} readOnly />
                                         <div className="form-text"><span className="badge text-bg-warning">Expire Date for testing</span></div>
                                     </div>
                                 </div>
@@ -182,7 +223,7 @@ export default function Payment() {
                                 <div className="col-5">
                                     <div className="form-group">
                                         <label htmlFor="cvv" className="form-label">Card CVC</label>
-                                        <input type="text" className="form-control" id="cvv" name="cvv" value={143} />
+                                        <input type="text" className="form-control" id="cvv" name="cvv" value={143} readOnly />
                                         <div className="form-text"><span className="badge text-bg-warning">CVV for testing</span></div>
                                     </div>
                                 </div>
@@ -190,10 +231,10 @@ export default function Payment() {
 
                             <div className="form-group w-50 mt-2">
                                 <label htmlFor="otp" className="form-label">OTP</label>
-                                <input type="text" className="form-control" id="otp" name="otp" value={807249} />
+                                <input type="text" className="form-control" id="otp" name="otp" value={807249} readOnly />
                                 <div className="form-text"><span className="badge text-bg-warning">OTP for testing</span></div>
                             </div>
-                            <p className="m-2">The Card Number is Main*. You can use others in the format you like. Copy all details for testing in the gateway.</p>
+                            <p className="m-2">The Card Number is Main*. You can use others in the format you like. Copy all details for testing in the gateway. Or simply use UPI apps</p>
                             <div className="mt-3 text-center">
                                 {loading ?
                                     (<div className="text-center">
@@ -202,7 +243,8 @@ export default function Payment() {
                                     </div>) : null
                                 }
 
-                                <button className="btn btn-success me-5" type="submit" disabled={loading}>Pay - {formatRupees(orderInfo && orderInfo.totalPrice)}</button>
+                                <button className="btn btn-success m-1" type="submit" disabled={loading}>Pay - {formatRupees(orderInfo && orderInfo.totalPrice)}</button>
+                                <button className="btn btn-danger m-1" type="button" onClick={cancelOrder} disabled={loading}>Cancel Order</button>
                             </div>
 
                         </form>

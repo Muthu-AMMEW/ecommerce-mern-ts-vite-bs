@@ -12,7 +12,6 @@ import { istDateTime } from '../../utils/istDateTime';
 export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
     const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt } = orderDetail;
-    const isPaid = paymentInfo && paymentInfo.status === "succeeded" ? true : false;
     const [orderStatus, setOrderStatus] = useState("Processing");
     const { id: orderId } = useParams();
 

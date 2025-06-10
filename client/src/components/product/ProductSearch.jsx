@@ -43,7 +43,7 @@ export default function ProductSearch() {
 	}
 
 	const handleKeyDown = (e) => {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" || e.key === "Tab") {
 			search();
 		}
 	};
