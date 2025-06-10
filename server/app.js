@@ -15,6 +15,7 @@ const app = express();
 // List of allowed origins
 const allowedOrigins = [
     process.env.CLIENT_URL_DEV,
+    process.env.CLIENT_URL_DEV_2,
     process.env.CLIENT_URL_PRE,
     process.env.CLIENT_URL,
     process.env.CLIENT_URL_2

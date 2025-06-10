@@ -11,12 +11,13 @@ import Slider from "rc-slider";
 import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
+import { TaskAbortError } from "@reduxjs/toolkit";
 
 export default function ProductSearch() {
 	const dispatch = useDispatch();
 	const { products, loading, error, productsCount, resPerPage } = useSelector((state) => state.productsState)
 	const [currentPage, setCurrentPage] = useState(1);
-	const [price, setPrice] = useState(sessionStorage.getItem('price') ? JSON.parse(sessionStorage.getItem('price')) : [1, 100000]);
+	const [price, setPrice] = useState([1, 100000]);
 	const [priceChanged, setPriceChanged] = useState(price);
 	const [category, setCategory] = useState(null);
 	const [rating, setRating] = useState(0);
@@ -38,8 +39,15 @@ export default function ProductSearch() {
 	];
 
 	function search() {
-		setPriceChanged(price);
-		sessionStorage.setItem('price', JSON.stringify(price));
+		if (!isNaN(price[0] || !isNaN(price[1]))) {
+			if (Number(price[0]) < Number(price[1])) {
+				setPriceChanged(price);
+			} else {
+				toast.warning("Please enter correct minimum and maximum value")
+			}
+		} else {
+			toast.warning("Please enter valid numbers")
+		}
 	}
 
 	const handleKeyDown = (e) => {
@@ -94,12 +102,12 @@ export default function ProductSearch() {
 									range={true}
 									marks={
 										{
-											1: <span className="text-black">Rs. <input type="number" className="border-info mm-box-color" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
-											100000: <span className="text-black text-nowrap">Rs. <input type="number" className="border-info mm-box-color" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
+											[priceChanged[0]]: <span className="text-black">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
+											[priceChanged[1]]: <span className="text-black text-nowrap">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
 										}
 									}
-									min={1}
-									max={100000}
+									min={Number(priceChanged[0])}
+									max={Number(priceChanged[1])}
 									defaultValue={price}
 									onChange={(price) => {
 										setPrice(price)
