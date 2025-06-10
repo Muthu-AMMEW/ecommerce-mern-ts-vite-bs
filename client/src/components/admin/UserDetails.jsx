@@ -19,7 +19,7 @@ export default function UserDetails() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })

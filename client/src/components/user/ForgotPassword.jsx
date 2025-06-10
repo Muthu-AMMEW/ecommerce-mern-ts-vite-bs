@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         setInputs({
             email: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
 
     }
 
@@ -36,10 +36,7 @@ export default function ForgotPassword() {
 
     useEffect(() => {
         if (message) {
-            toast(message, {
-                type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.success(message, { position: 'top-center' })
             setInputs({
                 email: ""
             })
@@ -48,7 +45,7 @@ export default function ForgotPassword() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearAuthError) }
             })

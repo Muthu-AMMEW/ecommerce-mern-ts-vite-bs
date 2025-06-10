@@ -18,19 +18,12 @@ export default function ResetPassword() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            toast('Password Reset Success!', {
-                type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.success('Password Reset Success!', { position: 'top-center' })
             navigate('/')
             return;
         }
         if (error) {
-            toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error',
-                onOpen: () => { dispatch(clearAuthError) }
-            })
+            toast.error(error, { position: 'top-center' })
             return
         }
     }, [isAuthenticated, error, dispatch, navigate])
@@ -46,24 +39,18 @@ export default function ResetPassword() {
             password: "",
             confirmPassword: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (inputs.password !== inputs.confirmPassword) {
-            toast.error("Password Mismatch", {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error'
-            })
+            toast.error("Password Mismatch", { position: 'top-center' });
             return
         }
 
         if (inputs.password.length < 6) {
-            toast.error("Password must be at least 6 characters", {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error'
-            })
+            toast.error("Password must be at least 6 characters", { position: 'top-center' })
             return
         }
 

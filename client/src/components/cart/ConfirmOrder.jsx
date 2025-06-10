@@ -38,10 +38,7 @@ export default function ConfirmOrder() {
             !shippingInfo.postalCode ||
             !shippingInfo.phoneNumber) {
 
-            toast('Please fill all the fields in shipping info', {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.error('Please fill all the fields in shipping info', { position: 'top-center' })
             navigate('/shipping');
         }
     }, [])

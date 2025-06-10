@@ -64,15 +64,13 @@ export default function UpdateProduct() {
             stock: "",
             seller: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (images.length === 0 && imagesCleared) {
-            toast.error("Please select at least one image", {
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.error("Please select at least one image", { position: 'top-center' })
             return;
         }
 
@@ -101,7 +99,7 @@ export default function UpdateProduct() {
         if (isProductUpdated) {
             toast('Product Updated Succesfully!', {
                 type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 onOpen: () => dispatch(clearProductUpdated())
             })
             setImages([])
@@ -110,7 +108,7 @@ export default function UpdateProduct() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })
@@ -146,7 +144,7 @@ export default function UpdateProduct() {
 
 
     return (
-        <>  
+        <>
             <MetaData title={'Update Product'} />
             <AdminBar />
             <div className="row min-vw-100 min-vh-100 justify-content-center align-items-center mm-bgpic">

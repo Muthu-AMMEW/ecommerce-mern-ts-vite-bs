@@ -28,7 +28,7 @@ export default function Login() {
             email: "",
             password: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
 
     }
 
@@ -44,7 +44,7 @@ export default function Login() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearAuthError) }
             })

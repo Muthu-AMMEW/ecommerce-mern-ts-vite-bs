@@ -96,7 +96,7 @@ export default function ProductList() {
     useEffect(() => {
         if (error || productError) {
             toast(error || productError, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })
@@ -105,7 +105,7 @@ export default function ProductList() {
         if (isProductDeleted) {
             toast('Product Deleted Succesfully!', {
                 type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 onOpen: () => dispatch(clearProductDeleted())
             })
             return;

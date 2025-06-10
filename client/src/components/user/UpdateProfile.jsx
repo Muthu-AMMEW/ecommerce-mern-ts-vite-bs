@@ -59,7 +59,7 @@ export default function UpdateProfile() {
             country: "India",
             postalCode: ""
         });
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
 
     }
 
@@ -108,7 +108,7 @@ export default function UpdateProfile() {
         if (isUpdated) {
             toast('Profile updated successfully', {
                 type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 onOpen: () => dispatch(clearUpdateProfile())
             })
             return;
@@ -116,7 +116,7 @@ export default function UpdateProfile() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearAuthError) }
             })

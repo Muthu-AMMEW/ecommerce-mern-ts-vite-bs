@@ -26,16 +26,13 @@ export default function UpdatePassword() {
             password: "",
             confirmPassword: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
     }
 
 
     useEffect(() => {
         if (isUpdated) {
-            toast('Password updated successfully', {
-                type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.success('Password updated successfully', { position: 'top-center' })
             setInputs({
                 oldPassword: "",
                 password: "",
@@ -45,7 +42,7 @@ export default function UpdatePassword() {
         }
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearAuthError) }
             })
@@ -56,18 +53,12 @@ export default function UpdatePassword() {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (inputs.password !== inputs.confirmPassword) {
-            toast.error("Password Mismatch", {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error'
-            })
+            toast.error("Password Mismatch", { position: 'top-center' })
             return
         }
 
         if (inputs.password.length < 6) {
-            toast.error("Password must be at least 6 characters", {
-                position: toast.POSITION.BOTTOM_CENTER,
-                type: 'error'
-            })
+            toast.error("Password must be at least 6 characters", { position: 'top-center' })
             return
         }
 

@@ -24,10 +24,7 @@ export default function ProductDetail() {
 
     function increaseQty() {
         if (itemExist) {
-            toast('Already this product added. Please check or customise on Cart', {
-                type: 'info',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.info('Already this product added. Please check or customise on Cart', { position: 'top-center' })
             return;
         }
 
@@ -39,10 +36,7 @@ export default function ProductDetail() {
 
     function decreaseQty() {
         if (itemExist) {
-            toast('Already this product added. Please check or customise on Cart', {
-                type: 'info',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.info('Already this product added. Please check or customise on Cart', { position: 'top-center' })
             return;
         }
 
@@ -54,15 +48,9 @@ export default function ProductDetail() {
     function addToCart() {
         if (!itemExist) {
             dispatch(addCartItem(product._id, quantity))
-            toast('Cart Item added succesfully!', {
-                type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.success('Cart Item added succesfully!', { position: 'top-center' })
         } else {
-            toast('Already this product added. Please check or customise on Cart', {
-                type: 'info',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.info('Already this product added. Please check or customise on Cart', { position: 'top-center' })
         }
     }
 
@@ -87,14 +75,14 @@ export default function ProductDetail() {
             handleClose()
             toast('Review Submitted successfully', {
                 type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 onOpen: () => dispatch(clearReviewSubmitted())
             })
 
         }
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })

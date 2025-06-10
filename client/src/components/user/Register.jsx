@@ -39,7 +39,7 @@ export default function Register() {
 		}
 		if (error) {
 			toast(error, {
-				position: toast.POSITION.BOTTOM_CENTER,
+				position: 'top-center',
 				type: 'error',
 				onOpen: () => { dispatch(clearAuthError) }
 			})
@@ -87,25 +87,19 @@ export default function Register() {
 			country: "India",
 			postalCode: ""
 		});
-		toast.info("Reset Successfully");
+		toast.info("Reset Successfully", { position: 'top-center' });
 
 	}
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (inputs.password !== inputs.confirmPassword) {
-			toast.error("Password Mismatch", {
-				position: toast.POSITION.BOTTOM_CENTER,
-				type: 'error'
-			})
+			toast.error("Password Mismatch", { position: 'top-center' })
 			return
 		}
 
 		if (inputs.password.length < 6) {
-			toast.error("Password must be at least 6 characters", {
-				position: toast.POSITION.BOTTOM_CENTER,
-				type: 'error'
-			})
+			toast.error("Password must be at least 6 characters", { position: 'top-center' })
 			return
 		}
 

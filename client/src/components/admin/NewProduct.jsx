@@ -63,7 +63,7 @@ export default function NewProduct() {
             stock: "",
             seller: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
     }
 
     const handleSubmit = (event) => {
@@ -85,7 +85,7 @@ export default function NewProduct() {
         if (isProductCreated) {
             toast('Product Created Succesfully!', {
                 type: 'success',
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 onOpen: () => dispatch(clearProductCreated())
             })
             // navigate('/admin/products')
@@ -94,7 +94,7 @@ export default function NewProduct() {
 
         if (error) {
             toast(error, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearError()) }
             })

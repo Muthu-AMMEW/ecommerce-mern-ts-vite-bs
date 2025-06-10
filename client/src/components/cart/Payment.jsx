@@ -52,56 +52,38 @@ export default function Payment() {
                         });
 
                         if (data.status === 'ok') {
-                            toast('Payment Success!', {
-                                type: 'success',
-                                position: toast.POSITION.BOTTOM_CENTER
-                            });
+                            toast.success('Payment Success!', { position: 'top-center' });
 
                             dispatch(orderCompleted());
                             dispatch(clearNewOrder());
                             setLoading(false);
                             navigate('/order/success');
                         } else {
-                            toast('Payment verification failed', {
-                                type: 'error',
-                                position: toast.POSITION.BOTTOM_CENTER
-                            });
+                            toast.error('Payment verification failed', { position: 'top-center' });
                             setLoading(false);
                         }
                     } catch (error) {
-                        toast(error.message || 'Error verifying payment', {
-                            type: 'error',
-                            position: toast.POSITION.BOTTOM_CENTER
-                        });
+                        toast.error(error.message || 'Error verifying payment', { position: 'top-center' });
                         setLoading(false);
                     }
                 },
                 modal: {
                     ondismiss: function () {
-                        toast("You cancelled payment. Try again", {
-                            type: "info",
-                            position: toast.POSITION.BOTTOM_CENTER
-                        });
+                        toast.info("You cancelled payment. Try again", { position: 'top-center' });
                         setLoading(false);
                     }
                 }
             };
             const rzp = new Razorpay(options);
             rzp.on("payment.failed", function (response) {
-                toast(response.error, {
-                    type: 'error',
-                    position: toast.POSITION.BOTTOM_CENTER
-                });
+                toast.error(response.error, { position: 'top-center' });
                 setLoading(false);
             });
 
             rzp.open();
 
         } catch (error) {
-            toast(error.message, {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER
-            });
+            toast.error(error.message, { position: 'top-center' });
             setLoading(false);
         }
     }
@@ -110,21 +92,18 @@ export default function Payment() {
         if (newOrderDetail?._id) {
             let orderData = { orderStatus: "Cancelled" };
             dispatch(updateOrder(newOrderDetail?._id, orderData))
-            toast.success("Order Status Updated")
+            toast.success("Order Status Updated", { position: 'top-center' })
         }
         dispatch(orderCompleted());
         dispatch(clearNewOrder());
         setLoading(false);
-        toast.success("Order Cancelled")
+        toast.success("Order Cancelled", { position: 'top-center' })
         navigate('/home');
     }
 
     useEffect(() => {
         if (!orderInfo) {
-            toast('Please Conform Order Price', {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.error('Please Conform Order Price', { position: 'top-center' })
             navigate('/order/confirm');
             return;
         }
@@ -138,15 +117,12 @@ export default function Payment() {
             !shippingInfo.postalCode ||
             !shippingInfo.phoneNumber) {
 
-            toast('Please fill all the fields in shipping info', {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.error('Please fill all the fields in shipping info', { position: 'top-center' })
             navigate('/shipping');
         }
         if (orderError) {
             toast(orderError, {
-                position: toast.POSITION.BOTTOM_CENTER,
+                position: 'top-center',
                 type: 'error',
                 onOpen: () => { dispatch(clearOrderError()) }
             })

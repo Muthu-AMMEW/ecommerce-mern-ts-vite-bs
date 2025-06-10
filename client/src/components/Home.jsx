@@ -18,9 +18,7 @@ export default function Home() {
 
     useEffect(() => {
         if (error) {
-            return toast.error(error, {
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            return toast.error(error, { position: 'top-center' })
         }
         dispatch(getProducts(null, null, null, null, currentPage))
     }, [error, dispatch, currentPage])

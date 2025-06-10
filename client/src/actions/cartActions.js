@@ -15,9 +15,6 @@ export const addCartItem = (id, quantity) => async (dispatch) => {
             quantity
         }))
     } catch (error) {
-        toast(error, {
-            type: 'error',
-            position: toast.POSITION.BOTTOM_CENTER
-        })
+        toast.error(error, { position: 'top-center' })
     }
 }

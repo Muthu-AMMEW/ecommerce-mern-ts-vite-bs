@@ -26,10 +26,7 @@ export default function Shipping() {
 
     useEffect(() => {
         if (!cartItems.length > 0) {
-            toast('Please add items in the cart', {
-                type: 'error',
-                position: toast.POSITION.BOTTOM_CENTER
-            })
+            toast.error('Please add items in the cart', { position: 'top-center' })
             navigate('/cart');
         }
 
@@ -74,7 +71,7 @@ export default function Shipping() {
             postalCode: "",
             phoneNumber: ""
         })
-        toast.info("Reset Successfully");
+        toast.info("Reset Successfully", { position: 'top-center' });
 
     }
 

@@ -43,10 +43,10 @@ export default function ProductSearch() {
 			if (Number(price[0]) < Number(price[1])) {
 				setPriceChanged(price);
 			} else {
-				toast.warning("Please enter correct minimum and maximum value")
+				toast.warning("Please enter correct minimum and maximum value", { position: 'top-center' })
 			}
 		} else {
-			toast.warning("Please enter valid numbers")
+			toast.warning("Please enter valid numbers", { position: 'top-center' })
 		}
 	}
 
@@ -78,9 +78,7 @@ export default function ProductSearch() {
 
 	useEffect(() => {
 		if (error) {
-			return toast.error(error, {
-				position: toast.POSITION.BOTTOM_CENTER
-			})
+			return toast.error(error, { position: 'top-center' })
 		}
 		dispatch(getProducts(keyword, priceChanged, category, rating, currentPage))
 	}, [error, dispatch, currentPage, keyword, priceChanged, category, rating])
