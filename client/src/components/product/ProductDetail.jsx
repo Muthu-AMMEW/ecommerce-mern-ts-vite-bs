@@ -48,9 +48,9 @@ export default function ProductDetail() {
     function addToCart() {
         if (!itemExist) {
             dispatch(addCartItem(product._id, quantity))
-            toast.success('Cart Item added succesfully!', { position: 'top-center' })
+            toast.success('Cart Item added succesfully!', { position: 'bottom-center' })
         } else {
-            toast.info('Already this product added. Please check or customise on Cart', { position: 'top-center' })
+            toast.info('Already this product added. Please check or customise on Cart', { position: 'bottom-center' })
         }
     }
 

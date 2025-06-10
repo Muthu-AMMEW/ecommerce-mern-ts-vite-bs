@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { forgotPassword, clearAuthError } from "../../actions/userActions";
+import MetaData from "../layouts/MetaData";
 
 export default function ForgotPassword() {
     const [inputs, setInputs] = useState({
