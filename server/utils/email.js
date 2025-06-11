@@ -1,8 +1,7 @@
 import nodemailer from 'nodemailer';
-import catchAsyncError from '../middlewares/catchAsyncError.js';
 import ErrorHandler from './errorHandler.js';
 
-const sendEmail = catchAsyncError(async ({email, subject, message, next}) => {
+const sendEmail = async ({ email, subject, message }) => {
 
   const transporter = nodemailer.createTransport({
     service: `${process.env.SMTP_SERVICE}`,
@@ -12,20 +11,20 @@ const sendEmail = catchAsyncError(async ({email, subject, message, next}) => {
     },
   });
 
-  let mailOptions = {
-    from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`, // <-- sender name here
+  const mailOptions = {
+    from: `${process.env.SMTP_FROM_NAME} <${process.env.SMTP_FROM_EMAIL}>`,
     to: email,
     subject: subject,
     text: message
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-
-    if (error) {
-      return next(new ErrorHandler(error, 404));
-    }
-    console.log('Message sent:', info.response);
-  });
-})
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    // console.log('Email sent:', info.response);
+    return info;
+  } catch (error) {
+    throw new ErrorHandler(`Email send failed: ${error.message}`, 500);
+  }
+}
 
 export default sendEmail;

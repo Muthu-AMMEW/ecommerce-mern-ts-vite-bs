@@ -91,11 +91,10 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
     ${resetUrl} \n\n If you have not requested this email, then ignore it.`;
 
     try {
-        sendEmail({
+        await sendEmail({
             email: user.email,
             subject: "JVLcart Password Recovery",
-            message,
-            next
+            message
         })
 
         res.status(200).json({

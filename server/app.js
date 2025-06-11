@@ -14,11 +14,11 @@ const app = express();
 
 // List of allowed origins
 const allowedOrigins = [
-    process.env.CLIENT_URL_DEV,
-    process.env.CLIENT_URL_DEV_2,
-    process.env.CLIENT_URL_PRE,
-    process.env.CLIENT_URL,
-    process.env.CLIENT_URL_2
+  process.env.CLIENT_URL_DEV,
+  process.env.CLIENT_URL_DEV_2,
+  process.env.CLIENT_URL_PRE,
+  process.env.CLIENT_URL,
+  process.env.CLIENT_URL_2
 ];
 // CORS configuration
 const corsOptions = {
@@ -51,17 +51,17 @@ import auth from './routes/authRoutes.js';
 import order from './routes/orderRoutes.js';
 
 app.use(imageRoutes);
-app.use('/api/v1/', products);
-app.use('/api/v1/', auth);
-app.use('/api/v1/', order);
+app.use('/api/v1', products);
+app.use('/api/v1', auth);
+app.use('/api/v1', order);
 
 app.use(errorMiddleware)
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '../client/dist/index.html'))
-    })
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'))
+  })
 }
 
 export default app;
