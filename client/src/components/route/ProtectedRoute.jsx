@@ -10,6 +10,9 @@ export default function ProtectedRoute({ children, isAdmin }) {
     }
 
     if (isAuthenticated) {
+        if (user.role === 'open') {
+            return <Navigate to="/verify/email" />
+        }
         if (isAdmin === true && user.role !== 'admin') {
             return <Navigate to="/" />
         }

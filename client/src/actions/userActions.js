@@ -95,7 +95,11 @@ export const logout = async (dispatch) => {
 
     try {
         await axios.get(`/logout`);
-        dispatch(logoutSuccess())
+        localStorage.clear();
+        sessionStorage.clear();
+        dispatch(logoutSuccess());
+        window.history.replaceState(null, "", "/login");
+        window.location.href = '/login';
     } catch (error) {
         dispatch(logoutFail)
         toast.error(error, { position: 'top-center' })

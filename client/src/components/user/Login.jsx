@@ -77,7 +77,7 @@ export default function Login() {
                                     </label>
 
                                 </div>
-                                <div><a href="/password/forgot" className="fw-bold">Forget Password?</a></div>
+                                <div><Link to="/password/forgot" className="fw-bold">Forget Password?</Link></div>
                             </div>
                             <div className="mt-3 text-center">
                                 {loading ?
