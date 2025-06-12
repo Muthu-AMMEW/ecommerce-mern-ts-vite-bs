@@ -52,7 +52,7 @@ export default function VerifyEmail() {
             })
             return
         }
-    }, [message, isVerified, error, dispatch])
+    }, [message, isVerified, user?.role, error, dispatch])
 
     function generate() {
         const formData = new FormData();

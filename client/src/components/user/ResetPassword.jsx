@@ -24,7 +24,10 @@ export default function ResetPassword() {
             return;
         }
         if (error) {
-            toast.error(error, { position: 'top-center' })
+            toast.error(error, {
+                position: 'top-center',
+                onOpen: () => dispatch(clearAuthError())
+            })
             return
         }
     }, [isAuthenticated, error, dispatch, navigate])
