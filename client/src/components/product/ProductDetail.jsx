@@ -73,18 +73,16 @@ export default function ProductDetail() {
     useEffect(() => {
         if (isReviewSubmitted) {
             handleClose()
-            toast('Review Submitted successfully', {
-                type: 'success',
+            toast.success('Review Submitted successfully', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsReviewSubmitted())
             })
 
         }
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearProductError()) }
+                onOpen: () => dispatch(clearProductError())
             })
             navigate('/home');
         }

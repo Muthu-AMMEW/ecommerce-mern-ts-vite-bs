@@ -97,8 +97,7 @@ export default function UpdateProduct() {
 
     useEffect(() => {
         if (isProductUpdated) {
-            toast('Product Updated Succesfully!', {
-                type: 'success',
+            toast.success('Product Updated Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsProductUpdated())
             })
@@ -107,10 +106,9 @@ export default function UpdateProduct() {
         }
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearProductError()) }
+                onOpen: () => dispatch(clearProductError())
             })
             return
         }

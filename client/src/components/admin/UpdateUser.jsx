@@ -31,8 +31,7 @@ export default function UpdateUser() {
 
     useEffect(() => {
         if (isUserUpdated) {
-            toast('User Updated Succesfully!', {
-                type: 'success',
+            toast.success('User Updated Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsUserUpdated())
             })
@@ -40,10 +39,9 @@ export default function UpdateUser() {
         }
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearUserError()) }
+                onOpen: () => dispatch(clearUserError())
             })
             return
         }

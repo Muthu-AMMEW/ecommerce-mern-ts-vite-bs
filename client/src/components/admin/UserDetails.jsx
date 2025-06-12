@@ -18,10 +18,9 @@ export default function UserDetails() {
     useEffect(() => {
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearUserError()) }
+                onOpen: () => dispatch(clearUserError())
             })
             return
         }

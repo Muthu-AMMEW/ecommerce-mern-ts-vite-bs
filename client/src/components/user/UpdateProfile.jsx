@@ -108,8 +108,7 @@ export default function UpdateProfile() {
         }
 
         if (isUpdated) {
-            toast('Profile updated successfully', {
-                type: 'success',
+            toast.success('Profile updated successfully', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsUpdated())
             })
@@ -117,9 +116,8 @@ export default function UpdateProfile() {
         }
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
                 onOpen: () => dispatch(clearAuthError())
             })
             return

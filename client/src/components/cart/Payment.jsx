@@ -121,10 +121,9 @@ export default function Payment() {
             navigate('/shipping');
         }
         if (orderError) {
-            toast(orderError, {
+            toast.error(orderError, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearOrderError()) }
+                onOpen: () => dispatch(clearOrderError())
             })
         }
 

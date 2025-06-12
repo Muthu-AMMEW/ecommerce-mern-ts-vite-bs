@@ -30,8 +30,7 @@ export default function UpdateOrder() {
 
 	useEffect(() => {
 		if (isOrderUpdated) {
-			toast('Order Updated Succesfully!', {
-				type: 'success',
+			toast.success('Order Updated Succesfully!', {
 				position: 'top-center',
 				onOpen: () => dispatch(clearIsOrderUpdated())
 			})
@@ -40,10 +39,9 @@ export default function UpdateOrder() {
 		}
 
 		if (error) {
-			toast(error, {
+			toast.error(error, {
 				position: 'top-center',
-				type: 'error',
-				onOpen: () => { dispatch(clearOrderError()) }
+				onOpen: () => dispatch(clearOrderError())
 			})
 			return
 		}

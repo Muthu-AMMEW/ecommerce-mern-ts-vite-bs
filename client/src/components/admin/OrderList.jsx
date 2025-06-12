@@ -20,16 +20,14 @@ export default function OrderList() {
 
     useEffect(() => {
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearOrderError()) }
+                onOpen: () => dispatch(clearOrderError())
             })
             return
         }
         if (isOrderDeleted) {
-            toast('Order Deleted Succesfully!', {
-                type: 'success',
+            toast.success('Order Deleted Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsOrderDeleted())
             })

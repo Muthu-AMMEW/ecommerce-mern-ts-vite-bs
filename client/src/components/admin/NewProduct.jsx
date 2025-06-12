@@ -83,8 +83,7 @@ export default function NewProduct() {
 
     useEffect(() => {
         if (isProductCreated) {
-            toast('Product Created Succesfully!', {
-                type: 'success',
+            toast.success('Product Created Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsProductCreated())
             })
@@ -93,10 +92,9 @@ export default function NewProduct() {
         }
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => dispatch(clearError())
             })
             return
         }

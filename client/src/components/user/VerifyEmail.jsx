@@ -46,9 +46,8 @@ export default function VerifyEmail() {
         }
 
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
                 onOpen: () => dispatch(clearAuthError())
             })
             return

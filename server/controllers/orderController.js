@@ -124,6 +124,10 @@ export const getSingleOrder = catchAsyncError(async (req, res, next) => {
 export const cancelOrder = catchAsyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
+    if (order.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
+        return next(new ErrorHandler('Already in processing!', 400))
+    }
+
     if (order.orderStatus == 'Shipped' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Order has been already shipped!', 400))
     }
@@ -186,6 +190,10 @@ export const orders = catchAsyncError(async (req, res, next) => {
 //Admin: Update Order / Order Status - api/v1/admin/order/:id
 export const updateOrder = catchAsyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
+
+    if (order.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
+        return next(new ErrorHandler('Already in processing!', 400))
+    }
 
     if (order.orderStatus == 'Shipped' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Order has been already shipped!', 400))

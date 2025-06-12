@@ -92,16 +92,14 @@ export default function UserList() {
 
     useEffect(() => {
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearUserError()) }
+                onOpen: () => dispatch(clearUserError())
             })
             return
         }
         if (isUserDeleted) {
-            toast('User Deleted Succesfully!', {
-                type: 'success',
+            toast.success('User Deleted Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsUserDeleted())
             })

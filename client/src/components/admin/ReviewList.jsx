@@ -77,16 +77,14 @@ export default function ReviewList() {
 
     useEffect(() => {
         if (error) {
-            toast(error, {
+            toast.error(error, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearProductError()) }
+                onOpen: () => dispatch(clearProductError())
             })
             return
         }
         if (isReviewDeleted) {
-            toast('Review Deleted Succesfully!', {
-                type: 'success',
+            toast.success('Review Deleted Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsReviewDeleted())
             })

@@ -95,16 +95,14 @@ export default function ProductList() {
 
     useEffect(() => {
         if (error || productError) {
-            toast(error || productError, {
+            toast.error(error || productError, {
                 position: 'top-center',
-                type: 'error',
-                onOpen: () => { dispatch(clearProductError()) }
+                onOpen: () => dispatch(clearProductError())
             })
             return
         }
         if (isProductDeleted) {
-            toast('Product Deleted Succesfully!', {
-                type: 'success',
+            toast.success('Product Deleted Succesfully!', {
                 position: 'top-center',
                 onOpen: () => dispatch(clearIsProductDeleted())
             })
