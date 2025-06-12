@@ -72,7 +72,7 @@ function App() {
               <Route path='/product/:id' element={<ProductDetail />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
-              <Route path='/verify/email' element={<VerifyEmail />} />
+              <Route path='/verify/email' element={<ProtectedRoute><VerifyEmail /></ProtectedRoute>} />
               <Route path='/myprofile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path='/myprofile/update' element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
               <Route path='/myprofile/update/password' element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearAuthError, login } from '../../actions/userActions';
+import { login } from '../../actions/userActions';
 import MetaData from '../layouts/MetaData';
 import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { clearAuthError } from '../../slices/authSlice';
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();

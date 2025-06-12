@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteUser, getUsers } from "../../actions/userActions"
-import { clearError, clearUserDeleted } from "../../slices/userSlice"
+import { clearUserError, clearIsUserDeleted } from "../../slices/userSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
@@ -95,7 +95,7 @@ export default function UserList() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearUserError()) }
             })
             return
         }
@@ -103,7 +103,7 @@ export default function UserList() {
             toast('User Deleted Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearUserDeleted())
+                onOpen: () => dispatch(clearIsUserDeleted())
             })
             return;
         }

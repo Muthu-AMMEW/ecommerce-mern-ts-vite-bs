@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify";
-import { updateProfile, clearAuthError } from "../../actions/userActions";
-import { clearIsUpdated } from "../../slices/authSlice";
+import { updateProfile } from "../../actions/userActions";
+import { clearAuthError, clearIsUpdated } from "../../slices/authSlice";
 import { countries } from 'countries-list';
 import MetaData from "../layouts/MetaData";
 import { useNavigate } from "react-router-dom";
@@ -120,7 +120,7 @@ export default function UpdateProfile() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearAuthError) }
+                onOpen: () => dispatch(clearAuthError())
             })
             return
         }
@@ -151,7 +151,7 @@ export default function UpdateProfile() {
                                         <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
                                     </div>
                                     {user.role === "unverified" && <div className="col-3">
-                                        <button type="buttom" className="btn btn-danger" onClick={() => navigate('/verify/email')}>verify</button>
+                                        <button type="button" className="btn btn-danger" onClick={() => navigate('/verify/email')}>verify</button>
                                     </div>}
                                 </div>
                             </div>

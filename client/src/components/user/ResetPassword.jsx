@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetPassword, clearAuthError } from '../../actions/userActions';
+import { resetPassword } from '../../actions/userActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
+import { clearAuthError } from '../../slices/authSlice';
 
 export default function ResetPassword() {
     const [inputs, setInputs] = useState({

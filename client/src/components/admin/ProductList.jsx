@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteProduct, getAdminProducts } from "../../actions/productActions"
-import { clearError, clearProductDeleted } from "../../slices/productSlice"
+import { clearProductError, clearIsProductDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
@@ -98,7 +98,7 @@ export default function ProductList() {
             toast(error || productError, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearProductError()) }
             })
             return
         }
@@ -106,7 +106,7 @@ export default function ProductList() {
             toast('Product Deleted Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearProductDeleted())
+                onOpen: () => dispatch(clearIsProductDeleted())
             })
             return;
         }

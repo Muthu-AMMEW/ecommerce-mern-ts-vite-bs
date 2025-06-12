@@ -7,10 +7,29 @@ const userSlice = createSlice({
         loading: false,
         user: {},
         users: [],
+        error: null,
         isUserUpdated: false,
         isUserDeleted: false
     },
     reducers: {
+        clearUserError(state, action) {
+            return {
+                ...state,
+                error: null
+            }
+        },
+        clearIsUserUpdated(state, action) {
+            return {
+                ...state,
+                isUserUpdated: false
+            }
+        },
+        clearIsUserDeleted(state, action) {
+            return {
+                ...state,
+                isUserDeleted: false
+            }
+        },
         usersRequest(state, action) {
             return {
                 ...state,
@@ -51,7 +70,6 @@ const userSlice = createSlice({
                 error: action.payload
             }
         },
-
         deleteUserRequest(state, action) {
             return {
                 ...state,
@@ -91,24 +109,6 @@ const userSlice = createSlice({
                 loading: false,
                 error: action.payload
             }
-        },
-        clearUserDeleted(state, action) {
-            return {
-                ...state,
-                isUserDeleted: false
-            }
-        },
-        clearUserUpdated(state, action) {
-            return {
-                ...state,
-                isUserUpdated: false
-            }
-        },
-        clearError(state, action) {
-            return {
-                ...state,
-                error: null
-            }
         }
 
     }
@@ -128,11 +128,10 @@ export const {
     updateUserRequest,
     updateUserSuccess,
     updateUserFail,
-    clearUserDeleted,
-    clearUserUpdated,
-    clearError
+    clearIsUserDeleted,
+    clearIsUserUpdated,
+    clearUserError
 
 } = userSlice.actions;
 
 export default userSlice.reducer;
-

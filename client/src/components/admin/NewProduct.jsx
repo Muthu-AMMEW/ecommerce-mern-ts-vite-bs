@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from "../../actions/productActions";
-import { clearError, clearProductCreated } from "../../slices/productSlice";
+import { clearProductError, clearIsProductCreated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 
@@ -86,7 +86,7 @@ export default function NewProduct() {
             toast('Product Created Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearProductCreated())
+                onOpen: () => dispatch(clearIsProductCreated())
             })
             // navigate('/admin/products')
             return;

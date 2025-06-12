@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteOrder, adminOrders as adminOrdersAction } from "../../actions/orderActions"
-import { clearError, clearOrderDeleted } from "../../slices/orderSlice"
+import { clearOrderError, clearIsOrderDeleted } from "../../slices/orderSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
@@ -23,7 +23,7 @@ export default function OrderList() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearOrderError()) }
             })
             return
         }
@@ -31,7 +31,7 @@ export default function OrderList() {
             toast('Order Deleted Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearOrderDeleted())
+                onOpen: () => dispatch(clearIsOrderDeleted())
             })
             return;
         }

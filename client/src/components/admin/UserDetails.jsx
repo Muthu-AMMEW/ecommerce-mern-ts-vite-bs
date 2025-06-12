@@ -3,7 +3,7 @@ import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../actions/userActions";
-import { clearError } from "../../slices/userSlice";
+import { clearUserError } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 import Loader from "../layouts/Loader";
@@ -21,7 +21,7 @@ export default function UserDetails() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearUserError()) }
             })
             return
         }

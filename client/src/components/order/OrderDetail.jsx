@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';
 import { toast } from "react-toastify";
-import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
+import { clearIsOrderUpdated, clearOrderError } from "../../slices/orderSlice";
 import MetaData from '../layouts/MetaData';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';
@@ -29,7 +29,7 @@ export default function OrderDetail() {
             toast('Order Updated Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearOrderUpdated())
+                onOpen: () => dispatch(clearIsOrderUpdated())
             })
 
             return;
@@ -39,7 +39,7 @@ export default function OrderDetail() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearOrderError()) }
             })
             return
         }

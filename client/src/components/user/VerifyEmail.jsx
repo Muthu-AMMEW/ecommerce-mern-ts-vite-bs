@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
-import { clearAuthError, clearIsUpdatedAction, generateOtp, verifyEmail } from '../../actions/userActions';
+import { generateOtp, verifyEmail } from '../../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { useNavigate } from 'react-router-dom';
+import { clearAuthError, clearIsVerified, clearMessage } from '../../slices/authSlice';
 
 export default function VerifyEmail() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isUpdated, error, loading, user, message } = useSelector(state => state.authState)
+    const { isVerified, error, loading, user, message } = useSelector(state => state.authState)
     const [inputs, setInputs] = useState({
         otp: ""
     })
@@ -21,33 +22,38 @@ export default function VerifyEmail() {
     }
 
     useEffect(() => {
-        if (user.role != "unverified") {
-            toast.warning("Email Address already verified", { position: 'top-center' })
-            navigate("/");
+
+        if (isVerified) {
+            toast.success('Email verified successfully', {
+                position: 'top-center',
+                onOpen: () => dispatch(clearIsVerified())
+            })
+            navigate('/');
+            return
+        }
+
+        if (user?.role !== "unverified") {
+            navigate('/');
+            return
         }
 
         if (message) {
-            toast.success(message, { position: 'top-center' })
+            toast.success(message, {
+                position: 'top-center',
+                onOpen: () => dispatch(clearMessage())
+            })
             return;
         }
 
-        if (isUpdated) {
-            toast.success('Email verified successfully', {
-                position: 'top-center',
-                onOpen: () => { dispatch(clearIsUpdatedAction) }
-            })
-            navigate('/');
-            return;
-        }
         if (error) {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearAuthError) }
+                onOpen: () => dispatch(clearAuthError())
             })
             return
         }
-    }, [message, isUpdated, error, dispatch])
+    }, [message, isVerified, error, dispatch])
 
     function generate() {
         const formData = new FormData();
@@ -75,7 +81,7 @@ export default function VerifyEmail() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email Address</label>
-                                <input type="email" className="form-control" id="email" name="email" value={user.email} disabled />
+                                <input type="email" className="form-control" id="email" name="email" value={user?.email} disabled />
                             </div>
                             <div className="w-100 mt-3">
                                 <label htmlFor="otp" className="form-label">OTP</label>
@@ -90,8 +96,8 @@ export default function VerifyEmail() {
                                     </div>) : null
                                 }
                                 <div className='d-flex justify-content-center'>
-                                    <button className="btn btn-warning me-2 me-md-5" type="button" onClick={generate}>Generate OTP</button>
-                                    <button className="btn btn-success" type="submit">Submit</button>
+                                    <button className="btn btn-warning me-2 me-md-5" type="button" disabled={loading} onClick={generate}>Generate OTP</button>
+                                    <button className="btn btn-success" type="submit" disabled={loading}>Submit</button>
                                 </div>
                             </div>
                         </form>

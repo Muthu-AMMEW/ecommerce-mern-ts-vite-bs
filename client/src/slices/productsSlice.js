@@ -7,6 +7,12 @@ const productsSlice = createSlice({
         loading: false
     },
     reducers: {
+        clearProductsError(state, action) {
+            return {
+                ...state,
+                error: null
+            }
+        },
         productsRequest(state, action) {
             return {
                 loading: true
@@ -42,12 +48,6 @@ const productsSlice = createSlice({
                 loading: false,
                 error: action.payload
             }
-        },
-        clearError(state, action) {
-            return {
-                ...state,
-                error: null
-            }
         }
     }
 });
@@ -58,9 +58,9 @@ export const {
     productsFail,
     adminProductsFail,
     adminProductsRequest,
-    adminProductsSuccess
+    adminProductsSuccess,
+    clearProductsError
 
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
-

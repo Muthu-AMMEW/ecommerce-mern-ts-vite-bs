@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteReview, getReviews } from "../../actions/productActions"
-import { clearError, clearReviewDeleted } from "../../slices/productSlice"
+import { clearProductError, clearIsReviewDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
@@ -80,7 +80,7 @@ export default function ReviewList() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearProductError()) }
             })
             return
         }
@@ -88,7 +88,7 @@ export default function ReviewList() {
             toast('Review Deleted Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearReviewDeleted())
+                onOpen: () => dispatch(clearIsReviewDeleted())
             })
             dispatch(getReviews(productId))
             return;

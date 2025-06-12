@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { updatePassword as updatePasswordAction, clearAuthError } from '../../actions/userActions';
+import { updatePassword as updatePasswordAction } from '../../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
+import { clearAuthError } from '../../slices/authSlice';
 
 export default function UpdatePassword() {
 

@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 const orderSlice = createSlice({
     name: 'order',
     initialState: {
@@ -11,9 +9,34 @@ const orderSlice = createSlice({
         adminOrders: [],
         loading: false,
         isOrderDeleted: false,
-        isOrderUpdated: false
+        isOrderUpdated: false,
+        error: null
     },
     reducers: {
+        clearNewOrder(state, action) {
+            return {
+                ...state,
+                newOrderDetail: {}
+            }
+        },
+        clearOrderError(state, action) {
+            return {
+                ...state,
+                error: null
+            }
+        },
+        clearIsOrderDeleted(state, action) {
+            return {
+                ...state,
+                isOrderDeleted: false
+            }
+        },
+        clearIsOrderUpdated(state, action) {
+            return {
+                ...state,
+                isOrderUpdated: false
+            }
+        },
         createOrderRequest(state, action) {
             return {
                 ...state,
@@ -32,18 +55,6 @@ const orderSlice = createSlice({
                 ...state,
                 loading: false,
                 error: action.payload
-            }
-        },
-        clearNewOrder(state, action) {
-            return {
-                ...state,
-                newOrderDetail: {}
-            }
-        },
-        clearError(state, action) {
-            return {
-                ...state,
-                error: null
             }
         },
         userOrdersRequest(state, action) {
@@ -127,7 +138,6 @@ const orderSlice = createSlice({
                 error: action.payload
             }
         },
-
         updateOrderRequest(state, action) {
             return {
                 ...state,
@@ -147,21 +157,7 @@ const orderSlice = createSlice({
                 loading: false,
                 error: action.payload
             }
-        },
-
-        clearOrderDeleted(state, action) {
-            return {
-                ...state,
-                isOrderDeleted: false
-            }
-        },
-        clearOrderUpdated(state, action) {
-            return {
-                ...state,
-                isOrderUpdated: false
-            }
         }
-
     }
 });
 
@@ -170,7 +166,7 @@ export const {
     createOrderSuccess,
     createOrderRequest,
     clearNewOrder,
-    clearError,
+    clearOrderError,
     userOrdersFail,
     userOrdersSuccess,
     userOrdersRequest,
@@ -186,9 +182,8 @@ export const {
     updateOrderFail,
     updateOrderRequest,
     updateOrderSuccess,
-    clearOrderDeleted,
-    clearOrderUpdated
+    clearIsOrderDeleted,
+    clearIsOrderUpdated
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
-

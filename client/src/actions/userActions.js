@@ -3,7 +3,6 @@ import {
     loginFail,
     loginRequest,
     loginSuccess,
-    clearError,
     registerFail,
     registerRequest,
     registerSuccess,
@@ -29,9 +28,7 @@ import {
     otpFail,
     emailVerifyFail,
     emailVerifyRequest,
-    emailVerifySuccess,
-    clearMessage,
-    clearIsUpdated
+    emailVerifySuccess
 } from '../slices/authSlice';
 
 import {
@@ -61,10 +58,6 @@ export const login = (email, password) => async (dispatch) => {
         dispatch(loginFail(error.response.data.message))
     }
 
-}
-
-export const clearAuthError = dispatch => {
-    dispatch(clearError())
 }
 
 export const register = (userData) => async (dispatch) => {
@@ -131,10 +124,6 @@ export const updateProfile = (userData) => async (dispatch) => {
 
 }
 
-export const clearIsUpdatedAction = dispatch => {
-    dispatch(clearIsUpdated())
-}
-
 
 export const generateOtp = (userData) => async (dispatch) => {
 
@@ -150,10 +139,6 @@ export const generateOtp = (userData) => async (dispatch) => {
         dispatch(otpSuccess(data))
     } catch (error) {
         dispatch(otpFail(error.response.data.message))
-    } finally {
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        dispatch(clearError())
-        dispatch(clearMessage())
     }
 
 }

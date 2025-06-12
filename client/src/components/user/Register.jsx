@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { register, clearAuthError } from '../../actions/userActions'
+import { register } from '../../actions/userActions'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
 import MetaData from '../layouts/MetaData';
+import { clearAuthError } from '../../slices/authSlice';
 
 
 export default function Register() {

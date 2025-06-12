@@ -1,13 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
         loading: true,
-        isAuthenticated: false
+        isAuthenticated: false,
+        error: null,
+        isUpdated: false,
+        isVerified: false,
+        message: null
     },
     reducers: {
+        clearAuthError(state, action) {
+            return {
+                ...state,
+                error: null
+            }
+        },
+        clearIsUpdated(state, action) {
+            return {
+                ...state,
+                isUpdated: false
+            }
+        },
+        clearIsVerified(state, action) {
+            return {
+                ...state,
+                isVerified: false
+            }
+        },
+        clearMessage(state, action) {
+            return {
+                ...state,
+                message: null
+            }
+        },
         loginRequest(state, action) {
             return {
                 ...state,
@@ -26,12 +53,6 @@ const authSlice = createSlice({
                 ...state,
                 loading: false,
                 error: action.payload
-            }
-        },
-        clearError(state, action) {
-            return {
-                ...state,
-                error: null
             }
         },
         registerRequest(state, action) {
@@ -108,12 +129,6 @@ const authSlice = createSlice({
                 error: action.payload
             }
         },
-        clearIsUpdated(state, action) {
-            return {
-                ...state,
-                isUpdated: false
-            }
-        },
         otpRequest(state, action) {
             return {
                 ...state,
@@ -136,17 +151,11 @@ const authSlice = createSlice({
                 error: action.payload
             }
         },
-        clearMessage(state, action) {
-            return {
-                ...state,
-                message: null
-            }
-        },
         emailVerifyRequest(state, action) {
             return {
                 ...state,
                 loading: true,
-                isUpdated: false
+                isVerified: false
             }
         },
         emailVerifySuccess(state, action) {
@@ -154,7 +163,7 @@ const authSlice = createSlice({
                 ...state,
                 loading: false,
                 user: action.payload.user,
-                isUpdated: true
+                isVerified: true
             }
         },
         emailVerifyFail(state, action) {
@@ -235,7 +244,7 @@ export const {
     loginRequest,
     loginSuccess,
     loginFail,
-    clearError,
+    clearAuthError,
     registerRequest,
     registerSuccess,
     registerFail,
@@ -248,6 +257,7 @@ export const {
     updateProfileSuccess,
     updateProfileFail,
     clearIsUpdated,
+    clearIsVerified,
     otpRequest,
     otpSuccess,
     otpFail,

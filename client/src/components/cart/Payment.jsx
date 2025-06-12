@@ -7,7 +7,7 @@ import { orderCompleted } from "../../slices/cartSlice";
 import { clearNewOrder } from "../../slices/orderSlice";
 // import { validateShipping } from './Shipping';
 import { createOrder, updateOrder } from '../../actions/orderActions'
-import { clearError as clearOrderError } from "../../slices/orderSlice";
+import { clearOrderError } from "../../slices/orderSlice";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
@@ -210,7 +210,7 @@ export default function Payment() {
                                 <input type="text" className="form-control" id="otp" name="otp" value={807249} readOnly />
                                 <div className="form-text"><span className="badge text-bg-warning">OTP for testing</span></div>
                             </div>
-                            <p className="m-2">The Card Number is Main*. You can use others in the format you like. Copy all details for testing in the gateway. Or simply use UPI apps</p>
+                            <p className="m-2">The Card Number is Main*. You can use others in the format you like. Copy all details for testing in the gateway. Or simply use Netbanking and UPI apps</p>
                             <div className="mt-3 text-center">
                                 {loading ?
                                     (<div className="text-center">

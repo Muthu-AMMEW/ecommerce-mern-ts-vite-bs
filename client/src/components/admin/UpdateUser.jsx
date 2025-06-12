@@ -3,7 +3,7 @@ import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/userActions";
-import { clearError, clearUserUpdated } from "../../slices/userSlice";
+import { clearUserError, clearIsUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 
@@ -34,7 +34,7 @@ export default function UpdateUser() {
             toast('User Updated Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearUserUpdated())
+                onOpen: () => dispatch(clearIsUserUpdated())
             })
             return;
         }
@@ -43,7 +43,7 @@ export default function UpdateUser() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearUserError()) }
             })
             return
         }

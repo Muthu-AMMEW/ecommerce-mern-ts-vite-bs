@@ -3,7 +3,7 @@ import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getProduct, updateProduct } from "../../actions/productActions";
-import { clearError, clearProductUpdated } from "../../slices/productSlice";
+import { clearProductError, clearIsProductUpdated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 
@@ -100,7 +100,7 @@ export default function UpdateProduct() {
             toast('Product Updated Succesfully!', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearProductUpdated())
+                onOpen: () => dispatch(clearIsProductUpdated())
             })
             setImages([])
             return;
@@ -110,7 +110,7 @@ export default function UpdateProduct() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearProductError()) }
             })
             return
         }

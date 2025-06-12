@@ -6,7 +6,7 @@ import Loader from '../layouts/Loader';
 import { Carousel } from 'react-bootstrap';
 import MetaData from "../layouts/MetaData";
 import { addCartItem } from "../../actions/cartActions";
-import { clearReviewSubmitted, clearError, clearProduct } from '../../slices/productSlice';
+import { clearIsReviewSubmitted, clearProductError, clearProduct } from '../../slices/productSlice';
 import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
@@ -76,7 +76,7 @@ export default function ProductDetail() {
             toast('Review Submitted successfully', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearReviewSubmitted())
+                onOpen: () => dispatch(clearIsReviewSubmitted())
             })
 
         }
@@ -84,7 +84,7 @@ export default function ProductDetail() {
             toast(error, {
                 position: 'top-center',
                 type: 'error',
-                onOpen: () => { dispatch(clearError()) }
+                onOpen: () => { dispatch(clearProductError()) }
             })
             navigate('/home');
         }
