@@ -67,6 +67,73 @@ export const logoutUser = (req, res, next) => {
     })
 }
 
+//Generate Email OTP - POST - /api/v1/email/generate-otp
+export const generateEmailOtp = catchAsyncError(async (req, res, next) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return next(new ErrorHandler('User not found with this email', 404))
+    }
+
+    if (req.user.email !== email) {
+        return next(new ErrorHandler('You try to hack. Your IP copied.'));
+    }
+
+    const emailVerificationCode = await user.getEmailVerificationCode();
+    await user.save({ validateBeforeSave: false })
+
+
+    const message = `Your email verification code is as follows \n\n 
+    ${emailVerificationCode} \n\nThis OTP only valid 10 minutes from generate
+    \n\n If you have not requested this email, then ignore it.`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "Ecommerce Email Verification",
+            message
+        })
+
+        res.status(200).json({
+            success: true,
+            message: `Email sent to ${user.email}`
+        })
+
+    } catch (error) {
+        user.emailVerificationCode = undefined;
+        user.emailVerificationCodeExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorHandler(error.message), 500)
+    }
+
+})
+
+//Verify Email OTP - POST - /api/v1/email/verify-otp
+export const verifyEmailOtp = catchAsyncError(async (req, res, next) => {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+        return next(new ErrorHandler('User not found with this email', 404))
+    }
+    if (req.user.email !== email) {
+        return next(new ErrorHandler('You try to hack. Your IP copied', 401));
+    }
+
+    if (user.emailVerificationCode !== Number(otp) || new Date() > user.emailVerificationCodeExpire) {
+        return next(new ErrorHandler('OTP is invalid or expired', 400));
+    }
+
+    user.role = 'user';
+    user.emailVerificationCode = undefined;
+    user.emailVerificationCodeExpire = undefined;
+    await user.save({ validateBeforeSave: false })
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    sendToken(user, 201, res)
+
+})
+
 //Forgot Password - /api/v1/password/forgot
 export const forgotPassword = catchAsyncError(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
@@ -93,7 +160,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: "JVLcart Password Recovery",
+            subject: "Ecommerce Password Recovery",
             message
         })
 
@@ -167,11 +234,23 @@ export const changePassword = catchAsyncError(async (req, res, next) => {
 
 //Update Profile - /api/v1/update
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    let newUserData = {
-        fullName: req.body.fullName,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        address: req.body.address
+    let newUserData;
+
+    if (req.user.email == req.body.email) {
+        newUserData = {
+            fullName: req.body.fullName,
+            email: req.body.email,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address
+        }
+    } else {
+        newUserData = {
+            fullName: req.body.fullName,
+            email: req.body.email,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address,
+            role: "unverified"
+        }
     }
 
     let avatar = {};

@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify";
 import { updateProfile, clearAuthError } from "../../actions/userActions";
-import { clearUpdateProfile } from "../../slices/authSlice";
+import { clearIsUpdated } from "../../slices/authSlice";
 import { countries } from 'countries-list';
 import MetaData from "../layouts/MetaData";
+import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
     const { loading, error, user, isUpdated } = useSelector(state => state.authState);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const countryList = Object.values(countries);
     const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "" });
     const [addressInputs, setAddressInputs] = useState({
@@ -109,7 +111,7 @@ export default function UpdateProfile() {
             toast('Profile updated successfully', {
                 type: 'success',
                 position: 'top-center',
-                onOpen: () => dispatch(clearUpdateProfile())
+                onOpen: () => dispatch(clearIsUpdated())
             })
             return;
         }
@@ -133,6 +135,10 @@ export default function UpdateProfile() {
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 my-4 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Update Profile</div>
                         <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
+                            {user.role === "unverified" && <div>
+                                <p className="text-bg-warning p-1">First, verify your email address. Then, only access this site.</p>
+                                <p className="text-bg-info p-1">You can change on this place if you enter the wrong details, such as your email and others.</p>
+                            </div>}
                             <div className="w-100 mt-3">
                                 <label htmlFor="fullName" className="form-label">Full Name</label>
                                 <input type="text" className="form-control" id="fullName" name="fullName" value={inputs.fullName} onChange={handleChange} placeholder="Enter Full Name" required />
@@ -140,7 +146,14 @@ export default function UpdateProfile() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
+                                <div className='row'>
+                                    <div className={user.role === "unverified" ? "col-9" : "col-12"}>
+                                        <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
+                                    </div>
+                                    {user.role === "unverified" && <div className="col-3">
+                                        <button type="buttom" className="btn btn-danger" onClick={() => navigate('/verify/email')}>verify</button>
+                                    </div>}
+                                </div>
                             </div>
 
                             <div className="w-100 mt-3">
@@ -221,7 +234,7 @@ export default function UpdateProfile() {
                                     </div>) : null
                                 }
 
-                                <button type="submit" className="btn btn-primary me-5" disabled={loading}>Submit</button>
+                                <button type="submit" className="btn btn-primary me-5" disabled={loading}>Update</button>
                                 <button type="reset" className="btn btn-danger" onClick={handleReset}>Reset</button>
                             </div>
                         </form>

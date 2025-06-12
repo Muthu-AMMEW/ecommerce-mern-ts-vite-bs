@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         required: [true, 'Please enter phone number'],
-        minLength:[10, 'Please enter full phone number']
+        minLength: [10, 'Please enter full phone number']
     },
     address: {
         addressLine1: {
@@ -55,15 +55,17 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-        
+
     },
     avatar: {
         type: Object
     },
     role: {
         type: String,
-        default: 'user'
+        default: 'unverified'
     },
+    emailVerificationCode: Number,
+    emailVerificationCodeExpire: Date,
     resetPasswordToken: String,
     resetPasswordTokenExpire: Date,
     createdAt: {
@@ -83,6 +85,15 @@ userSchema.methods.getJwtToken = function () {
     return jwt.sign({ id: this.id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_TIME
     })
+}
+
+userSchema.methods.getEmailVerificationCode = function () {
+
+    const generateOTP = Math.floor(10000000 + Math.random() * 90000000).toString();
+    this.emailVerificationCode = generateOTP;
+    this.emailVerificationCodeExpire = Date.now() + 10 * 60 * 1000;
+
+    return generateOTP
 }
 
 userSchema.methods.isValidPassword = async function (enteredPassword) {

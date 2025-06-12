@@ -39,6 +39,7 @@ import ReviewList from './components/admin/ReviewList';
 import LandingPage from './components/LandingPage';
 import UserDetails from './components/admin/UserDetails';
 import ScrollToTop from './utils/ScrollToTop';
+import VerifyEmail from './components/user/VerifyEmail';
 
 
 
@@ -71,6 +72,7 @@ function App() {
               <Route path='/product/:id' element={<ProductDetail />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+              <Route path='/verify/email' element={<VerifyEmail />} />
               <Route path='/myprofile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
               <Route path='/myprofile/update' element={<ProtectedRoute><UpdateProfile /></ProtectedRoute>} />
               <Route path='/myprofile/update/password' element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />

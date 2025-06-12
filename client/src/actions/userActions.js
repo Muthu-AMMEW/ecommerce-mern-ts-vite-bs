@@ -23,7 +23,15 @@ import {
     forgotPasswordFail,
     resetPasswordRequest,
     resetPasswordSuccess,
-    resetPasswordFail
+    resetPasswordFail,
+    otpRequest,
+    otpSuccess,
+    otpFail,
+    emailVerifyFail,
+    emailVerifyRequest,
+    emailVerifySuccess,
+    clearMessage,
+    clearIsUpdated
 } from '../slices/authSlice';
 
 import {
@@ -81,8 +89,6 @@ export const loadUser = async (dispatch) => {
 
     try {
         dispatch(loadUserRequest())
-
-
         const { data } = await axios.get(`/myprofile`);
         dispatch(loadUserSuccess(data))
     } catch (error) {
@@ -121,6 +127,51 @@ export const updateProfile = (userData) => async (dispatch) => {
         dispatch(updateProfileSuccess(data))
     } catch (error) {
         dispatch(updateProfileFail(error.response.data.message))
+    }
+
+}
+
+export const clearIsUpdatedAction = dispatch => {
+    dispatch(clearIsUpdated())
+}
+
+
+export const generateOtp = (userData) => async (dispatch) => {
+
+    try {
+        dispatch(otpRequest())
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(`/email/generate-otp`, userData, config);
+        dispatch(otpSuccess(data))
+    } catch (error) {
+        dispatch(otpFail(error.response.data.message))
+    } finally {
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        dispatch(clearError())
+        dispatch(clearMessage())
+    }
+
+}
+
+export const verifyEmail = (userData) => async (dispatch) => {
+
+    try {
+        dispatch(emailVerifyRequest())
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.put(`/email/verify-otp`, userData, config);
+        dispatch(emailVerifySuccess(data))
+    } catch (error) {
+        dispatch(emailVerifyFail(error.response.data.message))
     }
 
 }

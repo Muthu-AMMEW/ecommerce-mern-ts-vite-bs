@@ -13,7 +13,9 @@ import {
     getAllUsers,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    generateEmailOtp,
+    verifyEmailOtp
 } from '../controllers/authController.js';
 
 import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
@@ -26,6 +28,8 @@ router.route('/login').post(loginUser);
 router.route('/logout').get(logoutUser);
 router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').post(resetPassword);
+router.route('/email/generate-otp').post(isAuthenticatedUser, generateEmailOtp);
+router.route('/email/verify-otp').put(isAuthenticatedUser, verifyEmailOtp);
 router.route('/password/change').put(isAuthenticatedUser, changePassword);
 router.route('/myprofile').get(isAuthenticatedUser, getUserProfile);
 router.route('/update').put(isAuthenticatedUser, userUpload.single('avatar'), updateProfile);

@@ -108,13 +108,62 @@ const authSlice = createSlice({
                 error: action.payload
             }
         },
-        clearUpdateProfile(state, action) {
+        clearIsUpdated(state, action) {
             return {
                 ...state,
                 isUpdated: false
             }
         },
+        otpRequest(state, action) {
+            return {
+                ...state,
+                loading: true,
+                message: null
 
+            }
+        },
+        otpSuccess(state, action) {
+            return {
+                ...state,
+                loading: false,
+                message: action.payload.message
+            }
+        },
+        otpFail(state, action) {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
+        clearMessage(state, action) {
+            return {
+                ...state,
+                message: null
+            }
+        },
+        emailVerifyRequest(state, action) {
+            return {
+                ...state,
+                loading: true,
+                isUpdated: false
+            }
+        },
+        emailVerifySuccess(state, action) {
+            return {
+                ...state,
+                loading: false,
+                user: action.payload.user,
+                isUpdated: true
+            }
+        },
+        emailVerifyFail(state, action) {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
         updatePasswordRequest(state, action) {
             return {
                 ...state,
@@ -195,10 +244,17 @@ export const {
     loadUserFail,
     logoutFail,
     logoutSuccess,
-    updateProfileFail,
     updateProfileRequest,
     updateProfileSuccess,
-    clearUpdateProfile,
+    updateProfileFail,
+    clearIsUpdated,
+    otpRequest,
+    otpSuccess,
+    otpFail,
+    clearMessage,
+    emailVerifyRequest,
+    emailVerifySuccess,
+    emailVerifyFail,
     updatePasswordFail,
     updatePasswordSuccess,
     updatePasswordRequest,
