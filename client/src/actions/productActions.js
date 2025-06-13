@@ -1,6 +1,36 @@
 import axios from 'axios';
-import { productsFail, productsSuccess, productsRequest, adminProductsRequest, adminProductsSuccess, adminProductsFail } from '../slices/productsSlice';
-import { productFail, productSuccess, productRequest, createReviewRequest, createReviewSuccess, createReviewFail, newProductRequest, newProductSuccess, newProductFail, deleteProductRequest, deleteProductSuccess, deleteProductFail, updateProductRequest, updateProductSuccess, updateProductFail, reviewsRequest, reviewsSuccess, reviewsFail, deleteReviewRequest, deleteReviewSuccess, deleteReviewFail } from '../slices/productSlice';
+import {
+    productsRequest,
+    productsSuccess,
+    productsFail,
+    adminProductsRequest,
+    adminProductsSuccess,
+    adminProductsFail
+} from '../slices/productsSlice';
+
+import {
+    productRequest,
+    productSuccess,
+    productFail,
+    createReviewRequest,
+    createReviewSuccess,
+    createReviewFail,
+    newProductRequest,
+    newProductSuccess,
+    newProductFail,
+    deleteProductRequest,
+    deleteProductSuccess,
+    deleteProductFail,
+    updateProductRequest,
+    updateProductSuccess,
+    updateProductFail,
+    reviewsRequest,
+    reviewsSuccess,
+    reviewsFail,
+    deleteReviewRequest,
+    deleteReviewSuccess,
+    deleteReviewFail
+} from '../slices/productSlice';
 
 export const getProducts = (keyword, price, category, rating, currentPage) => async (dispatch) => {
 

@@ -116,6 +116,9 @@ const userSlice = createSlice({
 
 
 export const {
+    clearUserError,
+    clearIsUserUpdated,
+    clearIsUserDeleted,
     usersRequest,
     usersSuccess,
     usersFail,
@@ -123,14 +126,11 @@ export const {
     userSuccess,
     userFail,
     deleteUserRequest,
-    deleteUserFail,
     deleteUserSuccess,
+    deleteUserFail,
     updateUserRequest,
     updateUserSuccess,
-    updateUserFail,
-    clearIsUserDeleted,
-    clearIsUserUpdated,
-    clearUserError
+    updateUserFail
 
 } = userSlice.actions;
 

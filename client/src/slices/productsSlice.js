@@ -53,13 +53,13 @@ const productsSlice = createSlice({
 });
 
 export const {
+    clearProductsError,
     productsRequest,
     productsSuccess,
     productsFail,
-    adminProductsFail,
     adminProductsRequest,
     adminProductsSuccess,
-    clearProductsError
+    adminProductsFail
 
 } = productsSlice.actions;
 

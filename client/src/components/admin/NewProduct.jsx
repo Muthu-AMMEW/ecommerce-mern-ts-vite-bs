@@ -94,7 +94,7 @@ export default function NewProduct() {
         if (error) {
             toast.error(error, {
                 position: 'top-center',
-                onOpen: () => dispatch(clearError())
+                onOpen: () => dispatch(clearProductError())
             })
             return
         }

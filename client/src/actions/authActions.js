@@ -1,35 +1,35 @@
 import { toast } from 'react-toastify';
 import {
-    loginFail,
-    loginRequest,
-    loginSuccess,
-    registerFail,
     registerRequest,
     registerSuccess,
+    registerFail,
+    loginRequest,
+    loginSuccess,
+    loginFail,
     loadUserRequest,
     loadUserSuccess,
     loadUserFail,
+    logoutRequest,
     logoutSuccess,
     logoutFail,
     updateProfileRequest,
     updateProfileSuccess,
     updateProfileFail,
-    updatePasswordRequest,
-    updatePasswordSuccess,
-    updatePasswordFail,
-    forgotPasswordRequest,
-    forgotPasswordSuccess,
-    forgotPasswordFail,
-    resetPasswordRequest,
-    resetPasswordSuccess,
-    resetPasswordFail,
     otpRequest,
     otpSuccess,
     otpFail,
-    emailVerifyFail,
     emailVerifyRequest,
     emailVerifySuccess,
-    logoutRequest
+    emailVerifyFail,
+    updatePasswordFail,
+    updatePasswordSuccess,
+    updatePasswordRequest,
+    forgotPasswordFail,
+    forgotPasswordSuccess,
+    forgotPasswordRequest,
+    resetPasswordFail,
+    resetPasswordRequest,
+    resetPasswordSuccess
 } from '../slices/authSlice';
 
 import {
@@ -45,8 +45,8 @@ import {
     updateUserRequest,
     updateUserSuccess,
     updateUserFail
-
 } from '../slices/userSlice'
+
 import axios from 'axios';
 
 export const login = (email, password) => async (dispatch) => {
@@ -99,8 +99,8 @@ export const logout = async (dispatch) => {
         localStorage.clear();
         sessionStorage.clear();
         dispatch(logoutSuccess());
-        
-       // Redirect + refresh + remove previous history
+
+        // Redirect + refresh + remove previous history
         window.location.replace('/login');
     } catch (error) {
         dispatch(logoutFail)

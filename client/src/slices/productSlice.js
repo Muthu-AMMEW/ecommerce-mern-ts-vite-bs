@@ -205,34 +205,34 @@ const productSlice = createSlice({
 });
 
 export const {
+    clearProductError,
+    clearProduct,
+    clearIsProductCreated,
+    clearIsProductUpdated,
+    clearIsProductDeleted,
+    clearIsReviewSubmitted,
+    clearIsReviewDeleted,
     productRequest,
     productSuccess,
     productFail,
-    createReviewFail,
     createReviewRequest,
     createReviewSuccess,
-    clearProductError,
-    clearIsReviewSubmitted,
-    clearProduct,
-    newProductFail,
-    newProductSuccess,
+    createReviewFail,
     newProductRequest,
-    clearIsProductCreated,
-    deleteProductFail,
+    newProductSuccess,
+    newProductFail,
     deleteProductRequest,
     deleteProductSuccess,
-    clearIsProductDeleted,
-    updateProductFail,
+    deleteProductFail,
     updateProductRequest,
     updateProductSuccess,
-    clearIsProductUpdated,
+    updateProductFail,
     reviewsRequest,
-    reviewsFail,
     reviewsSuccess,
-    deleteReviewFail,
+    reviewsFail,
     deleteReviewRequest,
     deleteReviewSuccess,
-    clearIsReviewDeleted
+    deleteReviewFail
 } = productSlice.actions;
 
 export default productSlice.reducer;

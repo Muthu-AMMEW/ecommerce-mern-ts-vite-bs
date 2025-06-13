@@ -162,28 +162,28 @@ const orderSlice = createSlice({
 });
 
 export const {
-    createOrderFail,
-    createOrderSuccess,
-    createOrderRequest,
-    clearNewOrder,
     clearOrderError,
-    userOrdersFail,
-    userOrdersSuccess,
+    clearNewOrder,
+    clearIsOrderDeleted,
+    clearIsOrderUpdated,
+    createOrderRequest,
+    createOrderSuccess,
+    createOrderFail,
     userOrdersRequest,
-    orderDetailFail,
-    orderDetailSuccess,
+    userOrdersSuccess,
+    userOrdersFail,
     orderDetailRequest,
-    adminOrdersFail,
+    orderDetailSuccess,
+    orderDetailFail,
     adminOrdersRequest,
     adminOrdersSuccess,
-    deleteOrderFail,
+    adminOrdersFail,
     deleteOrderRequest,
     deleteOrderSuccess,
-    updateOrderFail,
+    deleteOrderFail,
     updateOrderRequest,
     updateOrderSuccess,
-    clearIsOrderDeleted,
-    clearIsOrderUpdated
+    updateOrderFail
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

@@ -1,4 +1,23 @@
-import { adminOrdersFail, adminOrdersRequest, adminOrdersSuccess, createOrderFail, createOrderRequest, createOrderSuccess, deleteOrderFail, deleteOrderRequest, deleteOrderSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, updateOrderFail, updateOrderRequest, updateOrderSuccess, userOrdersFail, userOrdersRequest, userOrdersSuccess } from '../slices/orderSlice';
+import {
+    createOrderRequest,
+    createOrderSuccess,
+    createOrderFail,
+    userOrdersRequest,
+    userOrdersSuccess,
+    userOrdersFail,
+    orderDetailRequest,
+    orderDetailSuccess,
+    orderDetailFail,
+    adminOrdersRequest,
+    adminOrdersSuccess,
+    adminOrdersFail,
+    deleteOrderRequest,
+    deleteOrderSuccess,
+    deleteOrderFail,
+    updateOrderRequest,
+    updateOrderSuccess,
+    updateOrderFail
+} from '../slices/orderSlice';
 import axios from 'axios';
 
 export const createOrder = order => async (dispatch) => {

@@ -249,13 +249,16 @@ const authSlice = createSlice({
 });
 
 export const {
-    loginRequest,
-    loginSuccess,
-    loginFail,
     clearAuthError,
+    clearIsUpdated,
+    clearIsVerified,
+    clearMessage,
     registerRequest,
     registerSuccess,
     registerFail,
+    loginRequest,
+    loginSuccess,
+    loginFail,
     loadUserRequest,
     loadUserSuccess,
     loadUserFail,
@@ -265,12 +268,9 @@ export const {
     updateProfileRequest,
     updateProfileSuccess,
     updateProfileFail,
-    clearIsUpdated,
-    clearIsVerified,
     otpRequest,
     otpSuccess,
     otpFail,
-    clearMessage,
     emailVerifyRequest,
     emailVerifySuccess,
     emailVerifyFail,
@@ -282,8 +282,7 @@ export const {
     forgotPasswordRequest,
     resetPasswordFail,
     resetPasswordRequest,
-    resetPasswordSuccess,
-
+    resetPasswordSuccess
 } = authSlice.actions;
 
 export default authSlice.reducer;
