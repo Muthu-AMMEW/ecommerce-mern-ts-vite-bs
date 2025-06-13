@@ -62,7 +62,17 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'unverified'
+        default: 'user'
+    },
+    verification: {
+        email: {
+            type: String,
+            default: 'unverified'
+        },
+        phoneNumber: {
+            type: String,
+            default: 'unverified'
+        }
     },
     emailVerificationCode: Number,
     emailVerificationCodeExpire: Date,

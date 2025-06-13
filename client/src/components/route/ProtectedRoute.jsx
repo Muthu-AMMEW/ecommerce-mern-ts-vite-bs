@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children, isAdmin }) {
     }
 
     if (isAuthenticated) {
-        if (authUser.role === 'unverified') {
+        if (authUser.verification.email === 'unverified') {
             // Only allow access to /myprofile/update or /verify/email
             if (
                 location.pathname !== '/myprofile/update' &&

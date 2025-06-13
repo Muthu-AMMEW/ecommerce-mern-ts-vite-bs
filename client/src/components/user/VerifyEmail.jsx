@@ -32,7 +32,7 @@ export default function VerifyEmail() {
             return
         }
 
-        if (authUser?.role !== "unverified") {
+        if (authUser?.verification?.email !== "unverified") {
             navigate('/');
             return
         }

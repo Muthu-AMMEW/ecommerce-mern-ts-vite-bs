@@ -54,18 +54,22 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
 
 })
 
-//Logout User - /api/v1/logout
+// Logout User - /api/v1/logout
 export const logoutUser = (req, res, next) => {
     res.clearCookie('token', {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
         path: '/',
-    }).status(200).json({
+    });
+
+    res.setHeader('Cache-Control', 'no-store'); // <- Prevent browser caching
+
+    res.status(200).json({
         success: true,
         message: "Logged out",
-    })
-}
+    });
+};
 
 //Generate Email OTP - POST - /api/v1/email/generate-otp
 export const generateEmailOtp = catchAsyncError(async (req, res, next) => {
@@ -125,7 +129,7 @@ export const verifyEmailOtp = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('OTP is invalid or expired', 400));
     }
 
-    user.role = 'user';
+    user.verification.email = 'verified';
     user.emailVerificationCode = undefined;
     user.emailVerificationCodeExpire = undefined;
     await user.save({ validateBeforeSave: false })
@@ -234,23 +238,19 @@ export const changePassword = catchAsyncError(async (req, res, next) => {
 
 //Update Profile - /api/v1/update
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    let newUserData;
+    let newUserData = {
+        fullName: req.body.fullName,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address
+    }
 
-    if (req.user.email == req.body.email) {
-        newUserData = {
-            fullName: req.body.fullName,
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address
-        }
-    } else {
-        newUserData = {
-            fullName: req.body.fullName,
-            email: req.body.email,
-            phoneNumber: req.body.phoneNumber,
-            address: req.body.address,
-            role: "unverified"
-        }
+    if (req.user.email !== req.body.email) {
+        newUserData["verification.email"] = "unverified";
+    }
+
+    if (req.user.phoneNumber !== req.body.phoneNumber) {
+        newUserData["verification.phoneNumber"] = "unverified";
     }
 
     let avatar = {};

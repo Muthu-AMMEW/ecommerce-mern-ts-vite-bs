@@ -28,7 +28,8 @@ import {
     otpFail,
     emailVerifyFail,
     emailVerifyRequest,
-    emailVerifySuccess
+    emailVerifySuccess,
+    logoutRequest
 } from '../slices/authSlice';
 
 import {
@@ -93,12 +94,14 @@ export const loadUser = async (dispatch) => {
 export const logout = async (dispatch) => {
 
     try {
+        dispatch(logoutRequest)
         await axios.get(`/logout`);
         localStorage.clear();
         sessionStorage.clear();
         dispatch(logoutSuccess());
-        window.history.replaceState(null, "", "/login");
-        window.location.href = '/login';
+        
+       // Redirect + refresh + remove previous history
+        window.location.replace('/login');
     } catch (error) {
         dispatch(logoutFail)
         toast.error(error, { position: 'top-center' })

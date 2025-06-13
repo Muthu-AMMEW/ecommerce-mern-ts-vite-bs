@@ -133,7 +133,7 @@ export default function UpdateProfile() {
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 my-4 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Update Profile</div>
                         <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
-                            {authUser.role === "unverified" && <div>
+                            {authUser.verification.email === "unverified" && <div>
                                 <p className="text-bg-warning p-1">First, verify your email address. Then, only access this site.</p>
                                 <p className="text-bg-info p-1">You can change on this place if you enter the wrong details, such as your email and others.</p>
                             </div>}
@@ -145,10 +145,10 @@ export default function UpdateProfile() {
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <div className='row'>
-                                    <div className={authUser.role === "unverified" ? "col-9" : "col-12"}>
+                                    <div className={authUser.verification.email === "unverified" ? "col-9" : "col-12"}>
                                         <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
                                     </div>
-                                    {authUser.role === "unverified" && <div className="col-3">
+                                    {authUser.verification.email === "unverified" && <div className="col-3">
                                         <button type="button" className="btn btn-danger" onClick={() => navigate('/verify/email')}>verify</button>
                                     </div>}
                                 </div>

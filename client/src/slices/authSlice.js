@@ -36,26 +36,6 @@ const authSlice = createSlice({
                 message: null
             }
         },
-        loginRequest(state, action) {
-            return {
-                ...state,
-                loading: true,
-            }
-        },
-        loginSuccess(state, action) {
-            return {
-                loading: false,
-                isAuthenticated: true,
-                authUser: action.payload.user
-            }
-        },
-        loginFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
         registerRequest(state, action) {
             return {
                 ...state,
@@ -70,6 +50,26 @@ const authSlice = createSlice({
             }
         },
         registerFail(state, action) {
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
+        loginRequest(state, action) {
+            return {
+                ...state,
+                loading: true,
+            }
+        },
+        loginSuccess(state, action) {
+            return {
+                loading: false,
+                isAuthenticated: true,
+                authUser: action.payload.user
+            }
+        },
+        loginFail(state, action) {
             return {
                 ...state,
                 loading: false,
@@ -96,6 +96,12 @@ const authSlice = createSlice({
                 loading: false,
             }
         },
+        logoutRequest(state, action) {
+            return {
+                ...state,
+                loading: true,
+            }
+        },
         logoutSuccess(state, action) {
             return {
                 loading: false,
@@ -105,6 +111,7 @@ const authSlice = createSlice({
         logoutFail(state, action) {
             return {
                 ...state,
+                loading: false,
                 error: action.payload
             }
         },
@@ -252,8 +259,9 @@ export const {
     loadUserRequest,
     loadUserSuccess,
     loadUserFail,
-    logoutFail,
+    logoutRequest,
     logoutSuccess,
+    logoutFail,
     updateProfileRequest,
     updateProfileSuccess,
     updateProfileFail,
