@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function UserDropDown() {
-    const { user } = useSelector(state => state.authState);
+    const { authUser } = useSelector(state => state.authState);
 
     return (
         <>
@@ -11,13 +11,13 @@ export default function UserDropDown() {
                 <a className="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <figure className='avatar avatar-nav'>
-                        <img width="50px" src={user?.avatar?.image ?? './images/default_avatar.png'} />
+                        <img width="50px" src={authUser?.avatar?.image ?? './images/default_avatar.png'} />
                     </figure>
 
                 </a>
                 <ul className="dropdown-menu">
 
-                    <li><Link to={"/myprofile"} className="dropdown-item border border-2 fw-medium">{user?.fullName}</Link>
+                    <li><Link to={"/myprofile"} className="dropdown-item border border-2 fw-medium">{authUser?.fullName}</Link>
                     </li>
 
                     <li><Link className="dropdown-item" to={"/myprofile"}>
@@ -30,7 +30,7 @@ export default function UserDropDown() {
                         </Link>
                     </li>
 
-                    {user?.role === 'admin' ? <li><Link className="dropdown-item" to={'/admin/dashboard'}><i className="fa-solid fa-bars-progress fa-fade"></i><span className="h6 m-2">Dashboard</span></Link></li> : null}
+                    {authUser?.role === 'admin' ? <li><Link className="dropdown-item" to={'/admin/dashboard'}><i className="fa-solid fa-bars-progress fa-fade"></i><span className="h6 m-2">Dashboard</span></Link></li> : null}
 
                     <li><Link className="dropdown-item fw-medium" to={'/orders'}><i className="fa-solid fa-truck-fast fa-beat-fade me-2" style={{ color: "#63E6BE" }}></i>Orders</Link>
                     </li>

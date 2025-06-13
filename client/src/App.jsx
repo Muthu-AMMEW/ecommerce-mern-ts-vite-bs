@@ -12,7 +12,7 @@ import Login from './components/user/Login';
 import Register from './components/user/Register';
 import { useEffect, useState } from 'react';
 import { store } from './store';
-import { loadUser } from './actions/userActions';
+import { loadUser } from './actions/authActions';
 import Profile from './components/user/Profile';
 import ProtectedRoute from './components/route/ProtectedRoute';
 import UpdateProfile from './components/user/UpdateProfile';

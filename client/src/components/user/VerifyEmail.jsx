@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { generateOtp, verifyEmail } from '../../actions/userActions';
+import { generateOtp, verifyEmail } from '../../actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
@@ -10,7 +10,7 @@ export default function VerifyEmail() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isVerified, error, loading, user, message } = useSelector(state => state.authState)
+    const { isVerified, error, loading, authUser, message } = useSelector(state => state.authState)
     const [inputs, setInputs] = useState({
         otp: ""
     })
@@ -32,7 +32,7 @@ export default function VerifyEmail() {
             return
         }
 
-        if (user?.role !== "unverified") {
+        if (authUser?.role !== "unverified") {
             navigate('/');
             return
         }
@@ -52,18 +52,18 @@ export default function VerifyEmail() {
             })
             return
         }
-    }, [message, isVerified, user?.role, error, dispatch])
+    }, [message, isVerified, authUser?.role, error, dispatch])
 
     function generate() {
         const formData = new FormData();
-        formData.append('email', user.email);
+        formData.append('email', authUser.email);
         dispatch(generateOtp(formData))
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData();
-        formData.append('email', user.email);
+        formData.append('email', authUser.email);
         formData.append('otp', inputs.otp);
         dispatch(verifyEmail(formData))
     }
@@ -80,7 +80,7 @@ export default function VerifyEmail() {
 
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email Address</label>
-                                <input type="email" className="form-control" id="email" name="email" value={user?.email} disabled />
+                                <input type="email" className="form-control" id="email" name="email" value={authUser?.email} disabled />
                             </div>
                             <div className="w-100 mt-3">
                                 <label htmlFor="otp" className="form-label">OTP</label>

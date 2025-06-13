@@ -14,7 +14,7 @@ import { formatRupees } from "../../utils/formatRupees";
 
 export default function ProductDetail() {
     const { loading, product = {}, isReviewSubmitted, error } = useSelector((state) => state.productState);
-    const { user } = useSelector(state => state.authState);
+    const { authUser } = useSelector(state => state.authState);
     const { cartItems } = useSelector(state => state.cartState);
     const dispatch = useDispatch();
     const { id } = useParams()
@@ -153,7 +153,7 @@ export default function ProductDetail() {
                             <h6 className="card-text text-danger">Category: {product.category}</h6>
                             <hr />
                             <h6>Sold by: <strong>{product.seller}</strong></h6>
-                            {user ?
+                            {authUser ?
                                 <div className="text-center">
                                     <button onClick={handleShow} type="button" className="btn btn-warning mt-4" data-toggle="modal" data-target="#ratingModal">
                                         Submit Your Review

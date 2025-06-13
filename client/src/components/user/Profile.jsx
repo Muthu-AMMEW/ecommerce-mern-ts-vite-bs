@@ -4,7 +4,7 @@ import { istDateTime } from '../../utils/istDateTime';
 import MetaData from '../layouts/MetaData';
 
 export default function Profile() {
-    const { user } = useSelector(state => state.authState);
+    const { authUser } = useSelector(state => state.authState);
 
     return (
         <>
@@ -14,7 +14,7 @@ export default function Profile() {
                     <div className='row'>
                         <div className='col-12 text-center mt-1 mb-4 mt-md-5'>
 
-                            <img className="rounded-circle object-fit-cover" src={user.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
+                            <img className="rounded-circle object-fit-cover" src={authUser.avatar?.image ?? './images/default_avatar.png'} alt='...' width={300} height={300} />
 
                         </div>
                         <div className='col-12 text-center'>
@@ -26,23 +26,23 @@ export default function Profile() {
                 </div>
                 <div className='col-12 col-md-6 ps-5 pt-5'>
                     <h4>Full Name</h4>
-                    <p>{user.fullName}</p>
+                    <p>{authUser.fullName}</p>
 
                     <h4>Email Address</h4>
-                    <p>{user.email}</p>
+                    <p>{authUser.email}</p>
 
                     <h4>Joined</h4>
-                    <p className='pb-3'>{istDateTime(user.createdAt)}</p>
+                    <p className='pb-3'>{istDateTime(authUser.createdAt)}</p>
 
                     <h4>Address</h4>
-                    {user.address ?
-                        <p className='w-50'>{`${user.address?.addressLine1},
-                                    \n${user.address?.addressLine2},
-                                    \n${user.address?.city}, ${user.address?.state},
-                                    \n${user.address?.country}, Postal Code: ${user.address?.postalCode}.`}</p> : <br />}
+                    {authUser.address ?
+                        <p className='w-50'>{`${authUser.address?.addressLine1},
+                                    \n${authUser.address?.addressLine2},
+                                    \n${authUser.address?.city}, ${authUser.address?.state},
+                                    \n${authUser.address?.country}, Postal Code: ${authUser.address?.postalCode}.`}</p> : <br />}
 
                     <h4>Phone Number</h4>
-                    <p>{user.phoneNumber}</p>
+                    <p>{authUser.phoneNumber}</p>
                 </div>
             </div>
         </>

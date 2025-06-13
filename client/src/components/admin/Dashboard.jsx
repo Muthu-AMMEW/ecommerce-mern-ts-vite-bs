@@ -2,7 +2,7 @@ import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { getAdminProducts } from "../../actions/productActions";
-import { getUsers } from '../../actions/userActions'
+import { getUsers } from '../../actions/authActions'
 import { adminOrders as adminOrdersAction } from '../../actions/orderActions'
 import { Link } from "react-router-dom";
 import MetaData from "../layouts/MetaData";

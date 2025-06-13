@@ -8,7 +8,7 @@ import { formatRupees } from '../../utils/formatRupees';
 
 export default function ConfirmOrder() {
     const { shippingInfo, cartItems } = useSelector(state => state.cartState);
-    const { user } = useSelector(state => state.authState);
+    const { authUser } = useSelector(state => state.authState);
     const navigate = useNavigate();
     const itemsPrice = cartItems.reduce((acc, item) => (acc + item.price * item.quantity), 0);
     const shippingPrice = itemsPrice > 200 ? 0 : 25;
@@ -56,7 +56,7 @@ export default function ConfirmOrder() {
                                 <h4 className="mb-3">Shipping Info</h4>
                                 <div className="row">
                                     <div className="col-12 col-sm-5 col-md-4">
-                                        <p><b>Name:</b> {user.fullName}</p>
+                                        <p><b>Name:</b> {authUser.fullName}</p>
                                         <p><b>Phone:</b> {shippingInfo.phoneNumber}</p>
                                     </div>
                                     <div className="col-12 col-sm text-start">

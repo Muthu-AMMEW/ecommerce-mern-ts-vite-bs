@@ -11,7 +11,7 @@ import MetaData from "../layouts/MetaData";
 
 export default function Shipping() {
     const { shippingInfo = {}, cartItems, loading } = useSelector(state => state.cartState)
-    const { user } = useSelector(state => state.authState)
+    const { authUser } = useSelector(state => state.authState)
 
     const [inputs, setInputs] = useState({
         fullName: "",
@@ -32,17 +32,17 @@ export default function Shipping() {
 
         setInputs(shippingInfo);
         if (!shippingInfo.fullName) {
-            if (user.address) {
+            if (authUser.address) {
                 setInputs(values => ({
                     ...values,
-                    fullName: user.fullName,
-                    addressLine1: user.address.addressLine1,
-                    addressLine2: user.address.addressLine2,
-                    city: user.address.city,
-                    state: user.address.state,
-                    country: user.address.country,
-                    postalCode: user.address.postalCode,
-                    phoneNumber: user.phoneNumber
+                    fullName: authUser.fullName,
+                    addressLine1: authUser.address.addressLine1,
+                    addressLine2: authUser.address.addressLine2,
+                    city: authUser.address.city,
+                    state: authUser.address.state,
+                    country: authUser.address.country,
+                    postalCode: authUser.address.postalCode,
+                    phoneNumber: authUser.phoneNumber
                 }));
 
             }

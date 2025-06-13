@@ -17,7 +17,7 @@ export default function Payment() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
-    const { user } = useSelector(state => state.authState)
+    const { authUser } = useSelector(state => state.authState)
     const { cartItems, shippingInfo } = useSelector(state => state.cartState)
     const { error: orderError, newOrderDetail } = useSelector(state => state.orderState)
     const [loading, setLoading] = useState(false)
@@ -33,11 +33,11 @@ export default function Payment() {
                 order_id: newOrderDetail.paymentInfo.pgOrderId,
                 // callback_url: '/order/success', // optional
 
-                // Optional: Pre-filled user details
+                // Optional: Pre-filled authUser details
                 prefill: {
-                    name: user.fullName,
-                    email: user.email,
-                    contact: user.phoneNumber
+                    name: authUser.fullName,
+                    email: authUser.email,
+                    contact: authUser.phoneNumber
                 },
                 theme: {
                     color: '#F37254'
@@ -140,9 +140,9 @@ export default function Payment() {
                 taxPrice: orderInfo.taxPrice,
                 totalPrice: orderInfo.totalPrice,
                 paymentInfo: {
-                    payerName: user.fullName,
-                    payerEmailId: user.email,
-                    payerPhoneNumber: user.phoneNumber,
+                    payerName: authUser.fullName,
+                    payerEmailId: authUser.email,
+                    payerPhoneNumber: authUser.phoneNumber,
                     currency: "INR"
                 },
             }

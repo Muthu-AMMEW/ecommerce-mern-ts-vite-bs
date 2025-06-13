@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { forgotPassword } from "../../actions/userActions";
+import { forgotPassword } from "../../actions/authActions";
 import MetaData from "../layouts/MetaData";
 import { clearAuthError } from "../../slices/authSlice";
 

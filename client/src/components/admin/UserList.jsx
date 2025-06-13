@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { deleteUser, getUsers } from "../../actions/userActions"
+import { deleteUser, getUsers } from "../../actions/authActions"
 import { clearUserError, clearIsUserDeleted } from "../../slices/userSlice"
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact';
@@ -12,7 +12,7 @@ import MetaData from "../layouts/MetaData"
 
 export default function UserList() {
     const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState);
-    const { user: authUser } = useSelector(state => state.authState);
+    const { authUser } = useSelector(state => state.authState);
     const dispatch = useDispatch();
     let sno = 0;
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
-import { getUser } from "../../actions/userActions";
+import { getUser } from "../../actions/authActions";
 import { clearUserError } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
@@ -12,7 +12,7 @@ import { istDateTime } from "../../utils/istDateTime";
 export default function UserDetails() {
     const { id } = useParams();
     const { loading, error, user } = useSelector(state => state.userState)
-    const { user: authUser } = useSelector(state => state.authState)
+    const { authUser } = useSelector(state => state.authState)
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        loading: true,
+        loading: false,
+        authUser: {},
         isAuthenticated: false,
         error: null,
         isUpdated: false,
@@ -45,7 +46,7 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                authUser: action.payload.user
             }
         },
         loginFail(state, action) {
@@ -65,7 +66,7 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                authUser: action.payload.user
             }
         },
         registerFail(state, action) {
@@ -86,7 +87,7 @@ const authSlice = createSlice({
             return {
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                authUser: action.payload.user
             }
         },
         loadUserFail(state, action) {
@@ -118,7 +119,7 @@ const authSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                user: action.payload.user,
+                authUser: action.payload.user,
                 isUpdated: true
             }
         },
@@ -162,7 +163,7 @@ const authSlice = createSlice({
             return {
                 ...state,
                 loading: false,
-                user: action.payload.user,
+                authUser: action.payload.user,
                 isVerified: true
             }
         },
@@ -226,7 +227,7 @@ const authSlice = createSlice({
                 ...state,
                 loading: false,
                 isAuthenticated: true,
-                user: action.payload.user
+                authUser: action.payload.user
             }
         },
         resetPasswordFail(state, action) {

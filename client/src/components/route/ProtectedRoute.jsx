@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 
 export default function ProtectedRoute({ children, isAdmin }) {
-    const { isAuthenticated, loading, user } = useSelector(state => state.authState);
+    const { isAuthenticated, loading, authUser } = useSelector(state => state.authState);
     const location = useLocation();
 
     if (loading) {
@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children, isAdmin }) {
     }
 
     if (isAuthenticated) {
-        if (user.role === 'unverified') {
+        if (authUser.role === 'unverified') {
             // Only allow access to /myprofile/update or /verify/email
             if (
                 location.pathname !== '/myprofile/update' &&
@@ -26,7 +26,7 @@ export default function ProtectedRoute({ children, isAdmin }) {
             return children;
         }
 
-        if (isAdmin === true && user.role !== 'admin') {
+        if (isAdmin === true && authUser.role !== 'admin') {
             return <Navigate to="/" replace />;
         }
 

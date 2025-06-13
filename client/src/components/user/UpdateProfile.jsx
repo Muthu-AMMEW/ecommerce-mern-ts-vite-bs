@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify";
-import { updateProfile } from "../../actions/userActions";
+import { updateProfile } from "../../actions/authActions";
 import { clearAuthError, clearIsUpdated } from "../../slices/authSlice";
 import { countries } from 'countries-list';
 import MetaData from "../layouts/MetaData";
 import { useNavigate } from "react-router-dom";
 
 export default function UpdateProfile() {
-    const { loading, error, user, isUpdated } = useSelector(state => state.authState);
+    const { loading, error, authUser, isUpdated } = useSelector(state => state.authState);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const countryList = Object.values(countries);
@@ -82,28 +82,28 @@ export default function UpdateProfile() {
     }
 
     useEffect(() => {
-        if (user) {
+        if (authUser) {
             setInputs(values => ({
                 ...values,
-                fullName: user.fullName,
-                email: user.email,
-                phoneNumber: user.phoneNumber
+                fullName: authUser.fullName,
+                email: authUser.email,
+                phoneNumber: authUser.phoneNumber
             }));
-            if (user.address) {
+            if (authUser.address) {
                 setAddressInputs(values => ({
                     ...values,
-                    addressLine1: user.address.addressLine1,
-                    addressLine2: user.address.addressLine2,
-                    city: user.address.city,
-                    state: user.address.state,
-                    country: user.address.country,
-                    postalCode: user.address.postalCode
+                    addressLine1: authUser.address.addressLine1,
+                    addressLine2: authUser.address.addressLine2,
+                    city: authUser.address.city,
+                    state: authUser.address.state,
+                    country: authUser.address.country,
+                    postalCode: authUser.address.postalCode
                 }))
             }
 
-            if (user.avatar) {
-                setAvatar(user.avatar.image)
-                setAvatarPreview(user.avatar.image)
+            if (authUser.avatar) {
+                setAvatar(authUser.avatar.image)
+                setAvatarPreview(authUser.avatar.image)
             }
         }
 
@@ -122,7 +122,7 @@ export default function UpdateProfile() {
             })
             return
         }
-    }, [user, isUpdated, error, dispatch])
+    }, [authUser, isUpdated, error, dispatch])
 
     return (
         <>
@@ -133,7 +133,7 @@ export default function UpdateProfile() {
                     <div className="d-flex flex-column justify-content-center align-items-center w-100 p-5 my-4 rounded-5 bg-body-tertiary bg-opacity-50">
                         <div className='text-center h2'>Update Profile</div>
                         <form className="w-100 mm-input-box-color" onSubmit={handleSubmit} encType='multipart/form-data'>
-                            {user.role === "unverified" && <div>
+                            {authUser.role === "unverified" && <div>
                                 <p className="text-bg-warning p-1">First, verify your email address. Then, only access this site.</p>
                                 <p className="text-bg-info p-1">You can change on this place if you enter the wrong details, such as your email and others.</p>
                             </div>}
@@ -145,10 +145,10 @@ export default function UpdateProfile() {
                             <div className="w-100 mt-3">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <div className='row'>
-                                    <div className={user.role === "unverified" ? "col-9" : "col-12"}>
+                                    <div className={authUser.role === "unverified" ? "col-9" : "col-12"}>
                                         <input type="email" className="form-control" id="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your email address" required />
                                     </div>
-                                    {user.role === "unverified" && <div className="col-3">
+                                    {authUser.role === "unverified" && <div className="col-3">
                                         <button type="button" className="btn btn-danger" onClick={() => navigate('/verify/email')}>verify</button>
                                     </div>}
                                 </div>

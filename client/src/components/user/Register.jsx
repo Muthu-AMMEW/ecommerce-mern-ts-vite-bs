@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '../../actions/userActions'
+import { register } from '../../actions/authActions'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
