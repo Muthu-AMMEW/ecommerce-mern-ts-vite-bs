@@ -20,10 +20,26 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    images: {
-        type: Array,
-        required: [true, "Please upload product images"]
-    },
+    images: [{
+        id: {
+            type: mongoose.Schema.Types.ObjectId
+        },
+        fieldname: {
+            type: String
+        },
+        filename: {
+            type: String
+        },
+        mimetype: {
+            type: String
+        },
+        uploadDate: {
+            type: Date
+        },
+        image: {
+            type: String
+        }
+    }],
     category: {
         type: String,
         required: [true, "Please enter product category"],

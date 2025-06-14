@@ -1,15 +1,80 @@
+import mongoose from 'mongoose';
 import multer from 'multer';
-import { GridFsStorage } from 'multer-gridfs-storage';
+import { GridFSBucket } from 'mongodb';
+
 import dotenv from 'dotenv';
 dotenv.config({ path: `server/config/.env.${process.env.NODE_ENV}` });
-const storage = new GridFsStorage({
-    url: process.env.DB_STORAGE_URI,
-    file: (req, file) => {
-        return {
-            filename: file.originalname,
-            bucketName: 'images', // collection name
-        };
-    },
+
+// Use memory storage for multer
+const storage = multer.memoryStorage();
+const multerUpload = multer({ storage });
+
+// Global GridFSBucket instance
+let gfsBucket;
+
+// Create separate Mongoose connection for image DB
+const imageDbConnection = mongoose.createConnection(process.env.DB_STORAGE_URI);
+
+imageDbConnection.once('open', () => {
+  gfsBucket = new GridFSBucket(imageDbConnection.db, {
+    bucketName: 'images',
+  });
+//   console.log('✅ GridFSBucket is ready on image DB');
 });
 
-export const upload = multer({ storage });
+imageDbConnection.on('error', (err) => {
+  console.error('❌ Error connecting to image DB:', err);
+});
+
+// Upload buffer to GridFS
+const uploadBufferToGridFS = (file) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = gfsBucket.openUploadStream(file.originalname, {
+      contentType: file.mimetype,
+    });
+
+    uploadStream.end(file.buffer);
+
+    uploadStream.on('finish', () => {
+      resolve({
+        ...file,
+        id: uploadStream.id,
+        filename: uploadStream.filename,
+        uploadDate: new Date(),
+        bucketName: gfsBucket.s._bucketName,
+      });
+    });
+
+    uploadStream.on('error', reject);
+  });
+};
+
+// Middleware: Handle single file
+const handleSingleUpload = async (req, res, next) => {
+  if (!req.file) return next();
+  try {
+    req.file = await uploadBufferToGridFS(req.file);
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Middleware: Handle multiple files
+const handleArrayUpload = async (req, res, next) => {
+  if (!req.files || !Array.isArray(req.files)) return next();
+  try {
+    req.files = await Promise.all(req.files.map(uploadBufferToGridFS));
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Expose API like multer-gridfs-storage
+const upload = {
+  single: (field) => [multerUpload.single(field), handleSingleUpload],
+  array: (field) => [multerUpload.array(field), handleArrayUpload],
+};
+
+export { upload };

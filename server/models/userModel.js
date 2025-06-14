@@ -58,7 +58,24 @@ const userSchema = new mongoose.Schema({
 
     },
     avatar: {
-        type: Object
+        id: {
+            type: mongoose.Schema.Types.ObjectId
+        },
+        fieldname: {
+            type: String
+        },
+        filename: {
+            type: String
+        },
+        mimetype: {
+            type: String
+        },
+        uploadDate: {
+            type: Date
+        },
+        image: {
+            type: String
+        }
     },
     role: {
         type: String,
