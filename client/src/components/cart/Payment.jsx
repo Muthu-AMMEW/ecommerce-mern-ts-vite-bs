@@ -28,7 +28,7 @@ export default function Payment() {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID,
                 amount: newOrderDetail.totalPrice,
                 currency: newOrderDetail.paymentInfo.currency,
-                name: 'Easwaran',
+                name: 'Ecommerce',
                 description: 'Test Transaction',
                 order_id: newOrderDetail.paymentInfo.pgOrderId,
                 // callback_url: '/order/success', // optional

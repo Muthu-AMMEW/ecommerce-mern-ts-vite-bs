@@ -73,11 +73,11 @@ export default function Login() {
                             <div className="d-flex justify-content-between w-100 mt-3">
                                 <div className="form-check">
                                     <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="remember" value={inputs.remember} onChange={handleChange} /> Remember me
+                                        <input className="form-check-input" type="checkbox" name="remember" value={inputs.remember} onChange={handleChange} /> Remember me 
                                     </label>
 
                                 </div>
-                                <div><Link to="/password/forgot" className="fw-bold">Forget Password?</Link></div>
+                                <div><Link to="/password/forgot" className="fw-bold"> Forget Password?</Link></div>
                             </div>
                             <div className="mt-3 text-center">
                                 {loading ?
