@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, StaticRouter, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
 import { formatRupees } from '../../utils/formatRupees';
 import MetaData from '../layouts/MetaData';
 
 export default function Cart() {
     const { cartItems } = useSelector(state => state.cartState)
+    const { isAuthenticated } = useSelector(state => state.authState)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,7 +25,11 @@ export default function Cart() {
     }
 
     const checkoutHandler = () => {
-        navigate('/login?redirect=shipping')
+        if (isAuthenticated) {
+            navigate('/shipping');
+        } else {
+            navigate('/login?redirect=shipping')
+        }
     }
 
 
@@ -81,8 +86,8 @@ export default function Cart() {
                             <div className='border rounded-5 p-5'>
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <h6 className='m-4'>Subtotal:  <span className='badge text-bg-warning'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Units)</span></h6>
-                                <h6 className='m-4'>Est. total: <span className='badge text-bg-warning'>{formatRupees(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0))}</span></h6>
+                                <h6 className='m-4'>Total:  <span className='badge text-bg-warning'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Items)</span></h6>
+                                <h6 className='m-4'>Est. Amount: <span className='badge text-bg-warning'>{formatRupees(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0))}</span></h6>
 
                                 <hr />
                                 <button onClick={checkoutHandler} className="btn btn-success">Check out</button>

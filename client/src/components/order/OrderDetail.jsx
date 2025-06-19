@@ -11,7 +11,7 @@ import { istDateTime } from '../../utils/istDateTime';
 
 export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
-    const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt } = orderDetail;
+    const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt, returnedAt } = orderDetail;
     const [orderStatus, setOrderStatus] = useState("Processing");
     const { id: orderId } = useParams();
 
@@ -82,7 +82,8 @@ export default function OrderDetail() {
                                             <div className="my-1"><span className='fw-bold'>Transaction ID : </span>{paymentInfo.paymentId}</div>
                                             <div className="my-1"><span className='fw-bold'>Payment Status : </span>{paymentInfo.paymentStatus}</div>
                                             <div className="my-1"><span className='fw-bold'>Gateway Order ID : </span>{paymentInfo.pgOrderId}</div>
-                                            {deliveredAt && <div className="my-1"><span className='fw-bold'>Deliverd Date : </span>{istDateTime(deliveredAt)}</div>}
+                                            {deliveredAt && <div className="my-1"><span className='fw-bold'>Delivered Date : </span>{istDateTime(deliveredAt)}</div>}
+                                            {returnedAt && <div className="my-1"><span className='fw-bold'>Returned Date : </span>{istDateTime(returnedAt)}</div>}
 
                                         </div>
                                         <div className="col-12 col-lg-6 px-md-5 px-lg-2 mt-md-2">

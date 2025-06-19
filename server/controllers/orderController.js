@@ -136,6 +136,10 @@ export const cancelOrder = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('Order has been already delivered!', 400))
     }
 
+    if (order.orderStatus == 'Returned') {
+        return next(new ErrorHandler('Order has been already retured!', 400))
+    }
+
     if (order.orderStatus == 'Cancelled') {
         return next(new ErrorHandler('Order has been already Cancelled!', 400))
     }
@@ -195,12 +199,20 @@ export const updateOrder = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('Already in processing!', 400))
     }
 
+    if (order.orderStatus == 'Processing' && req.body.orderStatus == 'Returned') {
+        return next(new ErrorHandler('Item is not shipped', 400))
+    }
+
     if (order.orderStatus == 'Shipped' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Order has been already shipped!', 400))
     }
 
-    if (order.orderStatus == 'Delivered') {
+    if (order.orderStatus == 'Delivered' && req.body.orderStatus != 'Returned') {
         return next(new ErrorHandler('Order has been already delivered!', 400))
+    }
+
+    if (order.orderStatus == 'Returned') {
+        return next(new ErrorHandler('Order has been already retured!', 400))
     }
 
     if (order.orderStatus == 'Cancelled') {
@@ -210,6 +222,13 @@ export const updateOrder = catchAsyncError(async (req, res, next) => {
     order.orderStatus = req.body.orderStatus;
     if (req.body.orderStatus == 'Delivered') {
         order.deliveredAt = Date.now();
+
+    }
+    if (req.body.orderStatus == 'Returned') {
+        order.returnedAt = Date.now();
+        order.orderItems.forEach(async orderItem => {
+            await addStock(orderItem._id, orderItem.quantity)
+        })
     }
     await order.save();
 
