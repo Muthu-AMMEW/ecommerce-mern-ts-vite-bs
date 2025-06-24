@@ -15,7 +15,7 @@ export default function Search() {
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
-            searchHandler();
+            searchHandler(e);
         }
     };
 

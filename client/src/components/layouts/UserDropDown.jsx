@@ -11,7 +11,7 @@ export default function UserDropDown() {
                 <a className="nav-link dropdown-toggle" href="javascript:void(0)" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <figure className='avatar avatar-nav'>
-                        <img width="50px" src={authUser?.avatar?.image ?? './images/default_avatar.png'} />
+                        <img width="50px" src={authUser?.avatar?.image ?? '/images/default_avatar.png'} />
                     </figure>
 
                 </a>
