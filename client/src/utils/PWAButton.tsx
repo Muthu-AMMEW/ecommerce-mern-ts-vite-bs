@@ -1,4 +1,4 @@
-// src/utils/PWAButton.jsx
+// src/utils/PWAButton.tsx
 import usePWAInstallPrompt from './usePWAInstallPrompt';
 
 function PWAButton() {
