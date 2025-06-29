@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
+
+const initialState: any = {
+    orderDetail: {},
+    newOrderDetail: {},
+    userOrders: [],
+    adminOrders: [],
+    loading: false,
+    isOrderDeleted: false,
+    isOrderUpdated: false,
+    error: null
+}
 
 const orderSlice = createSlice({
     name: 'order',
-    initialState: {
-        orderDetail: {},
-        newOrderDetail: {},
-        userOrders: [],
-        adminOrders: [],
-        loading: false,
-        isOrderDeleted: false,
-        isOrderUpdated: false,
-        error: null
-    },
+    initialState,
     reducers: {
         clearNewOrder(state, action) {
             return {

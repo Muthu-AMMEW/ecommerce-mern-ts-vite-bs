@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
 
+const initialState: any = {
+    loading: false,
+    user: {},
+    users: [],
+    error: null,
+    isUserUpdated: false,
+    isUserDeleted: false
+}
 
 const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        loading: false,
-        user: {},
-        users: [],
-        error: null,
-        isUserUpdated: false,
-        isUserDeleted: false
-    },
+    initialState,
     reducers: {
         clearUserError(state, action) {
             return {

@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
 
+const initialState: any = {
+    loading: false
+}
 
 const productsSlice = createSlice({
     name: 'products',
-    initialState: {
-        loading: false
-    },
+    initialState,
     reducers: {
         clearProductsError(state, action) {
             return {

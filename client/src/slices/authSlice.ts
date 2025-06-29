@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
+
+const initialState: any = {
+    loading: false,
+    authUser: {},
+    isAuthenticated: false,
+    error: null,
+    isUpdated: false,
+    isVerified: false,
+    message: null
+}
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState: {
-        loading: false,
-        authUser: {},
-        isAuthenticated: false,
-        error: null,
-        isUpdated: false,
-        isVerified: false,
-        message: null
-    },
+    initialState,
     reducers: {
         clearAuthError(state, action) {
             return {
