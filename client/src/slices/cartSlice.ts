@@ -2,16 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: any = {
-    cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+    cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')!) : [],
     loading: false,
-    shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {}
+    shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')!) : {}
 }
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addCartItemRequest(state, action) {
+        addCartItemRequest(state) {
             return {
                 ...state,
                 loading: true
@@ -75,7 +75,7 @@ const cartSlice = createSlice({
                 shippingInfo: action.payload
             }
         },
-        orderCompleted(state, action) {
+        orderCompleted() {
             localStorage.removeItem('shippingInfo');
             localStorage.removeItem('cartItems');
             sessionStorage.removeItem('orderInfo');

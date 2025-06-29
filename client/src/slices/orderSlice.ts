@@ -16,31 +16,31 @@ const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
-        clearNewOrder(state, action) {
+        clearNewOrder(state) {
             return {
                 ...state,
                 newOrderDetail: {}
             }
         },
-        clearOrderError(state, action) {
+        clearOrderError(state) {
             return {
                 ...state,
                 error: null
             }
         },
-        clearIsOrderDeleted(state, action) {
+        clearIsOrderDeleted(state) {
             return {
                 ...state,
                 isOrderDeleted: false
             }
         },
-        clearIsOrderUpdated(state, action) {
+        clearIsOrderUpdated(state) {
             return {
                 ...state,
                 isOrderUpdated: false
             }
         },
-        createOrderRequest(state, action) {
+        createOrderRequest(state) {
             return {
                 ...state,
                 loading: true
@@ -60,7 +60,7 @@ const orderSlice = createSlice({
                 error: action.payload
             }
         },
-        userOrdersRequest(state, action) {
+        userOrdersRequest(state) {
             return {
                 ...state,
                 loading: true
@@ -80,7 +80,7 @@ const orderSlice = createSlice({
                 error: action.payload
             }
         },
-        orderDetailRequest(state, action) {
+        orderDetailRequest(state) {
             return {
                 ...state,
                 loading: true
@@ -100,7 +100,7 @@ const orderSlice = createSlice({
                 error: action.payload
             }
         },
-        adminOrdersRequest(state, action) {
+        adminOrdersRequest(state) {
             return {
                 ...state,
                 loading: true
@@ -121,13 +121,13 @@ const orderSlice = createSlice({
             }
         },
 
-        deleteOrderRequest(state, action) {
+        deleteOrderRequest(state) {
             return {
                 ...state,
                 loading: true
             }
         },
-        deleteOrderSuccess(state, action) {
+        deleteOrderSuccess(state) {
             return {
                 ...state,
                 loading: false,
@@ -141,13 +141,13 @@ const orderSlice = createSlice({
                 error: action.payload
             }
         },
-        updateOrderRequest(state, action) {
+        updateOrderRequest(state) {
             return {
                 ...state,
                 loading: true
             }
         },
-        updateOrderSuccess(state, action) {
+        updateOrderSuccess(state) {
             return {
                 ...state,
                 loading: false,
