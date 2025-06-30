@@ -109,7 +109,7 @@ export default function ConfirmOrder() {
                                 <h6 className='m-4'>Tax: <span className='badge text-bg-warning'>{formatRupees(taxPrice)}</span></h6>
 
                                 <hr />
-                                <h6 className='m-4'>Total: <span className='badge text-bg-warning'>{formatRupees(totalPrice)}</span></h6>
+                                <h6 className='m-4'>Total: <span className='badge text-bg-warning'>{formatRupees(Number(totalPrice))}</span></h6>
 
                                 <hr />
                                 <button className="btn btn-success btn-block" onClick={processPayment}>Proceed to Payment</button>

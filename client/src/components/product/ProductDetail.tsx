@@ -17,10 +17,10 @@ export default function ProductDetail() {
     const { authUser } = useAppSelector(state => state.authState);
     const { cartItems } = useAppSelector(state => state.cartState);
     const dispatch = useAppDispatch();
-    const { id } = useParams()
+    const { id } = useParams<{ id: string }>();
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();
-    const itemExist = cartItems.find((item) => item._id === product._id);
+    const itemExist = cartItems.find((item: any) => item._id === product._id);
 
     function increaseQty() {
         if (itemExist) {
@@ -63,9 +63,9 @@ export default function ProductDetail() {
 
     const reviewHandler = () => {
         const formData = new FormData();
-        formData.append('rating', rating);
+        formData.append('rating', rating.toString());
         formData.append('comment', comment);
-        formData.append('productId', id);
+        formData.append('productId', id!);
         dispatch(createReview(formData))
 
     }
@@ -87,7 +87,7 @@ export default function ProductDetail() {
             navigate('/home');
         }
         if (!product._id || isReviewSubmitted) {
-            dispatch(getProduct(id))
+            dispatch(getProduct(id!))
         }
 
         return () => {
@@ -107,7 +107,7 @@ export default function ProductDetail() {
                     <div className="row">
                         <div className="col-12 col-lg-7 mt-lg-5 text-center">
                             <Carousel pause="hover">
-                                {product.images && product.images.length > 0 && product.images.map(image =>
+                                {product.images && product.images.length > 0 && product.images.map((image: any) =>
                                     <Carousel.Item key={image.filename}>
                                         <img className="d-block w-100 h-auto object-fit-contain rounded-5 bg-body-secondary" style={{ maxHeight: '600px' }}
                                             src={image.image} alt={product.name} />
@@ -177,8 +177,8 @@ export default function ProductDetail() {
                                                         value={star}
                                                         onClick={() => setRating(star)}
                                                         className={`star ${star <= rating ? 'orange' : ''}`}
-                                                        onMouseOver={(e) => e.target.classList.add('yellow')}
-                                                        onMouseOut={(e) => e.target.classList.remove('yellow')}
+                                                        onMouseOver={(e) => (e.target as HTMLElement).classList.add('yellow')}
+                                                        onMouseOut={(e) => (e.target as HTMLElement).classList.remove('yellow')}
 
                                                     ><i className="fa fa-star"></i></li>
                                                 ))

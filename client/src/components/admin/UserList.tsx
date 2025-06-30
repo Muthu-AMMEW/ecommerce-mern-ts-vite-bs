@@ -17,7 +17,7 @@ export default function UserList() {
     let sno = 0;
 
     const setUsers = () => {
-        const data = {
+        const data: { columns: any[]; rows: any[] } = {
             columns: [
                 {
                     label: 'S.No ↕',
@@ -63,7 +63,7 @@ export default function UserList() {
             rows: []
         }
 
-        users.forEach(user => {
+        users.forEach((user: any) => {
             data.rows.push({
                 sno: ++sno,
                 id: <Link to={`/admin/user/${user._id}`} className="text-primary">{user._id}</Link>,
@@ -85,7 +85,7 @@ export default function UserList() {
         return data;
     }
 
-    const deleteHandler = (e, id) => {
+    const deleteHandler = (e: any, id: string) => {
         e.target.disabled = true;
         dispatch(deleteUser(id))
     }

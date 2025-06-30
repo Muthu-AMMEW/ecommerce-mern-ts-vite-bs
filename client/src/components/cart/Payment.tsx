@@ -62,7 +62,7 @@ export default function Payment() {
                             toast.error('Payment verification failed', { position: 'top-center' });
                             setLoading(false);
                         }
-                    } catch (error) {
+                    } catch (error: unknown) {
                         toast.error(error.message || 'Error verifying payment', { position: 'top-center' });
                         setLoading(false);
                     }
@@ -82,7 +82,7 @@ export default function Payment() {
 
             rzp.open();
 
-        } catch (error) {
+        } catch (error: unknown) {
             toast.error(error.message, { position: 'top-center' });
             setLoading(false);
         }

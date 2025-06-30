@@ -49,6 +49,7 @@ import {
 
 import axios from 'axios';
 import { AppDispatch } from '../store';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 
 export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
 
@@ -57,7 +58,7 @@ export const login = (email: string, password: string) => async (dispatch: AppDi
         const { data } = await axios.post(`/login`, { email, password });
         dispatch(loginSuccess(data))
     } catch (error) {
-        dispatch(loginFail(error.response.data.message))
+        dispatch(loginFail(extractErrorMessage(error)))
     }
 
 }
@@ -75,7 +76,7 @@ export const register = (userData: any) => async (dispatch: AppDispatch) => {
         const { data } = await axios.post(`/register`, userData, config);
         dispatch(registerSuccess(data))
     } catch (error) {
-        dispatch(registerFail(error.response.data.message))
+        dispatch(registerFail(extractErrorMessage(error)))
     }
 
 }
@@ -87,7 +88,7 @@ export const loadUser = async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/myprofile`);
         dispatch(loadUserSuccess(data))
     } catch (error) {
-        dispatch(loadUserFail(error.response.data.message))
+        dispatch(loadUserFail(extractErrorMessage(error)))
     }
 
 }
@@ -104,8 +105,8 @@ export const logout = async (dispatch: AppDispatch) => {
         // Redirect + refresh + remove previous history
         window.location.replace('/login');
     } catch (error) {
-        dispatch(logoutFail)
-        toast.error(error, { position: 'top-center' })
+        dispatch(logoutFail(extractErrorMessage(error)))
+        toast.error(extractErrorMessage(error), { position: 'top-center' })
     }
 
 }
@@ -123,7 +124,7 @@ export const updateProfile = (userData: any) => async (dispatch: AppDispatch) =>
         const { data } = await axios.put(`/update`, userData, config);
         dispatch(updateProfileSuccess(data))
     } catch (error) {
-        dispatch(updateProfileFail(error.response.data.message))
+        dispatch(updateProfileFail(extractErrorMessage(error)))
     }
 
 }
@@ -142,7 +143,7 @@ export const generateOtp = (userData: any) => async (dispatch: AppDispatch) => {
         const { data } = await axios.post(`/email/generate-otp`, userData, config);
         dispatch(otpSuccess(data))
     } catch (error) {
-        dispatch(otpFail(error.response.data.message))
+        dispatch(otpFail(extractErrorMessage(error)))
     }
 
 }
@@ -160,7 +161,7 @@ export const verifyEmail = (userData: any) => async (dispatch: AppDispatch) => {
         const { data } = await axios.put(`/email/verify-otp`, userData, config);
         dispatch(emailVerifySuccess(data))
     } catch (error) {
-        dispatch(emailVerifyFail(error.response.data.message))
+        dispatch(emailVerifyFail(extractErrorMessage(error)))
     }
 
 }
@@ -177,7 +178,7 @@ export const updatePassword = (formData: any) => async (dispatch: AppDispatch) =
         await axios.put(`/password/change`, formData, config);
         dispatch(updatePasswordSuccess())
     } catch (error) {
-        dispatch(updatePasswordFail(error.response.data.message))
+        dispatch(updatePasswordFail(extractErrorMessage(error)))
     }
 
 }
@@ -194,7 +195,7 @@ export const forgotPassword = (formData: any) => async (dispatch: AppDispatch) =
         const { data } = await axios.post(`/password/forgot`, formData, config);
         dispatch(forgotPasswordSuccess(data))
     } catch (error) {
-        dispatch(forgotPasswordFail(error.response.data.message))
+        dispatch(forgotPasswordFail(extractErrorMessage(error)))
     }
 
 }
@@ -211,7 +212,7 @@ export const resetPassword = (formData: any, token: any) => async (dispatch: App
         const { data } = await axios.post(`/password/reset/${token}`, formData, config);
         dispatch(resetPasswordSuccess(data))
     } catch (error) {
-        dispatch(resetPasswordFail(error.response.data.message))
+        dispatch(resetPasswordFail(extractErrorMessage(error)))
     }
 
 }
@@ -223,7 +224,7 @@ export const getUsers = async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/admin/users`);
         dispatch(usersSuccess(data))
     } catch (error) {
-        dispatch(usersFail(error.response.data.message))
+        dispatch(usersFail(extractErrorMessage(error)))
     }
 
 }
@@ -235,7 +236,7 @@ export const getUser = (id: string) => async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/admin/user/${id}`);
         dispatch(userSuccess(data))
     } catch (error) {
-        dispatch(userFail(error.response.data.message))
+        dispatch(userFail(extractErrorMessage(error)))
     }
 
 }
@@ -247,7 +248,7 @@ export const deleteUser = (id: string) => async (dispatch: AppDispatch) => {
         await axios.delete(`/admin/user/${id}`);
         dispatch(deleteUserSuccess())
     } catch (error) {
-        dispatch(deleteUserFail(error.response.data.message))
+        dispatch(deleteUserFail(extractErrorMessage(error)))
     }
 
 }
@@ -264,7 +265,7 @@ export const updateUser = (id: string, formData: any) => async (dispatch: AppDis
         await axios.put(`/admin/user/${id}`, formData, config);
         dispatch(updateUserSuccess())
     } catch (error) {
-        dispatch(updateUserFail(error.response.data.message))
+        dispatch(updateUserFail(extractErrorMessage(error)))
     }
 
 }

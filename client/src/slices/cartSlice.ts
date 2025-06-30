@@ -1,91 +1,75 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')!) : [],
     loading: false,
     shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')!) : {}
-}
+};
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
         addCartItemRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        addCartItemSuccess(state, action) {
-            const item = action.payload
 
-            const isItemExist = state.cartItems.find((i: any) => i._id == item._id);
+        addCartItemSuccess(state, action: PayloadAction<any>) {
+            const item = action.payload;
+            const isItemExist = state.cartItems.find((i: any) => i._id === item._id);
 
             if (isItemExist) {
-                state = {
-                    ...state,
-                    loading: false,
-                }
+                // If item exists, update it
+                state.cartItems = state.cartItems.map((i: any) =>
+                    i._id === item._id ? item : i
+                );
             } else {
-                state = {
-                    cartItems: [...state.cartItems, item],
-                    loading: false
-                }
-
-                localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+                state.cartItems.push(item);
             }
-            return state
 
+            state.loading = false;
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
-        increaseCartItemQty(state, action) {
+
+        increaseCartItemQty(state, action: PayloadAction<any>) {
             state.cartItems = state.cartItems.map((item: any) => {
-                if (item._id == action.payload) {
-                    item.quantity = item.quantity + 1
+                if (item._id === action.payload) {
+                    item.quantity += 1;
                 }
                 return item;
-            })
+            });
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
-
         },
-        decreaseCartItemQty(state, action) {
+
+        decreaseCartItemQty(state, action: PayloadAction<any>) {
             state.cartItems = state.cartItems.map((item: any) => {
-                if (item._id == action.payload) {
-                    item.quantity = item.quantity - 1
+                if (item._id === action.payload) {
+                    item.quantity -= 1;
                 }
                 return item;
-            })
+            });
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        },
 
+        removeItemFromCart(state, action: PayloadAction<any>) {
+            state.cartItems = state.cartItems.filter((item: any) => item._id !== action.payload);
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
-        removeItemFromCart(state, action) {
-            const filterItems = state.cartItems.filter((item: any) => {
-                return item._id !== action.payload
-            })
-            localStorage.setItem('cartItems', JSON.stringify(filterItems));
-            return {
-                ...state,
-                cartItems: filterItems
-            }
+
+        saveShippingInfo(state, action: PayloadAction<any>) {
+            state.shippingInfo = action.payload;
+            localStorage.setItem('shippingInfo', JSON.stringify(state.shippingInfo));
         },
-        saveShippingInfo(state, action) {
-            localStorage.setItem('shippingInfo', JSON.stringify(action.payload));
-            return {
-                ...state,
-                shippingInfo: action.payload
-            }
-        },
-        orderCompleted() {
-            localStorage.removeItem('shippingInfo');
+
+        orderCompleted(state) {
+            state.cartItems = [];
+            state.shippingInfo = {};
+            state.loading = false;
+
             localStorage.removeItem('cartItems');
+            localStorage.removeItem('shippingInfo');
             sessionStorage.removeItem('orderInfo');
-            return {
-                cartItems: [],
-                loading: false,
-                shippingInfo: {}
-            }
         }
-
     }
 });
 

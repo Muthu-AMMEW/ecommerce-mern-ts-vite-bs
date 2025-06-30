@@ -18,7 +18,7 @@ export default function UserOrders() {
     }, [dispatch])
 
     const setOrders = () => {
-        const data = {
+        const data: { columns: any[]; rows: any[] } = {
             columns: [
                 {
                     label: 'S.No ↕',
@@ -66,7 +66,7 @@ export default function UserOrders() {
             rows: []
         }
 
-        userOrders.forEach(order => {
+        userOrders.forEach((order: any) => {
             data.rows.push({
                 sno: ++sno,
                 date: istDateTime(order.createdAt),
@@ -96,15 +96,15 @@ export default function UserOrders() {
             <MetaData title="My Orders" />
             <h1 className='m-3'>My Orders</h1>
             {loading ? <Loader /> :
-            <div className="table-responsive">
-                <MDBDataTable
-                    className='px-3'
-                    bordered
-                    striped
-                    hover
-                    data={setOrders()}
-                />
-            </div>}
+                <div className="table-responsive">
+                    <MDBDataTable
+                        className='px-3'
+                        bordered
+                        striped
+                        hover
+                        data={setOrders()}
+                    />
+                </div>}
         </>
     )
 }

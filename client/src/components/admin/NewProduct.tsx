@@ -7,10 +7,13 @@ import MetaData from "../layouts/MetaData";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function NewProduct() {
-    const [inputs, setInputs] = useState({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
+    interface ProductInput {
+        name: string; price: string; description: string; category: string; stock: number; seller: string;
+    }
+    const [inputs, setInputs] = useState<ProductInput>({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
 
-    const [images, setImages] = useState([]);
-    const [imagesPreview, setImagesPreview] = useState([]);
+    const [images, setImages] = useState<any>([]);
+    const [imagesPreview, setImagesPreview] = useState<any>([]);
 
 
     const { loading, isProductCreated, error } = useAppSelector(state => state.productState)
@@ -40,8 +43,8 @@ export default function NewProduct() {
 
                 reader.onload = () => {
                     if (reader.readyState == 2) {
-                        setImagesPreview((oldArray) => [...oldArray, reader.result])
-                        setImages(oldArray => [...oldArray, file])
+                        setImagesPreview((oldArray: any) => [...oldArray, reader.result])
+                        setImages((oldArray: any) => [...oldArray, file])
                     }
                 }
                 reader.readAsDataURL(file)
@@ -71,11 +74,11 @@ export default function NewProduct() {
         const formData = new FormData();
         formData.append('name', inputs.name);
         formData.append('price', inputs.price);
-        formData.append('stock', inputs.stock);
+        formData.append('stock', inputs.stock.toString());
         formData.append('description', inputs.description);
         formData.append('seller', inputs.seller);
         formData.append('category', inputs.category);
-        images.forEach(image => {
+        images.forEach((image: any) => {
             formData.append('images', image)
         })
         dispatch(createNewProduct(formData))
@@ -124,7 +127,7 @@ export default function NewProduct() {
 
                             <div className="form-group">
                                 <label htmlFor="description" className="form-label">Description</label>
-                                <textarea className="form-control" id="description" name="description" value={inputs.description} rows="8" onChange={handleChange} required ></textarea>
+                                <textarea className="form-control" id="description" name="description" value={inputs.description} rows={8} onChange={handleChange} required ></textarea>
                             </div>
 
                             <div className="form-group">
@@ -156,7 +159,7 @@ export default function NewProduct() {
                                         Choose Images
                                     </label>
                                 </div>
-                                {imagesPreview.map(image => (
+                                {imagesPreview.map((image:any) => (
                                     <img className="mt-3 me-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
                                     />
                                 ))}

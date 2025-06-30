@@ -38,7 +38,7 @@ export default function ProductSearch() {
 	];
 
 	function search() {
-		if (!isNaN(price[0] || !isNaN(price[1]))) {
+		if (!isNaN(Number(price[0])) && !isNaN(Number(price[1]))) {
 			if (Number(price[0]) < Number(price[1])) {
 				setPriceChanged(price);
 			} else {
@@ -49,7 +49,7 @@ export default function ProductSearch() {
 		}
 	}
 
-	const handleKeyDown = (e) => {
+	const handleKeyDown = (e: any) => {
 		if (e.key === "Enter" || e.key === "Tab") {
 			search();
 		}
@@ -77,17 +77,17 @@ export default function ProductSearch() {
 
 	useEffect(() => {
 		if (error) {
-			return toast.error(error, { position: 'top-center' })
+			toast.error(error, { position: 'top-center' });
+			return;
 		}
-		dispatch(getProducts(keyword, priceChanged, category, rating, currentPage))
+		dispatch(getProducts(keyword!, priceChanged, category, rating, currentPage))
 	}, [error, dispatch, currentPage, keyword, priceChanged, category, rating])
-
 
 	return (
 		<>
 			{loading ? <Loader /> :
 				<>
-					<MetaData title={keyword} />
+					<MetaData title={keyword!} />
 
 					<section id="products" className="container mt-3">
 						<div className="border border-black rounded-5 border-5 border-opacity-25">
@@ -99,14 +99,14 @@ export default function ProductSearch() {
 									range={true}
 									marks={
 										{
-											[priceChanged[0]]: <span className="text-black">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
-											[priceChanged[1]]: <span className="text-black text-nowrap">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => e.target.value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
+											[priceChanged[0]]: <span className="text-black">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="min" name="min" value={price[0]} onChange={handleChange} onClick={(e) => (e.target as HTMLInputElement).value = ""} onKeyDown={handleKeyDown} placeholder="Min" /></span>,
+											[priceChanged[1]]: <span className="text-black text-nowrap">Rs. <input type="search" className="border-info mm-box-color" style={{ width: "5rem" }} id="max" name="max" value={price[1]} onChange={handleChange} onClick={(e) => (e.target as HTMLInputElement).value = ""} onKeyDown={handleKeyDown} placeholder="Max" /></span>
 										}
 									}
 									min={Number(priceChanged[0])}
 									max={Number(priceChanged[1])}
 									defaultValue={price}
-									onChange={(price) => {
+									onChange={(price: any) => {
 										setPrice(price)
 									}}
 									handleRender={
@@ -131,7 +131,7 @@ export default function ProductSearch() {
 											<span className="visually-hidden">Toggle Dropdown</span>
 										</button>
 										<ul className="dropdown-menu">
-											{categories.map(category =>
+											{categories.map((category: any) =>
 												<li className="dropdown-item " key={category} onClick={() => {
 													setCategory(category)
 												}}>{category}</li>
@@ -165,7 +165,7 @@ export default function ProductSearch() {
 						{
 							products?.length === 0 ? <div className="text-center h2" style={{ paddingTop: '100px', paddingBottom: "100px" }}>Not Found</div> :
 								<div className="row">
-									{products && products.map(product => (
+									{products && products.map((product: any) => (
 										<Product key={product._id} product={product} />
 									))}
 								</div>

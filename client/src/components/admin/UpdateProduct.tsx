@@ -9,10 +9,11 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateProduct() {
     const [inputs, setInputs] = useState({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState<any>([]);
     const [imagesCleared, setImagesCleared] = useState(false);
-    const [imagesPreview, setImagesPreview] = useState([]);
-    const { id: productId } = useParams();
+    const [imagesPreview, setImagesPreview] = useState<any>([]);
+    const { id: productId } = useParams<{ id: string }>();
+
 
     const { loading, isProductUpdated, error, product } = useAppSelector(state => state.productState)
 
@@ -36,13 +37,13 @@ export default function UpdateProduct() {
     const handleChange = (event: any) => {
         if (event.target.name === 'images') {
             const files = Array.from(event.target.files);
-            files.forEach(file => {
+            files.forEach((file: any) => {
                 const reader = new FileReader();
 
                 reader.onload = () => {
                     if (reader.readyState == 2) {
-                        setImagesPreview(oldArray => [...oldArray, reader.result])
-                        setImages(oldArray => [...oldArray, file])
+                        setImagesPreview((oldArray: any) => [...oldArray, reader.result])
+                        setImages((oldArray: any) => [...oldArray, file])
                     }
                 }
                 reader.readAsDataURL(file)
@@ -77,15 +78,15 @@ export default function UpdateProduct() {
         const formData = new FormData();
         formData.append('name', inputs.name);
         formData.append('price', inputs.price);
-        formData.append('stock', inputs.stock);
+        formData.append('stock', inputs.stock.toString());
         formData.append('description', inputs.description);
         formData.append('seller', inputs.seller);
         formData.append('category', inputs.category);
-        images.forEach(image => {
+        images.forEach((image: any) => {
             formData.append('images', image)
         })
-        formData.append('imagesCleared', imagesCleared);
-        dispatch(updateProduct(productId, formData))
+        formData.append('imagesCleared', imagesCleared.toString());
+        dispatch(updateProduct(productId!, formData))
     }
 
     const clearImagesHandler = () => {
@@ -113,7 +114,7 @@ export default function UpdateProduct() {
             return
         }
 
-        dispatch(getProduct(productId))
+        dispatch(getProduct(productId!))
     }, [isProductUpdated, productId, error, dispatch])
 
 
@@ -164,7 +165,7 @@ export default function UpdateProduct() {
 
                             <div className="form-group">
                                 <label htmlFor="description">Description</label>
-                                <textarea className="form-control" id="description" name="description" value={inputs.description} rows="8" onChange={handleChange} required ></textarea>
+                                <textarea className="form-control" id="description" name="description" value={inputs.description} rows={8} onChange={handleChange} required ></textarea>
                             </div>
 
                             <div className="form-group">
@@ -197,7 +198,7 @@ export default function UpdateProduct() {
                                     </label>
                                 </div>
                                 {imagesPreview.length > 0 && <span className="me-2" onClick={clearImagesHandler} style={{ cursor: "pointer" }}><i className="fa fa-trash"></i></span>}
-                                {imagesPreview.map(image => (
+                                {imagesPreview.map((image: any) => (
                                     <img className="mt-3 me-2" key={image} src={image} alt={`Image Preview`} width="55" height="52"
                                     />
                                 ))}

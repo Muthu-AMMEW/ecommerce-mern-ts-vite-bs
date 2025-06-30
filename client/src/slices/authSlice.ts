@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
     loading: false,
@@ -9,245 +8,157 @@ const initialState: any = {
     isUpdated: false,
     isVerified: false,
     message: null
-}
+};
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         clearAuthError(state) {
-            return {
-                ...state,
-                error: null
-            }
+            state.error = null;
         },
         clearIsUpdated(state) {
-            return {
-                ...state,
-                isUpdated: false
-            }
+            state.isUpdated = false;
         },
         clearIsVerified(state) {
-            return {
-                ...state,
-                isVerified: false
-            }
+            state.isVerified = false;
         },
         clearMessage(state) {
-            return {
-                ...state,
-                message: null
-            }
+            state.message = null;
         },
-        registerRequest(state) {
-            return {
-                ...state,
-                loading: true,
-            }
-        },
-        registerSuccess(action) {
-            return {
-                loading: false,
-                isAuthenticated: true,
-                authUser: action.payload.user
-            }
-        },
-        registerFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        loginRequest(state) {
-            return {
-                ...state,
-                loading: true,
-            }
-        },
-        loginSuccess(action) {
-            return {
-                loading: false,
-                isAuthenticated: true,
-                authUser: action.payload.user
-            }
-        },
-        loginFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        loadUserRequest(state) {
-            return {
-                ...state,
-                isAuthenticated: false,
-                loading: true,
-            }
-        },
-        loadUserSuccess(action) {
-            return {
-                loading: false,
-                isAuthenticated: true,
-                authUser: action.payload.user
-            }
-        },
-        loadUserFail(state) {
-            return {
-                ...state,
-                loading: false,
-            }
-        },
-        logoutRequest(state) {
-            return {
-                ...state,
-                loading: true,
-            }
-        },
-        logoutSuccess() {
-            return {
-                loading: false,
-                isAuthenticated: false,
-            }
-        },
-        logoutFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        updateProfileRequest(state) {
-            return {
-                ...state,
-                loading: true,
-                isUpdated: false
-            }
-        },
-        updateProfileSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                authUser: action.payload.user,
-                isUpdated: true
-            }
-        },
-        updateProfileFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        otpRequest(state) {
-            return {
-                ...state,
-                loading: true,
-                message: null
 
-            }
+        registerRequest(state) {
+            state.loading = true;
         },
-        otpSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                message: action.payload.message
-            }
+        registerSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.authUser = action.payload.user;
         },
-        otpFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        registerFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
+        loginRequest(state) {
+            state.loading = true;
+        },
+        loginSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.authUser = action.payload.user;
+        },
+        loginFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        loadUserRequest(state) {
+            state.loading = true;
+            state.isAuthenticated = false;
+        },
+        loadUserSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.authUser = action.payload.user;
+        },
+        loadUserFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        logoutRequest(state) {
+            state.loading = true;
+        },
+        logoutSuccess(state) {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.authUser = {};
+        },
+        logoutFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        updateProfileRequest(state) {
+            state.loading = true;
+            state.isUpdated = false;
+        },
+        updateProfileSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.authUser = action.payload.user;
+            state.isUpdated = true;
+        },
+        updateProfileFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        otpRequest(state) {
+            state.loading = true;
+            state.message = null;
+        },
+        otpSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.message = action.payload.message;
+        },
+        otpFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
         emailVerifyRequest(state) {
-            return {
-                ...state,
-                loading: true,
-                isVerified: false
-            }
+            state.loading = true;
+            state.isVerified = false;
         },
-        emailVerifySuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                authUser: action.payload.user,
-                isVerified: true
-            }
+        emailVerifySuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.authUser = action.payload.user;
+            state.isVerified = true;
         },
-        emailVerifyFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        emailVerifyFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         updatePasswordRequest(state) {
-            return {
-                ...state,
-                loading: true,
-                isUpdated: false
-            }
+            state.loading = true;
+            state.isUpdated = false;
         },
         updatePasswordSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isUpdated: true
-            }
+            state.loading = false;
+            state.isUpdated = true;
         },
-        updatePasswordFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        forgotPasswordRequest(state) {
-            return {
-                ...state,
-                loading: true,
-                message: null
-            }
-        },
-        forgotPasswordSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                message: action.payload.message
-            }
-        },
-        forgotPasswordFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
-        },
-        resetPasswordRequest(state) {
-            return {
-                ...state,
-                loading: true,
-            }
-        },
-        resetPasswordSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                isAuthenticated: true,
-                authUser: action.payload.user
-            }
-        },
-        resetPasswordFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        updatePasswordFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
 
+        forgotPasswordRequest(state) {
+            state.loading = true;
+            state.message = null;
+        },
+        forgotPasswordSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.message = action.payload.message;
+        },
+        forgotPasswordFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+        resetPasswordRequest(state) {
+            state.loading = true;
+        },
+        resetPasswordSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.authUser = action.payload.user;
+        },
+        resetPasswordFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+        }
     }
 });
 
@@ -277,16 +188,15 @@ export const {
     emailVerifyRequest,
     emailVerifySuccess,
     emailVerifyFail,
-    updatePasswordFail,
-    updatePasswordSuccess,
     updatePasswordRequest,
-    forgotPasswordFail,
-    forgotPasswordSuccess,
+    updatePasswordSuccess,
+    updatePasswordFail,
     forgotPasswordRequest,
-    resetPasswordFail,
+    forgotPasswordSuccess,
+    forgotPasswordFail,
     resetPasswordRequest,
-    resetPasswordSuccess
+    resetPasswordSuccess,
+    resetPasswordFail
 } = authSlice.actions;
 
 export default authSlice.reducer;
-

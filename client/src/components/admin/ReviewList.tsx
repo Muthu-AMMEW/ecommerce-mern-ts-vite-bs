@@ -15,7 +15,7 @@ export default function ReviewList() {
     const dispatch = useAppDispatch();
 
     const setReviews = () => {
-        const data = {
+        const data: { columns: any[]; rows: any[] } = {
             columns: [
                 {
                     label: 'ID',
@@ -46,7 +46,7 @@ export default function ReviewList() {
             rows: []
         }
 
-        reviews.forEach(review => {
+        reviews.forEach((review: any) => {
             data.rows.push({
                 id: review._id,
                 rating: review.rating,
@@ -65,12 +65,12 @@ export default function ReviewList() {
         return data;
     }
 
-    const deleteHandler = (e, id) => {
+    const deleteHandler = (e: any, id: string) => {
         e.target.disabled = true;
         dispatch(deleteReview(productId, id))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         dispatch(getReviews(productId))
     }

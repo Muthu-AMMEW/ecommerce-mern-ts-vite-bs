@@ -10,7 +10,7 @@ import { istDateTime } from "../../utils/istDateTime";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UserDetails() {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const { loading, error, user } = useAppSelector(state => state.userState)
     const { authUser } = useAppSelector(state => state.authState)
     const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ export default function UserDetails() {
             return
         }
 
-        dispatch(getUser(id))
+        dispatch(getUser(id!))
     }, [id, error, dispatch])
 
 
@@ -61,7 +61,7 @@ export default function UserDetails() {
 
                             <h4>Joined</h4>
                             <p className='pb-3'>{istDateTime(user.createdAt)}</p>
-                            
+
                             <h4>Address</h4>
                             {user.address ?
                                 <p className='w-50'>{`${user.address?.addressLine1},

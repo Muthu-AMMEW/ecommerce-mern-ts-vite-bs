@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
     orderDetail: {},
@@ -10,156 +9,95 @@ const initialState: any = {
     isOrderDeleted: false,
     isOrderUpdated: false,
     error: null
-}
+};
 
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
         clearNewOrder(state) {
-            return {
-                ...state,
-                newOrderDetail: {}
-            }
+            state.newOrderDetail = {};
         },
         clearOrderError(state) {
-            return {
-                ...state,
-                error: null
-            }
+            state.error = null;
         },
         clearIsOrderDeleted(state) {
-            return {
-                ...state,
-                isOrderDeleted: false
-            }
+            state.isOrderDeleted = false;
         },
         clearIsOrderUpdated(state) {
-            return {
-                ...state,
-                isOrderUpdated: false
-            }
+            state.isOrderUpdated = false;
         },
+
         createOrderRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        createOrderSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                newOrderDetail: action.payload.order
-            }
+        createOrderSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.newOrderDetail = action.payload.order;
         },
-        createOrderFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        createOrderFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         userOrdersRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        userOrdersSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                userOrders: action.payload.orders
-            }
+        userOrdersSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.userOrders = action.payload.orders;
         },
-        userOrdersFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        userOrdersFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         orderDetailRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        orderDetailSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                orderDetail: action.payload.order
-            }
+        orderDetailSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.orderDetail = action.payload.order;
         },
-        orderDetailFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        orderDetailFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         adminOrdersRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        adminOrdersSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                adminOrders: action.payload.orders
-            }
+        adminOrdersSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.adminOrders = action.payload.orders;
         },
-        adminOrdersFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        adminOrdersFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
 
         deleteOrderRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         deleteOrderSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isOrderDeleted: true
-            }
+            state.loading = false;
+            state.isOrderDeleted = true;
         },
-        deleteOrderFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        deleteOrderFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         updateOrderRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         updateOrderSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isOrderUpdated: true
-            }
+            state.loading = false;
+            state.isOrderUpdated = true;
         },
-        updateOrderFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        updateOrderFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         }
     }
 });

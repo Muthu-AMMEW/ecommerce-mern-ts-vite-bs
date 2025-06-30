@@ -18,7 +18,7 @@ export default function ProductList() {
     let sno = 0;
 
     const setProducts = () => {
-        const data = {
+        const data: { columns: any[]; rows: any[] } = {
             columns: [
                 {
                     label: 'S.No ↕',
@@ -64,7 +64,7 @@ export default function ProductList() {
             rows: []
         }
 
-        products.forEach(product => {
+        products.forEach((product: any) => {
             data.rows.push({
                 sno: ++sno,
                 id: <Link to={`/product/${product._id}`} className="text-primary">{product._id}</Link>,
@@ -87,7 +87,7 @@ export default function ProductList() {
         return data;
     }
 
-    const deleteHandler = async (e, id) => {
+    const deleteHandler = async (e: any, id: string) => {
         e.target.disabled = true;
         // await new Promise(resolve => setTimeout(resolve, 5000));
         dispatch(deleteProduct(id))

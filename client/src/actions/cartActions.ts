@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { addCartItemRequest, addCartItemSuccess } from '../slices/cartSlice';
 import axios from 'axios'
 import { AppDispatch } from '../store';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 
 export const addCartItem = (id: string, quantity: any) => async (dispatch: AppDispatch) => {
     try {
@@ -16,6 +17,6 @@ export const addCartItem = (id: string, quantity: any) => async (dispatch: AppDi
             quantity
         }))
     } catch (error) {
-        toast.error(error, { position: 'top-center' })
+        toast.error(extractErrorMessage(error), { position: 'top-center' })
     }
 }

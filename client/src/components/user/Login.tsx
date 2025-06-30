@@ -75,7 +75,7 @@ export default function Login() {
                             <div className="d-flex justify-content-between w-100 mt-3">
                                 <div className="form-check">
                                     <label className="form-check-label">
-                                        <input className="form-check-input" type="checkbox" name="remember" value={inputs.remember} onChange={handleChange} /> Remember me
+                                        <input className="form-check-input" type="checkbox" name="remember" checked={inputs.remember} onChange={handleChange} /> Remember me
                                     </label>
 
                                 </div>

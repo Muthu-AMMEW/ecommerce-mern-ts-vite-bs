@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
     loading: false,
@@ -11,198 +10,120 @@ const initialState: any = {
     isReviewSubmitted: false,
     isReviewDeleted: false,
     reviews: []
-}
+};
 
 const productSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
         clearProduct(state) {
-            return {
-                ...state,
-                product: {}
-            }
+            state.product = {};
         },
         clearProductError(state) {
-            return {
-                ...state,
-                error: null
-            }
+            state.error = null;
         },
         clearIsProductCreated(state) {
-            return {
-                ...state,
-                isProductCreated: false
-            }
+            state.isProductCreated = false;
         },
         clearIsProductUpdated(state) {
-            return {
-                ...state,
-                isProductUpdated: false
-            }
+            state.isProductUpdated = false;
         },
         clearIsProductDeleted(state) {
-            return {
-                ...state,
-                isProductDeleted: false
-            }
+            state.isProductDeleted = false;
         },
         clearIsReviewSubmitted(state) {
-            return {
-                ...state,
-                isReviewSubmitted: false
-            }
+            state.isReviewSubmitted = false;
         },
         clearIsReviewDeleted(state) {
-            return {
-                ...state,
-                isReviewDeleted: false
-            }
+            state.isReviewDeleted = false;
         },
+
         productRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        productSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                product: action.payload.product
-            }
+        productSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.product = action.payload.product;
         },
-        productFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        productFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         createReviewRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         createReviewSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isReviewSubmitted: true
-            }
+            state.loading = false;
+            state.isReviewSubmitted = true;
         },
-        createReviewFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        createReviewFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         newProductRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        newProductSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                product: action.payload.product,
-                isProductCreated: true
-            }
+        newProductSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.product = action.payload.product;
+            state.isProductCreated = true;
         },
-        newProductFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-                isProductCreated: false
-            }
+        newProductFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
+            state.isProductCreated = false;
         },
+
         deleteProductRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         deleteProductSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isProductDeleted: true
-            }
+            state.loading = false;
+            state.isProductDeleted = true;
         },
-        deleteProductFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            }
+        deleteProductFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         updateProductRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        updateProductSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                product: action.payload.product,
-                isProductUpdated: true
-            }
+        updateProductSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.product = action.payload.product;
+            state.isProductUpdated = true;
         },
-        updateProductFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            }
+        updateProductFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         reviewsRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        reviewsSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                reviews: action.payload.reviews
-            }
+        reviewsSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.reviews = action.payload.reviews;
         },
-        reviewsFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        reviewsFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         deleteReviewRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         deleteReviewSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isReviewDeleted: true
-            }
+            state.loading = false;
+            state.isReviewDeleted = true;
         },
-        deleteReviewFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            }
+        deleteReviewFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         }
-
     }
 });
 

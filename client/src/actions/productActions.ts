@@ -32,6 +32,7 @@ import {
     deleteReviewFail
 } from '../slices/productSlice';
 import { AppDispatch } from '../store';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 
 export const getProducts = (keyword: string | null, price: number[] | null, category: string | null, rating: number | null, currentPage: number) => async (dispatch: AppDispatch) => {
 
@@ -55,8 +56,7 @@ export const getProducts = (keyword: string | null, price: number[] | null, cate
         const { data } = await axios.get(link);
         dispatch(productsSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(productsFail(error.response.data.message))
+        dispatch(productsFail(extractErrorMessage(error)))
     }
 
 }
@@ -69,8 +69,7 @@ export const getProduct = (id: string) => async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/product/${id}`);
         dispatch(productSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(productFail(error.response.data.message))
+        dispatch(productFail(extractErrorMessage(error)))
     }
 
 }
@@ -87,8 +86,8 @@ export const createReview = (reviewData: any) => async (dispatch: AppDispatch) =
         const { data } = await axios.put(`/review`, reviewData, config);
         dispatch(createReviewSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(createReviewFail(error.response.data.message))
+
+        dispatch(createReviewFail(extractErrorMessage(error)))
     }
 
 }
@@ -100,8 +99,7 @@ export const getAdminProducts = async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/admin/products`);
         dispatch(adminProductsSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(adminProductsFail(error.response.data.message))
+        dispatch(adminProductsFail(extractErrorMessage(error)))
     }
 
 }
@@ -113,8 +111,7 @@ export const createNewProduct = (productData: any) => async (dispatch: AppDispat
         const { data } = await axios.post(`/admin/product/new`, productData);
         dispatch(newProductSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(newProductFail(error.response.data.message))
+        dispatch(newProductFail(extractErrorMessage(error)))
     }
 
 }
@@ -126,8 +123,7 @@ export const deleteProduct = (id: string) => async (dispatch: AppDispatch) => {
         await axios.delete(`/admin/product/${id}`);
         dispatch(deleteProductSuccess())
     } catch (error) {
-        //handle error
-        dispatch(deleteProductFail(error.response.data.message))
+        dispatch(deleteProductFail(extractErrorMessage(error)))
     }
 
 }
@@ -139,8 +135,7 @@ export const updateProduct = (id: string, productData: any) => async (dispatch: 
         const { data } = await axios.put(`/admin/product/${id}`, productData);
         dispatch(updateProductSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(updateProductFail(error.response.data.message))
+        dispatch(updateProductFail(extractErrorMessage(error)))
     }
 
 }
@@ -153,8 +148,7 @@ export const getReviews = (id: string) => async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/admin/reviews`, { params: { id } });
         dispatch(reviewsSuccess(data))
     } catch (error) {
-        //handle error
-        dispatch(reviewsFail(error.response.data.message))
+        dispatch(reviewsFail(extractErrorMessage(error)))
     }
 
 }
@@ -166,8 +160,7 @@ export const deleteReview = (productId: string, id: string) => async (dispatch: 
         await axios.delete(`/admin/review`, { params: { productId, id } });
         dispatch(deleteReviewSuccess())
     } catch (error) {
-        //handle error
-        dispatch(deleteReviewFail(error.response.data.message))
+        dispatch(deleteReviewFail(extractErrorMessage(error)))
     }
 
 }

@@ -38,7 +38,7 @@ export default function OrderList() {
     }, [dispatch, error, isOrderDeleted])
 
     const setOrders = () => {
-        const data = {
+        const data: { columns: any[]; rows: any[] }  = {
             columns: [
                 {
                     label: 'S.No ↕',
@@ -85,7 +85,7 @@ export default function OrderList() {
             rows: []
         }
 
-        adminOrders.forEach(order => {
+        adminOrders.forEach((order: any) => {
             data.rows.push({
                 sno: ++sno,
                 date: istDateTime(order.createdAt),
@@ -108,7 +108,7 @@ export default function OrderList() {
         return data;
     }
 
-    const deleteHandler = (e: any, id) => {
+    const deleteHandler = (e: any, id: string) => {
         e.target.disabled = true;
         dispatch(deleteOrder(id))
     }

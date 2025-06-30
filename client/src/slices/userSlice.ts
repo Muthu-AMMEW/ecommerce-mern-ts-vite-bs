@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: any = {
     loading: false,
@@ -8,114 +7,71 @@ const initialState: any = {
     error: null,
     isUserUpdated: false,
     isUserDeleted: false
-}
+};
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
         clearUserError(state) {
-            return {
-                ...state,
-                error: null
-            }
+            state.error = null;
         },
         clearIsUserUpdated(state) {
-            return {
-                ...state,
-                isUserUpdated: false
-            }
+            state.isUserUpdated = false;
         },
         clearIsUserDeleted(state) {
-            return {
-                ...state,
-                isUserDeleted: false
-            }
+            state.isUserDeleted = false;
         },
+
         usersRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        usersSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                users: action.payload.users,
-            }
+        usersSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.users = action.payload.users;
         },
-        usersFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        usersFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         userRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
-        userSuccess(state, action) {
-            return {
-                ...state,
-                loading: false,
-                user: action.payload.user,
-            }
+        userSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.user = action.payload.user;
         },
-        userFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        userFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         deleteUserRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         deleteUserSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isUserDeleted: true
-            }
+            state.loading = false;
+            state.isUserDeleted = true;
         },
-        deleteUserFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        deleteUserFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
+
         updateUserRequest(state) {
-            return {
-                ...state,
-                loading: true
-            }
+            state.loading = true;
         },
         updateUserSuccess(state) {
-            return {
-                ...state,
-                loading: false,
-                isUserUpdated: true
-            }
+            state.loading = false;
+            state.isUserUpdated = true;
         },
-        updateUserFail(state, action) {
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
+        updateUserFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         }
-
     }
 });
-
 
 export const {
     clearUserError,
@@ -133,7 +89,6 @@ export const {
     updateUserRequest,
     updateUserSuccess,
     updateUserFail
-
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -65,7 +65,7 @@ export default function UpdateProfile() {
         event.preventDefault();
         const formData = new FormData();
         formData.append('fullName', inputs.fullName)
-        formData.append('email', inputs.email)
+        formData.append('email', inputs.email || '')
         formData.append('phoneNumber', inputs.phoneNumber)
         formData.append('avatar', avatar);
         formData.append('address[addressLine1]', addressInputs.addressLine1);

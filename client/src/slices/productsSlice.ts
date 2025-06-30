@@ -1,55 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: any = {
-    loading: false
-}
+    loading: false,
+    error: null,
+    products: [],
+    productsCount: 0,
+    resPerPage: 0
+};
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
         clearProductsError(state) {
-            return {
-                ...state,
-                error: null
-            }
+            state.error = null;
         },
-        productsRequest() {
-            return {
-                loading: true
-            }
+
+        productsRequest(state) {
+            state.loading = true;
         },
-        productsSuccess(action) {
-            return {
-                loading: false,
-                products: action.payload.products,
-                productsCount: action.payload.count,
-                resPerPage: action.payload.resPerPage
-            }
+
+        productsSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.products = action.payload.products;
+            state.productsCount = action.payload.count;
+            state.resPerPage = action.payload.resPerPage;
         },
-        productsFail(action) {
-            return {
-                loading: false,
-                error: action.payload
-            }
+
+        productsFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         },
-        adminProductsRequest() {
-            return {
-                loading: true
-            }
+
+        adminProductsRequest(state) {
+            state.loading = true;
         },
-        adminProductsSuccess(action) {
-            return {
-                loading: false,
-                products: action.payload.products,
-            }
+
+        adminProductsSuccess(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.products = action.payload.products;
         },
-        adminProductsFail(action) {
-            return {
-                loading: false,
-                error: action.payload
-            }
+
+        adminProductsFail(state, action: PayloadAction<any>) {
+            state.loading = false;
+            state.error = action.payload;
         }
     }
 });
@@ -62,7 +56,6 @@ export const {
     adminProductsRequest,
     adminProductsSuccess,
     adminProductsFail
-
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

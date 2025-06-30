@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AdminBar from "./AdminBar";
 import { useParams } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/authActions";
 import { clearUserError, clearIsUserUpdated } from "../../slices/userSlice";
@@ -9,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateUser() {
     const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "", role: "" });
-    const { id: userId } = useParams();
+    const { id: userId } = useParams<{ id: string }>();
 
     const { loading, isUserUpdated, error, user } = useAppSelector(state => state.userState)
     const { authUser } = useAppSelector(state => state.authState)
@@ -24,7 +23,7 @@ export default function UpdateUser() {
         e.preventDefault();
         const formData = new FormData();
         formData.append('role', inputs.role);
-        dispatch(updateUser(userId, formData))
+        dispatch(updateUser(userId!, formData))
     }
 
     useEffect(() => {
@@ -44,7 +43,7 @@ export default function UpdateUser() {
             return
         }
 
-        dispatch(getUser(userId))
+        dispatch(getUser(userId!))
     }, [isUserUpdated, userId, error, dispatch])
 
 

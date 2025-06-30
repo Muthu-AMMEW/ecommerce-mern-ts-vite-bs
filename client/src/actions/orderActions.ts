@@ -20,6 +20,7 @@ import {
 } from '../slices/orderSlice';
 import axios from 'axios';
 import { AppDispatch } from '../store';
+import { extractErrorMessage } from '../utils/extractErrorMessage';
 
 export const createOrder = (order: any) => async (dispatch: AppDispatch) => {
     try {
@@ -27,7 +28,7 @@ export const createOrder = (order: any) => async (dispatch: AppDispatch) => {
         const { data } = await axios.post(`/order/new`, order)
         dispatch(createOrderSuccess(data))
     } catch (error) {
-        dispatch(createOrderFail(error.response.data.message))
+        dispatch(createOrderFail(extractErrorMessage(error)))
     }
 }
 export const userOrders = async (dispatch: AppDispatch) => {
@@ -36,7 +37,7 @@ export const userOrders = async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/myorders`)
         dispatch(userOrdersSuccess(data))
     } catch (error) {
-        dispatch(userOrdersFail(error.response.data.message))
+        dispatch(userOrdersFail(extractErrorMessage(error)))
     }
 }
 export const orderDetail = (id: string) => async (dispatch: AppDispatch) => {
@@ -45,7 +46,7 @@ export const orderDetail = (id: string) => async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/order/${id}`)
         dispatch(orderDetailSuccess(data))
     } catch (error) {
-        dispatch(orderDetailFail(error.response.data.message))
+        dispatch(orderDetailFail(extractErrorMessage(error)))
     }
 }
 
@@ -55,7 +56,7 @@ export const adminOrders = async (dispatch: AppDispatch) => {
         const { data } = await axios.get(`/admin/orders`)
         dispatch(adminOrdersSuccess(data))
     } catch (error) {
-        dispatch(adminOrdersFail(error.response.data.message))
+        dispatch(adminOrdersFail(extractErrorMessage(error)))
     }
 }
 
@@ -65,7 +66,7 @@ export const deleteOrder = (id: string) => async (dispatch: AppDispatch) => {
         await axios.delete(`/admin/order/${id}`)
         dispatch(deleteOrderSuccess())
     } catch (error) {
-        dispatch(deleteOrderFail(error.response.data.message))
+        dispatch(deleteOrderFail(extractErrorMessage(error)))
     }
 }
 
@@ -75,7 +76,7 @@ export const updateOrder = (id: string, orderData: any) => async (dispatch: AppD
         const { data } = await axios.put(`/admin/order/${id}`, orderData)
         dispatch(updateOrderSuccess(data))
     } catch (error) {
-        dispatch(updateOrderFail(error.response.data.message))
+        dispatch(updateOrderFail(extractErrorMessage(error)))
     }
 }
 
@@ -85,6 +86,6 @@ export const cancelOrder = (id: string, orderData: any) => async (dispatch: AppD
         const { data } = await axios.put(`/order/${id}`, orderData)
         dispatch(updateOrderSuccess(data))
     } catch (error) {
-        dispatch(updateOrderFail(error.response.data.message))
+        dispatch(updateOrderFail(extractErrorMessage(error)))
     }
 }

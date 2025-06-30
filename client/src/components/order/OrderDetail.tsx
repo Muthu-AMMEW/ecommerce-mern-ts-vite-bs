@@ -13,7 +13,7 @@ export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useAppSelector(state => state.orderState)
     const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt, returnedAt } = orderDetail;
     const [orderStatus, setOrderStatus] = useState("Processing");
-    const { id: orderId } = useParams();
+    const { id: orderId } = useParams<{ id: string }>();
 
     const dispatch = useAppDispatch();
 
@@ -21,7 +21,7 @@ export default function OrderDetail() {
         e.preventDefault();
         const orderData: any = {};
         orderData.orderStatus = orderStatus;
-        dispatch(cancelOrder(orderId, orderData))
+        dispatch(cancelOrder(orderId!, orderData))
     }
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export default function OrderDetail() {
             return
         }
 
-        dispatch(orderDetailAction(orderId))
+        dispatch(orderDetailAction(orderId!))
     }, [isOrderUpdated, orderId, error, dispatch])
 
     useEffect(() => {
