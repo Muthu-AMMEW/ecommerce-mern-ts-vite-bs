@@ -1,9 +1,8 @@
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 import { useAppSelector } from '../../hooks';
 
-export default function ProtectedRoute({ children, isAdmin }) {
+export default function ProtectedRoute({ children, isAdmin }: { children: any, isAdmin?: any }) {
     const { isAuthenticated, loading, authUser } = useAppSelector(state => state.authState);
     const location = useLocation();
 

@@ -14,15 +14,15 @@ export default function UpdateOrder() {
 
 
 	const { loading, isOrderUpdated, error, orderDetail } = useAppSelector(state => state.orderState)
-	const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt, returnedAt, pgInfo } = orderDetail;
+	const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt, returnedAt } = orderDetail;
 	const [orderStatus, setOrderStatus] = useState("Processing");
 	const { id: orderId } = useParams();
 
 	const dispatch = useAppDispatch();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		const orderData = {};
+		const orderData: any = {};
 		orderData.orderStatus = orderStatus;
 		dispatch(updateOrder(orderId, orderData))
 	}
@@ -110,7 +110,7 @@ export default function UpdateOrder() {
 
 									<h5 className='text-center text-decoration-underline m-2'>Order Items</h5>
 									<div className="cart-item my-1">
-										{orderItems && orderItems.map((item, i) => (
+										{orderItems && orderItems.map((item: any, i: number) => (
 											<div key={i}>
 												<hr />
 												<div className="cart-item">

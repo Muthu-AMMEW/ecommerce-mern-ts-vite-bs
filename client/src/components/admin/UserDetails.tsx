@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AdminBar from "./AdminBar";
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../actions/authActions";

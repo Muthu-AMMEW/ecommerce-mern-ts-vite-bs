@@ -33,7 +33,7 @@ export default function UpdateProduct() {
 
     const dispatch = useAppDispatch();
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         if (event.target.name === 'images') {
             const files = Array.from(event.target.files);
             files.forEach(file => {
@@ -61,13 +61,13 @@ export default function UpdateProduct() {
             price: "",
             description: "",
             category: "select",
-            stock: "",
+            stock: 0,
             seller: ""
         })
         toast.info("Reset Successfully", { position: 'top-center' });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         if (images.length === 0 && imagesCleared) {
             toast.error("Please select at least one image", { position: 'top-center' })
@@ -130,8 +130,8 @@ export default function UpdateProduct() {
             }));
 
             if (product.images) {
-                let images = [];
-                product.images.forEach(image => {
+                let images: any = [];
+                product.images.forEach((image: any) => {
                     images.push(image.image)
                 });
                 setImagesPreview(images)

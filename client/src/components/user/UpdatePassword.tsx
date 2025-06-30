@@ -15,10 +15,8 @@ export default function UpdatePassword() {
         confirmPassword: ""
     })
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const handleChange = (event: any) => {
+        setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
     function handleReset() {
@@ -44,13 +42,13 @@ export default function UpdatePassword() {
         if (error) {
             toast.error(error, {
                 position: 'top-center',
-                onOpen: () => dispatch(clearAuthError)
+                onOpen: () => dispatch(clearAuthError())
             })
             return
         }
     }, [isUpdated, error, dispatch])
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         if (inputs.password !== inputs.confirmPassword) {
             toast.error("Password Mismatch", { position: 'top-center' })

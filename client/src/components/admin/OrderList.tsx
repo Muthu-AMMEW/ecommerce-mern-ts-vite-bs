@@ -108,7 +108,7 @@ export default function OrderList() {
         return data;
     }
 
-    const deleteHandler = (e, id) => {
+    const deleteHandler = (e: any, id) => {
         e.target.disabled = true;
         dispatch(deleteOrder(id))
     }

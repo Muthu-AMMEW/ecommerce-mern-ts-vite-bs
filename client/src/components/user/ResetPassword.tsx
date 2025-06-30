@@ -32,10 +32,8 @@ export default function ResetPassword() {
         }
     }, [isAuthenticated, error, dispatch, navigate])
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const handleChange = (event: any) => {
+        setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
     function handleReset() {
@@ -46,7 +44,7 @@ export default function ResetPassword() {
         toast.info("Reset Successfully", { position: 'top-center' });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         if (inputs.password !== inputs.confirmPassword) {
             toast.error("Password Mismatch", { position: 'top-center' });

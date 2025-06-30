@@ -12,7 +12,7 @@ export default function Home() {
     const { products, loading, error, productsCount, resPerPage } = useAppSelector((state) => state.productsState)
     const [currentPage, setCurrentPage] = useState(1);
 
-    const setCurrentPageNo = (pageNo) => {
+    const setCurrentPageNo = (pageNo: number) => {
         setCurrentPage(pageNo)
     }
 
@@ -37,7 +37,7 @@ export default function Home() {
                     {/* <h3 className="ps-5 pt-3 text-decoration-underline">Latest Products</h3> */}
                     <section id="products" className="container mt-3">
                         <div className="row">
-                            {products && products.map(product => (
+                            {products && products.map((product: any) => (
                                 <Product key={product._id} product={product} />
                             ))}
 

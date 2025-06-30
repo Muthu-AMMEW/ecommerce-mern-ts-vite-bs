@@ -1,4 +1,4 @@
-export function formatRupees(amount) {
+export function formatRupees(amount: number) {
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency: "INR",

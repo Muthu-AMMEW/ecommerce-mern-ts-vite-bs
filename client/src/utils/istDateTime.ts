@@ -1,4 +1,4 @@
-export function istDateTime(utcString) {
+export function istDateTime(utcString: string) {
     const istDate = new Date(utcString).toLocaleString("en-IN", {
         timeZone: "Asia/Kolkata", // IST timezone
         hour12: true,             // optional: for 12-hour format

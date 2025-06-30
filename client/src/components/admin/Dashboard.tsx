@@ -16,7 +16,7 @@ export default function Dashboard() {
     let outOfStock = 0;
 
     if (products.length > 0) {
-        products.forEach(product => {
+        products.forEach((product: any) => {
             if (product.stock <= 0) {
                 outOfStock = outOfStock + 1;
             }
@@ -25,11 +25,11 @@ export default function Dashboard() {
 
     let totalAmount = 0;
     if (adminOrders.length > 0) {
-        adminOrders.forEach(order => {
+        adminOrders.forEach((order: any) => {
             totalAmount += order.totalPrice
         })
     }
-    
+
     useEffect(() => {
         dispatch(getAdminProducts);
         dispatch(getUsers);
@@ -40,7 +40,7 @@ export default function Dashboard() {
     return (
         <>
             <MetaData title={'Admin Dashboard'} />
-            
+
             <AdminBar />
             <div className="p-4">
                 <div className="row">

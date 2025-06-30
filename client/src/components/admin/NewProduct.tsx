@@ -32,15 +32,15 @@ export default function NewProduct() {
 
     const dispatch = useAppDispatch();
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         if (event.target.name === 'images') {
             const files = Array.from(event.target.files);
-            files.forEach(file => {
-                const reader = new FileReader();
+            files.forEach((file: any) => {
+                const reader: any = new FileReader();
 
                 reader.onload = () => {
                     if (reader.readyState == 2) {
-                        setImagesPreview(oldArray => [...oldArray, reader.result])
+                        setImagesPreview((oldArray) => [...oldArray, reader.result])
                         setImages(oldArray => [...oldArray, file])
                     }
                 }
@@ -60,13 +60,13 @@ export default function NewProduct() {
             price: "",
             description: "",
             category: "select",
-            stock: "",
+            stock: 0,
             seller: ""
         })
         toast.info("Reset Successfully", { position: 'top-center' });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('name', inputs.name);

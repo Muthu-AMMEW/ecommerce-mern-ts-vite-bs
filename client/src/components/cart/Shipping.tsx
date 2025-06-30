@@ -8,7 +8,6 @@ import MetaData from "../layouts/MetaData";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 
-
 export default function Shipping() {
     const { shippingInfo = {}, cartItems, loading } = useAppSelector(state => state.cartState)
     const { authUser } = useAppSelector(state => state.authState)
@@ -25,7 +24,7 @@ export default function Shipping() {
     })
 
     useEffect(() => {
-        if (!cartItems.length > 0) {
+        if (!cartItems.length) {
             toast.error('Please add items in the cart', { position: 'top-center' })
             navigate('/cart');
         }
@@ -49,10 +48,8 @@ export default function Shipping() {
         }
     }, []);
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const handleChange = (event: any) => {
+        setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
     const countryList = Object.values(countries);
@@ -76,7 +73,7 @@ export default function Shipping() {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         const { fullName, addressLine1, addressLine2, city, state, country, postalCode, phoneNumber } = inputs;
         dispatch(saveShippingInfo({ fullName, addressLine1, addressLine2, city, state, country, postalCode, phoneNumber }))

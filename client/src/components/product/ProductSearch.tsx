@@ -55,7 +55,7 @@ export default function ProductSearch() {
 		}
 	};
 
-	const handleChange = async (event) => {
+	const handleChange = async (event: any) => {
 
 		if (event.target.name === 'min') {
 			const min = [...priceChanged];
@@ -69,7 +69,7 @@ export default function ProductSearch() {
 		}
 	};
 
-	const setCurrentPageNo = (pageNo) => {
+	const setCurrentPageNo = (pageNo: number) => {
 
 		setCurrentPage(pageNo)
 

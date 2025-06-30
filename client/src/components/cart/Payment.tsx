@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 export default function Payment() {
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
+    const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo') || '{}');
     const { authUser } = useAppSelector(state => state.authState)
     const { cartItems, shippingInfo } = useAppSelector(state => state.cartState)
     const { error: orderError, newOrderDetail } = useAppSelector(state => state.orderState)

@@ -12,7 +12,7 @@ export default function UpdateProfile() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const countryList = Object.values(countries);
-    const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "" });
+    const [inputs, setInputs] = useState<{ fullName: string, email?: string, phoneNumber: string }>({ fullName: "", email: "", phoneNumber: "" });
     const [addressInputs, setAddressInputs] = useState({
         addressLine1: "",
         addressLine2: "",
@@ -25,9 +25,9 @@ export default function UpdateProfile() {
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         if (event.target.name === 'avatar') {
-            const reader = new FileReader();
+            const reader: any = new FileReader();
             reader.onload = () => {
                 if (reader.readyState === 2) {
                     setAvatarPreview(reader.result);
@@ -36,16 +36,12 @@ export default function UpdateProfile() {
             }
             reader.readAsDataURL(event.target.files[0])
         } else {
-            const name = event.target.name;
-            const value = event.target.value;
-            setInputs(values => ({ ...values, [name]: value }))
+            setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
         }
     }
 
-    const handleAddressChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setAddressInputs(values => ({ ...values, [name]: value }))
+    const handleAddressChange = (event: any) => {
+        setAddressInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
     function handleReset() {
@@ -65,7 +61,7 @@ export default function UpdateProfile() {
 
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('fullName', inputs.fullName)

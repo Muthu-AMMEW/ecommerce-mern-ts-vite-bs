@@ -7,7 +7,7 @@ export default function usePWAInstallPrompt() {
   const [hasTriedPrompt, setHasTriedPrompt] = useState(false); // track if we missed the prompt
 
   useEffect(() => {
-    const handler = (e) => {
+    const handler = (e: any) => {
       e.preventDefault(); // Required on some browsers
       setDeferredPrompt(e);
       setHasTriedPrompt(true);

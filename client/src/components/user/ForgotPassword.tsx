@@ -12,10 +12,8 @@ export default function ForgotPassword() {
     const dispatch = useAppDispatch();
     const { error, message, loading } = useAppSelector(state => state.authState);
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const handleChange = (event: any) => {
+        setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
     function handleReset() {
@@ -26,9 +24,8 @@ export default function ForgotPassword() {
 
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: any) => {
         event.preventDefault();
-
         const formData = new FormData();
         formData.append('email', inputs.email);
         dispatch(forgotPassword(formData))
@@ -48,7 +45,7 @@ export default function ForgotPassword() {
         if (error) {
             toast.error(error, {
                 position: 'top-center',
-                onOpen: () => dispatch(clearAuthError)
+                onOpen: () => dispatch(clearAuthError())
             })
             return
         }

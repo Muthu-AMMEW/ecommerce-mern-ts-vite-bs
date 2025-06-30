@@ -8,7 +8,7 @@ import MetaData from "../layouts/MetaData";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateUser() {
-    const [inputs, setInputs] = useState({ fullName: "", email: "", role: "" });
+    const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "", role: "" });
     const { id: userId } = useParams();
 
     const { loading, isUserUpdated, error, user } = useAppSelector(state => state.userState)
@@ -16,13 +16,11 @@ export default function UpdateUser() {
 
     const dispatch = useAppDispatch();
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({ ...values, [name]: value }))
+    const handleChange = (event: any) => {
+        setInputs(values => ({ ...values, [event.target.name]: event.target.value }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: any) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('role', inputs.role);

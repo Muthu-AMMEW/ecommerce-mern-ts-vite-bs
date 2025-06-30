@@ -18,8 +18,8 @@ export default function Register() {
 		terms: true
 	})
 
-	// const [avatar, setAvatar] = useState("");
-	// const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
+	const [avatar, setAvatar] = useState("");
+	const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
 	const dispatch = useAppDispatch();
 	const countryList = Object.values(countries);
 	const navigate = useNavigate();

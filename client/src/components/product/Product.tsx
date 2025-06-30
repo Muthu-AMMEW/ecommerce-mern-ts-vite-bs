@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { formatRupees } from '../../utils/formatRupees';
 
-export default function Product({ product }) {
+export default function Product({ product }: { product: any }) {
     return (
         <div className={`col-sm-12 col-md-6 col-lg-4 col-xl-3 my-3`}>
             <div className="card p-3 rounded bg-body-secondary">

@@ -20,7 +20,7 @@ const cartSlice = createSlice({
         addCartItemSuccess(state, action) {
             const item = action.payload
 
-            const isItemExist = state.cartItems.find(i => i._id == item._id);
+            const isItemExist = state.cartItems.find((i: any) => i._id == item._id);
 
             if (isItemExist) {
                 state = {
@@ -39,7 +39,7 @@ const cartSlice = createSlice({
 
         },
         increaseCartItemQty(state, action) {
-            state.cartItems = state.cartItems.map(item => {
+            state.cartItems = state.cartItems.map((item: any) => {
                 if (item._id == action.payload) {
                     item.quantity = item.quantity + 1
                 }
@@ -49,7 +49,7 @@ const cartSlice = createSlice({
 
         },
         decreaseCartItemQty(state, action) {
-            state.cartItems = state.cartItems.map(item => {
+            state.cartItems = state.cartItems.map((item: any) => {
                 if (item._id == action.payload) {
                     item.quantity = item.quantity - 1
                 }
@@ -59,7 +59,7 @@ const cartSlice = createSlice({
 
         },
         removeItemFromCart(state, action) {
-            const filterItems = state.cartItems.filter(item => {
+            const filterItems = state.cartItems.filter((item: any) => {
                 return item._id !== action.payload
             })
             localStorage.setItem('cartItems', JSON.stringify(filterItems));

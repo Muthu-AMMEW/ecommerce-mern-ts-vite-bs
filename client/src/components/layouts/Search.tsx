@@ -7,13 +7,13 @@ export default function Search() {
     const location = useLocation();
     const [keyword, setKeyword] = useState("")
 
-    const searchHandler = (e) => {
+    const searchHandler = (e: any) => {
         e.preventDefault();
         navigate(`/search/${keyword}`)
 
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: any) => {
         if (e.key === "Enter") {
             searchHandler(e);
         }
