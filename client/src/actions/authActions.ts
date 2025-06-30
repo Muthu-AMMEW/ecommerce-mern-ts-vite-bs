@@ -50,7 +50,7 @@ import {
 import axios from 'axios';
 import { AppDispatch } from '../store';
 
-export const login = (email, password) => async (dispatch: AppDispatch) => {
+export const login = (email: string, password: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(loginRequest())
@@ -62,7 +62,7 @@ export const login = (email, password) => async (dispatch: AppDispatch) => {
 
 }
 
-export const register = (userData) => async (dispatch: AppDispatch) => {
+export const register = (userData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(registerRequest())
@@ -95,7 +95,7 @@ export const loadUser = async (dispatch: AppDispatch) => {
 export const logout = async (dispatch: AppDispatch) => {
 
     try {
-        dispatch(logoutRequest)
+        dispatch(logoutRequest())
         await axios.get(`/logout`);
         localStorage.clear();
         sessionStorage.clear();
@@ -110,7 +110,7 @@ export const logout = async (dispatch: AppDispatch) => {
 
 }
 
-export const updateProfile = (userData) => async (dispatch: AppDispatch) => {
+export const updateProfile = (userData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(updateProfileRequest())
@@ -129,7 +129,7 @@ export const updateProfile = (userData) => async (dispatch: AppDispatch) => {
 }
 
 
-export const generateOtp = (userData) => async (dispatch: AppDispatch) => {
+export const generateOtp = (userData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(otpRequest())
@@ -147,7 +147,7 @@ export const generateOtp = (userData) => async (dispatch: AppDispatch) => {
 
 }
 
-export const verifyEmail = (userData) => async (dispatch: AppDispatch) => {
+export const verifyEmail = (userData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(emailVerifyRequest())
@@ -165,7 +165,7 @@ export const verifyEmail = (userData) => async (dispatch: AppDispatch) => {
 
 }
 
-export const updatePassword = (formData) => async (dispatch: AppDispatch) => {
+export const updatePassword = (formData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(updatePasswordRequest())
@@ -182,7 +182,7 @@ export const updatePassword = (formData) => async (dispatch: AppDispatch) => {
 
 }
 
-export const forgotPassword = (formData) => async (dispatch: AppDispatch) => {
+export const forgotPassword = (formData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(forgotPasswordRequest())
@@ -199,7 +199,7 @@ export const forgotPassword = (formData) => async (dispatch: AppDispatch) => {
 
 }
 
-export const resetPassword = (formData, token) => async (dispatch: AppDispatch) => {
+export const resetPassword = (formData: any, token: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(resetPasswordRequest())
@@ -228,7 +228,7 @@ export const getUsers = async (dispatch: AppDispatch) => {
 
 }
 
-export const getUser = id => async (dispatch: AppDispatch) => {
+export const getUser = (id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(userRequest())
@@ -240,7 +240,7 @@ export const getUser = id => async (dispatch: AppDispatch) => {
 
 }
 
-export const deleteUser = id => async (dispatch: AppDispatch) => {
+export const deleteUser = (id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(deleteUserRequest())
@@ -252,7 +252,7 @@ export const deleteUser = id => async (dispatch: AppDispatch) => {
 
 }
 
-export const updateUser = (id, formData) => async (dispatch: AppDispatch) => {
+export const updateUser = (id: string, formData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(updateUserRequest())

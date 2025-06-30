@@ -62,7 +62,7 @@ export const getProducts = (keyword: string | null, price: number[] | null, cate
 }
 
 
-export const getProduct = id => async (dispatch: AppDispatch) => {
+export const getProduct = (id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(productRequest())
@@ -75,7 +75,7 @@ export const getProduct = id => async (dispatch: AppDispatch) => {
 
 }
 
-export const createReview = reviewData => async (dispatch: AppDispatch) => {
+export const createReview = (reviewData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(createReviewRequest())
@@ -106,7 +106,7 @@ export const getAdminProducts = async (dispatch: AppDispatch) => {
 
 }
 
-export const createNewProduct = productData => async (dispatch: AppDispatch) => {
+export const createNewProduct = (productData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(newProductRequest())
@@ -119,7 +119,7 @@ export const createNewProduct = productData => async (dispatch: AppDispatch) => 
 
 }
 
-export const deleteProduct = id => async (dispatch: AppDispatch) => {
+export const deleteProduct = (id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(deleteProductRequest())
@@ -132,7 +132,7 @@ export const deleteProduct = id => async (dispatch: AppDispatch) => {
 
 }
 
-export const updateProduct = (id, productData) => async (dispatch: AppDispatch) => {
+export const updateProduct = (id: string, productData: any) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(updateProductRequest())
@@ -146,7 +146,7 @@ export const updateProduct = (id, productData) => async (dispatch: AppDispatch) 
 }
 
 
-export const getReviews = id => async (dispatch: AppDispatch) => {
+export const getReviews = (id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(reviewsRequest())
@@ -159,7 +159,7 @@ export const getReviews = id => async (dispatch: AppDispatch) => {
 
 }
 
-export const deleteReview = (productId, id) => async (dispatch: AppDispatch) => {
+export const deleteReview = (productId: string, id: string) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(deleteReviewRequest())
