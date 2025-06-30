@@ -10,10 +10,11 @@ import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 import { formatRupees } from "../../utils/formatRupees"
+import { useAppSelector } from "../../hooks"
 
 export default function ProductList() {
-    const { products = [], loading = true, error } = useSelector(state => state.productsState)
-    const { isProductDeleted, error: productError } = useSelector(state => state.productState)
+    const { products = [], loading = true, error } = useAppSelector(state => state.productsState)
+    const { isProductDeleted, error: productError } = useAppSelector(state => state.productState)
     const dispatch = useDispatch();
     let sno = 0;
 

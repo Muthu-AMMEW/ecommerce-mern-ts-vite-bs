@@ -4,13 +4,14 @@ import { toast } from "react-toastify";
 import { forgotPassword } from "../../actions/authActions";
 import MetaData from "../layouts/MetaData";
 import { clearAuthError } from "../../slices/authSlice";
+import { useAppSelector } from "../../hooks";
 
 export default function ForgotPassword() {
     const [inputs, setInputs] = useState({
         email: ""
     })
     const dispatch = useDispatch();
-    const { error, message, loading } = useSelector(state => state.authState);
+    const { error, message, loading } = useAppSelector(state => state.authState);
 
     const handleChange = (event) => {
         const name = event.target.name;

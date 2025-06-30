@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';
+import { useAppSelector } from '../../hooks';
 
 
 export default function Register() {
@@ -23,7 +24,7 @@ export default function Register() {
 	const dispatch = useDispatch();
 	const countryList = Object.values(countries);
 	const navigate = useNavigate();
-	const { loading, error, isAuthenticated } = useSelector(state => state.authState);
+	const { loading, error, isAuthenticated } = useAppSelector(state => state.authState);
 	const [addressInputs, setAddressInputs] = useState({
 		addressLine1: "",
 		addressLine2: "",

@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';
+import { useAppSelector } from '../../hooks';
 
 export default function UpdatePassword() {
 
     const dispatch = useDispatch();
-    const { isUpdated, error, isAuthenticated, loading } = useSelector(state => state.authState)
+    const { isUpdated, error, isAuthenticated, loading } = useAppSelector(state => state.authState)
     const [inputs, setInputs] = useState({
         oldPassword: "",
         password: "",

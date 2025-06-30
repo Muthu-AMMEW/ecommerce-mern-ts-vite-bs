@@ -3,10 +3,11 @@ import { Link, StaticRouter, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
 import { formatRupees } from '../../utils/formatRupees';
 import MetaData from '../layouts/MetaData';
+import { useAppSelector } from '../../hooks';
 
 export default function Cart() {
-    const { cartItems } = useSelector(state => state.cartState)
-    const { isAuthenticated } = useSelector(state => state.authState)
+    const { cartItems } = useAppSelector(state => state.cartState)
+    const { isAuthenticated } = useAppSelector(state => state.authState)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

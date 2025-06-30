@@ -11,11 +11,12 @@ import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
 import { formatRupees } from "../../utils/formatRupees";
+import { useAppSelector } from "../../hooks";
 
 export default function ProductDetail() {
-    const { loading, product = {}, isReviewSubmitted, error } = useSelector((state) => state.productState);
-    const { authUser } = useSelector(state => state.authState);
-    const { cartItems } = useSelector(state => state.cartState);
+    const { loading, product = {}, isReviewSubmitted, error } = useAppSelector((state) => state.productState);
+    const { authUser } = useAppSelector(state => state.authState);
+    const { cartItems } = useAppSelector(state => state.cartState);
     const dispatch = useDispatch();
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);

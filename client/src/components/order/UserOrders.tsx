@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userOrders as userOrdersAction } from '../../actions/orderActions';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';
+import { useAppSelector } from '../../hooks';
 
 export default function UserOrders() {
-    const { userOrders = [], loading = true } = useSelector(state => state.orderState)
+    const { userOrders = [], loading = true } = useAppSelector(state => state.orderState)
     const dispatch = useDispatch();
     let sno = 0;
 

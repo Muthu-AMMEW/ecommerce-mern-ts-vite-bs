@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import UserDropDown from './UserDropDown';
 import SocialNetworks from './SocialNetworks';
+import { useAppSelector } from '../../hooks';
 
 
 export default function Head() {
 
-    const { isAuthenticated } = useSelector(state => state.authState);
-    const { cartItems } = useSelector(state => state.cartState)
+    const { isAuthenticated } = useAppSelector(state => state.authState);
+    const { cartItems } = useAppSelector(state => state.cartState)
     const dispatch = useDispatch();
     const logoutHandler = () => {
         dispatch(logout);

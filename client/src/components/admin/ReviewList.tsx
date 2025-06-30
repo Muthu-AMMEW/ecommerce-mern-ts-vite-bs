@@ -8,9 +8,10 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
+import { useAppSelector } from "../../hooks"
 
 export default function ReviewList() {
-    const { reviews = [], loading, error, isReviewDeleted } = useSelector(state => state.productState)
+    const { reviews = [], loading, error, isReviewDeleted } = useAppSelector(state => state.productState)
     const [productId, setProductId] = useState("");
     const dispatch = useDispatch();
 

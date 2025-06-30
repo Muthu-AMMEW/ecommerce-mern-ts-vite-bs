@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';
+import { useAppSelector } from '../../hooks';
 
 export default function ResetPassword() {
     const [inputs, setInputs] = useState({
@@ -13,7 +14,7 @@ export default function ResetPassword() {
     })
 
     const dispatch = useDispatch();
-    const { isAuthenticated, error, loading } = useSelector(state => state.authState)
+    const { isAuthenticated, error, loading } = useAppSelector(state => state.authState)
     const navigate = useNavigate();
     const { token } = useParams();
 

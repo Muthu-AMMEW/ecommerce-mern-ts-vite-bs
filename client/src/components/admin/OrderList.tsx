@@ -11,9 +11,10 @@ import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 import { formatRupees } from "../../utils/formatRupees"
 import { istDateTime } from "../../utils/istDateTime"
+import { useAppSelector } from "../../hooks"
 
 export default function OrderList() {
-    const { adminOrders = [], loading, error, isOrderDeleted } = useSelector(state => state.orderState)
+    const { adminOrders = [], loading, error, isOrderDeleted } = useAppSelector(state => state.orderState)
 
     const dispatch = useDispatch();
     let sno = 0;

@@ -5,12 +5,13 @@ import MetaData from '../layouts/MetaData';
 import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { clearAuthError } from '../../slices/authSlice';
+import { useAppSelector } from '../../hooks';
 export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { loading, error, isAuthenticated } = useSelector(state => state.authState)
+    const { loading, error, isAuthenticated } = useAppSelector(state => state.authState)
     const redirect = location.search ? '/' + location.search.split('=')[1] : '/home';
 
     const [inputs, setInputs] = useState({

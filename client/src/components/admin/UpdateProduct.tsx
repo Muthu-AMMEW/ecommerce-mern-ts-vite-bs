@@ -6,6 +6,7 @@ import { getProduct, updateProduct } from "../../actions/productActions";
 import { clearProductError, clearIsProductUpdated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
+import { useAppSelector } from "../../hooks";
 
 export default function UpdateProduct() {
     const [inputs, setInputs] = useState({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
@@ -14,7 +15,7 @@ export default function UpdateProduct() {
     const [imagesPreview, setImagesPreview] = useState([]);
     const { id: productId } = useParams();
 
-    const { loading, isProductUpdated, error, product } = useSelector(state => state.productState)
+    const { loading, isProductUpdated, error, product } = useAppSelector(state => state.productState)
 
     const categories = [
         'Electronics',

@@ -6,12 +6,13 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutStep";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
+import { useAppSelector } from "../../hooks";
 
 
 
 export default function Shipping() {
-    const { shippingInfo = {}, cartItems, loading } = useSelector(state => state.cartState)
-    const { authUser } = useSelector(state => state.authState)
+    const { shippingInfo = {}, cartItems, loading } = useAppSelector(state => state.cartState)
+    const { authUser } = useAppSelector(state => state.authState)
 
     const [inputs, setInputs] = useState({
         fullName: "",

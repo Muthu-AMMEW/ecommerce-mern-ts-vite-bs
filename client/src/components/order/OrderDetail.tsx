@@ -8,9 +8,10 @@ import { clearIsOrderUpdated, clearOrderError } from "../../slices/orderSlice";
 import MetaData from '../layouts/MetaData';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';
+import { useAppSelector } from '../../hooks';
 
 export default function OrderDetail() {
-    const { loading, isOrderUpdated, error, orderDetail } = useSelector(state => state.orderState)
+    const { loading, isOrderUpdated, error, orderDetail } = useAppSelector(state => state.orderState)
     const { user = {}, orderItems = [], shippingInfo = {}, itemsPrice, taxPrice, shippingPrice, totalPrice = 0, paymentInfo = {}, deliveredAt, returnedAt } = orderDetail;
     const [orderStatus, setOrderStatus] = useState("Processing");
     const { id: orderId } = useParams();

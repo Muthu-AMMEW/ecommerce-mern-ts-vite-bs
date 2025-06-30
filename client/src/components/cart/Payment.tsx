@@ -11,15 +11,16 @@ import { clearOrderError } from "../../slices/orderSlice";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
+import { useAppSelector } from "../../hooks";
 
 
 export default function Payment() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
-    const { authUser } = useSelector(state => state.authState)
-    const { cartItems, shippingInfo } = useSelector(state => state.cartState)
-    const { error: orderError, newOrderDetail } = useSelector(state => state.orderState)
+    const { authUser } = useAppSelector(state => state.authState)
+    const { cartItems, shippingInfo } = useAppSelector(state => state.cartState)
+    const { error: orderError, newOrderDetail } = useAppSelector(state => state.orderState)
     const [loading, setLoading] = useState(false)
 
     function activateGateway() {

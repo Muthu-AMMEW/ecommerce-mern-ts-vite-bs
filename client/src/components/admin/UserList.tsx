@@ -9,10 +9,11 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
+import { useAppSelector } from "../../hooks"
 
 export default function UserList() {
-    const { users = [], loading = true, error, isUserDeleted } = useSelector(state => state.userState);
-    const { authUser } = useSelector(state => state.authState);
+    const { users = [], loading = true, error, isUserDeleted } = useAppSelector(state => state.userState);
+    const { authUser } = useAppSelector(state => state.authState);
     const dispatch = useDispatch();
     let sno = 0;
 

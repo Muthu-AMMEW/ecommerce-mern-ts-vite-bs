@@ -5,10 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import CheckoutSteps from './CheckoutStep';
 import { toast } from 'react-toastify';
 import { formatRupees } from '../../utils/formatRupees';
+import { useAppSelector } from '../../hooks';
 
 export default function ConfirmOrder() {
-    const { shippingInfo, cartItems } = useSelector(state => state.cartState);
-    const { authUser } = useSelector(state => state.authState);
+    const { shippingInfo, cartItems } = useAppSelector(state => state.cartState);
+    const { authUser } = useAppSelector(state => state.authState);
     const navigate = useNavigate();
     const itemsPrice = cartItems.reduce((acc, item) => (acc + item.price * item.quantity), 0);
     const shippingPrice = itemsPrice > 200 ? 0 : 25;

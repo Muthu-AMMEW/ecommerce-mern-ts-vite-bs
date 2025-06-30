@@ -12,10 +12,11 @@ import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import { TaskAbortError } from "@reduxjs/toolkit";
+import { useAppSelector } from "../../hooks";
 
 export default function ProductSearch() {
 	const dispatch = useDispatch();
-	const { products, loading, error, productsCount, resPerPage } = useSelector((state) => state.productsState)
+	const { products, loading, error, productsCount, resPerPage } = useAppSelector((state) => state.productsState)
 	const [currentPage, setCurrentPage] = useState(1);
 	const [price, setPrice] = useState([1, 100000]);
 	const [priceChanged, setPriceChanged] = useState(price);

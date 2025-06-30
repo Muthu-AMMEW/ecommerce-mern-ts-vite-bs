@@ -6,13 +6,14 @@ import { getUser, updateUser } from "../../actions/authActions";
 import { clearUserError, clearIsUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
+import { useAppSelector } from "../../hooks";
 
 export default function UpdateUser() {
     const [inputs, setInputs] = useState({ fullName: "", email: "", role: "" });
     const { id: userId } = useParams();
 
-    const { loading, isUserUpdated, error, user } = useSelector(state => state.userState)
-    const { authUser } = useSelector(state => state.authState)
+    const { loading, isUserUpdated, error, user } = useAppSelector(state => state.userState)
+    const { authUser } = useAppSelector(state => state.authState)
 
     const dispatch = useDispatch();
 
