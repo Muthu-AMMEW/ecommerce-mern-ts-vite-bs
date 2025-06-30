@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';

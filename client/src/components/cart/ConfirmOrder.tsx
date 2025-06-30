@@ -1,6 +1,5 @@
 import MetaData from '../layouts/MetaData';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckoutSteps from './CheckoutStep';
 import { toast } from 'react-toastify';
@@ -11,11 +10,11 @@ export default function ConfirmOrder() {
     const { shippingInfo, cartItems } = useAppSelector(state => state.cartState);
     const { authUser } = useAppSelector(state => state.authState);
     const navigate = useNavigate();
-    const itemsPrice = cartItems.reduce((acc, item) => (acc + item.price * item.quantity), 0);
+    const itemsPrice = cartItems.reduce((acc: number, item: any) => (acc + item.price * item.quantity), 0);
     const shippingPrice = itemsPrice > 200 ? 0 : 25;
     let taxPrice = Number(0.05 * itemsPrice);
     const totalPrice = Number(itemsPrice + shippingPrice + taxPrice).toFixed(2);
-    taxPrice = Number(taxPrice).toFixed(2)
+    taxPrice = parseFloat(Number(taxPrice).toFixed(2))
 
     const processPayment = () => {
         const data = {
@@ -73,7 +72,7 @@ export default function ConfirmOrder() {
                             <hr />
 
                             <h3 className="mt-5 text-center">Your Cart <b>{cartItems.length} items</b></h3>
-                            {cartItems.map((item) =>
+                            {cartItems.map((item: any) =>
                             (<div key={item._id}>
                                 <hr />
                                 <div className="cart-item">

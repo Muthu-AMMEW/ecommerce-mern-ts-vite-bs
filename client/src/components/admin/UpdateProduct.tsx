@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getProduct, updateProduct } from "../../actions/productActions";
 import { clearProductError, clearIsProductUpdated } from "../../slices/productSlice";

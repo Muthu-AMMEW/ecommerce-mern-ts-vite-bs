@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { toast } from "react-toastify";
 import { updateProfile } from "../../actions/authActions";
 import { clearAuthError, clearIsUpdated } from "../../slices/authSlice";

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../../actions/authActions'
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 import { countries } from 'countries-list';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 
 export default function Register() {
@@ -19,9 +18,9 @@ export default function Register() {
 		terms: true
 	})
 
-	const [avatar, setAvatar] = useState("");
-	const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
-	const dispatch = useDispatch();
+	// const [avatar, setAvatar] = useState("");
+	// const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
+	const dispatch = useAppDispatch();
 	const countryList = Object.values(countries);
 	const navigate = useNavigate();
 	const { loading, error, isAuthenticated } = useAppSelector(state => state.authState);
@@ -42,15 +41,15 @@ export default function Register() {
 		if (error) {
 			toast.error(error, {
 				position: 'top-center',
-				onOpen: () => dispatch(clearAuthError)
+				onOpen: () => dispatch(clearAuthError())
 			})
 			return
 		}
 	}, [error, isAuthenticated, dispatch, navigate])
 
-	const handleChange = (event) => {
+	const handleChange = (event: any) => {
 		if (event.target.name === 'avatar') {
-			const reader = new FileReader();
+			const reader: any = new FileReader();
 			reader.onload = () => {
 				if (reader.readyState === 2) {
 					setAvatarPreview(reader.result);
@@ -65,7 +64,7 @@ export default function Register() {
 		}
 	}
 
-	const handleAddressChange = (event) => {
+	const handleAddressChange = (event: any) => {
 		const name = event.target.name;
 		const value = event.target.value;
 		setAddressInputs(values => ({ ...values, [name]: value }))
@@ -78,7 +77,8 @@ export default function Register() {
 			email: "",
 			phoneNumber: "",
 			password: "",
-			confirmPassword: ""
+			confirmPassword: "",
+			terms: true
 		});
 		setAddressInputs({
 			addressLine1: "",
@@ -92,7 +92,7 @@ export default function Register() {
 
 	}
 
-	const handleSubmit = (event) => {
+	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		if (inputs.password !== inputs.confirmPassword) {
 			toast.error("Password Mismatch", { position: 'top-center' })
@@ -203,7 +203,7 @@ export default function Register() {
 
 							<div className="form-check">
 								<label className="form-check-label w-100 mt-3">
-									<input type="checkbox" className="form-check-input" name="terms" value={inputs.terms} onChange={handleChange} checked={inputs.terms} required /> I accept the <a className="fw-bold" href="www.#.com">Terms of Use &
+									<input type="checkbox" className="form-check-input" name="terms" onChange={handleChange} checked={inputs.terms} required /> I accept the <a className="fw-bold" href="www.#.com">Terms of Use &
 										Privacy Policy</a>
 								</label>
 							</div>

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import MetaData from '../layouts/MetaData';
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userOrders as userOrdersAction } from '../../actions/orderActions';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';

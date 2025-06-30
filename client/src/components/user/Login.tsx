@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../actions/authActions';
 import MetaData from '../layouts/MetaData';
 import { toast } from 'react-toastify';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { clearAuthError } from '../../slices/authSlice';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 export default function Login() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -16,10 +15,11 @@ export default function Login() {
 
     const [inputs, setInputs] = useState({
         email: "",
-        password: ""
+        password: "",
+        remember: true
     })
 
-    const handleChange = (event) => {
+    const handleChange = (event:any) => {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({ ...values, [name]: value }))
@@ -28,13 +28,14 @@ export default function Login() {
     function handleReset() {
         setInputs({
             email: "",
-            password: ""
+            password: "",
+            remember: true
         })
         toast.info("Reset Successfully", { position: 'top-center' });
 
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event:any) => {
         event.preventDefault();
         dispatch(login(inputs.email, inputs.password))
     }
@@ -47,7 +48,7 @@ export default function Login() {
         if (error) {
             toast.error(error, {
                 position: 'top-center',
-                onOpen: () => dispatch(clearAuthError)
+                onOpen: () => dispatch(clearAuthError())
             })
             return
         }

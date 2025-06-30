@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getProducts } from "../../actions/productActions";
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function CheckoutSteps({ shipping, confirmOrder, payment }) {
+export default function CheckoutSteps({ shipping, confirmOrder, payment }: { shipping?: boolean; confirmOrder?: boolean; payment?: boolean; }) {
     return (
 
         <div className="checkout-progress d-flex justify-content-center mt-5 ms-1">

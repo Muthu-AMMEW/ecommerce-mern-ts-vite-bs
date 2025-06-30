@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteOrder, adminOrders as adminOrdersAction } from "../../actions/orderActions"
 import { clearOrderError, clearIsOrderDeleted } from "../../slices/orderSlice"

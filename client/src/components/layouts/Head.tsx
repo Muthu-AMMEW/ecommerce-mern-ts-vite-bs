@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Search from './Search';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import UserDropDown from './UserDropDown';
 import SocialNetworks from './SocialNetworks';

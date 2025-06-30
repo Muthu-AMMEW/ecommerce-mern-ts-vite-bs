@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { countries } from 'countries-list'
 import { saveShippingInfo } from "../../slices/cartSlice";

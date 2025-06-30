@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteUser, getUsers } from "../../actions/authActions"
 import { clearUserError, clearIsUserDeleted } from "../../slices/userSlice"

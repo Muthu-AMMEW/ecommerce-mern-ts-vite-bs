@@ -1,5 +1,5 @@
 import AdminBar from "./AdminBar";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { getAdminProducts } from "../../actions/productActions";
 import { getUsers } from '../../actions/authActions'
@@ -7,11 +7,12 @@ import { adminOrders as adminOrdersAction } from '../../actions/orderActions'
 import { Link } from "react-router-dom";
 import MetaData from "../layouts/MetaData";
 import { formatRupees } from "../../utils/formatRupees";
+import { useAppSelector } from "../../hooks";
 
 export default function Dashboard() {
-    const { products = [] } = useSelector(state => state.productsState);
-    const { adminOrders = [] } = useSelector(state => state.orderState);
-    const { users = [] } = useSelector(state => state.userState);
+    const { products = [] } = useAppSelector(state => state.productsState);
+    const { adminOrders = [] } = useAppSelector(state => state.orderState);
+    const { users = [] } = useAppSelector(state => state.userState);
     const dispatch = useDispatch();
     let outOfStock = 0;
 

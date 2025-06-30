@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createNewProduct } from "../../actions/productActions";
 import { clearProductError, clearIsProductCreated } from "../../slices/productSlice";
 import { toast } from "react-toastify";

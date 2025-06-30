@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { updatePassword as updatePasswordAction } from '../../actions/authActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';

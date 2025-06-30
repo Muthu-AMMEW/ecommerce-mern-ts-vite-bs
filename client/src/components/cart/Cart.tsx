@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, StaticRouter, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
 import { formatRupees } from '../../utils/formatRupees';
 import MetaData from '../layouts/MetaData';
@@ -11,13 +11,13 @@ export default function Cart() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const increaseQty = (item) => {
+    const increaseQty = (item: any) => {
         if (item.quantity >= item.stock) {
             return;
         }
         dispatch(increaseCartItemQty(item._id))
     }
-    const decreaseQty = (item) => {
+    const decreaseQty = (item: any) => {
         const count = item.quantity;
         if (count > 1) {
             dispatch(decreaseCartItemQty(item._id))
@@ -42,7 +42,7 @@ export default function Cart() {
                     <div className="row">
                         <h2 className="mt-5 text-center">Your Cart: <b>{cartItems.length} items</b></h2>
                         <div className="col-12 col-lg-9">
-                            {cartItems.map((item) =>
+                            {cartItems.map((item: any) =>
                             (<div key={item._id}>
                                 <hr />
                                 <div className="cart-item">
@@ -87,8 +87,8 @@ export default function Cart() {
                             <div className='border rounded-5 p-5'>
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <h6 className='m-4'>Total:  <span className='badge text-bg-warning'>{cartItems.reduce((acc, item) => (acc + item.quantity), 0)} (Items)</span></h6>
-                                <h6 className='m-4'>Est. Amount: <span className='badge text-bg-warning'>{formatRupees(cartItems.reduce((acc, item) => (acc + item.quantity * item.price), 0))}</span></h6>
+                                <h6 className='m-4'>Total:  <span className='badge text-bg-warning'>{cartItems.reduce((acc: number, item: any) => (acc + item.quantity), 0)} (Items)</span></h6>
+                                <h6 className='m-4'>Est. Amount: <span className='badge text-bg-warning'>{formatRupees(cartItems.reduce((acc: number, item: any) => (acc + item.quantity * item.price), 0))}</span></h6>
 
                                 <hr />
                                 <button onClick={checkoutHandler} className="btn btn-success">Check out</button>

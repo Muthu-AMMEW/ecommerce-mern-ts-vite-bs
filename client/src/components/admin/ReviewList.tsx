@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { deleteReview, getReviews } from "../../actions/productActions"
 import { clearProductError, clearIsReviewDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../actions/authActions";
 import { clearUserError } from "../../slices/userSlice";

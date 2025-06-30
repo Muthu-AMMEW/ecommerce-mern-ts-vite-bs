@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getProducts } from "../actions/productActions";
 import Loader from "./layouts/Loader";
 import MetaData from "./layouts/MetaData";
@@ -9,7 +9,7 @@ import Pagination from 'react-js-pagination';
 
 export default function Home() {
     const dispatch = useDispatch();
-    const { products, loading, error, productsCount, resPerPage } = useSelector((state) => state.productsState)
+    const { products, loading, error, productsCount, resPerPage } = useAppSelector((state) => state.productsState)
     const [currentPage, setCurrentPage] = useState(1);
 
     const setCurrentPageNo = (pageNo) => {
