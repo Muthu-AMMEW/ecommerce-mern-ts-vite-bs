@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getProduct, updateProduct } from "../../actions/productActions";
 import { clearProductError, clearIsProductUpdated } from "../../slices/productSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateProduct() {
     const [inputs, setInputs] = useState({ name: "", price: "", description: "", category: "select", stock: 0, seller: "" });
@@ -32,7 +31,7 @@ export default function UpdateProduct() {
         'Home'
     ];
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleChange = (event) => {
         if (event.target.name === 'images') {

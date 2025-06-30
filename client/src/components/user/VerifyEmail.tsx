@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { generateOtp, verifyEmail } from '../../actions/authActions';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { useNavigate } from 'react-router-dom';
 import { clearAuthError, clearIsVerified, clearMessage } from '../../slices/authSlice';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export default function VerifyEmail() {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { isVerified, error, loading, authUser, message } = useAppSelector(state => state.authState)
     const [inputs, setInputs] = useState({

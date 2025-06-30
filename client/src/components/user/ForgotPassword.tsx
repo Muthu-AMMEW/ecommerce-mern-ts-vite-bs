@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { forgotPassword } from "../../actions/authActions";
 import MetaData from "../layouts/MetaData";
 import { clearAuthError } from "../../slices/authSlice";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function ForgotPassword() {
     const [inputs, setInputs] = useState({
         email: ""
     })
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { error, message, loading } = useAppSelector(state => state.authState);
 
     const handleChange = (event) => {

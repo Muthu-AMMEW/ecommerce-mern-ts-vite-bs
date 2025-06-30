@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
@@ -11,11 +10,11 @@ import { clearOrderError } from "../../slices/orderSlice";
 import MetaData from "../layouts/MetaData";
 import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 
 export default function Payment() {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate();
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'))
     const { authUser } = useAppSelector(state => state.authState)

@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteOrder, adminOrders as adminOrdersAction } from "../../actions/orderActions"
 import { clearOrderError, clearIsOrderDeleted } from "../../slices/orderSlice"
@@ -11,12 +10,12 @@ import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 import { formatRupees } from "../../utils/formatRupees"
 import { istDateTime } from "../../utils/istDateTime"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 export default function OrderList() {
     const { adminOrders = [], loading, error, isOrderDeleted } = useAppSelector(state => state.orderState)
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     let sno = 0;
 
     useEffect(() => {

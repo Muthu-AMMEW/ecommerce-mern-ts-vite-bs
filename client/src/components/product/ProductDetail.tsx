@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
 import { createReview, getProduct } from "../../actions/productActions"
 import Loader from '../layouts/Loader';
@@ -11,13 +10,13 @@ import { Modal } from 'react-bootstrap';
 import { toast } from "react-toastify";
 import ProductReview from "./ProductReview";
 import { formatRupees } from "../../utils/formatRupees";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function ProductDetail() {
     const { loading, product = {}, isReviewSubmitted, error } = useAppSelector((state) => state.productState);
     const { authUser } = useAppSelector(state => state.authState);
     const { cartItems } = useAppSelector(state => state.cartState);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate();

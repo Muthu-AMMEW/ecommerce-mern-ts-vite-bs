@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { getProducts } from "../../actions/productActions";
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
@@ -11,11 +10,10 @@ import Slider from "rc-slider";
 import Tooltip from 'rc-tooltip';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
-import { TaskAbortError } from "@reduxjs/toolkit";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function ProductSearch() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const { products, loading, error, productsCount, resPerPage } = useAppSelector((state) => state.productsState)
 	const [currentPage, setCurrentPage] = useState(1);
 	const [price, setPrice] = useState([1, 100000]);

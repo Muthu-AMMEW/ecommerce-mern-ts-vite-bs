@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { resetPassword } from '../../actions/authActions';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MetaData from '../layouts/MetaData';
 import { clearAuthError } from '../../slices/authSlice';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export default function ResetPassword() {
     const [inputs, setInputs] = useState({
@@ -13,7 +12,7 @@ export default function ResetPassword() {
         confirmPassword: ""
     })
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { isAuthenticated, error, loading } = useAppSelector(state => state.authState)
     const navigate = useNavigate();
     const { token } = useParams();

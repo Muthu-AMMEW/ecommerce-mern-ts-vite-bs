@@ -3,15 +3,14 @@ import { useEffect } from 'react'
 import MetaData from '../layouts/MetaData';
 import Loader from '../layouts/Loader';
 import { MDBDataTable } from 'mdbreact'
-import { useDispatch } from 'react-redux';
 import { userOrders as userOrdersAction } from '../../actions/orderActions';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export default function UserOrders() {
     const { userOrders = [], loading = true } = useAppSelector(state => state.orderState)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     let sno = 0;
 
     useEffect(() => {

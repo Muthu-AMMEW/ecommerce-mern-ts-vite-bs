@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch } from 'react-redux';
 import { Link, useParams } from "react-router-dom";
 import { getUser } from "../../actions/authActions";
 import { clearUserError } from "../../slices/userSlice";
@@ -8,13 +7,13 @@ import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
 import Loader from "../layouts/Loader";
 import { istDateTime } from "../../utils/istDateTime";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UserDetails() {
     const { id } = useParams();
     const { loading, error, user } = useAppSelector(state => state.userState)
     const { authUser } = useAppSelector(state => state.authState)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
 

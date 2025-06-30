@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import AdminBar from "./AdminBar";
-import { useDispatch } from 'react-redux';
 import { useParams } from "react-router-dom";
 import { getUser, updateUser } from "../../actions/authActions";
 import { clearUserError, clearIsUserUpdated } from "../../slices/userSlice";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateUser() {
     const [inputs, setInputs] = useState({ fullName: "", email: "", role: "" });
@@ -15,7 +14,7 @@ export default function UpdateUser() {
     const { loading, isUserUpdated, error, user } = useAppSelector(state => state.userState)
     const { authUser } = useAppSelector(state => state.authState)
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleChange = (event) => {
         const name = event.target.name;

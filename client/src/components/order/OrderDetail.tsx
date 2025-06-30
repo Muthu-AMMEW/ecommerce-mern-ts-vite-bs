@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Loader from '../layouts/Loader';
 import { orderDetail as orderDetailAction, cancelOrder } from '../../actions/orderActions';
@@ -8,7 +7,7 @@ import { clearIsOrderUpdated, clearOrderError } from "../../slices/orderSlice";
 import MetaData from '../layouts/MetaData';
 import { formatRupees } from '../../utils/formatRupees';
 import { istDateTime } from '../../utils/istDateTime';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export default function OrderDetail() {
     const { loading, isOrderUpdated, error, orderDetail } = useAppSelector(state => state.orderState)
@@ -16,7 +15,7 @@ export default function OrderDetail() {
     const [orderStatus, setOrderStatus] = useState("Processing");
     const { id: orderId } = useParams();
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();

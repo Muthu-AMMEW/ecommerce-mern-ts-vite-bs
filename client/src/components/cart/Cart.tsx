@@ -1,14 +1,13 @@
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { decreaseCartItemQty, increaseCartItemQty, removeItemFromCart } from '../../slices/cartSlice';
 import { formatRupees } from '../../utils/formatRupees';
 import MetaData from '../layouts/MetaData';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 export default function Cart() {
     const { cartItems } = useAppSelector(state => state.cartState)
     const { isAuthenticated } = useAppSelector(state => state.authState)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const increaseQty = (item: any) => {

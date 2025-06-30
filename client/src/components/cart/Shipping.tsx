@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { countries } from 'countries-list'
 import { saveShippingInfo } from "../../slices/cartSlice";
@@ -6,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "./CheckoutStep";
 import { toast } from "react-toastify";
 import MetaData from "../layouts/MetaData";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 
 
@@ -57,7 +56,7 @@ export default function Shipping() {
     }
 
     const countryList = Object.values(countries);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
 

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux"
 import { toast } from "react-toastify";
 import { updateProfile } from "../../actions/authActions";
 import { clearAuthError, clearIsUpdated } from "../../slices/authSlice";
 import { countries } from 'countries-list';
 import MetaData from "../layouts/MetaData";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 export default function UpdateProfile() {
     const { loading, error, authUser, isUpdated } = useAppSelector(state => state.authState);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const countryList = Object.values(countries);
     const [inputs, setInputs] = useState({ fullName: "", email: "", phoneNumber: "" });

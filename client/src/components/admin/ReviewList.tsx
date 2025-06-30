@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
 import { deleteReview, getReviews } from "../../actions/productActions"
 import { clearProductError, clearIsReviewDeleted } from "../../slices/productSlice"
 import Loader from '../layouts/Loader';
@@ -8,12 +7,12 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 export default function ReviewList() {
     const { reviews = [], loading, error, isReviewDeleted } = useAppSelector(state => state.productState)
     const [productId, setProductId] = useState("");
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const setReviews = () => {
         const data = {

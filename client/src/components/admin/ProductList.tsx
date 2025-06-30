@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteProduct, getAdminProducts } from "../../actions/productActions"
 import { clearProductError, clearIsProductDeleted } from "../../slices/productSlice"
@@ -10,12 +9,12 @@ import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
 import { formatRupees } from "../../utils/formatRupees"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 export default function ProductList() {
     const { products = [], loading = true, error } = useAppSelector(state => state.productsState)
     const { isProductDeleted, error: productError } = useAppSelector(state => state.productState)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     let sno = 0;
 
     const setProducts = () => {

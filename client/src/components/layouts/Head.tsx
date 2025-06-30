@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom';
 import Search from './Search';
-import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/authActions';
 import UserDropDown from './UserDropDown';
 import SocialNetworks from './SocialNetworks';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 
 export default function Head() {
 
     const { isAuthenticated } = useAppSelector(state => state.authState);
     const { cartItems } = useAppSelector(state => state.cartState)
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const logoutHandler = () => {
         dispatch(logout);
     }

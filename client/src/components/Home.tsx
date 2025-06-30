@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { getProducts } from "../actions/productActions";
 import Loader from "./layouts/Loader";
 import MetaData from "./layouts/MetaData";
 import Product from "./product/Product";
 import { toast } from 'react-toastify';
 import Pagination from 'react-js-pagination';
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 export default function Home() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { products, loading, error, productsCount, resPerPage } = useAppSelector((state) => state.productsState)
     const [currentPage, setCurrentPage] = useState(1);
 

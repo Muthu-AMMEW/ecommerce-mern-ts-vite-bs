@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { Button } from "react-bootstrap"
-import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { deleteUser, getUsers } from "../../actions/authActions"
 import { clearUserError, clearIsUserDeleted } from "../../slices/userSlice"
@@ -9,12 +8,12 @@ import { MDBDataTable } from 'mdbreact';
 import { toast } from 'react-toastify'
 import AdminBar from "./AdminBar"
 import MetaData from "../layouts/MetaData"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 
 export default function UserList() {
     const { users = [], loading = true, error, isUserDeleted } = useAppSelector(state => state.userState);
     const { authUser } = useAppSelector(state => state.authState);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     let sno = 0;
 
     const setUsers = () => {
