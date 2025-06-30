@@ -1,8 +1,9 @@
 import { toast } from 'react-toastify';
 import { addCartItemRequest, addCartItemSuccess } from '../slices/cartSlice';
 import axios from 'axios'
+import { AppDispatch } from '../store';
 
-export const addCartItem = (id, quantity) => async (dispatch) => {
+export const addCartItem = (id, quantity) => async (dispatch: AppDispatch) => {
     try {
         dispatch(addCartItemRequest())
         const { data } = await axios.get(`/product/${id}`)

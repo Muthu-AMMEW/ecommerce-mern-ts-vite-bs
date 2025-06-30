@@ -31,8 +31,9 @@ import {
     deleteReviewSuccess,
     deleteReviewFail
 } from '../slices/productSlice';
+import { AppDispatch } from '../store';
 
-export const getProducts = (keyword, price, category, rating, currentPage) => async (dispatch) => {
+export const getProducts = (keyword: string | null, price: number[] | null, category: string | null, rating: number | null, currentPage: number) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(productsRequest())
@@ -61,7 +62,7 @@ export const getProducts = (keyword, price, category, rating, currentPage) => as
 }
 
 
-export const getProduct = id => async (dispatch) => {
+export const getProduct = id => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(productRequest())
@@ -74,7 +75,7 @@ export const getProduct = id => async (dispatch) => {
 
 }
 
-export const createReview = reviewData => async (dispatch) => {
+export const createReview = reviewData => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(createReviewRequest())
@@ -92,7 +93,7 @@ export const createReview = reviewData => async (dispatch) => {
 
 }
 
-export const getAdminProducts = async (dispatch) => {
+export const getAdminProducts = async (dispatch: AppDispatch) => {
 
     try {
         dispatch(adminProductsRequest())
@@ -105,7 +106,7 @@ export const getAdminProducts = async (dispatch) => {
 
 }
 
-export const createNewProduct = productData => async (dispatch) => {
+export const createNewProduct = productData => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(newProductRequest())
@@ -118,7 +119,7 @@ export const createNewProduct = productData => async (dispatch) => {
 
 }
 
-export const deleteProduct = id => async (dispatch) => {
+export const deleteProduct = id => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(deleteProductRequest())
@@ -131,7 +132,7 @@ export const deleteProduct = id => async (dispatch) => {
 
 }
 
-export const updateProduct = (id, productData) => async (dispatch) => {
+export const updateProduct = (id, productData) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(updateProductRequest())
@@ -145,7 +146,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
 }
 
 
-export const getReviews = id => async (dispatch) => {
+export const getReviews = id => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(reviewsRequest())
@@ -158,7 +159,7 @@ export const getReviews = id => async (dispatch) => {
 
 }
 
-export const deleteReview = (productId, id) => async (dispatch) => {
+export const deleteReview = (productId, id) => async (dispatch: AppDispatch) => {
 
     try {
         dispatch(deleteReviewRequest())

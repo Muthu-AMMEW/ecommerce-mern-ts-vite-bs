@@ -19,8 +19,9 @@ import {
     updateOrderFail
 } from '../slices/orderSlice';
 import axios from 'axios';
+import { AppDispatch } from '../store';
 
-export const createOrder = order => async (dispatch) => {
+export const createOrder = order => async (dispatch: AppDispatch) => {
     try {
         dispatch(createOrderRequest())
         const { data } = await axios.post(`/order/new`, order)
@@ -29,7 +30,7 @@ export const createOrder = order => async (dispatch) => {
         dispatch(createOrderFail(error.response.data.message))
     }
 }
-export const userOrders = async (dispatch) => {
+export const userOrders = async (dispatch: AppDispatch) => {
     try {
         dispatch(userOrdersRequest())
         const { data } = await axios.get(`/myorders`)
@@ -38,7 +39,7 @@ export const userOrders = async (dispatch) => {
         dispatch(userOrdersFail(error.response.data.message))
     }
 }
-export const orderDetail = id => async (dispatch) => {
+export const orderDetail = id => async (dispatch: AppDispatch) => {
     try {
         dispatch(orderDetailRequest())
         const { data } = await axios.get(`/order/${id}`)
@@ -48,7 +49,7 @@ export const orderDetail = id => async (dispatch) => {
     }
 }
 
-export const adminOrders = async (dispatch) => {
+export const adminOrders = async (dispatch: AppDispatch) => {
     try {
         dispatch(adminOrdersRequest())
         const { data } = await axios.get(`/admin/orders`)
@@ -58,7 +59,7 @@ export const adminOrders = async (dispatch) => {
     }
 }
 
-export const deleteOrder = id => async (dispatch) => {
+export const deleteOrder = id => async (dispatch: AppDispatch) => {
     try {
         dispatch(deleteOrderRequest())
         await axios.delete(`/admin/order/${id}`)
@@ -68,7 +69,7 @@ export const deleteOrder = id => async (dispatch) => {
     }
 }
 
-export const updateOrder = (id, orderData) => async (dispatch) => {
+export const updateOrder = (id, orderData) => async (dispatch: AppDispatch) => {
     try {
         dispatch(updateOrderRequest())
         const { data } = await axios.put(`/admin/order/${id}`, orderData)
@@ -78,7 +79,7 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
     }
 }
 
-export const cancelOrder = (id, orderData) => async (dispatch) => {
+export const cancelOrder = (id, orderData) => async (dispatch: AppDispatch) => {
     try {
         dispatch(updateOrderRequest())
         const { data } = await axios.put(`/order/${id}`, orderData)
