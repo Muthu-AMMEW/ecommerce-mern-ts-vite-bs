@@ -12,6 +12,11 @@ import CheckoutSteps from "./CheckoutStep";
 import { formatRupees } from "../../utils/formatRupees";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
+declare global {
+    interface Window {
+        Razorpay: any;
+    }
+}
 
 export default function Payment() {
     const dispatch = useAppDispatch()
@@ -42,7 +47,7 @@ export default function Payment() {
                 theme: {
                     color: '#F37254'
                 },
-                handler: async function (response) {
+                handler: async function (response: any) {
                     // Step 3: Verify payment signature
                     try {
                         const { data } = await axios.post('/verify-payment', {
@@ -63,7 +68,8 @@ export default function Payment() {
                             setLoading(false);
                         }
                     } catch (error: unknown) {
-                        toast.error(error.message || 'Error verifying payment', { position: 'top-center' });
+                        const message = error instanceof Error ? error.message : 'Error verifying payment';
+                        toast.error(message, { position: 'top-center' });
                         setLoading(false);
                     }
                 },
@@ -74,8 +80,8 @@ export default function Payment() {
                     }
                 }
             };
-            const rzp = new Razorpay(options);
-            rzp.on("payment.failed", function (response) {
+            const rzp = new window.Razorpay(options);
+            rzp.on("payment.failed", function (response: any) {
                 toast.error(response.error, { position: 'top-center' });
                 setLoading(false);
             });
@@ -83,9 +89,11 @@ export default function Payment() {
             rzp.open();
 
         } catch (error: unknown) {
-            toast.error(error.message, { position: 'top-center' });
+            const message = error instanceof Error ? error.message : 'Error verifying payment';
+            toast.error(message, { position: 'top-center' });
             setLoading(false);
         }
+
     }
 
     function cancelOrder() {
@@ -129,7 +137,7 @@ export default function Payment() {
 
     }, [orderError])
 
-    let order;
+    let order: any;
     useEffect(() => {
         if (orderInfo) {
             order = {
@@ -157,7 +165,7 @@ export default function Payment() {
         }
     }, [newOrderDetail]);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         setLoading(true);
         if (newOrderDetail?.paymentInfo?.pgOrderId) {
