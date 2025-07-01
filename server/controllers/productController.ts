@@ -1,8 +1,8 @@
-import Product from '../models/productModel.js';
-import ErrorHandler from '../utils/errorHandler.js';
-import catchAsyncError from '../middlewares/catchAsyncError.js';
-import APIFeatures from '../utils/apiFeatures.js';
-import { fileDeleter } from '../utils/gridfs/fileDeleter.js';
+import Product from '../models/productModel.ts';
+import ErrorHandler from '../utils/errorHandler.ts';
+import catchAsyncError from '../middlewares/catchAsyncError.ts';
+import APIFeatures from '../utils/apiFeatures.ts';
+import { fileDeleter } from '../utils/gridfs/fileDeleter.ts';
 
 //Server quick Start -/api/v1/quickstart
 export const quickStart = catchAsyncError(async (req, res, next) => {

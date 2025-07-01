@@ -1,9 +1,9 @@
 import Razorpay from 'razorpay';
-import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils.js';
-import catchAsyncError from '../middlewares/catchAsyncError.js';
-import Order from '../models/orderModel.js';
-import Product from '../models/productModel.js';
-import ErrorHandler from '../utils/errorHandler.js';
+import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils.ts';
+import catchAsyncError from '../middlewares/catchAsyncError.ts';
+import Order from '../models/orderModel.ts';
+import Product from '../models/productModel.ts';
+import ErrorHandler from '../utils/errorHandler.ts';
 
 
 const razorpay = new Razorpay({

@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import ErrorHandler from './errorHandler.js';
+import ErrorHandler from './errorHandler.ts';
 
 const sendEmail = async ({ email, subject, message }) => {
 

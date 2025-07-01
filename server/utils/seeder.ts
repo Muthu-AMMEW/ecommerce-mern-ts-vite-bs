@@ -1,7 +1,7 @@
 import products from '../data/products.json' assert { type: 'json' };
-import Product from '../models/productModel.js';
+import Product from '../models/productModel.ts';
 import dotenv from 'dotenv';
-import connectDatabase from '../config/database.js';
+import connectDatabase from '../config/database.ts';
 
 dotenv.config({ path: `server/config/.env.${process.env.NODE_ENV}` });
 connectDatabase();
