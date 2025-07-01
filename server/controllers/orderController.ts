@@ -124,23 +124,23 @@ export const getSingleOrder = catchAsyncError(async (req, res, next) => {
 export const cancelOrder = catchAsyncError(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
-    if (order.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
+    if (order?.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Already in processing!', 400))
     }
 
-    if (order.orderStatus == 'Shipped' && req.body.orderStatus == 'Processing') {
+    if (order?.orderStatus == 'Shipped' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Order has been already shipped!', 400))
     }
 
-    if (order.orderStatus == 'Delivered') {
+    if (order?.orderStatus == 'Delivered') {
         return next(new ErrorHandler('Order has been already delivered!', 400))
     }
 
-    if (order.orderStatus == 'Returned') {
+    if (order?.orderStatus == 'Returned') {
         return next(new ErrorHandler('Order has been already retured!', 400))
     }
 
-    if (order.orderStatus == 'Cancelled') {
+    if (order?.orderStatus == 'Cancelled') {
         return next(new ErrorHandler('Order has been already Cancelled!', 400))
     }
 
