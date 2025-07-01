@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-mern-js-vite-bs",
+  "name": "ecommerce-mern-ts-vite-bs",
   "version": "1.0.0",
   "type": "module",
   "main": "server.js",
@@ -12,7 +12,7 @@
   },
   "author": "Muthu Arivazhagan",
   "license": "ISC",
-  "description": "ecommerce-mern-js-vite-bs using MERN stack",
+  "description": "ecommerce-mern-ts-vite-bs using MERN stack",
   "devDependencies": {
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.9"
