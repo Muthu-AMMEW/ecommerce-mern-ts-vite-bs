@@ -16,11 +16,11 @@ import {
     deleteUser,
     generateEmailOtp,
     verifyEmailOtp
-} from '../controllers/authController.ts';
+} from '../controllers/authController';
 
-import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.ts';
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate';
 
-import { userUpload } from '../utils/gridfs/storeUserImage.ts';
+import { userUpload } from '../utils/gridfs/storeUserImage';
 
 
 router.route('/register').post(userUpload.single('avatar'), registerUser);

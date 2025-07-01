@@ -15,8 +15,11 @@
   "license": "ISC",
   "description": "ecommerce-mern-ts-vite-bs using MERN stack",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.8",
+    "@types/nodemailer": "^6.4.17",
     "cross-env": "^7.0.3",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",

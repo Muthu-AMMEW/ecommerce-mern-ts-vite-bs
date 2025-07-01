@@ -1,10 +1,10 @@
-import ErrorHandler from '../utils/errorHandler.ts';
-import catchAsyncError from '../middlewares/catchAsyncError.ts';
-import { getGFS, getGridFSBucket } from '../utils/gridfs/getStoredImage.ts';
-import { userGetGFS, userGetGridFSBucket } from '../utils/gridfs/getStoredUserImage.ts';
-import { productGetGFS, productGetGridFSBucket } from '../utils/gridfs/getStoredProductImage.ts';
+import ErrorHandler from '../utils/errorHandler';
+import catchAsyncError from '../middlewares/catchAsyncError';
+import { getGFS, getGridFSBucket } from '../utils/gridfs/getStoredImage';
+import { userGetGFS, userGetGridFSBucket } from '../utils/gridfs/getStoredUserImage';
+import { productGetGFS, productGetGridFSBucket } from '../utils/gridfs/getStoredProductImage';
 import { ObjectId } from 'mongodb';
-import { fileDeleter } from '../utils/gridfs/fileDeleter.ts';
+import { fileDeleter } from '../utils/gridfs/fileDeleter';
 
 //Get images - /image/:id
 export const getImage = catchAsyncError(async (req, res, next) => {
