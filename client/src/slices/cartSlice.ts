@@ -19,7 +19,7 @@ const cartSlice = createSlice({
             const isItemExist = state.cartItems.find((i: any) => i._id === item._id);
 
             if (isItemExist) {
-                // If item exists, update it
+                // If item exists, update it. only for future use
                 state.cartItems = state.cartItems.map((i: any) =>
                     i._id === item._id ? item : i
                 );

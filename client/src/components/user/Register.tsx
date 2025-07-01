@@ -20,6 +20,7 @@ export default function Register() {
 
 	const [avatar, setAvatar] = useState("");
 	const [avatarPreview, setAvatarPreview] = useState("/images/default_avatar.png");
+	console.log(avatar, avatarPreview);//only for dummy
 	const dispatch = useAppDispatch();
 	const countryList = Object.values(countries);
 	const navigate = useNavigate();

@@ -51,9 +51,9 @@ function App() {
   const QuickStartApi = () => {
     return axios.get(`/quickstart`);
   }
-  QuickStartApi();   //only for server delay start
 
   useEffect(() => {
+    QuickStartApi();   //only for server delay start
     store.dispatch(loadUser)
   }, [])
 
