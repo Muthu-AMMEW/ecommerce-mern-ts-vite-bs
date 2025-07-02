@@ -1,7 +1,13 @@
 import nodemailer from 'nodemailer';
 import ErrorHandler from './errorHandler';
 
-const sendEmail = async ({ email, subject, message }) => {
+interface SendEmailOptions {
+  email: string;
+  subject: string;
+  message: string;
+}
+
+const sendEmail = async ({ email, subject, message }: SendEmailOptions) => {
 
   const transporter = nodemailer.createTransport({
     service: `${process.env.SMTP_SERVICE}`,
@@ -22,7 +28,7 @@ const sendEmail = async ({ email, subject, message }) => {
     const info = await transporter.sendMail(mailOptions);
     // console.log('Email sent:', info.response);
     return info;
-  } catch (error) {
+  } catch (error: any) {
     throw new ErrorHandler(`Email send failed: ${error.message}`, 500);
   }
 }

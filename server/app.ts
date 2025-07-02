@@ -21,7 +21,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL_2
 ];
 // CORS configuration
-const corsOptions = {
+const corsOptions: cors.CorsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin like mobile apps or curl
     if (!origin) return callback(null, true);

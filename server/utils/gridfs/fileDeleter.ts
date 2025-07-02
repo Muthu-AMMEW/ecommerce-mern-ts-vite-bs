@@ -3,9 +3,9 @@ import { GridFSBucket, ObjectId } from 'mongodb';
 import catchAsyncError from '../../middlewares/catchAsyncError';
 
 export const fileDeleter = catchAsyncError(async (fileId, collectionName) => {
-  const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI).asPromise(); // ensures we wait for the connection
+  const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI!).asPromise(); // ensures we wait for the connection
 
-  const bucket = new GridFSBucket(conn.db, { bucketName: collectionName });
+  const bucket = new GridFSBucket(conn.db!, { bucketName: collectionName });
   // Check if the file exists before attempting to delete it
   const file = await bucket.find({ _id: new ObjectId(fileId) }).toArray();
   if (file.length === 0) {

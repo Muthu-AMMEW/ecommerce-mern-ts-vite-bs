@@ -1,5 +1,7 @@
 class APIFeatures {
-    constructor(query, queryStr) {
+    query: any;
+    queryStr: any;
+    constructor(query: any, queryStr: any) {
         this.query = query;
         this.queryStr = queryStr;
     }
@@ -32,7 +34,7 @@ class APIFeatures {
         return this;
     }
 
-    paginate(resPerPage) {
+    paginate(resPerPage: number) {
         const currentPage = Number(this.queryStr.page) || 1;
         const skip = resPerPage * (currentPage - 1)
         this.query.limit(resPerPage).skip(skip);

@@ -5,9 +5,9 @@ import Grid from 'gridfs-stream';
 let gfs, gridfsBucket;
 
 export const initializeGridFS = async () => {
-  const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI).asPromise();
+  const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI!).asPromise();
 
-  gridfsBucket = new GridFSBucket(conn.db, {
+  gridfsBucket = new GridFSBucket(conn.db!, {
     bucketName: 'images'
   });
 
