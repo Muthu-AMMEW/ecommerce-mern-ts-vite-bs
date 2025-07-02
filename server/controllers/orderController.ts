@@ -6,25 +6,25 @@ import Product from '../models/productModel';
 import ErrorHandler from '../utils/errorHandler';
 
 
-const razorpay = new Razorpay({
+const razorpay: any = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
 //Updating the product stock of each order item
-async function subStock(productId, quantity) {
-    const product = await Product.findById(productId);
+async function subStock(productId: string, quantity: number) {
+    const product: any = await Product.findById(productId);
     product.stock = product.stock - quantity;
     product.save({ validateBeforeSave: false })
 }
-async function addStock(productId, quantity) {
-    const product = await Product.findById(productId);
+async function addStock(productId: string, quantity: number) {
+    const product: any = await Product.findById(productId);
     product.stock = product.stock + quantity;
     product.save({ validateBeforeSave: false })
 }
 
 //Create New Order - api/v1/order/new
-export const newOrder = catchAsyncError(async (req, res, next) => {
+export const newOrder = catchAsyncError(async (req: any, res, next) => {
     const {
         orderItems,
         shippingInfo,
@@ -47,7 +47,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
     paymentInfo.paymentStatus = "Not Paid";
 
 
-    orderItems.map(product => product.image.length > 0 ? product.image = new URL(product.image).pathname + new URL(product.image).search + new URL(product.image).hash : undefined);
+    orderItems.map((product: any) => product.image.length > 0 ? product.image = new URL(product.image).pathname + new URL(product.image).search + new URL(product.image).hash : undefined);
 
     const order = await Order.create({
         orderItems,
@@ -63,7 +63,7 @@ export const newOrder = catchAsyncError(async (req, res, next) => {
     })
 
     //Updating the product stock of each order item
-    order.orderItems.forEach(async orderItem => {
+    order.orderItems.forEach(async (orderItem: any) => {
         await subStock(orderItem._id, orderItem.quantity)
     })
 
@@ -80,7 +80,7 @@ export const verifyOrder = catchAsyncError(async (req, res, next) => {
 
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-    const order = await Order.findOne({ "paymentInfo.pgOrderId": razorpay_order_id });
+    const order: any = await Order.findOne({ "paymentInfo.pgOrderId": razorpay_order_id });
 
     if (!order) {
         return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 404))
@@ -122,7 +122,7 @@ export const getSingleOrder = catchAsyncError(async (req, res, next) => {
 
 //Cancel Order / Order Status - api/v1/order/:id
 export const cancelOrder = catchAsyncError(async (req, res, next) => {
-    const order = await Order.findById(req.params.id);
+    const order: any = await Order.findById(req.params.id);
 
     if (order?.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Already in processing!', 400))
@@ -148,7 +148,7 @@ export const cancelOrder = catchAsyncError(async (req, res, next) => {
         order.orderStatus = req.body.orderStatus;
         await order.save();
 
-        order.orderItems.forEach(async orderItem => {
+        order.orderItems.forEach(async (orderItem: any) => {
             await addStock(orderItem._id, orderItem.quantity)
         })
 
@@ -161,7 +161,7 @@ export const cancelOrder = catchAsyncError(async (req, res, next) => {
 });
 
 //My Orders(Get Loggedin User Orders) - /api/v1/myorders
-export const myOrders = catchAsyncError(async (req, res, next) => {
+export const myOrders = catchAsyncError(async (req: any, res, next) => {
     const orders = await Order.find({ user: req.user.id }).sort({ createdAt: -1 });
 
     orders.map(order => order.orderItems.map(product => product.image.length > 0 ? product.image = `${process.env.SERVER_URL + product.image}` : undefined));
@@ -193,7 +193,7 @@ export const orders = catchAsyncError(async (req, res, next) => {
 
 //Admin: Update Order / Order Status - api/v1/admin/order/:id
 export const updateOrder = catchAsyncError(async (req, res, next) => {
-    const order = await Order.findById(req.params.id);
+    const order: any = await Order.findById(req.params.id);
 
     if (order.orderStatus == 'Processing' && req.body.orderStatus == 'Processing') {
         return next(new ErrorHandler('Already in processing!', 400))
@@ -226,14 +226,14 @@ export const updateOrder = catchAsyncError(async (req, res, next) => {
     }
     if (req.body.orderStatus == 'Returned') {
         order.returnedAt = Date.now();
-        order.orderItems.forEach(async orderItem => {
+        order.orderItems.forEach(async (orderItem: any) => {
             await addStock(orderItem._id, orderItem.quantity)
         })
     }
     await order.save();
 
     if (req.body.orderStatus == 'Cancelled') {
-        order.orderItems.forEach(async orderItem => {
+        order.orderItems.forEach(async (orderItem: any) => {
             await addStock(orderItem._id, orderItem.quantity)
         })
     }
