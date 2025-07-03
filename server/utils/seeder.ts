@@ -1,4 +1,4 @@
-import products from '../data/products.json' assert { type: 'json' };
+import products from '../data/products.json';
 import Product from '../models/productModel';
 import dotenv from 'dotenv';
 import connectDatabase from '../config/database';

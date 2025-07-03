@@ -1,7 +1,7 @@
 import ErrorHandler from '../utils/errorHandler';
 import User from '../models/userModel';
 import catchAsyncError from './catchAsyncError';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
@@ -10,7 +10,7 @@ export const isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('Login to handle this resource', 401))
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
     req.user = await User.findById(decoded.id)
     next();
 })
@@ -22,4 +22,4 @@ export const authorizeRoles = (...roles) => {
         }
         next()
     }
-}   
+}
