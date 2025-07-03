@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "strict": true,
     "outDir": "dist",
     "types": ["node"]
