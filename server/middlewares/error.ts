@@ -18,7 +18,7 @@ const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
 
 
         if (err.name == "ValidationError") {
-            message = Object.values(err.errors).map(value => value.message)
+            message = Object.values(err.errors).map((value: any) => value.message)
             error = new Error(message)
             err.statusCode = 400
         }

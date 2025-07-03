@@ -4,12 +4,16 @@
 
 import { Request, Response, NextFunction } from 'express';
 
-type AsyncFunction = (req: Request, res: Response, next: NextFunction) => Promise<any>;
+// Type for any async middleware
+type AsyncMiddleware = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => Promise<any>;
 
-const catchAsyncError = (func: AsyncFunction) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    Promise.resolve(func(req, res, next)).catch(next);
-  };
-};
+const catchAsyncError = (func: AsyncMiddleware) =>
+    (req: Request, res: Response, next: NextFunction) => {
+        Promise.resolve(func(req, res, next)).catch(next);
+    };
 
 export default catchAsyncError;

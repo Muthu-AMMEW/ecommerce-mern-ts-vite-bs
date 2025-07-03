@@ -14,7 +14,7 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
 
     if (req.file) {
         avatar = req.file;
-        avatar.image = `/image/user/${req.file.id}`
+        avatar.image = `/image/user/${(req.file as any).id}`
     }
 
     const user = await User.create({
@@ -240,12 +240,12 @@ export const changePassword = catchAsyncError(async (req, res, next) => {
 
 //Update Profile - /api/v1/update
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    let newUserData = {
+    let newUserData: Record<string, any> = {
         fullName: req.body.fullName,
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         address: req.body.address
-    }
+    };
 
     if (req.user!.email !== req.body.email) {
         newUserData["verification.email"] = "unverified";
@@ -259,10 +259,10 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 
     if (req.file) {
         if (req.user!.avatar) {
-            fileDeleter(req.user!.avatar.id, 'userImages')
+            fileDeleter((req.user as any).avatar.id, 'userImages')
         }
-        avatar = req.file;
-        avatar.image = `/image/user/${req.file.id}`;
+        avatar = req.file as any;
+        avatar.image = `/image/user/${(req.file as any).id}`;
         newUserData = { ...newUserData, avatar };
     }
 

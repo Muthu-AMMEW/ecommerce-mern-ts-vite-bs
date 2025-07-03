@@ -109,9 +109,9 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 10)
 })
 
-userSchema.methods.getJwtToken = function () {
-    return jwt.sign({ id: this.id }, process.env.JWT_SECRET!, {
-        expiresIn: process.env.JWT_EXPIRES_TIME
+userSchema.methods.getJwtToken = function (): any {
+    return jwt.sign({ id: this.id }, process.env.JWT_SECRET as any, {
+        expiresIn: process.env.JWT_EXPIRES_TIME as any
     })
 }
 

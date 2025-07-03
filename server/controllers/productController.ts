@@ -62,11 +62,13 @@ export const getSingleProduct = catchAsyncError(async (req, res, next) => {
 export const newProduct = catchAsyncError(async (req, res, next) => {
     let images: any = [];
 
-    if (Number(req.files!.length) > 0) {
-        req.files!.forEach(file => {
-            file.image = `/image/product/${file.id}`
-            images.push(file)
-        })
+    const files = req.files as Express.Multer.File[];
+
+    if (files && files.length > 0) {
+        files.forEach(file => {
+            (file as any).image = `/image/product/${(file as any).id}`;
+            images.push(file);
+        });
     }
 
     req.body.images = images;
@@ -118,11 +120,13 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
         images = [];
     }
 
-    if (Number(req.files!.length) > 0) {
-        req.files!.forEach(file => {
-            file.image = `/image/product/${file.id}`
-            images.push(file)
-        })
+    const files = req.files as Express.Multer.File[]; // assert the correct type
+
+    if (files && files.length > 0) {
+        files.forEach(file => {
+            (file as any).image = `/image/product/${(file as any).id}`;
+            images.push(file);
+        });
     }
 
     req.body.images = images;
