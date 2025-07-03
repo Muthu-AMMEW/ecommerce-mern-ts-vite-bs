@@ -60,17 +60,17 @@ export const getSingleProduct = catchAsyncError(async (req, res, next) => {
 
 //Admin: New Product - /api/v1/admin/product/new
 export const newProduct = catchAsyncError(async (req, res, next) => {
-    let images = [];
-    
-    if (req.files.length > 0) {
-        req.files.forEach(file => {
+    let images: any = [];
+
+    if (Number(req.files!.length) > 0) {
+        req.files!.forEach(file => {
             file.image = `/image/product/${file.id}`
             images.push(file)
         })
     }
 
     req.body.images = images;
-    req.body.user = req.user.id;
+    req.body.user = req.user!.id;
 
     const product = await Product.create(req.body);
     product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL! + image.image}`) : undefined;
@@ -93,7 +93,7 @@ export const getAdminProducts = catchAsyncError(async (req, res, next) => {
 
 //Admin: Update Product - api/v1/admin/product/:id
 export const updateProduct = catchAsyncError(async (req, res, next) => {
-    let product = await Product.findById(req.params.id);
+    let product: any = await Product.findById(req.params.id);
 
     if (!product) {
         return res.status(404).json({
@@ -104,7 +104,7 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
 
 
     //uploading images
-    let images = []
+    let images: any = []
 
     //if images not cleared we keep existing images
     if (req.body.imagesCleared === 'false') {
@@ -118,15 +118,15 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
         images = [];
     }
 
-    if (req.files.length > 0) {
-        req.files.forEach(file => {
+    if (Number(req.files!.length) > 0) {
+        req.files!.forEach(file => {
             file.image = `/image/product/${file.id}`
             images.push(file)
         })
     }
 
     req.body.images = images;
-    req.body.user = req.user.id;
+    req.body.user = req.user!.id;
 
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -173,21 +173,21 @@ export const createReview = catchAsyncError(async (req, res, next) => {
     const { productId, rating, comment } = req.body;
 
     const review = {
-        user: req.user.id,
+        user: req.user!.id,
         rating,
         comment
     }
 
-    const product = await Product.findById(productId);
+    const product: any = await Product.findById(productId);
     //finding user review exists
     const isReviewed = product.reviews.find(review => {
-        return review.user.toString() == req.user.id.toString()
+        return review.user.toString() == req.user!.id.toString()
     })
 
     if (isReviewed) {
         //updating the  review
         product.reviews.forEach(review => {
-            if (review.user.toString() == req.user.id.toString()) {
+            if (review.user.toString() == req.user!.id.toString()) {
                 review.comment = comment
                 review.rating = rating
             }
@@ -216,7 +216,7 @@ export const createReview = catchAsyncError(async (req, res, next) => {
 
 //Admin: Get Reviews - api/v1/admin/reviews?id={productId}
 export const getReviews = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.query.id).populate('reviews.user', 'fullName email');
+    const product: any = await Product.findById(req.query.id).populate('reviews.user', 'fullName email');
 
     res.status(200).json({
         success: true,
@@ -226,11 +226,11 @@ export const getReviews = catchAsyncError(async (req, res, next) => {
 
 //Admin: Delete Review - api/v1/admin/review
 export const deleteReview = catchAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.query.productId);
+    const product: any = await Product.findById(req.query.productId);
 
     //filtering the reviews which does match the deleting review id
     const reviews = product.reviews.filter(review => {
-        return review._id.toString() !== req.query.id.toString()
+        return review._id.toString() !== req.query.id!.toString()
     });
     //number of reviews 
     const numOfReviews = reviews.length;

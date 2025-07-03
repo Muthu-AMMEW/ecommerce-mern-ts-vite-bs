@@ -2,6 +2,7 @@ import ErrorHandler from '../utils/errorHandler';
 import User from '../models/userModel';
 import catchAsyncError from './catchAsyncError';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { NextFunction } from 'express';
 
 export const isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
@@ -16,7 +17,7 @@ export const isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
 })
 
 export const authorizeRoles = (...roles) => {
-    return (req, res, next) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         if (!roles.includes(req.user.role)) {
             return next(new ErrorHandler(`Role ${req.user.role} is not allowed`, 401))
         }
