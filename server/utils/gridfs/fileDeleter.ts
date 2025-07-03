@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { GridFSBucket, ObjectId } from 'mongodb';
 import catchAsyncError from '../../middlewares/catchAsyncError';
 
-export const fileDeleter = async (fileId: string, collectionName: string) => {
+export const fileDeleter = async (fileId: any, collectionName: string) => {
   const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI!).asPromise(); // ensures we wait for the connection
 
   const bucket = new GridFSBucket(conn.db!, { bucketName: collectionName });
