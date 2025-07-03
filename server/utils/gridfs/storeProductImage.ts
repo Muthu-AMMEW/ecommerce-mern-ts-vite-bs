@@ -11,7 +11,7 @@ const storage = multer.memoryStorage();
 const multerUpload = multer({ storage });
 
 // Global GridFSBucket instance
-let gfsBucket;
+let gfsBucket: any;
 
 // Create separate Mongoose connection for image DB
 const imageDbConnection = mongoose.createConnection(process.env.DB_STORAGE_URI!);
@@ -20,7 +20,7 @@ imageDbConnection.once('open', () => {
   gfsBucket = new GridFSBucket(imageDbConnection.db!, {
     bucketName: 'productImages',
   });
-//   console.log('✅ GridFSBucket is ready on image DB');
+  //   console.log('✅ GridFSBucket is ready on image DB');
 });
 
 imageDbConnection.on('error', (err) => {
@@ -28,7 +28,7 @@ imageDbConnection.on('error', (err) => {
 });
 
 // Upload buffer to GridFS
-const uploadBufferToGridFS = (file) => {
+const uploadBufferToGridFS = (file: any) => {
   return new Promise((resolve, reject) => {
     const uploadStream = gfsBucket.openUploadStream(file.originalname, {
       contentType: file.mimetype,
@@ -51,7 +51,7 @@ const uploadBufferToGridFS = (file) => {
 };
 
 // Middleware: Handle single file
-const handleSingleUpload = catchAsyncError(async (req, res, next) => {
+const handleSingleUpload = catchAsyncError(async (req: any, res, next) => {
   if (!req.file) return next();
   try {
     req.file = await uploadBufferToGridFS(req.file);
@@ -62,7 +62,7 @@ const handleSingleUpload = catchAsyncError(async (req, res, next) => {
 });
 
 // Middleware: Handle multiple files
-const handleArrayUpload = catchAsyncError(async (req, res, next) => {
+const handleArrayUpload = catchAsyncError(async (req: any, res, next) => {
   if (!req.files || !Array.isArray(req.files)) return next();
   try {
     req.files = await Promise.all(req.files.map(uploadBufferToGridFS));
@@ -74,8 +74,8 @@ const handleArrayUpload = catchAsyncError(async (req, res, next) => {
 
 // Expose API like multer-gridfs-storage
 const productUpload = {
-  single: (field) => [multerUpload.single(field), handleSingleUpload],
-  array: (field) => [multerUpload.array(field), handleArrayUpload],
+  single: (field: any) => [multerUpload.single(field), handleSingleUpload],
+  array: (field: any) => [multerUpload.array(field), handleArrayUpload],
 };
 
 export { productUpload };

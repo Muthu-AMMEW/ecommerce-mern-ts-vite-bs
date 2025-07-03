@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { GridFSBucket } from 'mongodb';
 import Grid from 'gridfs-stream';
 
-let gfs, gridfsBucket;
+let gfs: any, gridfsBucket: any;
 
 export const initializeUserGridFS = async () => {
   const conn = await mongoose.createConnection(process.env.DB_STORAGE_URI!).asPromise();

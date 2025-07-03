@@ -1,6 +1,7 @@
-const errorMiddleware = (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
+import { Request, Response, NextFunction } from "express";
 
+const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
+    err.statusCode = err.statusCode || 500;
 
     if (process.env.NODE_ENV == 'development') {
         res.status(err.statusCode).json({
@@ -17,7 +18,7 @@ const errorMiddleware = (err, req, res, next) => {
 
 
         if (err.name == "ValidationError") {
-            message = Object.values(err.errors).map(value => value.message)
+            message = Object.values(err.errors).map((value: any) => value.message)
             error = new Error(message)
             err.statusCode = 400
         }

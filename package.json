@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server/server.ts",
-    "prod": "cross-env NODE_ENV=production nodemon server/server.ts",
+    "dev": "cross-env NODE_ENV=development nodemon",
+    "prod": "cross-env NODE_ENV=production nodemon",
     "build": "tsc",
     "seeder": "cross-env NODE_ENV=development node server/utils/seeder.js"
   },

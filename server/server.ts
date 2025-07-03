@@ -17,7 +17,7 @@ const server = app.listen(process.env.PORT, () => {
     console.log(`Local: http://localhost:${process.env.PORT}/`)
 })
 
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', (err: any) => {
     console.log(`Error: ${err.message}`);
     console.log(`Error: ${err}`);
     console.log('Shutting down the server due to unhandled rejection error');
