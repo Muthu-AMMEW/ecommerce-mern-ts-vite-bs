@@ -3,6 +3,7 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import { UserDocument } from '../types/user';
 
 
 const userSchema = new mongoose.Schema({
@@ -139,7 +140,8 @@ userSchema.methods.getResetToken = function () {
 
     return token
 }
-let userModel = mongoose.model('User', userSchema);
+let userModel = mongoose.model<UserDocument>('User', userSchema);
 
 
 export default userModel;
+export type { UserDocument };
