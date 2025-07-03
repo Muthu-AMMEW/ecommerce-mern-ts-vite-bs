@@ -50,7 +50,7 @@ export const getSingleProduct = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler('Product not found', 400));
     }
 
-    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL! + image.image}`) : undefined;
 
     res.status(201).json({
         success: true,
@@ -73,7 +73,7 @@ export const newProduct = catchAsyncError(async (req, res, next) => {
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
-    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL! + image.image}`) : undefined;
     res.status(201).json({
         success: true,
         product
@@ -84,7 +84,7 @@ export const newProduct = catchAsyncError(async (req, res, next) => {
 export const getAdminProducts = catchAsyncError(async (req, res, next) => {
     const products = await Product.find();
 
-    products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined);
+    products.map(product => product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL! + image.image}`) : undefined);
     res.status(200).send({
         success: true,
         products
@@ -133,7 +133,7 @@ export const updateProduct = catchAsyncError(async (req, res, next) => {
         runValidators: true
     })
 
-    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL + image.image}`) : undefined;
+    product.images.length > 0 ? product.images.map(image => image.image = `${process.env.SERVER_URL! + image.image}`) : undefined;
 
     res.status(200).json({
         success: true,

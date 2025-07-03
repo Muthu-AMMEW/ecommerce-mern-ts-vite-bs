@@ -26,7 +26,7 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
         avatar
     });
 
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     sendToken(user, 201, res)
 
 })
@@ -49,7 +49,7 @@ export const loginUser = catchAsyncError(async (req, res, next) => {
     if (!await user.isValidPassword(password)) {
         return next(new ErrorHandler('Invalid email or password', 401))
     }
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     sendToken(user, 201, res)
 
 })
@@ -133,7 +133,7 @@ export const verifyEmailOtp = catchAsyncError(async (req, res, next) => {
     user.emailVerificationCode = undefined;
     user.emailVerificationCodeExpire = undefined;
     await user.save({ validateBeforeSave: false })
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     sendToken(user, 201, res)
 
 })
@@ -205,7 +205,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
     user.resetPasswordToken = undefined;
     user.resetPasswordTokenExpire = undefined;
     await user.save({ validateBeforeSave: false })
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     sendToken(user, 201, res)
 
 })
@@ -213,7 +213,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
 //Get User Profile - /api/v1/myprofile
 export const getUserProfile = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id)
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     res.status(200).json({
         success: true,
         user
@@ -268,7 +268,7 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
         new: true,
         runValidators: true,
     })
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
 
     res.status(200).json({
         success: true,
@@ -280,7 +280,7 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 //Admin: Get All Users - /api/v1/admin/users
 export const getAllUsers = catchAsyncError(async (req, res, next) => {
     const users = await User.find();
-    users.map(user => user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined);
+    users.map(user => user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined);
     res.status(200).json({
         success: true,
         users
@@ -293,7 +293,7 @@ export const getUser = catchAsyncError(async (req, res, next) => {
     if (!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     res.status(200).json({
         success: true,
         user
@@ -313,7 +313,7 @@ export const updateUser = catchAsyncError(async (req, res, next) => {
         runValidators: true,
     })
 
-    user.avatar ? user.avatar.image = `${process.env.SERVER_URL + user.avatar.image}` : undefined;
+    user.avatar ? user.avatar.image = `${process.env.SERVER_URL! + user.avatar.image}` : undefined;
     res.status(200).json({
         success: true,
         user

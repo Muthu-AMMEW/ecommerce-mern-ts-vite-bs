@@ -13,10 +13,10 @@ const multerUpload = multer({ storage });
 let gfsBucket;
 
 // Create separate Mongoose connection for image DB
-const imageDbConnection = mongoose.createConnection(process.env.DB_STORAGE_URI);
+const imageDbConnection = mongoose.createConnection(process.env.DB_STORAGE_URI!);
 
 imageDbConnection.once('open', () => {
-  gfsBucket = new GridFSBucket(imageDbConnection.db, {
+  gfsBucket = new GridFSBucket(imageDbConnection.db!, {
     bucketName: 'userImages',
   });
 //   console.log('✅ GridFSBucket is ready on image DB');
