@@ -1,7 +1,7 @@
 import express from 'express';
-import { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts, quickStart } from '../controllers/productController.js';
-import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
-import { productUpload } from '../utils/gridfs/storeProductImage.js';
+import { getProducts, newProduct, getSingleProduct, updateProduct, deleteProduct, createReview, getReviews, deleteReview, getAdminProducts, quickStart } from '../controllers/productController';
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate';
+import { productUpload } from '../utils/gridfs/storeProductImage';
 
 const router = express.Router();
 

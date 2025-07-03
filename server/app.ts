@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import errorMiddleware from './middlewares/error.js';
+import errorMiddleware from './middlewares/error';
 
 import dotenv from 'dotenv';
 import path from 'path';
@@ -46,10 +46,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-import imageRoutes from './routes/imageRoutes.js';
-import products from './routes/productRoutes.js';
-import auth from './routes/authRoutes.js';
-import order from './routes/orderRoutes.js';
+import imageRoutes from './routes/imageRoutes';
+import products from './routes/productRoutes';
+import auth from './routes/authRoutes';
+import order from './routes/orderRoutes';
 
 app.use(imageRoutes);
 app.use('/api/v1', products);

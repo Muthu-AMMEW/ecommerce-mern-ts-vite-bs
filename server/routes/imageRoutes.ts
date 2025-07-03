@@ -2,11 +2,11 @@ import express from 'express';
 const router = express.Router();
 
 import path from 'path';
-import { getImage, getUserImage, deleteFile, postImage, getProductImage } from '../controllers/imageController.js';
+import { getImage, getUserImage, deleteFile, postImage, getProductImage } from '../controllers/imageController';
 
-import { upload } from '../utils/gridfs/storeImage.js';
+import { upload } from '../utils/gridfs/storeImage';
 
-import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate';
 
 
 
