@@ -5,17 +5,23 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/server.js",
-    "dev": "cross-env NODE_ENV=development nodemon server/server.js",
-    "prod": "cross-env NODE_ENV=production nodemon server/server.js",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --transpile-only server/server.ts",
+    "prod": "cross-env NODE_ENV=production ts-node-dev --respawn --transpile-only server/server.ts",
+    "build": "tsup server/server.ts --format esm,cjs --dts --out-dir dist",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
     "seeder": "cross-env NODE_ENV=development node server/utils/seeder.js"
   },
   "author": "Muthu Arivazhagan",
   "license": "ISC",
   "description": "ecommerce-mern-ts-vite-bs using MERN stack",
   "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.10",
     "cross-env": "^7.0.3",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "ts-node-dev": "^2.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
