@@ -1,4 +1,5 @@
-const errorMiddleware = (err, req, res, next) => {
+import type { ErrorRequestHandler } from 'express';
+const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
 
 

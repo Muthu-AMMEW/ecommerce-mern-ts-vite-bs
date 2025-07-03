@@ -23,7 +23,8 @@ const sendEmail = async ({ email, subject, message }) => {
     // console.log('Email sent:', info.response);
     return info;
   } catch (error) {
-    throw new ErrorHandler(`Email send failed: ${error.message}`, 500);
+    const err = error as Error;
+    throw new ErrorHandler(`Email send failed: ${err.message}`, 500);
   }
 }
 

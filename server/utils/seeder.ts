@@ -13,7 +13,8 @@ const seedProducts = async () => {
         await Product.insertMany(products);
         console.log('All products added!');
     } catch (error) {
-        console.log(error.message);
+        const err = error as Error;
+        console.log(err.message);
     }
     process.exit();
 }
