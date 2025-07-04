@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ecommerce-mern-ts-vite-bs
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
