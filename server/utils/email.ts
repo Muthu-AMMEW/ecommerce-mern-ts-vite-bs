@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import ErrorHandler from './errorHandler';
+import ErrorHandler from './errorHandler.js';
 
 interface SendEmailOptions {
   email: string;

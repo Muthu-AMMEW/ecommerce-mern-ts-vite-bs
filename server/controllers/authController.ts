@@ -1,9 +1,9 @@
-import catchAsyncError from '../middlewares/catchAsyncError';
-import User from '../models/userModel';
-import sendEmail from '../utils/email';
-import ErrorHandler from '../utils/errorHandler';
-import { fileDeleter } from '../utils/gridfs/fileDeleter';
-import sendToken from '../utils/jwt';
+import catchAsyncError from '../middlewares/catchAsyncError.js';
+import User from '../models/userModel.js';
+import sendEmail from '../utils/email.js';
+import ErrorHandler from '../utils/errorHandler.js';
+import { fileDeleter } from '../utils/gridfs/fileDeleter.js';
+import sendToken from '../utils/jwt.js';
 import crypto from 'crypto';
 
 //Register User - /api/v1/register

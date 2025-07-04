@@ -3,7 +3,7 @@ import multer from 'multer';
 import { GridFSBucket } from 'mongodb';
 
 import dotenv from 'dotenv';
-import catchAsyncError from '../../middlewares/catchAsyncError';
+import catchAsyncError from '../../middlewares/catchAsyncError.js';
 dotenv.config({ path: `server/config/.env.${process.env.NODE_ENV}` });
 
 // Use memory storage for multer

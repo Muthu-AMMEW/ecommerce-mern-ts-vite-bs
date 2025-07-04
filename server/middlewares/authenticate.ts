@@ -1,6 +1,6 @@
-import ErrorHandler from '../utils/errorHandler';
-import User from '../models/userModel';
-import catchAsyncError from './catchAsyncError';
+import ErrorHandler from '../utils/errorHandler.js';
+import User from '../models/userModel.js';
+import catchAsyncError from './catchAsyncError.js';
 import jwt from 'jsonwebtoken';
 import { Response, NextFunction } from 'express';
 

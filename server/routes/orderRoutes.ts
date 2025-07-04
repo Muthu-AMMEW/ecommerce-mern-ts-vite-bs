@@ -1,7 +1,7 @@
 import express from 'express';
-import { newOrder, getSingleOrder, myOrders, orders, updateOrder, deleteOrder, cancelOrder, verifyOrder } from '../controllers/orderController';
+import { newOrder, getSingleOrder, myOrders, orders, updateOrder, deleteOrder, cancelOrder, verifyOrder } from '../controllers/orderController.js';
 
-import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate';
+import { isAuthenticatedUser, authorizeRoles } from '../middlewares/authenticate.js';
 
 const router = express.Router();
 

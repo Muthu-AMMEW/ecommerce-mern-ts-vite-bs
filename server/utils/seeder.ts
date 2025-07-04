@@ -1,7 +1,7 @@
 import products from '../data/products.json';
-import Product from '../models/productModel';
+import Product from '../models/productModel.js';
 import dotenv from 'dotenv';
-import connectDatabase from '../config/database';
+import connectDatabase from '../config/database.js';
 
 dotenv.config({ path: `server/config/.env.${process.env.NODE_ENV}` });
 connectDatabase();

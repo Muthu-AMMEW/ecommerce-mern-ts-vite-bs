@@ -1,8 +1,8 @@
-import app from './app';
-import connectDatabase from './config/database';
-import { initializeGridFS } from './utils/gridfs/getStoredImage';
-import { initializeProductGridFS } from './utils/gridfs/getStoredProductImage';
-import { initializeUserGridFS } from './utils/gridfs/getStoredUserImage';
+import app from './app.js';
+import connectDatabase from './config/database.js';
+import { initializeGridFS } from './utils/gridfs/getStoredImage.js';
+import { initializeProductGridFS } from './utils/gridfs/getStoredProductImage.js';
+import { initializeUserGridFS } from './utils/gridfs/getStoredUserImage.js';
 
 async function databaseConnections() {
     await connectDatabase();

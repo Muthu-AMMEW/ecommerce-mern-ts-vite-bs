@@ -2,8 +2,9 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -13,5 +14,9 @@
   },
   "include": [
     "server"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }

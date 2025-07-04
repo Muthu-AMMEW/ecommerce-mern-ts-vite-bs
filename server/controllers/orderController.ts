@@ -1,10 +1,10 @@
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 // import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils';
-import catchAsyncError from '../middlewares/catchAsyncError';
-import Order from '../models/orderModel';
-import Product from '../models/productModel';
-import ErrorHandler from '../utils/errorHandler';
+import catchAsyncError from '../middlewares/catchAsyncError.js';
+import Order from '../models/orderModel.js';
+import Product from '../models/productModel.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
 
 const razorpay: any = new Razorpay({
