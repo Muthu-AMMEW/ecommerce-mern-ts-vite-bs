@@ -1,5 +1,6 @@
 import Razorpay from 'razorpay';
-import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils';
+import crypto from 'crypto';
+// import { validateWebhookSignature } from 'razorpay/dist/utils/razorpay-utils';
 import catchAsyncError from '../middlewares/catchAsyncError';
 import Order from '../models/orderModel';
 import Product from '../models/productModel';
@@ -89,8 +90,15 @@ export const verifyOrder = catchAsyncError(async (req, res, next) => {
     const secret = razorpay.key_secret;
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
-    const isValidSignature = validateWebhookSignature(body, razorpay_signature, secret);
-    if (isValidSignature) {
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+        return next(new ErrorHandler(`Payment verification data missing ${req.params.id}`, 404))
+    }
+    const expectedSignature = crypto
+        .createHmac('sha256', secret)
+        .update(body.toString())
+        .digest('hex');
+
+    if (expectedSignature === razorpay_signature) {
         if (order) {
             order.paymentInfo.paymentStatus = 'paid';
             order.paymentInfo.paymentId = razorpay_payment_id;
