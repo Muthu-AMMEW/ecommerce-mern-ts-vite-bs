@@ -26,8 +26,8 @@ and linked with index.html
 bg-pic-01.jpg
 bg-pic-02.jpg
 logo.png
-app-store.webp
-play-store.webp
+no-app-store.png
+no-play-store.png
 
 
 ------Added Codes-----------

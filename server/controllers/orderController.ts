@@ -93,10 +93,7 @@ export const verifyOrder = catchAsyncError(async (req, res, next) => {
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
         return next(new ErrorHandler(`Payment verification data missing ${req.params.id}`, 404))
     }
-    const expectedSignature = crypto
-        .createHmac('sha256', secret)
-        .update(body.toString())
-        .digest('hex');
+    const expectedSignature = crypto.createHmac('sha256', secret).update(body.toString()).digest('hex');
 
     if (expectedSignature === razorpay_signature) {
         if (order) {
